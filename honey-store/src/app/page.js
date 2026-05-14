@@ -44,31 +44,72 @@ export default function HomePage() {
       {/* ══════════════════════════════════════════════
           HERO SECTION
       ══════════════════════════════════════════════ */}
-      <section className="relative min-h-screen flex items-center overflow-hidden pt-16">
-        {/* Honeycomb pattern overlay */}
+      {/* ══════════════════════════════════════════════
+    HERO SECTION
+══════════════════════════════════════════════ */}
+      <section className="relative min-h-screen flex items-center overflow-hidden pt-16 bg-black">
+
+        {/* Honeycomb pattern */}
         <div className="absolute inset-0 opacity-10">
-          <svg className="w-full h-full" viewBox="0 0 800 600" preserveAspectRatio="xMidYMid slice">
+          <svg
+            className="w-full h-full"
+            viewBox="0 0 800 600"
+            preserveAspectRatio="xMidYMid slice"
+          >
             <defs>
-              <pattern id="honeycomb" x="0" y="0" width="56" height="100" patternUnits="userSpaceOnUse" patternTransform="scale(2)">
-                <path d="M28 66L0 50L0 16L28 0L56 16L56 50L28 66L28 100" fill="none" stroke="#C8A84B" strokeWidth="0.5" />
-                <path d="M28 0L28 -34L56 -50L84 -34L84 0L56 16L28 0" fill="none" stroke="#C8A84B" strokeWidth="0.5" />
+              <pattern
+                id="honeycomb"
+                x="0"
+                y="0"
+                width="56"
+                height="100"
+                patternUnits="userSpaceOnUse"
+                patternTransform="scale(2)"
+              >
+                <path
+                  d="M28 66L0 50L0 16L28 0L56 16L56 50L28 66L28 100"
+                  fill="none"
+                  stroke="#C8A84B"
+                  strokeWidth="0.5"
+                />
+                <path
+                  d="M28 0L28 -34L56 -50L84 -34L84 0L56 16L28 0"
+                  fill="none"
+                  stroke="#C8A84B"
+                  strokeWidth="0.5"
+                />
               </pattern>
             </defs>
+
             <rect width="100%" height="100%" fill="url(#honeycomb)" />
           </svg>
         </div>
 
         <div className="relative max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center w-full">
-          {/* Left text */}
+
+          {/* LEFT CONTENT */}
           <div className="z-10">
-            <p className="text-[#C8A84B] text-sm tracking-widest uppercase mb-4">Pure &amp; Natural</p>
-            <h1 className="text-5xl md:text-7xl text-white leading-tight mb-6" style={serifItalic}>
-              Crafted by Bees,<br />
-              <span className="text-[#C8A84B]">Perfected by Nature</span>
-            </h1>
-            <p className="text-gray-400 text-base max-w-lg mb-8 leading-relaxed">
-              We bring you the finest honey sourced from the purest bee farms. Experience the natural goodness, taste the authenticity, and embrace a healthier lifestyle with every drop.
+            <p className="text-[#C8A84B] text-sm tracking-widest uppercase mb-4">
+              Pure & Natural
             </p>
+
+            <h1
+              className="text-5xl md:text-7xl text-white leading-tight mb-6"
+              style={serifItalic}
+            >
+              Crafted by Bees,
+              <br />
+              <span className="text-[#C8A84B]">
+                Perfected by Nature
+              </span>
+            </h1>
+
+            <p className="text-gray-400 text-base max-w-lg mb-8 leading-relaxed">
+              We bring you the finest honey sourced from the purest bee farms.
+              Experience the natural goodness, taste the authenticity, and
+              embrace a healthier lifestyle with every drop.
+            </p>
+
             <Link
               href="/products"
               className="inline-block bg-[#C8A84B] hover:bg-[#b8973e] text-black font-semibold text-sm px-8 py-4 tracking-wide transition-colors duration-200"
@@ -77,16 +118,16 @@ export default function HomePage() {
             </Link>
           </div>
 
-          {/* Right image */}
+          {/* RIGHT IMAGE */}
           <div className="relative flex justify-center items-center">
-            <div className="relative w-80 h-96 md:w-[420px] md:h-[500px]">
+            <div className="relative w-full max-w-[520px] aspect-square">
               <Image
-                src="/hero-honey-jar.png"
-                alt="Premium honey jar"
+                src="/hero-bee.png"
+                alt="honey-bee"
                 fill
-                sizes="(max-width: 768px) 320px, 420px"
-                className="object-contain drop-shadow-[0_0_60px_rgba(200,168,75,0.3)]"
                 priority
+                sizes="(max-width: 768px) 90vw, 520px"
+                className="object-contain scale-90 md:scale-100 drop-shadow-[0_0_60px_rgba(200,168,75,0.3)]"
               />
             </div>
           </div>
@@ -94,8 +135,16 @@ export default function HomePage() {
 
         {/* Honey drip border */}
         <div className="absolute bottom-0 left-0 right-0">
-          <svg viewBox="0 0 1440 80" fill="none" className="w-full" preserveAspectRatio="none">
-            <path d="M0,0 Q60,80 120,0 Q180,60 240,0 Q300,70 360,0 Q420,50 480,0 Q540,80 600,0 Q660,60 720,0 Q780,70 840,0 Q900,50 960,0 Q1020,80 1080,0 Q1140,60 1200,0 Q1260,70 1320,0 Q1380,50 1440,0 V0 H0 Z" fill="#C8A84B" />
+          <svg
+            viewBox="0 0 1440 80"
+            fill="none"
+            className="w-full"
+            preserveAspectRatio="none"
+          >
+            <path
+              d="M0,0 Q60,80 120,0 Q180,60 240,0 Q300,70 360,0 Q420,50 480,0 Q540,80 600,0 Q660,60 720,0 Q780,70 840,0 Q900,50 960,0 Q1020,80 1080,0 Q1140,60 1200,0 Q1260,70 1320,0 Q1380,50 1440,0 V0 H0 Z"
+              fill="#C8A84B"
+            />
           </svg>
         </div>
       </section>
@@ -207,9 +256,8 @@ export default function HomePage() {
                   <button
                     key={i}
                     onClick={() => setCurrentTestimonial(i)}
-                    className={`w-3 h-3 rounded-full transition-colors ${
-                      i === currentTestimonial ? "bg-[#C8A84B]" : "bg-gray-600 hover:bg-gray-400"
-                    }`}
+                    className={`w-3 h-3 rounded-full transition-colors ${i === currentTestimonial ? "bg-[#C8A84B]" : "bg-gray-600 hover:bg-gray-400"
+                      }`}
                     aria-label={`Testimonial ${i + 1}`}
                   />
                 ))}
