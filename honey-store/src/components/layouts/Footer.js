@@ -67,7 +67,7 @@ export default function Footer() {
         <div>
           <h4 className="text-white font-semibold mb-4">Contact</h4>
           <ul className="space-y-2 text-gray-400">
-            <li>info@queenhoney.com</li>
+            <li>info@cherryhoney.com</li>
             <li>+91 8056 8258 14</li>
             <li>Kanyakumari, Tamilnadu</li>
           </ul>

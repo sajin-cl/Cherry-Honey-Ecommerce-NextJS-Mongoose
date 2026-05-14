@@ -3,8 +3,8 @@
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import Navbar from "@/components/Layouts/Navbar";
-import Footer from "@/components/Layouts/Footer";
+import Navbar from "@/components/layouts/Navbar";
+import Footer from "@/components/layouts/Footer";
 import FilterSidebar from "@/components/ui/FilterSidebar";
 
 /* ── Mock product data ── */
