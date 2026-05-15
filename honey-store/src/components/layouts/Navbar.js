@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import UserMenu from "@/components/ui/UserMenu";
+import Image from "next/image";
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -39,15 +40,14 @@ export default function Navbar() {
             href="/"
             className="flex items-center gap-2 absolute left-1/2 -translate-x-1/2"
           >
-            <svg className="w-7 h-7 text-[#C8A84B]" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M12 2C9.5 2 7 4 7 7c0 1.5.5 2.8 1.3 3.8C6.5 12 5.5 14 5.5 16c0 3.5 3 6 6.5 6s6.5-2.5 6.5-6c0-2-1-4-2.8-5.2C16.5 9.8 17 8.5 17 7c0-3-2.5-5-5-5zm0 2c1.5 0 3 1.2 3 3s-1.5 3-3 3-3-1.2-3-3 1.5-3 3-3z" />
-            </svg>
-            <span
-              className="text-[#C8A84B] font-bold text-lg tracking-wide"
-              style={{ fontFamily: "'Georgia', serif" }}
-            >
-              Cherry
-            </span>
+            <Image
+              src={'/logo.png'}
+              alt="Logo"
+              width={100}
+              height={100}
+              className="mt-3"
+
+            />
           </Link>
 
           {/* Right icons */}
