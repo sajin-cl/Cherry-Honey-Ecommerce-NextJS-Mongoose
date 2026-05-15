@@ -2,8 +2,6 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import Navbar from "@/components/layouts/Navbar";
-import Footer from "@/components/layouts/Footer";
 
 /* ── design tokens ── */
 const serif = { fontFamily: "'Georgia','Times New Roman',serif", fontStyle: "italic" };
@@ -147,7 +145,7 @@ export default function CheckoutPage() {
 
   return (
     <div className="min-h-screen bg-[#0a0a0a] text-white flex flex-col">
-      <Navbar />
+    
 
       <div className="flex-1 max-w-7xl mx-auto w-full px-4 md:px-6 pt-24 pb-16">
 
@@ -316,7 +314,7 @@ export default function CheckoutPage() {
         </div>
       </div>
 
-      <Footer />
+     
     </div>
   );
 }

@@ -3,8 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import Navbar from "@/components/layouts/Navbar";
-import Footer from "@/components/layouts/Footer";
+
 
 /* ── design tokens ── */
 const serif = { fontFamily: "'Georgia','Times New Roman',serif", fontStyle: "italic" };
@@ -73,7 +72,6 @@ export default function CartPage() {
 
   return (
     <div className="min-h-screen bg-[#0a0a0a] text-white">
-      <Navbar />
 
       <div className="max-w-7xl mx-auto px-4 md:px-6 pt-24 pb-20">
         {/* ── Breadcrumb ── */}
@@ -265,9 +263,6 @@ export default function CartPage() {
           </div>
         </section>
       </div>
-
-      {/* ════ FOOTER ════ */}
-      <Footer />
     </div>
   );
 }

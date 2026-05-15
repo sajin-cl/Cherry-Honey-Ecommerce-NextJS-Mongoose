@@ -3,8 +3,6 @@
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import Navbar from "@/components/layouts/Navbar";
-import Footer from "@/components/layouts/Footer";
 import OrderConfirmedModal from "@/components/ui/OrderConfirmedModal";
 
 /* ── design tokens ── */
@@ -81,7 +79,6 @@ export default function ReviewPage() {
 
   return (
     <div className="min-h-screen bg-[#0a0a0a] text-white flex flex-col">
-      <Navbar />
 
       <div className="flex-1 max-w-7xl mx-auto w-full px-4 md:px-6 pt-24 pb-16">
 
@@ -220,8 +217,6 @@ export default function ReviewPage() {
 
         </div>
       </div>
-
-      <Footer />
 
       {/* ── Order Confirmed Modal (overlay on top of page) ── */}
       {placed && <OrderConfirmedModal onClose={() => setPlaced(false)} />}

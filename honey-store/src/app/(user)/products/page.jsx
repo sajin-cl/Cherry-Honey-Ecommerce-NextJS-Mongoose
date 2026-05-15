@@ -3,8 +3,6 @@
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import Navbar from "@/components/layouts/Navbar";
-import Footer from "@/components/layouts/Footer";
 import FilterSidebar from "@/components/ui/FilterSidebar";
 
 /* ── Mock product data ── */
@@ -36,7 +34,6 @@ export default function ProductsPage() {
 
   return (
     <div className="min-h-screen bg-black text-white">
-      <Navbar />
 
       <div className="max-w-7xl mx-auto px-6 pt-28 pb-12">
         {/* Breadcrumb */}
@@ -151,7 +148,6 @@ export default function ProductsPage() {
         </>
       )}
 
-      <Footer />
     </div>
   );
 }

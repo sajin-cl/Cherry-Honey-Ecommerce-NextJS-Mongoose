@@ -3,8 +3,6 @@
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import Navbar from "@/components/layouts/Navbar";
-import Footer from "@/components/layouts/Footer";
 import WriteReviewModal from "@/components/ui/WriteReviewModal";
 
 /* ── helpers ── */
@@ -22,10 +20,10 @@ function StarRating({ rating = 4.5, count = 128 }) {
           <svg
             key={s}
             className={`w-4 h-4 ${s <= Math.floor(rating)
+              ? "text-[#C8A84B]"
+              : s - 0.5 <= rating
                 ? "text-[#C8A84B]"
-                : s - 0.5 <= rating
-                  ? "text-[#C8A84B]"
-                  : "text-gray-600"
+                : "text-gray-600"
               }`}
             viewBox="0 0 20 20"
             fill="currentColor"
@@ -69,7 +67,7 @@ const PRODUCT = {
       { label: "Container type", value: "Glass Bottle" },
       { label: "Suitable for", value: "Bottle" },
       { label: "Self Life", value: "12Months" },
-  
+
     ],
   },
   shippingDetails: {
@@ -174,7 +172,6 @@ export default function ProductDetailPage() {
 
   return (
     <div className="min-h-screen bg-[#0a0a0a] text-white">
-      <Navbar />
 
       <div className="max-w-7xl mx-auto px-4 md:px-6 pt-24 pb-16">
         {/* ── Breadcrumb ── */}
@@ -219,8 +216,8 @@ export default function ProductDetailPage() {
                   key={i}
                   onClick={() => setActiveImage(i)}
                   className={`relative w-24 h-24 flex-shrink-0 border-2 transition-all duration-200 overflow-hidden bg-[#111] ${activeImage === i
-                      ? "border-[#C8A84B]"
-                      : "border-gray-800 hover:border-gray-600"
+                    ? "border-[#C8A84B]"
+                    : "border-gray-800 hover:border-gray-600"
                     }`}
                 >
                   <Image
@@ -275,8 +272,8 @@ export default function ProductDetailPage() {
                     key={w}
                     onClick={() => setSelectedWeight(w)}
                     className={`px-5 py-2 text-sm border transition-all duration-200 ${selectedWeight === w
-                        ? "bg-[#C8A84B] border-[#C8A84B] text-black font-semibold"
-                        : "border-gray-700 text-gray-300 hover:border-[#C8A84B] hover:text-[#C8A84B]"
+                      ? "bg-[#C8A84B] border-[#C8A84B] text-black font-semibold"
+                      : "border-gray-700 text-gray-300 hover:border-[#C8A84B] hover:text-[#C8A84B]"
                       }`}
                   >
                     {w}
@@ -309,11 +306,10 @@ export default function ProductDetailPage() {
               {/* Add to cart */}
               <button
                 onClick={handleAddToCart}
-                className={`flex-1 h-10 font-semibold text-sm tracking-widest uppercase transition-all duration-300 ${
-                  added
+                className={`flex-1 h-10 font-semibold text-sm tracking-widest uppercase transition-all duration-300 ${added
                     ? "bg-green-600 text-white"
                     : "bg-[#C8A84B] hover:bg-[#b8973e] text-black"
-                }`}
+                  }`}
               >
                 {added ? "✓ Added!" : "Add to Cart"}
               </button>
@@ -410,8 +406,8 @@ export default function ProductDetailPage() {
                 key={tab}
                 onClick={() => setSellerTab(tab)}
                 className={`px-6 py-3 text-sm font-medium capitalize transition-all duration-200 border-b-2 -mb-px ${sellerTab === tab
-                    ? "border-[#C8A84B] text-[#C8A84B]"
-                    : "border-transparent text-gray-400 hover:text-white"
+                  ? "border-[#C8A84B] text-[#C8A84B]"
+                  : "border-transparent text-gray-400 hover:text-white"
                   }`}
               >
                 {tab === "shipping" ? "Shipping" : "Returns"}
@@ -542,8 +538,6 @@ export default function ProductDetailPage() {
           </div>
         </section>
       </div>
-
-      <Footer />
     </div>
   );
 }
