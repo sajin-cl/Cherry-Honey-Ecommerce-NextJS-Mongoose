@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 
 // ─── Data ────────────────────────────────────────────────────────────────────
 
@@ -205,7 +206,7 @@ export default function OrderTable() {
           </span>
           <input
             type="text"
-            placeholder="Search order..."
+            placeholder="Search order ID / Customer Name..."
             value={search}
             onChange={(e) => { setSearch(e.target.value); setCurrentPage(1); }}
             className="w-full pl-8 pr-4 py-2 border border-gray-200 rounded-lg text-[13px] text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-200 bg-white transition-all"
@@ -231,7 +232,14 @@ export default function OrderTable() {
             <tbody className="divide-y divide-gray-50">
               {filtered.map((order, idx) => (
                 <tr key={`${order.id}-${idx}`} className="hover:bg-gray-50/60 transition-colors duration-100">
-                  <td className="px-5 py-4 text-[13px] font-semibold text-gray-800">{order.id}</td>
+                  <td className="px-5 py-4">
+                    <Link
+                      href={`/admin/orders/${order.id.replace("#", "")}`}
+                      className="text-[13px] font-semibold text-gray-800 hover:text-amber-600 transition-colors"
+                    >
+                      {order.id}
+                    </Link>
+                  </td>
                   <td className="px-4 py-4 text-[12.5px] text-gray-500 whitespace-nowrap">{order.date}</td>
                   <td className="px-4 py-4">
                     <div className="flex items-center gap-2.5">
