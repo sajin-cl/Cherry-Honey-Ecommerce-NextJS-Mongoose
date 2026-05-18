@@ -112,10 +112,8 @@ export default function HomePage() {
       ══════════════════════════════════════════════ */}
       <section className="py-20 bg-dark relative overflow-hidden min-h-screen">
 
-
-        {/* Background Image */}
+        {/* Honey Comb  Layer-1*/}
         <div >
-
           <Image
             src={'/honey-comb.png'}
             fill
@@ -125,13 +123,27 @@ export default function HomePage() {
           />
         </div>
 
-        {/* Dark overlay */}
-        <div className="absolute inset-0 bg-[#0a0a0a]/60" style={{ zIndex: 1 }} />
+        {/* Dark overlay  Layer-2*/}
+        <div className="absolute inset-0 bg-[#0a0a0a]/70 " />
+
+
+        {/* Honey Drip  Layer-3 */}
+        <div className="absolute top-0 right-0 left-0 w-full  pointer-events-none">
+          <Image
+            src="/honey-drip.png"
+            alt="Honey drip"
+            width={2000}
+            height={1000}
+            priority
+            className="w-full h-full object-cover mix-blend-screen contrast-125 brightness-100 "
+
+          />
+        </div>
 
         {/* Content */}
         <div className="max-w-7xl mx-auto px-6 relative" style={{ zIndex: 2 }}>
 
-          <h2 className="text-3xl md:text-4xl mb-12" style={serifItalic}>
+          <h2 className="text-3xl md:text-4xl mb-12 z-50" style={serifItalic}>
             <span className="text-[#C8A84B]">Featured</span> Products
           </h2>
 
@@ -213,6 +225,18 @@ export default function HomePage() {
           TESTIMONIALS
       ══════════════════════════════════════════════ */}
       <section className="py-20 bg-[#0a0a0a] relative">
+
+        {/* Honey Comb  Layer-1*/}
+        <div >
+          <Image
+            src={'/honey-comb.png'}
+            fill
+            className="object-cover animate-pulse "
+            alt="overlay"
+            sizes='full'
+          />
+        </div>
+
         <Image
           src={'/honey-comb.png'}
           fill
