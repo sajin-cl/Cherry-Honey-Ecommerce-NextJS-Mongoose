@@ -1,5 +1,5 @@
-import AdminSidebar from "@/components/admin/AdminSidebar";
-import AdminNavbar from "@/components/admin/AdminNavbar";
+import AdminSidebar from "@/components/layouts/(admin)/AdminSidebar";
+import AdminNavbar from "@/components/layouts/(admin)/AdminNavbar";
 
 export const metadata = {
   title: "Admin | Honey Bee",

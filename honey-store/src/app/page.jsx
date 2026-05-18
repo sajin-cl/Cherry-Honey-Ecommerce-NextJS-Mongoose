@@ -4,8 +4,8 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from 'framer-motion'
-import Navbar from "@/components/layouts/Navbar";
-import Footer from "@/components/layouts/Footer";
+import Navbar from "@/components/layouts/(user)/Navbar";
+import Footer from "@/components/layouts/(user)/Footer";
 
 const serifItalic = {
   fontFamily: "'Georgia', 'Times New Roman', serif",

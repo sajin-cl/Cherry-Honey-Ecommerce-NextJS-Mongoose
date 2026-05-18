@@ -1,5 +1,5 @@
-import Footer from '@/components/layouts/Footer'
-import Navbar from '@/components/layouts/Navbar'
+import Footer from '@/components/layouts/(user)/Footer'
+import Navbar from '@/components/layouts/(user)/Navbar'
 import React from 'react'
 
 const UserLayout = ({ children }) => {
