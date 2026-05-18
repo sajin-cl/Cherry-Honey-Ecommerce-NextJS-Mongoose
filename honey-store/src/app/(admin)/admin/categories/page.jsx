@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import AddCategoryModal from "@/components/admin/AddCategoryModal";
-import Image from "next/image";
+import EditCategoryModal from "@/components/admin/EditCategoryModal";
 
 /* ─── Placeholder data ─────────────────────────────────── */
 const INITIAL_CATEGORIES = [
@@ -97,7 +97,7 @@ function DeleteIcon() {
 }
 
 /* ─── Category Row ─────────────────────────────────────── */
-function CategoryRow({ category, onDelete }) {
+function CategoryRow({ category, onEdit, onDelete }) {
   return (
     <div className="flex items-center px-5 py-4 border-b border-gray-100 last:border-0 hover:bg-gray-50/60 transition-colors group">
       {/* Thumbnail */}
@@ -117,6 +117,7 @@ function CategoryRow({ category, onDelete }) {
       {/* Actions */}
       <div className="w-24 flex items-center justify-end gap-3">
         <button
+          onClick={() => onEdit(category)}
           className="text-gray-400 hover:text-amber-500 transition-colors p-1 rounded-md hover:bg-amber-50"
           aria-label="Edit category"
         >
@@ -139,6 +140,7 @@ export default function CategoriesPage() {
   const [categories, setCategories] = useState(INITIAL_CATEGORIES);
   const [search, setSearch] = useState("");
   const [showModal, setShowModal] = useState(false);
+  const [editingCategory, setEditingCategory] = useState(null);
 
   const filtered = categories.filter(
     (c) =>
@@ -157,6 +159,12 @@ export default function CategoriesPage() {
         image: "/category-honey.png",
       },
     ]);
+  }
+
+  function handleEdit({ id, name, description }) {
+    setCategories((prev) =>
+      prev.map((c) => (c.id === id ? { ...c, name, description } : c))
+    );
   }
 
   function handleDelete(id) {
@@ -215,7 +223,12 @@ export default function CategoriesPage() {
         {/* Rows */}
         {filtered.length > 0 ? (
           filtered.map((cat) => (
-            <CategoryRow key={cat.id} category={cat} onDelete={handleDelete} />
+            <CategoryRow
+              key={cat.id}
+              category={cat}
+              onEdit={setEditingCategory}
+              onDelete={handleDelete}
+            />
           ))
         ) : (
           <div className="py-12 text-center">
@@ -224,9 +237,18 @@ export default function CategoriesPage() {
         )}
       </div>
 
-      {/* Modal */}
+      {/* Add Category Modal */}
       {showModal && (
         <AddCategoryModal onClose={() => setShowModal(false)} onAdd={handleAdd} />
+      )}
+
+      {/* Edit Category Modal */}
+      {editingCategory && (
+        <EditCategoryModal
+          category={editingCategory}
+          onClose={() => setEditingCategory(null)}
+          onSave={handleEdit}
+        />
       )}
     </>
   );
