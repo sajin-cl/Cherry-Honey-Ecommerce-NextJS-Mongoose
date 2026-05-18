@@ -113,24 +113,23 @@ export default function HomePage() {
       <section className="py-20 bg-dark relative overflow-hidden min-h-screen">
 
         {/* Honey Comb  Layer-1*/}
-        <div >
+        <div className="absolute inset-0">
           <Image
-            src={'/honey-comb.png'}
+            src="/honey-comb.png"
             fill
-            className="object-cover animate-pulse "
+            className="object-cover animate-pulse"
             alt="overlay"
-            sizes='full'
+            sizes="100vw"
           />
+
+          <div className="absolute inset-0 bg-gradient-to-bl from-black/80 via-black/0 to-transparent" />
         </div>
 
-        {/* Dark overlay  Layer-2*/}
-        <div className="absolute inset-0 bg-[#0a0a0a]/70 " />
 
-
-        {/* Honey Drip  Layer-3 */}
+        {/* Honey Drip  Layer-2 */}
         <div className="absolute top-0 right-0 left-0 w-full  pointer-events-none">
           <Image
-            src="/honey-drip.png"
+            src="/honey-dripv1.png"
             alt="Honey drip"
             width={2000}
             height={1000}
@@ -226,16 +225,7 @@ export default function HomePage() {
       ══════════════════════════════════════════════ */}
       <section className="py-20 bg-[#0a0a0a] relative">
 
-        {/* Honey Comb  Layer-1*/}
-        <div >
-          <Image
-            src={'/honey-comb.png'}
-            fill
-            className="object-cover animate-pulse "
-            alt="overlay"
-            sizes='full'
-          />
-        </div>
+
 
         <Image
           src={'/honey-comb.png'}
