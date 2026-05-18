@@ -177,7 +177,7 @@ export default function CategoriesPage() {
       <div className="flex items-start justify-between mb-7">
         <div>
           <h1 className="text-[22px] font-bold text-gray-900 leading-tight">Category List</h1>
-          <p className="text-[13px] text-gray-400 mt-1">Showing your category list below here.</p>
+          <p className="text-[13px] text-gray-400 mt-1">Showing your category list.</p>
         </div>
         <button
           onClick={() => setShowModal(true)}
