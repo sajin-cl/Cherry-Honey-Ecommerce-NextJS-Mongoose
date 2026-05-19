@@ -278,7 +278,9 @@ export default function ProductsPage() {
                   )}
                 </div>
                 <div className="min-w-0">
-                  <p className="text-[13.5px] font-semibold text-gray-800 truncate">{p.name}</p>
+                  <p className="text-[13.5px] font-semibold text-gray-800 truncate">
+                    {p.name} {p.quantity ? `(${p.quantity})` : ""}
+                  </p>
                   <p className="text-[12px] text-gray-400 truncate">{p.description}</p>
                 </div>
               </div>

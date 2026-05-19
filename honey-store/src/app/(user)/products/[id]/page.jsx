@@ -173,6 +173,9 @@ export default function ProductDetailPage({ params }) {
         const data = await res.json();
         setProduct(data.product);
         setLocalReviews(data.product.reviews || []);
+        if (data.product.quantity) {
+          setSelectedWeight(data.product.quantity);
+        }
       } catch (err) {
         setError(err.message);
       } finally {
@@ -215,9 +218,43 @@ export default function ProductDetailPage({ params }) {
   if (product.image1?.url) images.push(product.image1.url);
   if (product.image2?.url) images.push(product.image2.url);
   if (images.length === 0) images.push("/hero-honey-jar.png");
-  const price = product.discountPrice ?? product.price;
-  const original = product.price;
-  const discount = original > 0 && product.discountPrice ? Math.round(((original - price) / original) * 100) : 0;
+  const getMultiplier = (selected, base) => {
+    const s = String(selected).toLowerCase().trim();
+    const b = String(base || "500g").toLowerCase().trim();
+    if (s === b) return 1.0;
+
+    const getVal = (str) => {
+      const num = parseFloat(str);
+      const isKg = str.includes("kg") || str.includes("kilogram");
+      return isKg ? num * 1000 : num;
+    };
+
+    const sVal = getVal(s);
+    const bVal = getVal(b);
+    if (isNaN(sVal) || isNaN(bVal) || bVal === 0) return 1.0;
+
+    const ratio = sVal / bVal;
+    if (Math.abs(ratio - 2.0) < 0.1) return 1.8;
+    if (Math.abs(ratio - 4.0) < 0.1) return 3.4;
+    return ratio;
+  };
+
+  const multiplier = product ? getMultiplier(selectedWeight, product.quantity) : 1.0;
+  const price = product ? (product.discountPrice ?? product.price) * multiplier : 0;
+  const original = product ? product.price * multiplier : 0;
+  const discount = product && product.price > 0 && product.discountPrice ? Math.round((((product.price - (product.discountPrice ?? product.price)) / product.price) * 100)) : 0;
+
+  const getWeightVal = (str) => {
+    const num = parseFloat(str);
+    const isKg = String(str).toLowerCase().includes("kg") || String(str).toLowerCase().includes("kilogram");
+    return isKg ? num * 1000 : num;
+  };
+  const weightOptions = ["250g", "500g", "1kg"];
+  const prodQtyNormalized = product?.quantity ? product.quantity.trim() : "";
+  if (prodQtyNormalized && !weightOptions.some(w => w.toLowerCase() === prodQtyNormalized.toLowerCase())) {
+    weightOptions.push(prodQtyNormalized);
+  }
+  weightOptions.sort((a, b) => getWeightVal(a) - getWeightVal(b));
 
   const specs = {
     inTheBox: [
@@ -359,7 +396,7 @@ export default function ProductDetailPage({ params }) {
                 Quantity
               </p>
               <div className="flex gap-2 flex-wrap">
-                {["250g", "500g", "1kg"].map((w) => (
+                {weightOptions.map((w) => (
                   <button
                     key={w}
                     onClick={() => setSelectedWeight(w)}

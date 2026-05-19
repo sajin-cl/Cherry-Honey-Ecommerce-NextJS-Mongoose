@@ -21,6 +21,7 @@ const productSchema = new mongoose.Schema(
         category: { type: String, required: true, trim: true },
         price: { type: Number, required: true, min: 0 },
         discountPrice: { type: Number, min: 0 },
+        quantity: { type: String, required: true, default: "500g" },
         stock: { type: Number, required: true, default: 0, min: 0 },
         image: {
             url: { type: String, default: "" },

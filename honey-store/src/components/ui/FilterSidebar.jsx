@@ -12,13 +12,9 @@ const CATEGORIES = [
 ];
 
 const SIZES = [
-  { id: "s-30",     label: "<30 ml",     count: 120 },
-  { id: "s-30-50",  label: "30 - 50 ml", count: 240 },
-  { id: "s-50-75",  label: "50-75 ml",   count: 175 },
-  { id: "s-75-100", label: "75-100 ml",  count: 120 },
-  { id: "s-100-200",label: "100-200 ml", count: 90  },
-  { id: "s-250-500",label: "250-500 ml", count: 85  },
-  { id: "s-500",    label: "500 ml +",   count: 50  },
+  { id: "s-250",    label: "250 g",    count: 120 },
+  { id: "s-500",    label: "500 g",    count: 240 },
+  { id: "s-1000",   label: "1 kg",     count: 175 },
 ];
 
 function SectionHeader({ title, open, onToggle }) {

@@ -130,6 +130,7 @@ export default function ProductModal({ mode = "add", product = null, categories 
     description: product?.description || "",
     price: product?.price || "",
     discountPrice: product?.discountPrice || "",
+    quantity: product?.quantity || "500g",
     stock: product?.stock || "",
     category: product?.category || (typeof categoriesList[0] === "object" ? categoriesList[0].name : categoriesList[0]),
   });
@@ -211,6 +212,10 @@ export default function ProductModal({ mode = "add", product = null, categories 
       setError("Price must be a valid positive number");
       return;
     }
+    if (!form.quantity || !form.quantity.trim()) {
+      setError("Quantity/Weight is required (e.g. 500g)");
+      return;
+    }
     if (form.stock === "" || isNaN(form.stock) || Number(form.stock) < 0) {
       setError("Stock must be a valid positive number");
       return;
@@ -222,6 +227,7 @@ export default function ProductModal({ mode = "add", product = null, categories 
         ...form,
         price: Number(form.price),
         discountPrice: form.discountPrice !== "" ? Number(form.discountPrice) : undefined,
+        quantity: form.quantity.trim(),
         stock: Number(form.stock),
         image: mainImage,
         image1: slot1,
@@ -360,7 +366,7 @@ export default function ProductModal({ mode = "add", product = null, categories 
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C8A84B" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                       <path d="M20 7H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z" /><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
                     </svg>
-                    <h4 className="text-[13.5px] font-semibold text-gray-800">Inventory</h4>
+                    <h4 className="text-[13.5px] font-semibold text-gray-800">Inventory & Size</h4>
                   </div>
                   <Field>
                     <Label>Stock Quantity</Label>
@@ -369,6 +375,16 @@ export default function ProductModal({ mode = "add", product = null, categories 
                       value={form.stock}
                       onChange={set("stock")}
                       placeholder="0"
+                      className="w-full border border-gray-200 rounded-lg px-3.5 py-2.5 text-[13.5px] text-gray-800 bg-[#fdf8f0] focus:outline-none focus:ring-2 focus:ring-amber-400/40 focus:border-amber-400 transition-all"
+                    />
+                  </Field>
+                  <Field>
+                    <Label>Net Weight / Quantity (e.g. 500g, 1kg)</Label>
+                    <input
+                      type="text"
+                      value={form.quantity}
+                      onChange={set("quantity")}
+                      placeholder="e.g. 500g"
                       className="w-full border border-gray-200 rounded-lg px-3.5 py-2.5 text-[13.5px] text-gray-800 bg-[#fdf8f0] focus:outline-none focus:ring-2 focus:ring-amber-400/40 focus:border-amber-400 transition-all"
                     />
                   </Field>
