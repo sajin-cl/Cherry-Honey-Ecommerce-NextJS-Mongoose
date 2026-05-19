@@ -187,9 +187,53 @@ export default function ProductDetailPage({ params }) {
     fetchProduct();
   }, [id]);
 
-  const handleAddToCart = () => {
-    setAdded(true);
-    setTimeout(() => setAdded(false), 2000);
+  const handleAddToCart = async () => {
+    try {
+      const res = await fetch("/api/cart", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          productId: product._id,
+          weight: selectedWeight,
+          qty: qty
+        })
+      });
+
+      if (res.status === 401) {
+        window.location.href = `/accounts/login?redirect=/products/${product._id}`;
+        return;
+      }
+
+      const data = await res.json();
+      if (!res.ok) {
+        alert(data.error || "Failed to add to cart");
+        return;
+      }
+
+      // Sync local storage cart as fallback for other parts of the site
+      if (data.cart) {
+        const cart = data.cart.map(item => {
+          const prod = item.product;
+          return {
+            id: item._id,
+            productId: prod?._id || "",
+            name: prod?.name || "",
+            weight: item.weight,
+            qty: item.qty,
+            image: prod?.image?.url || "/hero-honey-jar.png",
+            price: price
+          };
+        });
+        localStorage.setItem("cart", JSON.stringify(cart));
+      }
+
+      window.dispatchEvent(new Event("cartUpdate"));
+      setAdded(true);
+      setTimeout(() => setAdded(false), 2000);
+    } catch (err) {
+      console.error("Cart error:", err);
+      alert("Failed to add item to cart");
+    }
   };
 
   const handleReviewSubmit = async (review) => {

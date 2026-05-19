@@ -29,6 +29,24 @@ const addressSchema = new mongoose.Schema({
     },
 });
 
+const cartItemSchema = new mongoose.Schema({
+    product: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Product",
+        required: true
+    },
+    weight: {
+        type: String,
+        required: true
+    },
+    qty: {
+        type: Number,
+        required: true,
+        default: 1,
+        min: 1
+    }
+});
+
 const userSchema = new mongoose.Schema(
     {
         fullName: {
@@ -59,6 +77,7 @@ const userSchema = new mongoose.Schema(
             default: "user"
         },
         addresses: [addressSchema],
+        cart: [cartItemSchema],
         resetPasswordToken: {
             type: String,
             select: false

@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import dbConnect from "@/lib/dbConnect";
 import Order from "@/models/order.model";
+import User from "@/models/user.model";
 import { getServerUser } from "@/lib/auth";
 
 // GET /api/orders — user sees own orders, admin sees all
@@ -45,6 +46,10 @@ export async function POST(request) {
     await dbConnect();
     const body  = await request.json();
     const order = await Order.create({ ...body, user: user.id });
+
+    // Clear user's cart in DB
+    await User.findByIdAndUpdate(user.id, { $set: { cart: [] } });
+
     return NextResponse.json({ order }, { status: 201 });
   } catch (err) {
     console.error("[POST /orders]", err);

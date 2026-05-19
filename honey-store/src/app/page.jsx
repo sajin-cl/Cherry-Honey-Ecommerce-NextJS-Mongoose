@@ -67,7 +67,7 @@ export default function HomePage() {
           src={'/honey-comb.png'}
           fill
           className="object-cover animate-pulse"
-          alt=""
+          alt="honey-comb"
         />
 
         <div className="relative max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-8 items-center w-full py-16 z-10">
@@ -202,6 +202,12 @@ export default function HomePage() {
           OUR STORY
       ══════════════════════════════════════════════ */}
       <section className="relative py-0 bg-black overflow-hidden">
+        <Image
+          src={'/honey-comb.png'}
+          fill
+          className="object-cover animate-pulse"
+          alt="honey-comb"
+        />
         <div className="py-20">
           <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
             {/* Left — dripping bee image */}
