@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import UserMenu from "@/components/ui/UserMenu";
 import Image from "next/image";
 
@@ -9,6 +9,24 @@ export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [userMenuOpen, setUserMenuOpen] = useState(false);
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    async function checkUser() {
+      try {
+        const res = await fetch("/api/auth/me");
+        if (res.ok) {
+          const data = await res.json();
+          if (data.user) {
+            setUser(data.user);
+          }
+        }
+      } catch (err) {
+        console.error("Failed to check user:", err);
+      }
+    }
+    checkUser();
+  }, []);
 
   return (
     <>
@@ -102,23 +120,29 @@ export default function Navbar() {
             <div className="relative">
               <button
                 onClick={() => setUserMenuOpen((o) => !o)}
-                className="bg-[#C8A84B] hover:bg-[#b8973e] text-black rounded-full p-1.5 transition-colors"
+                className="w-7 h-7 bg-[#C8A84B] hover:bg-[#b8973e] text-black rounded-full flex items-center justify-center font-bold text-xs transition-colors shrink-0 focus:outline-none"
                 aria-label="Account menu"
                 aria-haspopup="true"
                 aria-expanded={userMenuOpen}
               >
-                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                  <path strokeLinecap="round" strokeLinejoin="round"
-                    d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
-                </svg>
+                {user ? (
+                  (user.fullName?.[0] || "U").toUpperCase()
+                ) : (
+                  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                    <path strokeLinecap="round" strokeLinejoin="round"
+                      d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
+                  </svg>
+                )}
               </button>
 
               {userMenuOpen && (
                 <UserMenu
+                  user={user}
                   onClose={() => setUserMenuOpen(false)}
                   onLogout={async () => {
                     try {
                       await fetch("/api/auth/logout", { method: "POST" });
+                      setUser(null);
                       window.location.href = "/accounts/login";
                     } catch (err) {
                       console.error("Logout failed:", err);
