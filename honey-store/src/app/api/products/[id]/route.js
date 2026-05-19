@@ -15,7 +15,15 @@ export async function GET(_, { params }) {
     const { id } = await params;
     const product = await Product.findById(id).lean();
     if (!product) return NextResponse.json({ error: "Not found" }, { status: 404 });
-    return NextResponse.json({ product });
+    
+    const similar = await Product.find({
+      category: product.category,
+      _id: { $ne: product._id }
+    })
+    .limit(3)
+    .lean();
+
+    return NextResponse.json({ product, similar });
   } catch {
     return NextResponse.json({ error: "Server error" }, { status: 500 });
   }

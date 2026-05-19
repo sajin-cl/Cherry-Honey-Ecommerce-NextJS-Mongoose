@@ -13,15 +13,58 @@ export const metadata = { title: "Our Products | Cherry Honey" };
 
 const PER_PAGE = 12;
 
-async function fetchProducts({ page, maxPrice, search, category }) {
+async function fetchProducts({ page, maxPrice, search, category, size }) {
   await dbConnect();
-  const query = {};
+  const andClauses = [];
+
   if (category) {
     const catList = category.split(",");
-    query.category = { $in: catList };
+    andClauses.push({ category: { $in: catList } });
   }
-  if (search)   query.name = { $regex: search, $options: "i" };
-  if (maxPrice) query.price = { $lte: Number(maxPrice) };
+
+  if (search) {
+    andClauses.push({ name: { $regex: search, $options: "i" } });
+  }
+
+  if (maxPrice) {
+    const maxVal = Number(maxPrice);
+    andClauses.push({
+      $or: [
+        { discountPrice: { $exists: true, $ne: null, $lte: maxVal } },
+        {
+          $and: [
+            { $or: [{ discountPrice: { $exists: false } }, { discountPrice: null }] },
+            { price: { $lte: maxVal } }
+          ]
+        }
+      ]
+    });
+  }
+
+  if (size) {
+    const sizeList = size.split(",");
+    const sizeOrs = [];
+    sizeList.forEach((s) => {
+      if (s === "s-250") {
+        sizeOrs.push({ quantity: { $regex: "250", $options: "i" } });
+      } else if (s === "s-500") {
+        sizeOrs.push({ quantity: { $regex: "500", $options: "i" } });
+      } else if (s === "s-1000") {
+        sizeOrs.push({
+          $or: [
+            { quantity: { $regex: "1kg", $options: "i" } },
+            { quantity: { $regex: "1000", $options: "i" } },
+            { quantity: { $regex: "1\\s*kg", $options: "i" } }
+          ]
+        });
+      }
+    });
+    if (sizeOrs.length > 0) {
+      andClauses.push({ $or: sizeOrs });
+    }
+  }
+
+  const query = andClauses.length > 0 ? { $and: andClauses } : {};
 
   const [products, total] = await Promise.all([
     Product.find(query)
@@ -94,6 +137,7 @@ export default async function ProductsPage({ searchParams }) {
   const maxPrice = resolvedParams?.maxPrice || "";
   const search   = resolvedParams?.search   || "";
   const category = resolvedParams?.category || "";
+  const size     = resolvedParams?.size     || "";
 
   await dbConnect();
   const dbCats = await Category.find({}).lean();
@@ -103,7 +147,7 @@ export default async function ProductsPage({ searchParams }) {
     count: undefined
   }));
 
-  const { products, total, totalPages } = await fetchProducts({ page, maxPrice, search, category });
+  const { products, total, totalPages } = await fetchProducts({ page, maxPrice, search, category, size });
 
   const from = total === 0 ? 0 : (page - 1) * PER_PAGE + 1;
   const to   = Math.min(page * PER_PAGE, total);

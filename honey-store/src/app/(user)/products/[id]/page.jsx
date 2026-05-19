@@ -162,6 +162,7 @@ export default function ProductDetailPage({ params }) {
   const [sellerTab, setSellerTab] = useState("shipping");
   const [added, setAdded] = useState(false);
   const [localReviews, setLocalReviews] = useState([]);
+  const [similarProducts, setSimilarProducts] = useState([]);
   const [formOpen, setFormOpen] = useState(false);
 
   useEffect(() => {
@@ -172,6 +173,7 @@ export default function ProductDetailPage({ params }) {
         if (!res.ok) throw new Error("Product not found");
         const data = await res.json();
         setProduct(data.product);
+        setSimilarProducts(data.similar || []);
         setLocalReviews(data.product.reviews || []);
         if (data.product.quantity) {
           setSelectedWeight(data.product.quantity);
@@ -286,10 +288,7 @@ export default function ProductDetailPage({ params }) {
     returns: "If you receive a damaged or incorrect product, you can request a return within 7 days of delivery.",
   };
 
-  const similar = [
-    { id: "2", name: "Organic Acacia Raw Honey", price: 399, image: "/hero-honey-jar.png" },
-    { id: "3", name: "Pure Himalayan Forest Honey", price: 599, image: "/honey-jar-bees.png" },
-  ];
+
 
   return (
     <div className="min-h-screen bg-[#0a0a0a] text-white">
@@ -642,42 +641,51 @@ export default function ProductDetailPage({ params }) {
         {/* ══════════════════════════════════════════════
             SIMILAR PRODUCTS
         ══════════════════════════════════════════════ */}
-        <section>
-          <h2 className="text-2xl text-white mb-8" style={serifItalic}>
-            <span className="text-[#C8A84B]">Similar</span> Products
-          </h2>
+        {similarProducts.length > 0 && (
+          <section>
+            <h2 className="text-2xl text-white mb-8" style={serifItalic}>
+              <span className="text-[#C8A84B]">Similar</span> Products
+            </h2>
 
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-5">
-            {similar.map((p) => {
-              const similarImg = p.image?.url || p.image || "/hero-honey-jar.png";
-              return (
-                <Link key={p.id} href={`/products/${p.id}`} className="group block">
-                  <div className="bg-[#111] border border-gray-800 hover:border-[#C8A84B]/50 transition-all duration-300 group-hover:-translate-y-1">
-                    <div className="relative h-48 bg-black">
-                      <Image
-                        src={similarImg}
-                        alt={p.name}
-                        fill
-                        sizes="(max-width: 640px) 50vw, 25vw"
-                        className="object-contain p-4"
-                      />
-                    </div>
-                    <div className="p-4">
-                      <h3 className="text-white text-sm mb-1 group-hover:text-[#C8A84B] transition-colors">
-                        {p.name}
-                      </h3>
-                      <div className="flex items-center gap-2">
-                        <span className="text-[#C8A84B] text-sm font-semibold">
-                          ₹{p.price}
-                        </span>
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-5">
+              {similarProducts.map((p) => {
+                const similarImg = p.image?.url || p.image || "/hero-honey-jar.png";
+                const similarId = p._id || p.id;
+                const displayPrice = p.discountPrice ?? p.price;
+                return (
+                  <Link key={similarId} href={`/products/${similarId}`} className="group block">
+                    <div className="bg-[#111] border border-gray-800 hover:border-[#C8A84B]/50 transition-all duration-300 group-hover:-translate-y-1">
+                      <div className="relative h-48 bg-black">
+                        <Image
+                          src={similarImg}
+                          alt={p.name}
+                          fill
+                          sizes="(max-width: 640px) 50vw, 25vw"
+                          className="object-contain p-4"
+                        />
+                      </div>
+                      <div className="p-4">
+                        <h3 className="text-white text-sm mb-1 group-hover:text-[#C8A84B] transition-colors truncate">
+                          {p.name}
+                        </h3>
+                        <div className="flex items-center gap-2">
+                          <span className="text-[#C8A84B] text-sm font-semibold">
+                            ₹{displayPrice}
+                          </span>
+                          {p.discountPrice && (
+                            <span className="text-gray-500 text-xs line-through">
+                              ₹{p.price}
+                            </span>
+                          )}
+                        </div>
                       </div>
                     </div>
-                  </div>
-                </Link>
-              );
-            })}
-          </div>
-        </section>
+                  </Link>
+                );
+              })}
+            </div>
+          </section>
+        )}
       </div>
     </div>
   );

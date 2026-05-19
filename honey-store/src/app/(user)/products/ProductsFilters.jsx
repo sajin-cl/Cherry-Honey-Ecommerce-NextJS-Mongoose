@@ -38,6 +38,13 @@ export default function ProductsFilters({ searchParams, categories }) {
       params.delete("category");
     }
 
+    // Sizes
+    if (filters.sizes && filters.sizes.length > 0) {
+      params.set("size", filters.sizes.join(","));
+    } else {
+      params.delete("size");
+    }
+
     // Max Price
     if (filters.maxPrice && filters.maxPrice < 2000) {
       params.set("maxPrice", filters.maxPrice);

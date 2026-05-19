@@ -46,7 +46,15 @@ export default function FilterSidebar({ onClose, onApply, initialParams, categor
     }
     return checked;
   });
-  const [sizeChecked, setSizeChecked] = useState({});
+  const [sizeChecked, setSizeChecked] = useState(() => {
+    const checked = {};
+    if (initialParams?.size) {
+      initialParams.size.split(",").forEach((sz) => {
+        checked[sz] = true;
+      });
+    }
+    return checked;
+  });
   const [price, setPrice] = useState(() => {
     return initialParams?.maxPrice ? Number(initialParams.maxPrice) : 2000;
   });
