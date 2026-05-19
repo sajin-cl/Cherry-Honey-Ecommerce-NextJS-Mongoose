@@ -16,7 +16,8 @@ async function isAdmin() {
 export async function GET(_, { params }) {
   try {
     await dbConnect();
-    const category = await Category.findById(params.id).lean();
+    const { id } = await params;
+    const category = await Category.findById(id).lean();
     if (!category) return NextResponse.json({ error: "Not found" }, { status: 404 });
     return NextResponse.json({ category });
   } catch {
@@ -29,9 +30,10 @@ export async function PUT(request, { params }) {
   try {
     if (!(await isAdmin())) return NextResponse.json({ error: "Unauthorized" }, { status: 403 });
     await dbConnect();
+    const { id } = await params;
     const body = await request.json();
     if (body.name) body.slug = makeSlug(body.name);
-    const category = await Category.findByIdAndUpdate(params.id, body, {
+    const category = await Category.findByIdAndUpdate(id, body, {
       new: true,
       runValidators: true,
     }).lean();
@@ -47,7 +49,8 @@ export async function DELETE(_, { params }) {
   try {
     if (!(await isAdmin())) return NextResponse.json({ error: "Unauthorized" }, { status: 403 });
     await dbConnect();
-    const category = await Category.findByIdAndDelete(params.id);
+    const { id } = await params;
+    const category = await Category.findByIdAndDelete(id);
     if (!category) return NextResponse.json({ error: "Not found" }, { status: 404 });
     return NextResponse.json({ success: true });
   } catch {

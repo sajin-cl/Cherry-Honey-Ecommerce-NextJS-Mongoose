@@ -38,10 +38,22 @@ function SectionHeader({ title, open, onToggle }) {
   );
 }
 
-export default function FilterSidebar({ onClose, onApply }) {
-  const [catChecked, setCatChecked] = useState({});
+export default function FilterSidebar({ onClose, onApply, initialParams, categories: passedCategories }) {
+  const categoriesList = passedCategories || CATEGORIES;
+
+  const [catChecked, setCatChecked] = useState(() => {
+    const checked = {};
+    if (initialParams?.category) {
+      initialParams.category.split(",").forEach((cat) => {
+        checked[cat] = true;
+      });
+    }
+    return checked;
+  });
   const [sizeChecked, setSizeChecked] = useState({});
-  const [price, setPrice] = useState(2000);
+  const [price, setPrice] = useState(() => {
+    return initialParams?.maxPrice ? Number(initialParams.maxPrice) : 2000;
+  });
   const [catOpen, setCatOpen] = useState(true);
   const [sizeOpen, setSizeOpen] = useState(true);
   const [priceOpen, setPriceOpen] = useState(true);
@@ -97,7 +109,7 @@ export default function FilterSidebar({ onClose, onApply }) {
           <div className="border-t border-gray-800 mb-2" />
           {catOpen && (
             <div className="space-y-1 pb-4">
-              {CATEGORIES.map((cat) => (
+              {categoriesList.map((cat) => (
                 <Checkbox
                   key={cat.id}
                   id={`cat-${cat.id}`}

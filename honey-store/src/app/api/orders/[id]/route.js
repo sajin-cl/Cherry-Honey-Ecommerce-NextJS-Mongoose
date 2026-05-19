@@ -37,7 +37,7 @@ export async function PATCH(request, { params }) {
     await dbConnect();
     const { orderStatus, paymentStatus } = await request.json();
     const update = {};
-    if (orderStatus)   update.orderStatus   = orderStatus;
+    if (orderStatus) update.orderStatus = orderStatus;
     if (paymentStatus) update.paymentStatus = paymentStatus;
     if (orderStatus === "delivered") update.deliveredAt = new Date();
 

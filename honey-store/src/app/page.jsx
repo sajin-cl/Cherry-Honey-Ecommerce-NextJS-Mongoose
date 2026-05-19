@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from 'framer-motion'
@@ -14,12 +14,6 @@ const serifItalic = {
 };
 
 const MotionImage = motion(Image)
-
-const products = [
-  { id: 1, name: "Honey", price: "₹549.97", image: "/hero-honey-jar.png" },
-  { id: 2, name: "Honey", price: "₹249.95", image: "/honey-jar-bees.png" },
-  { id: 3, name: "Honey", price: "₹749.95", image: "/hero-honey-jar.png" },
-];
 
 const testimonials = [
   {
@@ -41,6 +35,25 @@ const testimonials = [
 
 export default function HomePage() {
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function fetchFeatured() {
+      try {
+        const res = await fetch("/api/products?featured=true");
+        if (res.ok) {
+          const data = await res.json();
+          setProducts(data.products || []);
+        }
+      } catch (err) {
+        console.error("Failed to fetch featured products:", err);
+      } finally {
+        setLoading(false);
+      }
+    }
+    fetchFeatured();
+  }, []);
 
   return (
     <div className="min-h-screen bg-black text-white">
@@ -147,25 +160,31 @@ export default function HomePage() {
           </h2>
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
-            {products.map((product) => (
-              <Link key={product.id} href={`/products/${product.id}`} className="group">
-                <div className="bg-[#111] border border-gray-800 hover:border-[#C8A84B]/50 transition-all duration-300 group-hover:-translate-y-1 overflow-hidden">
-                  <div className="relative h-52 bg-black flex items-center justify-center">
-                    <Image
-                      src={product.image}
-                      alt={product.name}
-                      fill
-                      sizes="(max-width: 640px) 100vw, 33vw"
-                      className="object-contain p-6 group-hover:scale-105 transition-transform duration-500"
-                    />
+            {products.map((product) => {
+              const productId = product._id || product.id;
+              const priceVal = product.discountPrice ?? product.price;
+              const priceText = typeof priceVal === 'number' ? `₹${priceVal.toFixed(2)}` : priceVal;
+              const imgUrl = product.image?.url || product.image || "/hero-honey-jar.png";
+              return (
+                <Link key={productId} href={`/products/${productId}`} className="group">
+                  <div className="bg-[#111] border border-gray-800 hover:border-[#C8A84B]/50 transition-all duration-300 group-hover:-translate-y-1 overflow-hidden">
+                    <div className="relative h-52 bg-black flex items-center justify-center">
+                      <Image
+                        src={imgUrl}
+                        alt={product.name}
+                        fill
+                        sizes="(max-width: 640px) 100vw, 33vw"
+                        className="object-contain p-6 group-hover:scale-105 transition-transform duration-500"
+                      />
+                    </div>
+                    <div className="p-4 border-t border-gray-800">
+                      <h3 className="text-white text-sm font-medium mb-1 truncate">{product.name}</h3>
+                      <p className="text-[#C8A84B] text-sm font-bold">{priceText}</p>
+                    </div>
                   </div>
-                  <div className="p-4 border-t border-gray-800">
-                    <h3 className="text-white text-sm font-medium mb-1">{product.name}</h3>
-                    <p className="text-[#C8A84B] text-sm font-bold">{product.price}</p>
-                  </div>
-                </div>
-              </Link>
-            ))}
+                </Link>
+              );
+            })}
           </div>
 
           <div className="flex justify-end mt-8">

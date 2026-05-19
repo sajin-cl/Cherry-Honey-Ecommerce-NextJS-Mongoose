@@ -6,6 +6,7 @@ import Link from "next/link";
 import Image from "next/image";
 import dbConnect from "@/lib/dbConnect";
 import Product from "@/models/product.model";
+import Category from "@/models/category.model";
 import ProductsFilters from "./ProductsFilters";
 
 export const metadata = { title: "Our Products | Cherry Honey" };
@@ -15,7 +16,10 @@ const PER_PAGE = 12;
 async function fetchProducts({ page, maxPrice, search, category }) {
   await dbConnect();
   const query = {};
-  if (category) query.category = category;
+  if (category) {
+    const catList = category.split(",");
+    query.category = { $in: catList };
+  }
   if (search)   query.name = { $regex: search, $options: "i" };
   if (maxPrice) query.price = { $lte: Number(maxPrice) };
 
@@ -85,10 +89,19 @@ function Pagination({ page, totalPages, searchParams }) {
 }
 
 export default async function ProductsPage({ searchParams }) {
-  const page     = Math.max(1, parseInt(searchParams?.page    || "1"));
-  const maxPrice = searchParams?.maxPrice || "";
-  const search   = searchParams?.search   || "";
-  const category = searchParams?.category || "";
+  const resolvedParams = await searchParams;
+  const page     = Math.max(1, parseInt(resolvedParams?.page    || "1"));
+  const maxPrice = resolvedParams?.maxPrice || "";
+  const search   = resolvedParams?.search   || "";
+  const category = resolvedParams?.category || "";
+
+  await dbConnect();
+  const dbCats = await Category.find({}).lean();
+  const categoriesList = dbCats.map((cat) => ({
+    id: cat.name,
+    label: cat.name,
+    count: undefined
+  }));
 
   const { products, total, totalPages } = await fetchProducts({ page, maxPrice, search, category });
 
@@ -111,7 +124,7 @@ export default async function ProductsPage({ searchParams }) {
             Showing {from}–{to} of {total} results
           </p>
           {/* Filter drawer — client component */}
-          <ProductsFilters searchParams={searchParams} />
+          <ProductsFilters searchParams={resolvedParams} categories={categoriesList} />
         </div>
 
         {/* Grid */}
@@ -126,7 +139,7 @@ export default async function ProductsPage({ searchParams }) {
           </div>
         )}
 
-        <Pagination page={page} totalPages={totalPages} searchParams={searchParams} />
+        <Pagination page={page} totalPages={totalPages} searchParams={resolvedParams} />
       </div>
     </div>
   );

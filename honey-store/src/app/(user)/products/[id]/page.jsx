@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, use } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import WriteReviewModal from "@/components/ui/WriteReviewModal";
@@ -148,18 +148,39 @@ function FAQItem({ q, a }) {
 /* ══════════════════════════════════════════════════════
    MAIN PAGE
 ══════════════════════════════════════════════════════ */
-export default function ProductDetailPage() {
-  const product = PRODUCT;
+export default function ProductDetailPage({ params }) {
+  const resolvedParams = use(params);
+  const id = resolvedParams.id;
+
+  const [product, setProduct] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   const [activeImage, setActiveImage] = useState(0);
   const [selectedWeight, setSelectedWeight] = useState("500g");
   const [qty, setQty] = useState(1);
   const [sellerTab, setSellerTab] = useState("shipping");
   const [added, setAdded] = useState(false);
-
-  /* review state */
-  const [localReviews, setLocalReviews] = useState(product.reviews);
+  const [localReviews, setLocalReviews] = useState([]);
   const [formOpen, setFormOpen] = useState(false);
+
+  useEffect(() => {
+    if (!id) return;
+    async function fetchProduct() {
+      try {
+        const res = await fetch(`/api/products/${id}`);
+        if (!res.ok) throw new Error("Product not found");
+        const data = await res.json();
+        setProduct(data.product);
+        setLocalReviews(data.product.reviews || []);
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    }
+    fetchProduct();
+  }, [id]);
 
   const handleAddToCart = () => {
     setAdded(true);
@@ -169,6 +190,65 @@ export default function ProductDetailPage() {
   const handleReviewSubmit = (review) => {
     setLocalReviews((prev) => [review, ...prev]);
   };
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-[#0a0a0a] text-white flex items-center justify-center">
+        <p className="text-gray-400">Loading product details...</p>
+      </div>
+    );
+  }
+
+  if (error || !product) {
+    return (
+      <div className="min-h-screen bg-[#0a0a0a] text-white flex items-center justify-center">
+        <div className="text-center">
+          <p className="text-red-500 mb-4">{error || "Product not found"}</p>
+          <Link href="/products" className="text-[#C8A84B] underline">Back to Products</Link>
+        </div>
+      </div>
+    );
+  }
+
+  const images = product.image?.url ? [product.image.url] : ["/hero-honey-jar.png"];
+  const price = product.discountPrice ?? product.price;
+  const original = product.price;
+  const discount = original > 0 && product.discountPrice ? Math.round(((original - price) / original) * 100) : 0;
+
+  const specs = {
+    inTheBox: [
+      { label: "Sales Package", value: `1 Bottle Pure ${product.name}` },
+      { label: "Pack of", value: "1" },
+    ],
+    general: [
+      { label: "Product Name", value: product.name },
+      { label: "Category", value: product.category },
+      { label: "Flavour", value: "Natural Sweet" },
+      { label: "Container type", value: "Glass Bottle" },
+      { label: "Shelf Life", value: "12 Months" },
+    ],
+  };
+
+  const faqs = [
+    {
+      q: `What makes ${product.name} different from regular honey?`,
+      a: "Our honey is ethically sourced, raw, and organic. Unlike regular honey, it preserves all natural nutrients, enzymes, and antioxidants.",
+    },
+    {
+      q: "How should I store this honey?",
+      a: "Store at room temperature away from direct sunlight. Do not refrigerate as it accelerates crystallisation.",
+    },
+  ];
+
+  const shippingDetails = {
+    shipping: "We ensure fast and secure delivery of your honey products. Orders are processed within 24 hours and delivered within 3–5 business days.",
+    returns: "If you receive a damaged or incorrect product, you can request a return within 7 days of delivery.",
+  };
+
+  const similar = [
+    { id: "2", name: "Organic Acacia Raw Honey", price: 399, image: "/hero-honey-jar.png" },
+    { id: "3", name: "Pure Himalayan Forest Honey", price: 599, image: "/honey-jar-bees.png" },
+  ];
 
   return (
     <div className="min-h-screen bg-[#0a0a0a] text-white">
@@ -196,7 +276,7 @@ export default function ProductDetailPage() {
             {/* Main image */}
             <div className="relative w-full aspect-square bg-[#111] border border-gray-800 overflow-hidden flex items-center justify-center">
               <Image
-                src={product.images[activeImage]}
+                src={images[activeImage]}
                 alt={product.name}
                 fill
                 sizes="(max-width: 1024px) 100vw, 50vw"
@@ -205,37 +285,41 @@ export default function ProductDetailPage() {
                 priority
               />
               {/* Discount badge */}
-              <span className="absolute top-4 left-4 bg-[#C8A84B] text-black text-xs font-bold px-2.5 py-1">
-                -{product.discount}%
-              </span>
+              {discount > 0 && (
+                <span className="absolute top-4 left-4 bg-[#C8A84B] text-black text-xs font-bold px-2.5 py-1">
+                  -{discount}%
+                </span>
+              )}
             </div>
             {/* Thumbnails */}
-            <div className="flex gap-3">
-              {product.images.map((img, i) => (
-                <button
-                  key={i}
-                  onClick={() => setActiveImage(i)}
-                  className={`relative w-24 h-24 flex-shrink-0 border-2 transition-all duration-200 overflow-hidden bg-[#111] ${activeImage === i
-                    ? "border-[#C8A84B]"
-                    : "border-gray-800 hover:border-gray-600"
-                    }`}
-                >
-                  <Image
-                    src={img}
-                    alt={`View ${i + 1}`}
-                    fill
-                    sizes="96px"
-                    className="object-contain p-2"
-                  />
-                </button>
-              ))}
-            </div>
+            {images.length > 1 && (
+              <div className="flex gap-3">
+                {images.map((img, i) => (
+                  <button
+                    key={i}
+                    onClick={() => setActiveImage(i)}
+                    className={`relative w-24 h-24 flex-shrink-0 border-2 transition-all duration-200 overflow-hidden bg-[#111] ${activeImage === i
+                      ? "border-[#C8A84B]"
+                      : "border-gray-800 hover:border-gray-600"
+                      }`}
+                  >
+                    <Image
+                      src={img}
+                      alt={`View ${i + 1}`}
+                      fill
+                      sizes="96px"
+                      className="object-contain p-2"
+                    />
+                  </button>
+                ))}
+              </div>
+            )}
           </div>
 
           {/* Right — product info */}
           <div className="flex flex-col">
             {/* Rating */}
-            <StarRating rating={product.rating} count={product.reviewCount} />
+            <StarRating rating={product.rating} count={product.numReviews} />
 
             {/* Title */}
             <h1
@@ -248,14 +332,18 @@ export default function ProductDetailPage() {
             {/* Price */}
             <div className="flex items-baseline gap-3 mb-4">
               <span className="text-3xl font-bold text-[#C8A84B]">
-                ₹{product.price}
+                ₹{price}
               </span>
-              <span className="text-gray-500 text-lg line-through">
-                ₹{product.original}
-              </span>
-              <span className="text-green-400 text-sm font-medium">
-                Save {product.discount}%
-              </span>
+              {product.discountPrice && (
+                <span className="text-gray-500 text-lg line-through">
+                  ₹{original}
+                </span>
+              )}
+              {discount > 0 && (
+                <span className="text-green-400 text-sm font-medium">
+                  Save {discount}%
+                </span>
+              )}
             </div>
 
             {/* Gold divider */}
@@ -267,7 +355,7 @@ export default function ProductDetailPage() {
                 Quantity
               </p>
               <div className="flex gap-2 flex-wrap">
-                {product.quantity.map((w) => (
+                {["250g", "500g", "1kg"].map((w) => (
                   <button
                     key={w}
                     onClick={() => setSelectedWeight(w)}
@@ -361,7 +449,7 @@ export default function ProductDetailPage() {
                 In The Box
               </span>
             </div>
-            {product.specs.inTheBox.map((row, i) => (
+            {specs.inTheBox.map((row, i) => (
               <div
                 key={row.label}
                 className={`grid grid-cols-2 px-5 py-3 text-sm ${i % 2 === 0 ? "bg-[#111]" : "bg-[#0d0d0d]"
@@ -378,7 +466,7 @@ export default function ProductDetailPage() {
                 General
               </span>
             </div>
-            {product.specs.general.map((row, i) => (
+            {specs.general.map((row, i) => (
               <div
                 key={row.label}
                 className={`grid grid-cols-2 px-5 py-3 text-sm ${i % 2 === 0 ? "bg-[#111]" : "bg-[#0d0d0d]"
@@ -416,7 +504,7 @@ export default function ProductDetailPage() {
           </div>
 
           <p className="text-gray-400 text-sm leading-relaxed max-w-3xl">
-            {product.shippingDetails[sellerTab]}
+            {shippingDetails[sellerTab]}
           </p>
         </section>
 
@@ -429,7 +517,7 @@ export default function ProductDetailPage() {
           </h2>
 
           <div className="max-w-3xl">
-            {product.faqs.map((faq, i) => (
+            {faqs.map((faq, i) => (
               <FAQItem key={i} q={faq.q} a={faq.a} />
             ))}
           </div>
@@ -459,38 +547,47 @@ export default function ProductDetailPage() {
               {product.rating}
             </span>
             <div>
-              <StarRating rating={product.rating} count={product.reviewCount} />
+              <StarRating rating={product.rating} count={product.numReviews} />
               <p className="text-gray-500 text-xs mt-1">
-                Based on {product.reviewCount} verified reviews
+                Based on {product.numReviews} verified reviews
               </p>
             </div>
           </div>
 
           <div className="space-y-6 max-w-3xl">
-            {localReviews.map((rev, i) => (
-              <div key={i} className="bg-[#111] border border-gray-800 p-5 animate-fadeIn">
-                <div className="flex items-start gap-4">
-                  {/* Avatar */}
-                  <div className="w-10 h-10 rounded-full bg-[#C8A84B]/20 border border-[#C8A84B]/40 flex items-center justify-center text-[#C8A84B] font-bold text-sm flex-shrink-0">
-                    {rev.avatar}
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <div className="flex items-center justify-between gap-2 mb-1">
-                      <span className="text-white text-sm font-semibold">
-                        {rev.name}
-                      </span>
-                      <span className="text-gray-500 text-xs flex-shrink-0">
-                        {rev.date}
-                      </span>
+            {localReviews.map((rev, i) => {
+              const avatar = rev.avatar || rev.name?.charAt(0) || "U";
+              const dateStr = rev.date || (rev.createdAt ? new Date(rev.createdAt).toLocaleDateString("en-US", {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+              }) : "Recent");
+              const commentText = rev.text || rev.comment || "";
+              return (
+                <div key={i} className="bg-[#111] border border-gray-800 p-5 animate-fadeIn">
+                  <div className="flex items-start gap-4">
+                    {/* Avatar */}
+                    <div className="w-10 h-10 rounded-full bg-[#C8A84B]/20 border border-[#C8A84B]/40 flex items-center justify-center text-[#C8A84B] font-bold text-sm flex-shrink-0">
+                      {avatar}
                     </div>
-                    <StarRating rating={rev.rating} count={null} />
-                    <p className="text-gray-400 text-sm leading-relaxed mt-3">
-                      {rev.text}
-                    </p>
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center justify-between gap-2 mb-1">
+                        <span className="text-white text-sm font-semibold">
+                          {rev.name}
+                        </span>
+                        <span className="text-gray-500 text-xs flex-shrink-0">
+                          {dateStr}
+                        </span>
+                      </div>
+                      <StarRating rating={rev.rating} count={null} />
+                      <p className="text-gray-400 text-sm leading-relaxed mt-3">
+                        {commentText}
+                      </p>
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
 
           {/* ── Write a Review Modal ── */}
@@ -510,31 +607,34 @@ export default function ProductDetailPage() {
           </h2>
 
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-5">
-            {product.similar.map((p) => (
-              <Link key={p.id} href={`/products/${p.id}`} className="group block">
-                <div className="bg-[#111] border border-gray-800 hover:border-[#C8A84B]/50 transition-all duration-300 group-hover:-translate-y-1">
-                  <div className="relative h-48 bg-black">
-                    <Image
-                      src={p.image}
-                      alt={p.name}
-                      fill
-                      sizes="(max-width: 640px) 50vw, 25vw"
-                      className="object-contain p-4"
-                    />
-                  </div>
-                  <div className="p-4">
-                    <h3 className="text-white text-sm mb-1 group-hover:text-[#C8A84B] transition-colors">
-                      {p.name}
-                    </h3>
-                    <div className="flex items-center gap-2">
-                      <span className="text-[#C8A84B] text-sm font-semibold">
-                        ₹{p.price}
-                      </span>
+            {similar.map((p) => {
+              const similarImg = p.image?.url || p.image || "/hero-honey-jar.png";
+              return (
+                <Link key={p.id} href={`/products/${p.id}`} className="group block">
+                  <div className="bg-[#111] border border-gray-800 hover:border-[#C8A84B]/50 transition-all duration-300 group-hover:-translate-y-1">
+                    <div className="relative h-48 bg-black">
+                      <Image
+                        src={similarImg}
+                        alt={p.name}
+                        fill
+                        sizes="(max-width: 640px) 50vw, 25vw"
+                        className="object-contain p-4"
+                      />
+                    </div>
+                    <div className="p-4">
+                      <h3 className="text-white text-sm mb-1 group-hover:text-[#C8A84B] transition-colors">
+                        {p.name}
+                      </h3>
+                      <div className="flex items-center gap-2">
+                        <span className="text-[#C8A84B] text-sm font-semibold">
+                          ₹{p.price}
+                        </span>
+                      </div>
                     </div>
                   </div>
-                </div>
-              </Link>
-            ))}
+                </Link>
+              );
+            })}
           </div>
         </section>
       </div>
