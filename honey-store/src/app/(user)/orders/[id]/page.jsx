@@ -113,7 +113,7 @@ export default function OrderDetailsPage() {
                     </div>
                     {/* Price */}
                     <span className="text-white text-sm font-semibold flex-shrink-0">
-                      $ {item.price.toFixed(2)}
+                      ₹{item.price.toFixed(2)}
                     </span>
                   </div>
                 ))}
@@ -198,7 +198,7 @@ export default function OrderDetailsPage() {
               <div className="space-y-3">
                 <div className="flex justify-between text-xs">
                   <span className="text-gray-400">Subtotal</span>
-                  <span className="text-white">$ {order.summary.subtotal.toFixed(2)}</span>
+                  <span className="text-white">₹{order.summary.subtotal.toFixed(2)}</span>
                 </div>
                 <div className="flex justify-between text-xs">
                   <span className="text-gray-400">Shipping</span>
@@ -210,12 +210,12 @@ export default function OrderDetailsPage() {
                 </div>
                 <div className="flex justify-between text-xs">
                   <span className="text-gray-400">Tax</span>
-                  <span className="text-white">$ {order.summary.tax.toFixed(2)}</span>
+                  <span className="text-white">₹{order.summary.tax.toFixed(2)}</span>
                 </div>
                 <div className="h-px bg-gray-800" />
                 <div className="flex justify-between text-sm font-bold">
                   <span className="text-white">Total</span>
-                  <span className="text-white">$ {order.summary.total.toFixed(2)}</span>
+                  <span className="text-white">₹{order.summary.total.toFixed(2)}</span>
                 </div>
               </div>
             </div>
@@ -238,8 +238,8 @@ export default function OrderDetailsPage() {
                   <div className="p-3">
                     <p className="text-white text-xs mb-1 truncate group-hover:text-[#C8A84B] transition-colors">{p.name}</p>
                     <div className="flex items-center gap-2">
-                      <span className="text-[#C8A84B] text-xs font-semibold">${p.price.toFixed(2)}</span>
-                      <span className="text-gray-500 text-xs line-through">${p.original.toFixed(2)}</span>
+                      <span className="text-[#C8A84B] text-xs font-semibold">₹{p.price.toFixed(2)}</span>
+                      <span className="text-gray-500 text-xs line-through">₹{p.original.toFixed(2)}</span>
                     </div>
                   </div>
                 </div>

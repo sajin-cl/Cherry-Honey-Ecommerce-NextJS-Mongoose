@@ -169,8 +169,8 @@ export default function CartPage() {
                     <div className="flex-1 min-w-0">
                       <p className="text-white text-sm font-medium mb-1">{item.name}</p>
                       <div className="flex items-center gap-2 mb-2">
-                        <span className="text-[#C8A84B] text-sm font-semibold">${item.price.toFixed(2)}</span>
-                        <span className="text-gray-500 text-xs line-through">${item.original.toFixed(2)}</span>
+                        <span className="text-[#C8A84B] text-sm font-semibold">₹{item.price.toFixed(2)}</span>
+                        <span className="text-gray-500 text-xs line-through">₹{item.original.toFixed(2)}</span>
                       </div>
                       <QtySelect value={item.qty} onChange={(q) => updateQty(item.id, q)} />
 
@@ -211,11 +211,11 @@ export default function CartPage() {
               <div className="space-y-4 mb-6">
                 <div className="flex justify-between text-sm">
                   <span className="text-gray-400">Subtotal</span>
-                  <span className="text-white font-medium">${subtotal.toFixed(2)}</span>
+                  <span className="text-white font-medium">₹{subtotal.toFixed(2)}</span>
                 </div>
                 <div className="flex justify-between text-sm">
                   <span className="text-gray-400">Taxes</span>
-                  <span className="text-white font-medium">${TAXES.toFixed(2)}</span>
+                  <span className="text-white font-medium">₹{TAXES.toFixed(2)}</span>
                 </div>
                 <div className="flex justify-between text-sm">
                   <span className="text-gray-400">Delivery Fee</span>
@@ -224,7 +224,7 @@ export default function CartPage() {
                 <div className="h-px bg-gray-800" />
                 <div className="flex justify-between text-sm font-semibold">
                   <span className="text-white">Grand Total</span>
-                  <span className="text-white">${grandTotal.toFixed(2)}</span>
+                  <span className="text-white">₹{grandTotal.toFixed(2)}</span>
                 </div>
               </div>
 
@@ -253,8 +253,8 @@ export default function CartPage() {
                   <div className="p-3">
                     <p className="text-white text-xs mb-1 truncate group-hover:text-[#C8A84B] transition-colors">{p.name}</p>
                     <div className="flex items-center gap-2">
-                      <span className="text-[#C8A84B] text-xs font-semibold">${p.price.toFixed(2)}</span>
-                      <span className="text-gray-500 text-xs line-through">${p.original.toFixed(2)}</span>
+                      <span className="text-[#C8A84B] text-xs font-semibold">₹{p.price.toFixed(2)}</span>
+                      <span className="text-gray-500 text-xs line-through">₹{p.original.toFixed(2)}</span>
                     </div>
                   </div>
                 </div>

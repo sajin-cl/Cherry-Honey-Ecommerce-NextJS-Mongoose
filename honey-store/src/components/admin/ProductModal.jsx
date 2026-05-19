@@ -329,7 +329,7 @@ export default function ProductModal({ mode = "add", product = null, categories 
                   <Field>
                     <Label>Price</Label>
                     <div className="relative">
-                      <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 text-[13px]">$</span>
+                      <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 text-[13px]">₹</span>
                       <input
                         type="number"
                         value={form.price}
@@ -342,7 +342,7 @@ export default function ProductModal({ mode = "add", product = null, categories 
                   <Field>
                     <Label>Discount Price</Label>
                     <div className="relative">
-                      <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 text-[13px]">$</span>
+                      <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 text-[13px]">₹</span>
                       <input
                         type="number"
                         value={form.discountPrice}

@@ -285,11 +285,11 @@ export default function CheckoutPage() {
               <div className="space-y-4 mb-6">
                 <div className="flex justify-between text-sm">
                   <span className="text-gray-400">Subtotal</span>
-                  <span className="text-white font-medium">${subtotal.toFixed(2)}</span>
+                  <span className="text-white font-medium">₹{subtotal.toFixed(2)}</span>
                 </div>
                 <div className="flex justify-between text-sm">
                   <span className="text-gray-400">Taxes</span>
-                  <span className="text-white font-medium">${taxes.toFixed(2)}</span>
+                  <span className="text-white font-medium">₹{taxes.toFixed(2)}</span>
                 </div>
                 <div className="flex justify-between text-sm">
                   <span className="text-gray-400">Delivery Fee</span>
@@ -298,7 +298,7 @@ export default function CheckoutPage() {
                 <div className="h-px bg-gray-800" />
                 <div className="flex justify-between text-sm font-bold">
                   <span className="text-white">Grand Total</span>
-                  <span className="text-white text-base">${grandTotal.toFixed(2)}</span>
+                  <span className="text-white text-base">₹{grandTotal.toFixed(2)}</span>
                 </div>
               </div>
 

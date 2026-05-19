@@ -108,7 +108,7 @@ export default function OrderDetails({ orderId }) {
                   </div>
                   <div className="flex-1 min-w-0">
                     <p className="text-[13px] font-semibold text-gray-800">{item.name}</p>
-                    <p className="text-[13px] text-gray-600">${item.price}</p>
+                    <p className="text-[13px] text-gray-600">₹{item.price}</p>
                     <p className="text-[11.5px] text-gray-400 mt-0.5">
                       Qty: <span className="text-gray-600 font-medium">{item.qty}</span>
                       &nbsp;&nbsp;Size: <span className="text-gray-600 font-medium">{item.size}</span>
@@ -126,7 +126,7 @@ export default function OrderDetails({ orderId }) {
                   <span className="text-[13px] font-semibold text-gray-800">{order.shipping.carrier}</span>
                   <span className="text-[12px] text-gray-400 ml-2">({order.shipping.service})</span>
                 </div>
-                <span className="text-[13px] font-semibold text-gray-800">${order.shipping.cost.toFixed(2)}</span>
+                <span className="text-[13px] font-semibold text-gray-800">₹{order.shipping.cost.toFixed(2)}</span>
               </div>
             </div>
 
@@ -141,12 +141,12 @@ export default function OrderDetails({ orderId }) {
                 ].map(({ label, value }) => (
                   <div key={label} className="flex items-center justify-between">
                     <span className="text-[13px] text-gray-500">{label}</span>
-                    <span className="text-[13px] text-gray-700">${value.toFixed(2)}</span>
+                    <span className="text-[13px] text-gray-700">₹{value.toFixed(2)}</span>
                   </div>
                 ))}
                 <div className="border-t border-gray-100 pt-2 mt-2 flex items-center justify-between">
                   <span className="text-[13px] font-semibold text-gray-800">Total</span>
-                  <span className="text-[13px] font-semibold text-gray-800">${order.payment.total.toFixed(2)}</span>
+                  <span className="text-[13px] font-semibold text-gray-800">₹{order.payment.total.toFixed(2)}</span>
                 </div>
               </div>
             </div>

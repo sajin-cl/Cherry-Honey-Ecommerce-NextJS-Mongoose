@@ -140,7 +140,7 @@ export default function ReviewPage() {
                     {/* Details */}
                     <div className="flex-1 min-w-0">
                       <p className="text-white text-sm font-medium mb-0.5">{item.name}</p>
-                      <p className="text-[#C8A84B] text-sm font-semibold mb-0.5">${item.price.toFixed(2)}</p>
+                      <p className="text-[#C8A84B] text-sm font-semibold mb-0.5">₹{item.price.toFixed(2)}</p>
                       <p className="text-gray-500 text-xs">QTY: {item.qty}</p>
                     </div>
                     {/* Remove */}
@@ -189,11 +189,11 @@ export default function ReviewPage() {
               <div className="space-y-4 mb-6">
                 <div className="flex justify-between text-sm">
                   <span className="text-gray-400">Subtotal</span>
-                  <span className="text-white font-medium">${subtotal.toFixed(2)}</span>
+                  <span className="text-white font-medium">₹{subtotal.toFixed(2)}</span>
                 </div>
                 <div className="flex justify-between text-sm">
                   <span className="text-gray-400">Taxes</span>
-                  <span className="text-white font-medium">${taxes.toFixed(2)}</span>
+                  <span className="text-white font-medium">₹{taxes.toFixed(2)}</span>
                 </div>
                 <div className="flex justify-between text-sm">
                   <span className="text-gray-400">Delivery Fee</span>
@@ -202,7 +202,7 @@ export default function ReviewPage() {
                 <div className="h-px bg-gray-800" />
                 <div className="flex justify-between font-bold">
                   <span className="text-white text-sm">Grand Total</span>
-                  <span className="text-white text-base">${grandTotal.toFixed(2)}</span>
+                  <span className="text-white text-base">₹{grandTotal.toFixed(2)}</span>
                 </div>
               </div>
               <button

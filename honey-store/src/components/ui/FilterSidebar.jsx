@@ -155,7 +155,7 @@ export default function FilterSidebar({ onClose, onApply, initialParams, categor
           <div className="border-t border-gray-800 mb-4" />
           {priceOpen && (
             <div className="pb-6">
-              <p className="text-sm text-gray-400 mb-4">Price: $0 - ${price.toLocaleString()}</p>
+              <p className="text-sm text-gray-400 mb-4">Price: ₹0 - ₹{price.toLocaleString()}</p>
               <div className="relative">
                 {/* Track */}
                 <div className="h-0.5 bg-gray-700 rounded-full w-full relative">
