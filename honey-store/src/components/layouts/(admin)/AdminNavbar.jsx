@@ -4,7 +4,26 @@ import { useState, useRef, useEffect } from "react";
 
 export default function AdminNavbar() {
   const [open, setOpen] = useState(false);
+  const [user, setUser] = useState(null);
   const ref = useRef(null);
+
+  /* fetch admin user details on mount */
+  useEffect(() => {
+    async function fetchUser() {
+      try {
+        const res = await fetch("/api/auth/me");
+        if (res.ok) {
+          const data = await res.json();
+          if (data.user) {
+            setUser(data.user);
+          }
+        }
+      } catch (err) {
+        console.error("Failed to fetch admin user:", err);
+      }
+    }
+    fetchUser();
+  }, []);
 
   /* close dropdown when clicking outside */
   useEffect(() => {
@@ -17,6 +36,11 @@ export default function AdminNavbar() {
     return () => document.removeEventListener("mousedown", handleClick);
   }, [open]);
 
+  const displayName = user?.fullName || "Admin";
+  const displayEmail = user?.email || "admin@honeybee.com";
+  const avatarLetter = (displayName[0] || "A").toUpperCase();
+  const roleName = user?.role ? (user.role.charAt(0).toUpperCase() + user.role.slice(1)) : "Admin";
+
   return (
     <header className="h-[60px] bg-white border-b border-gray-100 flex items-center px-6 gap-4 sticky top-0 z-30">
 
@@ -27,8 +51,8 @@ export default function AdminNavbar() {
       <div className="relative flex items-center gap-3" ref={ref}>
         {/* Name / role text */}
         <div className="text-right">
-          <p className="text-[13px] font-semibold text-gray-900 leading-tight">Sajin</p>
-          <p className="text-[11px] text-gray-400 leading-tight">Admin</p>
+          <p className="text-[13px] font-semibold text-gray-900 leading-tight">{displayName}</p>
+          <p className="text-[11px] text-gray-400 leading-tight">{roleName}</p>
         </div>
 
         {/* Avatar button */}
@@ -39,7 +63,7 @@ export default function AdminNavbar() {
           aria-expanded={open}
         >
           <div className="w-full h-full bg-gradient-to-br from-amber-400 to-amber-600 flex items-center justify-center text-white text-sm font-bold">
-            S
+            {avatarLetter}
           </div>
         </button>
 
@@ -50,11 +74,11 @@ export default function AdminNavbar() {
             <div className="flex items-center gap-3 mb-4">
               {/* Mini avatar */}
               <div className="w-10 h-10 rounded-full bg-gradient-to-br from-amber-400 to-amber-600 flex items-center justify-center text-white text-sm font-bold flex-shrink-0 ring-2 ring-amber-100">
-                S
+                {avatarLetter}
               </div>
               <div className="min-w-0">
-                <p className="text-[13.5px] font-semibold text-gray-900 truncate">Sajin</p>
-                <p className="text-[11.5px] text-gray-400 truncate">Sajin@email.com</p>
+                <p className="text-[13.5px] font-semibold text-gray-900 truncate">{displayName}</p>
+                <p className="text-[11.5px] text-gray-400 truncate">{displayEmail}</p>
               </div>
             </div>
 
