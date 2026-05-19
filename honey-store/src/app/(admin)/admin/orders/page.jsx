@@ -13,9 +13,10 @@ export default async function OrdersPage({ searchParams }) {
   await requireAdmin();
   await dbConnect();
 
-  const page  = Math.max(1, parseInt(searchParams?.page || "1"));
+  const resolvedSearchParams = await searchParams;
+  const page  = Math.max(1, parseInt(resolvedSearchParams?.page || "1"));
   const limit = 10;
-  const search = searchParams?.search || "";
+  const search = resolvedSearchParams?.search || "";
 
   const query = search
     ? { $or: [{ "shippingAddress.name": { $regex: search, $options: "i" } }] }

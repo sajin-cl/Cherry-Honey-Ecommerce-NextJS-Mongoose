@@ -178,6 +178,11 @@ export default function ProductDetailPage({ params }) {
         if (data.product.quantity) {
           setSelectedWeight(data.product.quantity);
         }
+        if (data.product.stock === 0) {
+          setQty(0);
+        } else {
+          setQty(1);
+        }
       } catch (err) {
         setError(err.message);
       } finally {
@@ -479,13 +484,26 @@ export default function ProductDetailPage({ params }) {
               </div>
             </div>
 
+            {/* Stock alert warning */}
+            {product && product.stock <= 5 && product.stock > 0 && (
+              <p className="text-amber-500 text-xs mb-3 font-semibold uppercase tracking-wider">
+                Only {product.stock} items left in stock!
+              </p>
+            )}
+            {product && product.stock === 0 && (
+              <p className="text-red-500 text-xs mb-3 font-semibold uppercase tracking-wider">
+                Out of Stock
+              </p>
+            )}
+
             {/* Quantity + Add to Cart */}
             <div className="flex items-center gap-4 mb-4">
               {/* Qty control */}
               <div className="flex items-center border border-gray-700">
                 <button
+                  disabled={!product || product.stock === 0}
                   onClick={() => setQty((q) => Math.max(1, q - 1))}
-                  className="w-10 h-10 flex items-center justify-center text-gray-300 hover:text-[#C8A84B] hover:bg-[#C8A84B]/10 transition-colors text-lg"
+                  className="w-10 h-10 flex items-center justify-center text-gray-300 hover:text-[#C8A84B] hover:bg-[#C8A84B]/10 disabled:opacity-30 disabled:hover:bg-transparent transition-colors text-lg"
                 >
                   −
                 </button>
@@ -493,8 +511,9 @@ export default function ProductDetailPage({ params }) {
                   {qty}
                 </span>
                 <button
-                  onClick={() => setQty((q) => q + 1)}
-                  className="w-10 h-10 flex items-center justify-center text-gray-300 hover:text-[#C8A84B] hover:bg-[#C8A84B]/10 transition-colors text-lg"
+                  disabled={!product || product.stock === 0}
+                  onClick={() => setQty((q) => Math.min(product.stock || 0, q + 1))}
+                  className="w-10 h-10 flex items-center justify-center text-gray-300 hover:text-[#C8A84B] hover:bg-[#C8A84B]/10 disabled:opacity-30 disabled:hover:bg-transparent transition-colors text-lg"
                 >
                   +
                 </button>
@@ -502,22 +521,24 @@ export default function ProductDetailPage({ params }) {
 
               {/* Add to cart */}
               <button
+                disabled={!product || product.stock === 0 || qty === 0}
                 onClick={handleAddToCart}
-                className={`flex-1 h-10 font-semibold text-sm tracking-widest uppercase transition-all duration-300 ${added
+                className={`flex-1 h-10 font-semibold text-sm tracking-widest uppercase transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed ${added
                     ? "bg-green-600 text-white"
                     : "bg-[#C8A84B] hover:bg-[#b8973e] text-black"
                   }`}
               >
-                {added ? "✓ Added!" : "Add to Cart"}
+                {product && product.stock === 0 ? "Out of Stock" : added ? "✓ Added!" : "Add to Cart"}
               </button>
             </div>
 
             {/* Buy Now */}
             <button
+              disabled={!product || product.stock === 0 || qty === 0}
               onClick={handleAddToCart}
-              className="w-full h-10 font-semibold text-sm tracking-widest uppercase border border-[#C8A84B] text-[#C8A84B] hover:bg-[#C8A84B] hover:text-black transition-all duration-300 mb-4"
+              className="w-full h-10 font-semibold text-sm tracking-widest uppercase border border-[#C8A84B] text-[#C8A84B] hover:bg-[#C8A84B] hover:text-black disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 mb-4"
             >
-              Buy Now
+              {product && product.stock === 0 ? "Out of Stock" : "Buy Now"}
             </button>
 
 

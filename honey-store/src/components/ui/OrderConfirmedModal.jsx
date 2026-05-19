@@ -14,7 +14,7 @@ import Link from "next/link";
 export default function OrderConfirmedModal({
   onClose,
   homeHref = "/",
-  orderHref = "/products",
+  orderHref = "/orders",
 }) {
   return (
     <>

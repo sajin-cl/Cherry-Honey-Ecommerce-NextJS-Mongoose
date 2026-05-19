@@ -8,14 +8,25 @@ const serif = { fontFamily: "'Georgia','Times New Roman',serif", fontStyle: "ita
 const TAXES = 10;
 const DELIVERY_THRESHOLD = 500;
 
-function QtySelect({ value, onChange }) {
+function QtySelect({ value, stock = 10, onChange }) {
+  const maxQty = Math.max(1, Math.min(stock, 10));
+  const optionsArray = Array.from({ length: maxQty }, (_, i) => i + 1);
+
+  if (stock === 0) {
+    return (
+      <span className="text-red-500 text-xs font-semibold uppercase tracking-wider block mb-1">
+        Out of Stock
+      </span>
+    );
+  }
+
   return (
     <select
       value={value}
       onChange={(e) => onChange(Number(e.target.value))}
       className="bg-[#1a1a1a] border border-gray-700 text-white text-xs px-2 py-1 outline-none cursor-pointer"
     >
-      {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((n) => (
+      {optionsArray.map((n) => (
         <option key={n} value={n}>Qty {n}</option>
       ))}
     </select>
@@ -229,7 +240,20 @@ export default function CartClient({ initialItems }) {
                           <span className="text-gray-500 text-xs line-through">₹{item.original.toFixed(2)}</span>
                         )}
                       </div>
-                      <QtySelect value={item.qty} onChange={(q) => updateQty(item.id, q)} />
+
+                      {/* Stock Alerts */}
+                      {item.stock <= 5 && item.stock > 0 && (
+                        <p className="text-amber-500 text-[10px] mb-2 font-semibold uppercase tracking-wider">
+                          Only {item.stock} left in stock!
+                        </p>
+                      )}
+                      {item.stock === 0 && (
+                        <p className="text-red-500 text-[10px] mb-2 font-semibold uppercase tracking-wider">
+                          Out of Stock
+                        </p>
+                      )}
+
+                      <QtySelect value={item.qty} stock={item.stock} onChange={(q) => updateQty(item.id, q)} />
 
                       <div className="flex flex-col gap-1 mt-3">
                         <div className="flex items-center gap-1.5 text-xs text-gray-400">

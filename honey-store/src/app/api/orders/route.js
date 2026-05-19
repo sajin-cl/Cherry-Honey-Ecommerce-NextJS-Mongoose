@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import dbConnect from "@/lib/dbConnect";
 import Order from "@/models/order.model";
 import User from "@/models/user.model";
+import Product from "@/models/product.model";
 import { getServerUser } from "@/lib/auth";
 
 // GET /api/orders — user sees own orders, admin sees all
@@ -46,6 +47,17 @@ export async function POST(request) {
     await dbConnect();
     const body  = await request.json();
     const order = await Order.create({ ...body, user: user.id });
+
+    // Decrement product stock in DB
+    if (body.items && Array.isArray(body.items)) {
+      for (const item of body.items) {
+        if (item.product) {
+          await Product.findByIdAndUpdate(item.product, {
+            $inc: { stock: -Number(item.qty || 1) }
+          });
+        }
+      }
+    }
 
     // Clear user's cart in DB
     await User.findByIdAndUpdate(user.id, { $set: { cart: [] } });

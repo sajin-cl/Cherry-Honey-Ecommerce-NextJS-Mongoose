@@ -70,7 +70,8 @@ export default async function CartPage() {
       original: itemOriginal,
       image: prod?.image?.url || "/hero-honey-jar.png",
       qty: item.qty,
-      weight: item.weight
+      weight: item.weight,
+      stock: prod ? prod.stock : 0
     };
   });
 
