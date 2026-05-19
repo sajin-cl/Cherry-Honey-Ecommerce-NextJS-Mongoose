@@ -26,6 +26,14 @@ const productSchema = new mongoose.Schema(
             url: { type: String, default: "" },
             publicId: { type: String, default: "" },
         },
+        image1: {
+            url: { type: String, default: "" },
+            publicId: { type: String, default: "" },
+        },
+        image2: {
+            url: { type: String, default: "" },
+            publicId: { type: String, default: "" },
+        },
         reviews: [reviewSchema],
         rating: { type: Number, default: 0 },
         numReviews: { type: Number, default: 0 },
@@ -36,14 +44,19 @@ const productSchema = new mongoose.Schema(
 
 // Auto-calculate rating on save
 productSchema.pre("save", function (next) {
-    if (this.reviews.length > 0) {
+    if (this.reviews && this.reviews.length > 0) {
         this.numReviews = this.reviews.length;
         this.rating =
             this.reviews.reduce((sum, r) => sum + r.rating, 0) / this.reviews.length;
     }
-    next();
+    if (typeof next === "function") {
+        next();
+    }
 });
 
-const Product = mongoose.models.Product || mongoose.model("Product", productSchema);
+if (mongoose.models.Product) {
+  delete mongoose.models.Product;
+}
+const Product = mongoose.model("Product", productSchema);
 
 export default Product;

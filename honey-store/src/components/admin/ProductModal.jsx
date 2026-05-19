@@ -29,26 +29,82 @@ function Textarea({ ...props }) {
   );
 }
 
+/* ── client-side image compression helper ────────────── */
+async function compressImage(file) {
+  return new Promise((resolve) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = (event) => {
+      const img = new window.Image();
+      img.src = event.target.result;
+      img.onload = () => {
+        const canvas = document.createElement("canvas");
+        const MAX_WIDTH = 1024;
+        let width = img.width;
+        let height = img.height;
+
+        if (width > MAX_WIDTH) {
+          height = Math.round((height * MAX_WIDTH) / width);
+          width = MAX_WIDTH;
+        }
+
+        canvas.width = width;
+        canvas.height = height;
+
+        const ctx = canvas.getContext("2d");
+        ctx.drawImage(img, 0, 0, width, height);
+
+        canvas.toBlob(
+          (blob) => {
+            const compressedFile = new File([blob], file.name, {
+              type: "image/jpeg",
+              lastModified: Date.now(),
+            });
+            resolve(compressedFile);
+          },
+          "image/jpeg",
+          0.7
+        );
+      };
+    };
+  });
+}
+
 /* ── image upload slot ────────────────────────────────── */
-function ImageSlot({ preview, onFile, main = false }) {
+function ImageSlot({ preview, onFile, uploading = false, main = false }) {
   const inputRef = useRef();
 
   function handleDrop(e) {
     e.preventDefault();
+    if (uploading) return;
     const file = e.dataTransfer.files?.[0];
     if (file) onFile(file);
+  }
+
+  let src = typeof preview === "string" ? preview : (preview?.url || null);
+  if (src && !src.startsWith("http") && !src.startsWith("blob:") && !src.startsWith("data:") && !src.startsWith("/")) {
+    src = `/${src}`;
   }
 
   return (
     <div
       onDrop={handleDrop}
       onDragOver={(e) => e.preventDefault()}
-      onClick={() => inputRef.current?.click()}
+      onClick={() => !uploading && inputRef.current?.click()}
       className={`relative border-2 border-dashed border-amber-200 rounded-xl bg-[#fdf8f0] flex items-center justify-center cursor-pointer hover:border-amber-400 transition-all overflow-hidden ${main ? "w-full h-44" : "flex-1 h-24"
         }`}
     >
-      {preview ? (
-        <Image src={preview} alt="preview" fill className="object-cover rounded-xl" />
+      {uploading ? (
+        <div className="flex flex-col items-center gap-1.5 text-amber-600 select-none">
+          <svg className="animate-spin h-5 w-5 text-amber-500" viewBox="0 0 24 24" fill="none">
+            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+          </svg>
+          <span className="text-[11px]">Uploading...</span>
+        </div>
+      ) : src ? (
+        /* eslint-disable-next-line @next/next/no-img-element */
+        <img src={src} alt="preview" className="w-full h-full object-cover rounded-xl" />
       ) : (
         <div className="flex flex-col items-center gap-1.5 text-gray-400 select-none">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
@@ -59,14 +115,15 @@ function ImageSlot({ preview, onFile, main = false }) {
           <span className="text-[11px] text-center leading-tight">Drag and drop or<br />browse</span>
         </div>
       )}
-      <input ref={inputRef} type="file" accept="image/*" className="hidden" onChange={(e) => e.target.files?.[0] && onFile(e.target.files[0])} />
+      <input ref={inputRef} type="file" accept="image/*" className="hidden" disabled={uploading} onChange={(e) => e.target.files?.[0] && onFile(e.target.files[0])} />
     </div>
   );
 }
 
 /* ── main modal ───────────────────────────────────────── */
-export default function ProductModal({ mode = "add", product = null, onClose, onSave }) {
+export default function ProductModal({ mode = "add", product = null, categories = [], onClose, onSave }) {
   const isEdit = mode === "edit";
+  const categoriesList = categories.length > 0 ? categories : CATEGORIES;
 
   const [form, setForm] = useState({
     name: product?.name || "",
@@ -74,12 +131,17 @@ export default function ProductModal({ mode = "add", product = null, onClose, on
     price: product?.price || "",
     discountPrice: product?.discountPrice || "",
     stock: product?.stock || "",
-    category: product?.category || CATEGORIES[0],
+    category: product?.category || (typeof categoriesList[0] === "object" ? categoriesList[0].name : categoriesList[0]),
   });
 
   const [mainImage, setMainImage] = useState(product?.image || null);
-  const [slot1, setSlot1] = useState(null);
-  const [slot2, setSlot2] = useState(null);
+  const [slot1, setSlot1] = useState(product?.image1 || null);
+  const [slot2, setSlot2] = useState(product?.image2 || null);
+  const [uploadingMain, setUploadingMain] = useState(false);
+  const [uploadingSlot1, setUploadingSlot1] = useState(false);
+  const [uploadingSlot2, setUploadingSlot2] = useState(false);
+  const [saving, setSaving] = useState(false);
+  const [error, setError] = useState("");
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
@@ -87,9 +149,43 @@ export default function ProductModal({ mode = "add", product = null, onClose, on
     return () => cancelAnimationFrame(t);
   }, []);
 
-  function fileToUrl(file, setter) {
-    const url = URL.createObjectURL(file);
-    setter(url);
+  async function handleFileSelect(file, type) {
+    setError("");
+    let setUpload;
+    let setImage;
+    if (type === "main") {
+      setUpload = setUploadingMain;
+      setImage = setMainImage;
+    } else if (type === "slot1") {
+      setUpload = setUploadingSlot1;
+      setImage = setSlot1;
+    } else {
+      setUpload = setUploadingSlot2;
+      setImage = setSlot2;
+    }
+
+    try {
+      setUpload(true);
+      const compressed = await compressImage(file);
+      const formData = new FormData();
+      formData.append("file", compressed);
+
+      const res = await fetch("/api/upload", {
+        method: "POST",
+        body: formData,
+      });
+      const data = await res.json();
+      if (res.ok) {
+        setImage({ url: data.url, publicId: data.publicId });
+      } else {
+        setError(data.error || "Upload failed");
+      }
+    } catch (err) {
+      console.error(err);
+      setError("Error uploading image");
+    } finally {
+      setUpload(false);
+    }
   }
 
   function set(field) {
@@ -101,10 +197,43 @@ export default function ProductModal({ mode = "add", product = null, onClose, on
     setTimeout(() => { cb?.(); onClose(); }, 250);
   }
 
-  function handleSave() {
-    if (!form.name.trim()) return;
-    onSave?.({ ...form, image: mainImage, id: product?.id ?? Date.now() });
-    closeWithAnimation();
+  async function handleSave() {
+    setError("");
+    if (!form.name.trim()) {
+      setError("Product Name is required");
+      return;
+    }
+    if (!form.category) {
+      setError("Please select a category");
+      return;
+    }
+    if (form.price === "" || isNaN(form.price) || Number(form.price) < 0) {
+      setError("Price must be a valid positive number");
+      return;
+    }
+    if (form.stock === "" || isNaN(form.stock) || Number(form.stock) < 0) {
+      setError("Stock must be a valid positive number");
+      return;
+    }
+
+    try {
+      setSaving(true);
+      await onSave?.({
+        ...form,
+        price: Number(form.price),
+        discountPrice: form.discountPrice !== "" ? Number(form.discountPrice) : undefined,
+        stock: Number(form.stock),
+        image: mainImage,
+        image1: slot1,
+        image2: slot2,
+        id: product?.id || product?._id,
+      });
+      closeWithAnimation();
+    } catch (err) {
+      setError(err.message || "Failed to save product");
+    } finally {
+      setSaving(false);
+    }
   }
 
   return (
@@ -151,6 +280,17 @@ export default function ProductModal({ mode = "add", product = null, onClose, on
             {isEdit ? "Edit Product" : "Add Product"}
           </h3>
           <p className="text-[13px] text-gray-400 mt-0.5 mb-6">Orders placed across your store.</p>
+
+          {error && (
+            <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-xl flex items-start gap-3 text-red-700 text-[13px] animate-fadeIn">
+              <svg className="flex-shrink-0 w-4 h-4 mt-0.5 text-red-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <circle cx="12" cy="12" r="10" />
+                <line x1="12" y1="8" x2="12" y2="12" />
+                <line x1="12" y1="16" x2="12.01" y2="16" />
+              </svg>
+              <span>{error}</span>
+            </div>
+          )}
 
           {/* Two-column grid */}
           <div className="grid grid-cols-1 lg:grid-cols-[1fr_280px] gap-8">
@@ -252,14 +392,23 @@ export default function ProductModal({ mode = "add", product = null, onClose, on
                   <ImageSlot
                     main
                     preview={mainImage}
-                    onFile={(f) => fileToUrl(f, setMainImage)}
+                    uploading={uploadingMain}
+                    onFile={(f) => handleFileSelect(f, "main")}
                   />
                 </div>
 
                 {/* Two small slots */}
                 <div className="flex gap-2">
-                  <ImageSlot preview={slot1} onFile={(f) => fileToUrl(f, setSlot1)} />
-                  <ImageSlot preview={slot2} onFile={(f) => fileToUrl(f, setSlot2)} />
+                  <ImageSlot
+                    preview={slot1}
+                    uploading={uploadingSlot1}
+                    onFile={(f) => handleFileSelect(f, "slot1")}
+                  />
+                  <ImageSlot
+                    preview={slot2}
+                    uploading={uploadingSlot2}
+                    onFile={(f) => handleFileSelect(f, "slot2")}
+                  />
                 </div>
               </div>
 
@@ -277,7 +426,10 @@ export default function ProductModal({ mode = "add", product = null, onClose, on
                   onChange={set("category")}
                   className="w-full border border-gray-200 rounded-lg px-3.5 py-2.5 text-[13.5px] text-gray-800 bg-[#fdf8f0] focus:outline-none focus:ring-2 focus:ring-amber-400/40 focus:border-amber-400 transition-all appearance-none cursor-pointer"
                 >
-                  {CATEGORIES.map((c) => <option key={c}>{c}</option>)}
+                  {categoriesList.map((c) => {
+                    const name = typeof c === "object" ? c.name : c;
+                    return <option key={name} value={name}>{name}</option>;
+                  })}
                 </select>
               </div>
             </div>
@@ -294,10 +446,16 @@ export default function ProductModal({ mode = "add", product = null, onClose, on
           </button>
           <button
             onClick={handleSave}
-            disabled={!form.name.trim()}
-            className="px-7 py-2.5 text-[13px] font-semibold text-white bg-amber-500 hover:bg-amber-600 disabled:opacity-50 disabled:cursor-not-allowed rounded-lg transition-all shadow-sm"
+            disabled={saving || uploadingMain || uploadingSlot1 || uploadingSlot2 || !form.name.trim()}
+            className="px-7 py-2.5 text-[13px] font-semibold text-white bg-amber-500 hover:bg-amber-600 disabled:opacity-50 disabled:cursor-not-allowed rounded-lg transition-all shadow-sm flex items-center gap-2"
           >
-            {isEdit ? "Save Changes" : "Add Product"}
+            {saving && (
+              <svg className="animate-spin h-4 w-4 text-white" viewBox="0 0 24 24" fill="none">
+                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+              </svg>
+            )}
+            {saving ? "Saving..." : isEdit ? "Save Changes" : "Add Product"}
           </button>
         </div>
       </div>

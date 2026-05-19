@@ -210,7 +210,11 @@ export default function ProductDetailPage({ params }) {
     );
   }
 
-  const images = product.image?.url ? [product.image.url] : ["/hero-honey-jar.png"];
+  const images = [];
+  if (product.image?.url) images.push(product.image.url);
+  if (product.image1?.url) images.push(product.image1.url);
+  if (product.image2?.url) images.push(product.image2.url);
+  if (images.length === 0) images.push("/hero-honey-jar.png");
   const price = product.discountPrice ?? product.price;
   const original = product.price;
   const discount = original > 0 && product.discountPrice ? Math.round(((original - price) / original) * 100) : 0;

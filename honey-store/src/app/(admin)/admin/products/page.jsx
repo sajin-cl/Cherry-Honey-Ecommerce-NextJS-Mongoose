@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import Image from "next/image";
 import ProductModal from "@/components/admin/ProductModal";
 
 /* ── sample data ─────────────────────────────────────── */
@@ -64,13 +65,43 @@ function StockBadge({ stock }) {
 
 /* ── main page ───────────────────────────────────────── */
 export default function ProductsPage() {
-  const [products, setProducts] = useState(INITIAL_PRODUCTS);
+  const [products, setProducts] = useState([]);
+  const [dbCategories, setDbCategories] = useState([]);
+  const [loading, setLoading] = useState(true);
+
   const [search, setSearch] = useState("");
   const [statusFilter, setStatus] = useState("All Status");
   const [catFilter, setCat] = useState("All Category");
   const [page, setPage] = useState(1);
   const [showAdd, setShowAdd] = useState(false);
   const [editProduct, setEditProduct] = useState(null);
+
+  async function loadData() {
+    try {
+      setLoading(true);
+      const [resProducts, resCategories] = await Promise.all([
+        fetch("/api/products?limit=100"),
+        fetch("/api/categories")
+      ]);
+      const dataProducts = await resProducts.json();
+      const dataCategories = await resCategories.json();
+
+      if (resProducts.ok) {
+        setProducts(dataProducts.products || []);
+      }
+      if (resCategories.ok) {
+        setDbCategories(dataCategories.categories || []);
+      }
+    } catch (err) {
+      console.error("Error loading products/categories:", err);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  useEffect(() => {
+    loadData();
+  }, []);
 
   /* filtering */
   const filtered = products.filter((p) => {
@@ -97,14 +128,48 @@ export default function ProductsPage() {
   }
 
   /* handlers */
-  function handleAdd(data) {
-    setProducts((prev) => [{ ...data, id: Date.now() }, ...prev]);
+  async function handleAdd(data) {
+    const res = await fetch("/api/products", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    });
+    if (!res.ok) {
+      const err = await res.json();
+      throw new Error(err.error || "Failed to add product");
+    }
+    loadData();
   }
-  function handleEdit(data) {
-    setProducts((prev) => prev.map((p) => (p.id === data.id ? { ...p, ...data } : p)));
+
+  async function handleEdit(data) {
+    const res = await fetch(`/api/products/${data.id}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    });
+    if (!res.ok) {
+      const err = await res.json();
+      throw new Error(err.error || "Failed to update product");
+    }
+    loadData();
   }
-  function handleDelete(id) {
-    setProducts((prev) => prev.filter((p) => p.id !== id));
+
+  async function handleDelete(id) {
+    if (!confirm("Are you sure you want to delete this product?")) return;
+    try {
+      const res = await fetch(`/api/products/${id}`, {
+        method: "DELETE",
+      });
+      if (res.ok) {
+        loadData();
+      } else {
+        const err = await res.json();
+        alert(err.error || "Failed to delete product");
+      }
+    } catch (err) {
+      console.error(err);
+      alert("Error deleting product");
+    }
   }
 
   return (
@@ -165,7 +230,12 @@ export default function ProductsPage() {
             onChange={(e) => { setCat(e.target.value); setPage(1); }}
             className="appearance-none pl-3.5 pr-8 py-2.5 bg-white border border-gray-200 rounded-xl text-[13px] text-gray-700 focus:outline-none focus:ring-2 focus:ring-amber-400/30 focus:border-amber-400 transition-all shadow-sm cursor-pointer"
           >
-            {CATEGORIES.map((c) => <option key={c}>{c}</option>)}
+            <option value="All Category">All Category</option>
+            {dbCategories.map((c) => (
+              <option key={c._id || c.id} value={c.name}>
+                {c.name}
+              </option>
+            ))}
           </select>
           <span className="pointer-events-none absolute right-2.5 top-1/2 -translate-y-1/2 text-gray-400"><ChevronIcon /></span>
         </div>
@@ -181,61 +251,78 @@ export default function ProductsPage() {
         </div>
 
         {/* rows */}
-        {pageItems.length > 0 ? pageItems.map((p) => (
-          <div
-            key={p.id}
-            className="grid grid-cols-[1fr_140px_90px_80px_110px] px-5 py-3.5 border-b border-gray-100 last:border-0 hover:bg-gray-50/50 transition-colors items-center"
-          >
-            {/* Product */}
-            <div className="flex items-center gap-3 min-w-0">
-              <div className="w-9 h-9 rounded-full bg-amber-50 border border-amber-100 flex items-center justify-center flex-shrink-0 text-lg">
-                🍯
+        {/* rows */}
+        {loading ? (
+          <div className="py-24 text-center text-[13px] text-gray-400">Loading products...</div>
+        ) : pageItems.length > 0 ? pageItems.map((p) => {
+          const currentId = p._id || p.id;
+          return (
+            <div
+              key={currentId}
+              className="grid grid-cols-[1fr_140px_90px_80px_110px] px-5 py-3.5 border-b border-gray-100 last:border-0 hover:bg-gray-50/50 transition-colors items-center"
+            >
+              {/* Product */}
+              <div className="flex items-center gap-3 min-w-0">
+                <div className="w-9 h-9 rounded-full bg-amber-50 border border-amber-100 overflow-hidden flex items-center justify-center flex-shrink-0 relative">
+                  {p.image?.url ? (
+                    (() => {
+                      let url = p.image.url;
+                      if (!url.startsWith("http") && !url.startsWith("blob:") && !url.startsWith("data:") && !url.startsWith("/")) {
+                        url = `/${url}`;
+                      }
+                      /* eslint-disable-next-line @next/next/no-img-element */
+                      return <img src={url} alt={p.name} className="w-full h-full object-cover" />;
+                    })()
+                  ) : (
+                    <span className="text-lg">🍯</span>
+                  )}
+                </div>
+                <div className="min-w-0">
+                  <p className="text-[13.5px] font-semibold text-gray-800 truncate">{p.name}</p>
+                  <p className="text-[12px] text-gray-400 truncate">{p.description}</p>
+                </div>
               </div>
-              <div className="min-w-0">
-                <p className="text-[13.5px] font-semibold text-gray-800 truncate">{p.name}</p>
-                <p className="text-[12px] text-gray-400 truncate">{p.description}</p>
+
+              {/* Category */}
+              <div>
+                <span className="inline-block px-2.5 py-1 bg-gray-100 text-gray-600 rounded-md text-[12px] font-medium">
+                  {p.category}
+                </span>
+              </div>
+
+              {/* Price */}
+              <div className="text-[13.5px] font-medium text-gray-700">
+                ₹{p.price.toLocaleString()}
+              </div>
+
+              {/* Stock */}
+              <div>
+                <StockBadge stock={p.stock} />
+              </div>
+
+              {/* Actions */}
+              <div className="flex items-center gap-1">
+                <button
+                  onClick={() => setEditProduct(p)}
+                  className="p-1.5 rounded-md text-gray-400 hover:text-amber-500 hover:bg-amber-50 transition-all"
+                  aria-label="Edit"
+                >
+                  <EditIcon />
+                </button>
+                <button
+                  onClick={() => handleDelete(currentId)}
+                  className="p-1.5 rounded-md text-gray-400 hover:text-red-500 hover:bg-red-50 transition-all"
+                  aria-label="Delete"
+                >
+                  <DeleteIcon />
+                </button>
+                <button className="p-1.5 rounded-md text-gray-400 hover:text-gray-600 hover:bg-gray-100 transition-all" aria-label="More">
+                  <DotsIcon />
+                </button>
               </div>
             </div>
-
-            {/* Category */}
-            <div>
-              <span className="inline-block px-2.5 py-1 bg-gray-100 text-gray-600 rounded-md text-[12px] font-medium">
-                {p.category}
-              </span>
-            </div>
-
-            {/* Price */}
-            <div className="text-[13.5px] font-medium text-gray-700">
-              ${p.price.toLocaleString()}
-            </div>
-
-            {/* Stock */}
-            <div>
-              <StockBadge stock={p.stock} />
-            </div>
-
-            {/* Actions */}
-            <div className="flex items-center gap-1">
-              <button
-                onClick={() => setEditProduct(p)}
-                className="p-1.5 rounded-md text-gray-400 hover:text-amber-500 hover:bg-amber-50 transition-all"
-                aria-label="Edit"
-              >
-                <EditIcon />
-              </button>
-              <button
-                onClick={() => handleDelete(p.id)}
-                className="p-1.5 rounded-md text-gray-400 hover:text-red-500 hover:bg-red-50 transition-all"
-                aria-label="Delete"
-              >
-                <DeleteIcon />
-              </button>
-              <button className="p-1.5 rounded-md text-gray-400 hover:text-gray-600 hover:bg-gray-100 transition-all" aria-label="More">
-                <DotsIcon />
-              </button>
-            </div>
-          </div>
-        )) : (
+          );
+        }) : (
           <div className="py-14 text-center text-[13px] text-gray-400">No products found.</div>
         )}
       </div>
@@ -298,6 +385,7 @@ export default function ProductsPage() {
       {showAdd && (
         <ProductModal
           mode="add"
+          categories={dbCategories}
           onClose={() => setShowAdd(false)}
           onSave={handleAdd}
         />
@@ -306,6 +394,7 @@ export default function ProductsPage() {
         <ProductModal
           mode="edit"
           product={editProduct}
+          categories={dbCategories}
           onClose={() => setEditProduct(null)}
           onSave={handleEdit}
         />
