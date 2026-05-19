@@ -192,8 +192,33 @@ export default function ProductDetailPage({ params }) {
     setTimeout(() => setAdded(false), 2000);
   };
 
-  const handleReviewSubmit = (review) => {
-    setLocalReviews((prev) => [review, ...prev]);
+  const handleReviewSubmit = async (review) => {
+    try {
+      const res = await fetch(`/api/products/${id}/reviews`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          rating: Number(review.rating),
+          comment: review.text,
+        }),
+      });
+
+      const data = await res.json();
+      if (!res.ok) {
+        alert(data.error || "Failed to submit review");
+        return;
+      }
+
+      if (data.product) {
+        setProduct(data.product);
+        setLocalReviews(data.product.reviews || []);
+      }
+    } catch (err) {
+      console.error("Error submitting review:", err);
+      alert("Something went wrong while submitting the review");
+    }
   };
 
   if (loading) {
@@ -595,8 +620,10 @@ export default function ProductDetailPage({ params }) {
           </div>
 
           <div className="space-y-6 max-w-3xl">
-            {localReviews.map((rev, i) => {
-              const avatar = rev.avatar || rev.name?.charAt(0) || "U";
+            {[...localReviews]
+              .sort((a, b) => new Date(b.createdAt || 0) - new Date(a.createdAt || 0))
+              .map((rev, i) => {
+                const avatar = rev.avatar || rev.name?.charAt(0) || "U";
               const dateStr = rev.date || (rev.createdAt ? new Date(rev.createdAt).toLocaleDateString("en-US", {
                 year: 'numeric',
                 month: 'long',
