@@ -1,26 +1,22 @@
 import { NextResponse } from "next/server";
 import { verifyToken } from "@/lib/jwt";
 
-
-// Routes that require login
 const protectedUserRoutes = ["/cart", "/checkout", "/orders", "/profile"];
-// Routes only for admins
 const adminRoutes = ["/admin"];
-// Routes only for guests (redirect logged-in users away)
 const guestOnlyRoutes = [
   "/accounts/login",
   "/accounts/register",
   "/accounts/forgot-password",
 ];
 
-export function middleware(request) {
+export async function middleware(request) {
   const { pathname } = request.nextUrl;
   const token = request.cookies.get("token")?.value;
 
   let user = null;
   if (token) {
     try {
-      user = verifyToken(token);
+      user = await verifyToken(token);
     } catch {
       // Invalid / expired token — treat as logged-out
     }
@@ -56,7 +52,5 @@ export function middleware(request) {
 }
 
 export const config = {
-  matcher: [
-    "/((?!_next/static|_next/image|favicon.ico|public|api).*)",
-  ],
+  matcher: ["/((?!_next/static|_next/image|favicon.ico|public|api).*)"],
 };

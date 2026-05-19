@@ -63,9 +63,14 @@ export default function AdminNavbar() {
 
             {/* Logout */}
             <button
-              onClick={() => {
+              onClick={async () => {
                 setOpen(false);
-                /* TODO: call your auth sign-out here */
+                try {
+                  await fetch("/api/auth/logout", { method: "POST" });
+                  window.location.href = "/accounts/login";
+                } catch (err) {
+                  console.error("Logout failed:", err);
+                }
               }}
               className="flex items-center gap-2.5 w-full px-2 py-2 rounded-lg text-[13px] font-medium text-red-500 hover:bg-red-50 transition-all group"
             >

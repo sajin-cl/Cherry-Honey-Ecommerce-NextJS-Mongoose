@@ -116,8 +116,13 @@ export default function Navbar() {
               {userMenuOpen && (
                 <UserMenu
                   onClose={() => setUserMenuOpen(false)}
-                  onLogout={() => {
-                    /* TODO: call your auth sign-out here */
+                  onLogout={async () => {
+                    try {
+                      await fetch("/api/auth/logout", { method: "POST" });
+                      window.location.href = "/accounts/login";
+                    } catch (err) {
+                      console.error("Logout failed:", err);
+                    }
                     setUserMenuOpen(false);
                   }}
                 />
