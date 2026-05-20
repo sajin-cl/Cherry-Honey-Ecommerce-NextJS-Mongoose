@@ -3,14 +3,6 @@
 import { useState } from "react";
 import Checkbox from "@/components/ui/Checkbox";
 
-const CATEGORIES = [
-  { id: "black-honey",   label: "Black Honey",   count: 120 },
-  { id: "white-honey",   label: "White Honey",   count: 240 },
-  { id: "pure-honey",    label: "Pure Honey",    count: 175 },
-  { id: "kashmir-honey", label: "Kashmir Honey", count: 120 },
-  { id: "normal-honey",  label: "Normal Honey",  count: 90  },
-];
-
 const SIZES = [
   { id: "s-250",    label: "250 g",    count: 120 },
   { id: "s-500",    label: "500 g",    count: 240 },
@@ -35,7 +27,7 @@ function SectionHeader({ title, open, onToggle }) {
 }
 
 export default function FilterSidebar({ onClose, onApply, initialParams, categories: passedCategories }) {
-  const categoriesList = passedCategories || CATEGORIES;
+  const categoriesList = passedCategories || [];
 
   const [catChecked, setCatChecked] = useState(() => {
     const checked = {};

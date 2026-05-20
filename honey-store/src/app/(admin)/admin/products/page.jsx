@@ -4,22 +4,9 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import ProductModal from "@/components/admin/ProductModal";
 
-/* ── sample data ─────────────────────────────────────── */
-const INITIAL_PRODUCTS = [
-  { id: 1, name: "Honey", description: "Ready to hit the streets with sophistication.", category: "Honey", price: 124, discountPrice: 100, stock: 32, image: null },
-  { id: 2, name: "Honey", description: "The best-selling Nike polo just got better.", category: "Honey", price: 60, discountPrice: 50, stock: 31, image: null },
-  { id: 3, name: "Honey", description: "A modern shoe built on the Air Jordan legacy.", category: "Honey", price: 124, discountPrice: 100, stock: 21, image: null },
-  { id: 4, name: "Honey", description: "iPhone 13 Pro Max, 128GB", category: "Black Honey", price: 124, discountPrice: 110, stock: 121, image: null },
-  { id: 5, name: "Honey", description: "New advancements for upgraded performance", category: "Kashmir Honey", price: 124, discountPrice: 100, stock: 133, image: null },
-  { id: 6, name: "Honey", description: "An immersive 24-inch 4.5K Retina display", category: "Honey", price: 124, discountPrice: 100, stock: 233, image: null },
-  { id: 7, name: "Honey", description: "M2 Max takes power and speed to the next level", category: "Honey", price: 2500, discountPrice: 2200, stock: 120, image: null },
-  { id: 8, name: "Honey", description: "Harvested from wildflower meadows in the highlands.", category: "Wild Honey", price: 89, discountPrice: 75, stock: 88, image: null },
-  { id: 9, name: "Honey", description: "Premium royal jelly infused honey blend.", category: "Organic Honey", price: 199, discountPrice: 175, stock: 45, image: null },
-  { id: 10, name: "Honey", description: "Rare Sidr honey sourced from ancient forests.", category: "Kashmir Honey", price: 350, discountPrice: 300, stock: 27, image: null },
-];
+
 
 const STATUSES = ["All Status", "In Stock", "Low Stock", "Out of Stock"];
-const CATEGORIES = ["All Category", "Honey", "Black Honey", "Kashmir Honey", "Wild Honey", "Organic Honey"];
 const PAGE_SIZE = 7;
 
 /* ── icons ───────────────────────────────────────────── */
