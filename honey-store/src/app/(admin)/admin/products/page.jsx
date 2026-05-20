@@ -1,10 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import Image from "next/image";
 import ProductModal from "@/components/admin/ProductModal";
-
-
 
 const STATUSES = ["All Status", "In Stock", "Low Stock", "Out of Stock"];
 const PAGE_SIZE = 7;
@@ -68,17 +65,12 @@ export default function ProductsPage() {
       setLoading(true);
       const [resProducts, resCategories] = await Promise.all([
         fetch("/api/products?limit=100"),
-        fetch("/api/categories")
+        fetch("/api/categories"),
       ]);
       const dataProducts = await resProducts.json();
       const dataCategories = await resCategories.json();
-
-      if (resProducts.ok) {
-        setProducts(dataProducts.products || []);
-      }
-      if (resCategories.ok) {
-        setDbCategories(dataCategories.categories || []);
-      }
+      if (resProducts.ok) setProducts(dataProducts.products || []);
+      if (resCategories.ok) setDbCategories(dataCategories.categories || []);
     } catch (err) {
       console.error("Error loading products/categories:", err);
     } finally {
@@ -92,7 +84,8 @@ export default function ProductsPage() {
 
   /* filtering */
   const filtered = products.filter((p) => {
-    const matchSearch = p.name.toLowerCase().includes(search.toLowerCase()) ||
+    const matchSearch =
+      p.name.toLowerCase().includes(search.toLowerCase()) ||
       p.description.toLowerCase().includes(search.toLowerCase());
     const matchCat = catFilter === "All Category" || p.category === catFilter;
     const matchStatus =
@@ -144,9 +137,7 @@ export default function ProductsPage() {
   async function handleDelete(id) {
     if (!confirm("Are you sure you want to delete this product?")) return;
     try {
-      const res = await fetch(`/api/products/${id}`, {
-        method: "DELETE",
-      });
+      const res = await fetch(`/api/products/${id}`, { method: "DELETE" });
       if (res.ok) {
         loadData();
       } else {
@@ -162,14 +153,14 @@ export default function ProductsPage() {
   return (
     <>
       {/* ── Page header ── */}
-      <div className="flex items-start justify-between mb-7">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-7">
         <div>
           <h1 className="text-[22px] font-bold text-gray-900 leading-tight">Products</h1>
           <p className="text-[13px] text-gray-400 mt-1">Monitor your store's products to increase your sales.</p>
         </div>
         <button
           onClick={() => setShowAdd(true)}
-          className="flex items-center gap-2 px-4 py-2.5 bg-amber-500 hover:bg-amber-600 text-white text-[13px] font-semibold rounded-xl shadow-sm transition-all"
+          className="flex items-center justify-center gap-2 px-4 py-2.5 bg-amber-500 hover:bg-amber-600 text-white text-[13px] font-semibold rounded-xl shadow-sm transition-all w-full sm:w-auto"
         >
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
             <line x1="12" y1="5" x2="12" y2="19" /><line x1="5" y1="12" x2="19" y2="12" />
@@ -179,9 +170,9 @@ export default function ProductsPage() {
       </div>
 
       {/* ── Filters row ── */}
-      <div className="flex items-center gap-3 mb-5">
+      <div className="flex flex-col sm:flex-row sm:items-center gap-3 mb-5">
         {/* Search */}
-        <div className="relative flex-1 max-w-sm">
+        <div className="relative w-full sm:max-w-sm">
           <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <circle cx="11" cy="11" r="8" /><line x1="21" y1="21" x2="16.65" y2="16.65" />
@@ -196,170 +187,174 @@ export default function ProductsPage() {
           />
         </div>
 
-        <div className="flex-1" />
+        <div className="hidden sm:block flex-1" />
 
-        {/* Status dropdown */}
-        <div className="relative">
-          <select
-            value={statusFilter}
-            onChange={(e) => { setStatus(e.target.value); setPage(1); }}
-            className="appearance-none pl-3.5 pr-8 py-2.5 bg-white border border-gray-200 rounded-xl text-[13px] text-gray-700 focus:outline-none focus:ring-2 focus:ring-amber-400/30 focus:border-amber-400 transition-all shadow-sm cursor-pointer"
-          >
-            {STATUSES.map((s) => <option key={s}>{s}</option>)}
-          </select>
-          <span className="pointer-events-none absolute right-2.5 top-1/2 -translate-y-1/2 text-gray-400"><ChevronIcon /></span>
-        </div>
+        {/* Dropdowns */}
+        <div className="flex items-center gap-3 w-full sm:w-auto">
+          {/* Status dropdown */}
+          <div className="relative flex-1 sm:flex-initial">
+            <select
+              value={statusFilter}
+              onChange={(e) => { setStatus(e.target.value); setPage(1); }}
+              className="w-full sm:w-auto appearance-none pl-3.5 pr-8 py-2.5 bg-white border border-gray-200 rounded-xl text-[13px] text-gray-700 focus:outline-none focus:ring-2 focus:ring-amber-400/30 focus:border-amber-400 transition-all shadow-sm cursor-pointer"
+            >
+              {STATUSES.map((s) => <option key={s}>{s}</option>)}
+            </select>
+            <span className="pointer-events-none absolute right-2.5 top-1/2 -translate-y-1/2 text-gray-400"><ChevronIcon /></span>
+          </div>
 
-        {/* Category dropdown */}
-        <div className="relative">
-          <select
-            value={catFilter}
-            onChange={(e) => { setCat(e.target.value); setPage(1); }}
-            className="appearance-none pl-3.5 pr-8 py-2.5 bg-white border border-gray-200 rounded-xl text-[13px] text-gray-700 focus:outline-none focus:ring-2 focus:ring-amber-400/30 focus:border-amber-400 transition-all shadow-sm cursor-pointer"
-          >
-            <option value="All Category">All Category</option>
-            {dbCategories.map((c) => (
-              <option key={c._id || c.id} value={c.name}>
-                {c.name}
-              </option>
-            ))}
-          </select>
-          <span className="pointer-events-none absolute right-2.5 top-1/2 -translate-y-1/2 text-gray-400"><ChevronIcon /></span>
+          {/* Category dropdown */}
+          <div className="relative flex-1 sm:flex-initial">
+            <select
+              value={catFilter}
+              onChange={(e) => { setCat(e.target.value); setPage(1); }}
+              className="w-full sm:w-auto appearance-none pl-3.5 pr-8 py-2.5 bg-white border border-gray-200 rounded-xl text-[13px] text-gray-700 focus:outline-none focus:ring-2 focus:ring-amber-400/30 focus:border-amber-400 transition-all shadow-sm cursor-pointer"
+            >
+              <option value="All Category">All Category</option>
+              {dbCategories.map((c) => (
+                <option key={c._id || c.id} value={c.name}>{c.name}</option>
+              ))}
+            </select>
+            <span className="pointer-events-none absolute right-2.5 top-1/2 -translate-y-1/2 text-gray-400"><ChevronIcon /></span>
+          </div>
         </div>
       </div>
 
       {/* ── Table card ── */}
       <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden mb-4">
-        {/* header row */}
-        <div className="grid grid-cols-[1fr_140px_90px_80px_110px] px-5 py-3 border-b border-gray-100 bg-gray-50/80">
-          {["PRODUCT", "CATEGORY", "PRICE", "STOCK", "ACTIONS"].map((h) => (
-            <div key={h} className="text-[11px] font-semibold text-gray-400 tracking-widest uppercase">{h}</div>
-          ))}
-        </div>
-
-        {/* rows */}
-        {/* rows */}
-        {loading ? (
-          <div className="py-24 text-center text-[13px] text-gray-400">Loading products...</div>
-        ) : pageItems.length > 0 ? pageItems.map((p) => {
-          const currentId = p._id || p.id;
-          return (
-            <div
-              key={currentId}
-              className="grid grid-cols-[1fr_140px_90px_80px_110px] px-5 py-3.5 border-b border-gray-100 last:border-0 hover:bg-gray-50/50 transition-colors items-center"
-            >
-              {/* Product */}
-              <div className="flex items-center gap-3 min-w-0">
-                <div className="w-9 h-9 rounded-full bg-amber-50 border border-amber-100 overflow-hidden flex items-center justify-center flex-shrink-0 relative">
-                  {p.image?.url ? (
-                    (() => {
-                      let url = p.image.url;
-                      if (!url.startsWith("http") && !url.startsWith("blob:") && !url.startsWith("data:") && !url.startsWith("/")) {
-                        url = `/${url}`;
-                      }
-                      /* eslint-disable-next-line @next/next/no-img-element */
-                      return <img src={url} alt={p.name} className="w-full h-full object-cover" />;
-                    })()
-                  ) : (
-                    <span className="text-lg">🍯</span>
-                  )}
-                </div>
-                <div className="min-w-0">
-                  <p className="text-[13.5px] font-semibold text-gray-800 truncate">
-                    {p.name} {p.quantity ? `(${p.quantity})` : ""}
-                  </p>
-                  <p className="text-[12px] text-gray-400 truncate">{p.description}</p>
-                </div>
-              </div>
-
-              {/* Category */}
-              <div>
-                <span className="inline-block px-2.5 py-1 bg-gray-100 text-gray-600 rounded-md text-[12px] font-medium">
-                  {p.category}
-                </span>
-              </div>
-
-              {/* Price */}
-              <div className="text-[13.5px] font-medium text-gray-700">
-                ₹{p.price.toLocaleString()}
-              </div>
-
-              {/* Stock */}
-              <div>
-                <StockBadge stock={p.stock} />
-              </div>
-
-              {/* Actions */}
-              <div className="flex items-center gap-1">
-                <button
-                  onClick={() => setEditProduct(p)}
-                  className="p-1.5 rounded-md text-gray-400 hover:text-amber-500 hover:bg-amber-50 transition-all"
-                  aria-label="Edit"
-                >
-                  <EditIcon />
-                </button>
-                <button
-                  onClick={() => handleDelete(currentId)}
-                  className="p-1.5 rounded-md text-gray-400 hover:text-red-500 hover:bg-red-50 transition-all"
-                  aria-label="Delete"
-                >
-                  <DeleteIcon />
-                </button>
-                <button className="p-1.5 rounded-md text-gray-400 hover:text-gray-600 hover:bg-gray-100 transition-all" aria-label="More">
-                  <DotsIcon />
-                </button>
-              </div>
+        <div className="overflow-x-auto">
+          <div className="min-w-[768px]">
+            {/* header row */}
+            <div className="grid grid-cols-[1fr_140px_90px_80px_110px] px-5 py-3 border-b border-gray-100 bg-gray-50/80">
+              {["PRODUCT", "CATEGORY", "PRICE", "STOCK", "ACTIONS"].map((h) => (
+                <div key={h} className="text-[11px] font-semibold text-gray-400 tracking-widest uppercase">{h}</div>
+              ))}
             </div>
-          );
-        }) : (
-          <div className="py-14 text-center text-[13px] text-gray-400">No products found.</div>
-        )}
+
+            {/* rows */}
+            {loading ? (
+              <div className="py-24 text-center text-[13px] text-gray-400">Loading products...</div>
+            ) : pageItems.length > 0 ? pageItems.map((p) => {
+              const currentId = p._id || p.id;
+              return (
+                <div
+                  key={currentId}
+                  className="grid grid-cols-[1fr_140px_90px_80px_110px] px-5 py-3.5 border-b border-gray-100 last:border-0 hover:bg-gray-50/50 transition-colors items-center"
+                >
+                  {/* Product */}
+                  <div className="flex items-center gap-3 min-w-0">
+                    <div className="w-9 h-9 rounded-full bg-amber-50 border border-amber-100 overflow-hidden flex items-center justify-center flex-shrink-0">
+                      {p.image?.url ? (
+                        (() => {
+                          let url = p.image.url;
+                          if (!url.startsWith("http") && !url.startsWith("blob:") && !url.startsWith("data:") && !url.startsWith("/")) {
+                            url = `/${url}`;
+                          }
+                          /* eslint-disable-next-line @next/next/no-img-element */
+                          return <img src={url} alt={p.name} className="w-full h-full object-cover" />;
+                        })()
+                      ) : (
+                        <span className="text-lg">🍯</span>
+                      )}
+                    </div>
+                    <div className="min-w-0">
+                      <p className="text-[13.5px] font-semibold text-gray-800 truncate">
+                        {p.name} {p.quantity ? `(${p.quantity})` : ""}
+                      </p>
+                      <p className="text-[12px] text-gray-400 truncate">{p.description}</p>
+                    </div>
+                  </div>
+
+                  {/* Category */}
+                  <div>
+                    <span className="inline-block px-2.5 py-1 bg-gray-100 text-gray-600 rounded-md text-[12px] font-medium">
+                      {p.category}
+                    </span>
+                  </div>
+
+                  {/* Price */}
+                  <div className="text-[13.5px] font-medium text-gray-700">
+                    ₹{p.price.toLocaleString()}
+                  </div>
+
+                  {/* Stock */}
+                  <div>
+                    <StockBadge stock={p.stock} />
+                  </div>
+
+                  {/* Actions */}
+                  <div className="flex items-center gap-1">
+                    <button
+                      onClick={() => setEditProduct(p)}
+                      className="p-1.5 rounded-md text-gray-400 hover:text-amber-500 hover:bg-amber-50 transition-all"
+                      aria-label="Edit"
+                    >
+                      <EditIcon />
+                    </button>
+                    <button
+                      onClick={() => handleDelete(currentId)}
+                      className="p-1.5 rounded-md text-gray-400 hover:text-red-500 hover:bg-red-50 transition-all"
+                      aria-label="Delete"
+                    >
+                      <DeleteIcon />
+                    </button>
+                    <button className="p-1.5 rounded-md text-gray-400 hover:text-gray-600 hover:bg-gray-100 transition-all" aria-label="More">
+                      <DotsIcon />
+                    </button>
+                  </div>
+                </div>
+              );
+            }) : (
+              <div className="py-14 text-center text-[13px] text-gray-400">No products found.</div>
+            )}
+          </div>
+        </div>
       </div>
 
       {/* ── Pagination ── */}
-      <div className="flex items-center justify-between px-1">
-        {/* Prev */}
-        <button
-          onClick={() => setPage((p) => Math.max(1, p - 1))}
-          disabled={currentPage === 1}
-          className="flex items-center gap-1.5 px-3 py-2 rounded-lg text-[13px] text-gray-500 hover:bg-white hover:shadow-sm disabled:opacity-40 disabled:cursor-not-allowed transition-all border border-transparent hover:border-gray-200"
-        >
-          <ChevronIcon dir="left" /> Previous
-        </button>
+      <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between px-1 py-2">
+        {/* Display count */}
+        <p className="text-[12px] text-gray-400 text-center md:text-left order-2 md:order-1">
+          Displaying {(currentPage - 1) * PAGE_SIZE + 1} to {Math.min(currentPage * PAGE_SIZE, filtered.length)} of {filtered.length} entries
+        </p>
 
-        {/* page numbers */}
-        <div className="flex items-center gap-1">
-          {pageNumbers().map((n) => (
-            <button
-              key={n}
-              onClick={() => setPage(n)}
-              className={`w-8 h-8 rounded-lg text-[13px] font-medium transition-all ${n === currentPage
-                ? "bg-amber-500 text-white shadow-sm"
-                : "text-gray-500 hover:bg-white hover:shadow-sm hover:border hover:border-gray-200"
-                }`}
-            >
-              {n}
-            </button>
-          ))}
-          {totalPages > 5 && <span className="text-gray-400 px-1">...</span>}
-          {totalPages > 5 && (
-            <button
-              onClick={() => setPage(totalPages)}
-              className={`w-8 h-8 rounded-lg text-[13px] font-medium transition-all ${currentPage === totalPages
-                ? "bg-amber-500 text-white"
-                : "text-gray-500 hover:bg-white hover:shadow-sm"
-                }`}
-            >
-              {totalPages}
-            </button>
-          )}
-        </div>
+        {/* Navigation buttons */}
+        <div className="flex flex-wrap items-center justify-center gap-3 order-1 md:order-2">
+          <button
+            onClick={() => setPage((p) => Math.max(1, p - 1))}
+            disabled={currentPage === 1}
+            className="flex items-center gap-1.5 px-3 py-2 rounded-lg text-[13px] text-gray-500 hover:bg-white hover:shadow-sm disabled:opacity-40 disabled:cursor-not-allowed transition-all border border-transparent hover:border-gray-200"
+          >
+            <ChevronIcon dir="left" /> Previous
+          </button>
 
-        {/* Next + count */}
-        <div className="flex items-center gap-4">
-          <span className="text-[12px] text-gray-400">
-            Displaying {(currentPage - 1) * PAGE_SIZE + 1} to {Math.min(currentPage * PAGE_SIZE, filtered.length)} of {filtered.length} entries
-          </span>
+          <div className="flex items-center gap-1">
+            {pageNumbers().map((n) => (
+              <button
+                key={n}
+                onClick={() => setPage(n)}
+                className={`w-8 h-8 rounded-lg text-[13px] font-medium transition-all ${
+                  n === currentPage
+                    ? "bg-amber-500 text-white shadow-sm"
+                    : "text-gray-500 hover:bg-white hover:shadow-sm hover:border hover:border-gray-200"
+                }`}
+              >
+                {n}
+              </button>
+            ))}
+            {totalPages > 5 && <span className="text-gray-400 px-1">...</span>}
+            {totalPages > 5 && (
+              <button
+                onClick={() => setPage(totalPages)}
+                className={`w-8 h-8 rounded-lg text-[13px] font-medium transition-all ${
+                  currentPage === totalPages ? "bg-amber-500 text-white" : "text-gray-500 hover:bg-white hover:shadow-sm"
+                }`}
+              >
+                {totalPages}
+              </button>
+            )}
+          </div>
+
           <button
             onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
             disabled={currentPage === totalPages}

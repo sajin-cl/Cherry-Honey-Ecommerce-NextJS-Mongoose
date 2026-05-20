@@ -73,41 +73,41 @@ export default function AdminOrdersClient({ orders, page, totalPages, total, sea
           <table className="w-full">
             <thead>
               <tr className="border-b border-gray-100">
-                <th className="px-5 py-3.5 text-left text-[11px] font-semibold text-gray-400 uppercase tracking-wider">Order</th>
-                <th className="px-4 py-3.5 text-left text-[11px] font-semibold text-gray-400 uppercase tracking-wider">Date</th>
-                <th className="px-4 py-3.5 text-left text-[11px] font-semibold text-gray-400 uppercase tracking-wider">Customer</th>
-                <th className="px-4 py-3.5 text-left text-[11px] font-semibold text-gray-400 uppercase tracking-wider">Payment</th>
-                <th className="px-4 py-3.5 text-left text-[11px] font-semibold text-gray-400 uppercase tracking-wider">Status</th>
-                <th className="px-4 py-3.5 text-left text-[11px] font-semibold text-gray-400 uppercase tracking-wider">Total</th>
-                <th className="px-4 py-3.5 text-right pr-5 text-[11px] font-semibold text-gray-400 uppercase tracking-wider">Actions</th>
+                <th className="px-5 py-3.5 text-left text-[11px] font-semibold text-gray-400 uppercase tracking-wider whitespace-nowrap">Order</th>
+                <th className="px-4 py-3.5 text-left text-[11px] font-semibold text-gray-400 uppercase tracking-wider whitespace-nowrap">Date</th>
+                <th className="px-4 py-3.5 text-left text-[11px] font-semibold text-gray-400 uppercase tracking-wider whitespace-nowrap">Customer</th>
+                <th className="px-4 py-3.5 text-left text-[11px] font-semibold text-gray-400 uppercase tracking-wider whitespace-nowrap">Payment</th>
+                <th className="px-4 py-3.5 text-left text-[11px] font-semibold text-gray-400 uppercase tracking-wider whitespace-nowrap">Status</th>
+                <th className="px-4 py-3.5 text-left text-[11px] font-semibold text-gray-400 uppercase tracking-wider whitespace-nowrap">Total</th>
+                <th className="px-4 py-3.5 text-right pr-5 text-[11px] font-semibold text-gray-400 uppercase tracking-wider whitespace-nowrap">Actions</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-50">
               {orders.length === 0 && (
-                <tr><td colSpan={7} className="py-12 text-center text-[13px] text-gray-400">No orders found.</td></tr>
+                <tr><td colSpan={7} className="py-12 text-center text-[13px] text-gray-400 whitespace-nowrap">No orders found.</td></tr>
               )}
               {orders.map((order) => (
                 <tr key={order.id} className="hover:bg-gray-50/60 transition-colors">
-                  <td className="px-5 py-4 text-[13px] font-semibold text-gray-800">{order.shortId}</td>
-                  <td className="px-4 py-4 text-[12px] text-gray-500">{order.date}</td>
-                  <td className="px-4 py-4">
+                  <td className="px-5 py-4 text-[13px] font-semibold text-gray-800 whitespace-nowrap">{order.shortId}</td>
+                  <td className="px-4 py-4 text-[12px] text-gray-500 whitespace-nowrap">{order.date}</td>
+                  <td className="px-4 py-4 whitespace-nowrap">
                     <p className="text-[13px] font-medium text-gray-800">{order.customer.name}</p>
                     <p className="text-[11px] text-gray-400">{order.customer.email}</p>
                   </td>
-                  <td className="px-4 py-4">
+                  <td className="px-4 py-4 whitespace-nowrap">
                     <span className={`text-[12px] font-semibold ${PAYMENT_COLORS[order.paymentStatus] ?? "text-gray-500"}`}>
                       {order.paymentStatus}
                     </span>
                   </td>
-                  <td className="px-4 py-4">
+                  <td className="px-4 py-4 whitespace-nowrap">
                     <span className={`inline-flex items-center px-2.5 py-1 rounded text-[11px] font-semibold border ${STATUS_COLORS[order.orderStatus] ?? ""}`}>
                       {order.orderStatus}
                     </span>
                   </td>
-                  <td className="px-4 py-4 text-[13px] font-medium text-gray-700">
+                  <td className="px-4 py-4 text-[13px] font-medium text-gray-700 whitespace-nowrap">
                     ₹{order.grandTotal?.toLocaleString("en-IN")}
                   </td>
-                  <td className="px-4 py-4 pr-5 text-right">
+                  <td className="px-4 py-4 pr-5 text-right whitespace-nowrap">
                     <Link href={`/admin/orders/${order.id}`} className="text-[12px] text-amber-600 hover:text-amber-700 font-semibold">
                       View
                     </Link>
@@ -119,9 +119,9 @@ export default function AdminOrdersClient({ orders, page, totalPages, total, sea
         </div>
 
         {/* Pagination */}
-        <div className="px-5 py-4 border-t border-gray-100 flex items-center justify-between">
-          <p className="text-[12px] text-gray-400">Showing {from}–{to} of {total} orders</p>
-          <div className="flex items-center gap-1">
+        <div className="px-5 py-4 border-t border-gray-100 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <p className="text-[12px] text-gray-400 text-center sm:text-left">Showing {from}–{to} of {total} orders</p>
+          <div className="flex items-center justify-center gap-1">
             {page > 1 && (
               <Link href={buildPage(page - 1)} className="px-3 py-1.5 rounded text-[12px] text-gray-500 hover:bg-gray-100 transition-colors">← Prev</Link>
             )}

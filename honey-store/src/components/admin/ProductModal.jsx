@@ -323,7 +323,7 @@ export default function ProductModal({ mode = "add", product = null, categories 
               </div>
 
               {/* Pricing + Inventory side by side */}
-              <div className="grid grid-cols-2 gap-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 {/* Pricing */}
                 <div>
                   <div className="flex items-center gap-2 mb-4">

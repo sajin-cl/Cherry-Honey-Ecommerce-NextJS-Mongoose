@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect } from "react";
 
-export default function AdminNavbar() {
+export default function AdminNavbar({ onMenuClick }) {
   const [open, setOpen] = useState(false);
   const [user, setUser] = useState(null);
   const ref = useRef(null);
@@ -42,7 +42,19 @@ export default function AdminNavbar() {
   const roleName = user?.role ? (user.role.charAt(0).toUpperCase() + user.role.slice(1)) : "Admin";
 
   return (
-    <header className="h-[60px] bg-white border-b border-gray-100 flex items-center px-6 gap-4 sticky top-0 z-30">
+    <header className="h-[60px] bg-white border-b border-gray-100 flex items-center px-4 md:px-6 gap-4 sticky top-0 z-30">
+      {/* Hamburger menu button */}
+      <button
+        onClick={onMenuClick}
+        className="p-1.5 rounded-lg text-gray-500 hover:bg-gray-100 hover:text-gray-700 transition-colors md:hidden"
+        aria-label="Open sidebar"
+      >
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <line x1="4" y1="12" x2="20" y2="12" />
+          <line x1="4" y1="6" x2="20" y2="6" />
+          <line x1="4" y1="18" x2="20" y2="18" />
+        </svg>
+      </button>
 
       {/* Spacer */}
       <div className="flex-1" />
@@ -50,7 +62,7 @@ export default function AdminNavbar() {
       {/* User Profile + Dropdown */}
       <div className="relative flex items-center gap-3" ref={ref}>
         {/* Name / role text */}
-        <div className="text-right">
+        <div className="text-right hidden sm:block">
           <p className="text-[13px] font-semibold text-gray-900 leading-tight">{displayName}</p>
           <p className="text-[11px] text-gray-400 leading-tight">{roleName}</p>
         </div>

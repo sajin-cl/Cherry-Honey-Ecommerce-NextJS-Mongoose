@@ -1,5 +1,4 @@
-import AdminSidebar from "@/components/layouts/(admin)/AdminSidebar";
-import AdminNavbar from "@/components/layouts/(admin)/AdminNavbar";
+import AdminLayoutClient from "./AdminLayoutClient";
 
 export const metadata = {
   title: "Admin | Honey Bee",
@@ -7,21 +6,5 @@ export const metadata = {
 };
 
 export default function AdminLayout({ children }) {
-  return (
-    <div className="flex h-screen bg-gray-50 overflow-hidden">
-      {/* Sidebar */}
-      <AdminSidebar />
-
-      {/* Main Content Area */}
-      <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
-        {/* Top Navbar */}
-        <AdminNavbar />
-
-        {/* Page Content */}
-        <main className="flex-1 overflow-y-auto p-6">
-          {children}
-        </main>
-      </div>
-    </div>
-  );
+  return <AdminLayoutClient>{children}</AdminLayoutClient>;
 }

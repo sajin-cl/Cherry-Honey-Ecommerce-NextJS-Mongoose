@@ -100,7 +100,7 @@ export default async function DashboardPage() {
         <p className="text-[13px] text-gray-500 mt-0.5">Live data from your store.</p>
       </div>
 
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
         {stats.map((s) => <StatCard key={s.label} {...s} change />)}
       </div>
 
@@ -114,11 +114,11 @@ export default async function DashboardPage() {
           <table className="w-full">
             <thead>
               <tr className="border-b border-gray-100">
-                <th className="px-4 py-3 text-left text-[11px] font-semibold text-gray-400 uppercase tracking-wider">Order</th>
-                <th className="px-4 py-3 text-left text-[11px] font-semibold text-gray-400 uppercase tracking-wider">Customer</th>
-                <th className="px-4 py-3 text-left text-[11px] font-semibold text-gray-400 uppercase tracking-wider">Status</th>
-                <th className="px-4 py-3 text-left text-[11px] font-semibold text-gray-400 uppercase tracking-wider">Total</th>
-                <th className="px-4 py-3 text-left text-[11px] font-semibold text-gray-400 uppercase tracking-wider">Date</th>
+                <th className="px-4 py-3 text-left text-[11px] font-semibold text-gray-400 uppercase tracking-wider whitespace-nowrap">Order</th>
+                <th className="px-4 py-3 text-left text-[11px] font-semibold text-gray-400 uppercase tracking-wider whitespace-nowrap">Customer</th>
+                <th className="px-4 py-3 text-left text-[11px] font-semibold text-gray-400 uppercase tracking-wider whitespace-nowrap">Status</th>
+                <th className="px-4 py-3 text-left text-[11px] font-semibold text-gray-400 uppercase tracking-wider whitespace-nowrap">Total</th>
+                <th className="px-4 py-3 text-left text-[11px] font-semibold text-gray-400 uppercase tracking-wider whitespace-nowrap">Date</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-50">
@@ -127,18 +127,18 @@ export default async function DashboardPage() {
               )}
               {recentOrders.map((order) => (
                 <tr key={order._id.toString()} className="hover:bg-gray-50/60 transition-colors">
-                  <td className="px-4 py-4 text-[13px] font-medium text-gray-800">#{order._id.toString().slice(-6).toUpperCase()}</td>
-                  <td className="px-4 py-4">
+                  <td className="px-4 py-4 text-[13px] font-medium text-gray-800 whitespace-nowrap">#{order._id.toString().slice(-6).toUpperCase()}</td>
+                  <td className="px-4 py-4 whitespace-nowrap">
                     <p className="text-[13px] font-medium text-gray-800">{order.user?.fullName ?? "—"}</p>
                     <p className="text-[11px] text-gray-400">{order.user?.email ?? ""}</p>
                   </td>
-                  <td className="px-4 py-4">
+                  <td className="px-4 py-4 whitespace-nowrap">
                     <span className={`inline-flex items-center px-2.5 py-1 rounded text-[11px] font-semibold border ${statusColors[order.orderStatus] ?? ""}`}>
                       {order.orderStatus}
                     </span>
                   </td>
-                  <td className="px-4 py-4 text-[13px] text-gray-700 font-medium">₹{order.grandTotal?.toLocaleString("en-IN")}</td>
-                  <td className="px-4 py-4 text-[12px] text-gray-500">{new Date(order.createdAt).toLocaleDateString("en-IN")}</td>
+                  <td className="px-4 py-4 text-[13px] text-gray-700 font-medium whitespace-nowrap">₹{order.grandTotal?.toLocaleString("en-IN")}</td>
+                  <td className="px-4 py-4 text-[12px] text-gray-500 whitespace-nowrap">{new Date(order.createdAt).toLocaleDateString("en-IN")}</td>
                 </tr>
               ))}
             </tbody>

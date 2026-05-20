@@ -38,11 +38,18 @@ function CategoryRow({ category, onEdit, onDelete, deleting }) {
       <div className="w-9 h-9 rounded-full bg-amber-50 border border-amber-100 overflow-hidden flex-shrink-0 mr-4 flex items-center justify-center">
         <span className="text-lg">🍯</span>
       </div>
+
+      {/* Name + description + slug (slug only shows on mobile, hidden on md+) */}
       <div className="flex-1 min-w-0">
         <p className="text-[13.5px] font-semibold text-gray-800 truncate">{category.name}</p>
         <p className="text-[12px] text-gray-400 truncate mt-0.5">{category.description || "No description"}</p>
+        {/* Slug inline on mobile */}
+        <p className="text-[11px] text-gray-400 font-mono truncate mt-0.5 md:hidden">{category.slug}</p>
       </div>
-      <div className="w-36 text-[13.5px] text-gray-500 font-mono">{category.slug}</div>
+
+      {/* Slug column hidden on mobile */}
+      <div className="w-36 text-[13.5px] text-gray-500 font-mono hidden md:block">{category.slug}</div>
+
       <div className="w-24 flex items-center justify-end gap-3">
         <button onClick={() => onEdit(category)} className="text-gray-400 hover:text-amber-500 transition-colors p-1 rounded-md hover:bg-amber-50" aria-label="Edit">
           <EditIcon />
@@ -98,12 +105,16 @@ export default function CategoriesClient({ initialCategories }) {
 
   return (
     <>
-      <div className="flex items-start justify-between mb-7">
+      {/* ── Page header ── */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-7">
         <div>
           <h1 className="text-[22px] font-bold text-gray-900 leading-tight">Category List</h1>
           <p className="text-[13px] text-gray-400 mt-1">{categories.length} categories total.</p>
         </div>
-        <button onClick={() => setShowAdd(true)} className="flex items-center gap-2 px-4 py-2.5 bg-amber-500 hover:bg-amber-600 text-white text-[13px] font-semibold rounded-xl shadow-sm transition-all">
+        <button
+          onClick={() => setShowAdd(true)}
+          className="flex items-center justify-center gap-2 px-4 py-2.5 bg-amber-500 hover:bg-amber-600 text-white text-[13px] font-semibold rounded-xl shadow-sm transition-all w-full sm:w-auto"
+        >
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
             <line x1="12" y1="5" x2="12" y2="19" /><line x1="5" y1="12" x2="19" y2="12" />
           </svg>
@@ -111,15 +122,25 @@ export default function CategoriesClient({ initialCategories }) {
         </button>
       </div>
 
-      <div className="relative max-w-sm mb-5">
+      {/* ── Search bar ── */}
+      <div className="relative w-full sm:max-w-sm mb-5">
         <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400"><SearchIcon /></span>
-        <input type="text" value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Search..." className="w-full pl-9 pr-4 py-2.5 bg-white border border-gray-200 rounded-xl text-[13px] text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-amber-400/30 focus:border-amber-400 transition-all shadow-sm" />
+        <input
+          type="text"
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          placeholder="Search..."
+          className="w-full pl-9 pr-4 py-2.5 bg-white border border-gray-200 rounded-xl text-[13px] text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-amber-400/30 focus:border-amber-400 transition-all shadow-sm"
+        />
       </div>
 
+      {/* ── Table ── */}
       <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
+        {/* Table header */}
         <div className="flex items-center px-5 py-3 border-b border-gray-100 bg-gray-50/80">
           <div className="flex-1 text-[11px] font-semibold text-gray-400 tracking-widest uppercase">Categories</div>
-          <div className="w-36 text-[11px] font-semibold text-gray-400 tracking-widest uppercase">Slug</div>
+          {/* Slug header — hidden on mobile */}
+          <div className="w-36 text-[11px] font-semibold text-gray-400 tracking-widest uppercase hidden md:block">Slug</div>
           <div className="w-24 text-right text-[11px] font-semibold text-gray-400 tracking-widest uppercase">Actions</div>
         </div>
 
