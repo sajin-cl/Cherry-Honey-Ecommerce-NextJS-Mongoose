@@ -1,19 +1,64 @@
 "use client";
 
-import { useState } from "react";
+import { useState, Suspense } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { useSearchParams, useRouter } from "next/navigation";
 
-export default function ResetPasswordPage() {
+function ResetPasswordContent() {
+  const searchParams = useSearchParams();
+  const token = searchParams.get("token") || "";
+  const router = useRouter();
+
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [status, setStatus] = useState(null); // { type: 'success' | 'error', message: string }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // TODO: connect to API route
-    console.log({ password, confirmPassword });
+    setStatus(null);
+
+    if (!token) {
+      setStatus({ type: "error", message: "Invalid or missing token. Please request a new password reset link." });
+      return;
+    }
+
+    if (password.length < 6) {
+      setStatus({ type: "error", message: "Password must be at least 6 characters long." });
+      return;
+    }
+
+    if (password !== confirmPassword) {
+      setStatus({ type: "error", message: "Passwords do not match." });
+      return;
+    }
+
+    setLoading(true);
+    try {
+      const res = await fetch("/api/auth/reset-password", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ token, password }),
+      });
+      const data = await res.json();
+
+      if (res.ok) {
+        setStatus({ type: "success", message: "Password successfully reset! Redirecting to login page..." });
+        setTimeout(() => {
+          router.push("/accounts/login");
+        }, 3000);
+      } else {
+        setStatus({ type: "error", message: data.error || "Failed to reset password." });
+      }
+    } catch (err) {
+      console.error(err);
+      setStatus({ type: "error", message: "Failed to connect to server." });
+    } finally {
+      setLoading(false);
+    }
   };
 
   /* Reusable eye icon SVG */
@@ -34,6 +79,106 @@ export default function ResetPasswordPage() {
     "w-full bg-transparent border-0 border-b border-gray-600 text-gray-300 placeholder-gray-500 text-sm pb-2 pt-1 pr-10 focus:outline-none focus:border-[#C8A84B] transition-colors";
 
   return (
+    <div className="w-full max-w-md px-10">
+      {/* Title */}
+      <h1
+        className="text-5xl text-white mb-4"
+        style={{ fontFamily: "'Georgia', 'Times New Roman', serif", fontStyle: "italic", fontWeight: 400 }}
+      >
+        Set new password
+      </h1>
+
+      {/* Subtitle */}
+      <p className="text-sm text-gray-400 mb-10">
+        Your new password must be different to previously used passwords.
+      </p>
+
+      {!token && (
+        <div className="mb-6 p-4 bg-red-500/10 border border-red-500/30 rounded-lg text-xs text-red-400">
+          <strong>Error:</strong> Missing reset token. Please check the link in your email or request a new reset.
+        </div>
+      )}
+
+      <form onSubmit={handleSubmit} className="space-y-7">
+        {/* Password */}
+        <div className="relative">
+          <input
+            id="password"
+            type={showPassword ? "text" : "password"}
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            placeholder="Password"
+            required
+            className={inputClasses}
+          />
+          <button
+            type="button"
+            onClick={() => setShowPassword(!showPassword)}
+            className="absolute right-0 top-0 text-gray-500 hover:text-gray-300 transition-colors p-1"
+            aria-label={showPassword ? "Hide password" : "Show password"}
+          >
+            {showPassword ? <EyeOffIcon /> : <EyeIcon />}
+          </button>
+        </div>
+
+        {/* Confirm Password */}
+        <div className="relative">
+          <input
+            id="confirm-password"
+            type={showConfirmPassword ? "text" : "password"}
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
+            placeholder="Confirm Password"
+            required
+            className={inputClasses}
+          />
+          <button
+            type="button"
+            onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+            className="absolute right-0 top-0 text-gray-500 hover:text-gray-300 transition-colors p-1"
+            aria-label={showConfirmPassword ? "Hide confirm password" : "Show confirm password"}
+          >
+            {showConfirmPassword ? <EyeOffIcon /> : <EyeIcon />}
+          </button>
+        </div>
+
+        {status && (
+          <div className={`text-sm font-medium mt-2 ${status.type === "success" ? "text-green-500" : "text-red-500"}`}>
+            {status.message}
+          </div>
+        )}
+
+        {/* Reset Password button */}
+        <div className="flex justify-center pt-2">
+          <button
+            id="reset-password-btn"
+            type="submit"
+            disabled={loading || !token}
+            className="bg-[#C8A84B] hover:bg-[#b8973e] active:bg-[#a8872e] disabled:opacity-50 disabled:cursor-not-allowed text-white font-semibold text-sm px-12 py-3.5 transition-colors duration-200 tracking-wide"
+          >
+            {loading ? "Updating..." : "Reset Password"}
+          </button>
+        </div>
+
+        {/* Back to log in */}
+        <div className="flex justify-center">
+          <Link
+            href="/accounts/login"
+            className="inline-flex items-center gap-2 text-sm text-gray-300 hover:text-white transition-colors"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+            </svg>
+            Back to log in
+          </Link>
+        </div>
+      </form>
+    </div>
+  );
+}
+
+export default function ResetPasswordPage() {
+  return (
     <div className="flex h-screen w-full overflow-hidden">
       {/* ── Left panel: hero image ── */}
       <div className="relative hidden md:block w-1/2 h-full">
@@ -49,89 +194,9 @@ export default function ResetPasswordPage() {
 
       {/* ── Right panel: set new password form ── */}
       <div className="flex w-full md:w-1/2 h-full items-center justify-center bg-[#111111]">
-        <div className="w-full max-w-md px-10">
-
-          {/* Title */}
-          <h1
-            className="text-5xl text-white mb-4"
-            style={{ fontFamily: "'Georgia', 'Times New Roman', serif", fontStyle: "italic", fontWeight: 400 }}
-          >
-            Set new password
-          </h1>
-
-          {/* Subtitle */}
-          <p className="text-sm text-gray-400 mb-10">
-            Your new password must be different to previously used passwords.
-          </p>
-
-          <form onSubmit={handleSubmit} className="space-y-7">
-
-            {/* Password */}
-            <div className="relative">
-              <input
-                id="password"
-                type={showPassword ? "text" : "password"}
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                placeholder="Password"
-                className={inputClasses}
-              />
-              <button
-                type="button"
-                onClick={() => setShowPassword(!showPassword)}
-                className="absolute right-0 top-0 text-gray-500 hover:text-gray-300 transition-colors p-1"
-                aria-label={showPassword ? "Hide password" : "Show password"}
-              >
-                {showPassword ? <EyeOffIcon /> : <EyeIcon />}
-              </button>
-            </div>
-
-            {/* Confirm Password */}
-            <div className="relative">
-              <input
-                id="confirm-password"
-                type={showConfirmPassword ? "text" : "password"}
-                value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
-                placeholder="Confirm Password"
-                className={inputClasses}
-              />
-              <button
-                type="button"
-                onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                className="absolute right-0 top-0 text-gray-500 hover:text-gray-300 transition-colors p-1"
-                aria-label={showConfirmPassword ? "Hide confirm password" : "Show confirm password"}
-              >
-                {showConfirmPassword ? <EyeOffIcon /> : <EyeIcon />}
-              </button>
-            </div>
-
-            {/* Reset Password button */}
-            <div className="flex justify-center pt-2">
-              <button
-                id="reset-password-btn"
-                type="submit"
-                className="bg-[#C8A84B] hover:bg-[#b8973e] active:bg-[#a8872e] text-white font-semibold text-sm px-12 py-3.5 transition-colors duration-200 tracking-wide"
-              >
-                Reset Password
-              </button>
-            </div>
-
-            {/* Back to log in */}
-            <div className="flex justify-center">
-              <Link
-                href="/accounts/login"
-                className="inline-flex items-center gap-2 text-sm text-gray-300 hover:text-white transition-colors"
-              >
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-                </svg>
-                Back to log in
-              </Link>
-            </div>
-
-          </form>
-        </div>
+        <Suspense fallback={<div className="text-white text-sm">Loading...</div>}>
+          <ResetPasswordContent />
+        </Suspense>
       </div>
     </div>
   );
