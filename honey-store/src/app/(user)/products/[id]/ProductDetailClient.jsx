@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, use } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import WriteReviewModal from "@/components/ui/WriteReviewModal";
@@ -10,7 +10,6 @@ const serifItalic = {
   fontFamily: "'Georgia', 'Times New Roman', serif",
   fontStyle: "italic",
 };
-const serif = { fontFamily: "'Georgia', 'Times New Roman', serif" };
 
 function StarRating({ rating = 4.5, count = 128 }) {
   return (
@@ -32,91 +31,11 @@ function StarRating({ rating = 4.5, count = 128 }) {
           </svg>
         ))}
       </div>
-      <span className="text-gray-400 text-xs">({count} reviews)</span>
+      {count !== null && <span className="text-gray-400 text-xs">({count} reviews)</span>}
     </div>
   );
 }
 
-/* ── mock product data ── */
-const PRODUCT = {
-  id: 1,
-  name: "Kashmir White Honey",
-  rating: 4.5,
-  reviewCount: 128,
-  price: 549,
-  original: 699,
-  discount: 21,
-  images: [
-    "/hero-honey-jar.png",
-    "/honey-jar-bees.png",
-    "/hero-honey-jar.png",
-  ],
-  quantity: ["50ml", "100ml", "500ml"],
-  description:
-    "Sourced from the pristine valleys of Kashmir, this rare white honey is harvested from wildflower meadows at high altitudes. Known for its delicate floral aroma, creamy texture, and exceptional purity.",
-  specs: {
-    inTheBox: [
-      { label: "Sales Package", value: "1 Bottle Pure Honey" },
-      { label: "Pack of", value: "1" },
-    ],
-    general: [
-      { label: "Product Name", value: "Kashmir White Honey" },
-      { label: "Model Name", value: "Kashmir Honey" },
-      { label: "Flavour", value: "Natural Sweet" },
-      { label: "Quantity", value: "500ml" },
-      { label: "Container type", value: "Glass Bottle" },
-      { label: "Suitable for", value: "Bottle" },
-      { label: "Self Life", value: "12Months" },
-
-    ],
-  },
-  shippingDetails: {
-    shipping:
-      "We ensure fast and secure delivery of your honey products. Orders are processed within 24 hours and delivered within 3–5 business days depending on your location. All products are carefully packed to maintain freshness and quality",
-    returns:
-      "If you receive a damaged or incorrect product, you can request a return within 7 days of delivery. The product must be unused and in its original packaging. We aim to provide the highest quality honey, and your satisfaction is our priority",
-  },
-  faqs: [
-    {
-      q: "What makes Kashmir White Honey different from regular honey?",
-      a: "Our Kashmir White Honey is harvested from high-altitude wildflower meadows in Kashmir. The unique flora, combined with a cool climate, gives this honey its characteristic light colour, mild taste, and higher antioxidant content compared to regular honey.",
-    },
-    {
-      q: "How should I store this honey?",
-      a: "Store at room temperature away from direct sunlight. Do not refrigerate as it accelerates crystallisation. If crystallisation occurs, warm the jar gently in lukewarm water — this is a natural sign of purity.",
-    },
-    {
-      q: "Is it safe for children/diabetics?",
-      a: "Not recommended for children under 1 year. Diabetics should consult their physician before consumption. Natural honey does contain natural sugars.",
-    },
-  ],
-  reviews: [
-    {
-      name: "Priya S.",
-      avatar: "P",
-      rating: 5,
-      date: "January 12, 2026",
-      text: "Absolutely love this honey! The flavour is unlike anything I've tasted. Light, floral and incredibly pure. Will definitely order again.",
-    },
-    {
-      name: "Rahul M.",
-      avatar: "R",
-      rating: 4,
-      date: "February 5, 2026",
-      text: "Very good quality honey. Packaging is premium and the honey smells amazing. Slightly expensive but totally worth it for the quality.",
-    },
-  ],
-  similar: [
-    { id: 2, name: "Wildflower Honey", price: 449, image: "/hero-honey-jar.png" },
-    { id: 3, name: "Forest Honey", price: 399, image: "/honey-jar-bees.png" },
-    { id: 4, name: "Organic Honey", price: 499, image: "/hero-honey-jar.png" },
-    { id: 5, name: "Tulsi Honey", price: 349, image: "/honey-jar-bees.png" },
-  ],
-};
-
-
-
-/* ── sub-components ── */
 function FAQItem({ q, a }) {
   const [open, setOpen] = useState(false);
   return (
@@ -145,155 +64,26 @@ function FAQItem({ q, a }) {
   );
 }
 
-/* ══════════════════════════════════════════════════════
-   MAIN PAGE
-══════════════════════════════════════════════════════ */
-export default function ProductDetailPage({ params }) {
-  const resolvedParams = use(params);
-  const id = resolvedParams.id;
-
-  const [product, setProduct] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-
+export default function ProductDetailClient({ product, similar }) {
   const [activeImage, setActiveImage] = useState(0);
-  const [selectedWeight, setSelectedWeight] = useState("500g");
-  const [qty, setQty] = useState(1);
+  const [selectedWeight, setSelectedWeight] = useState(product.quantity || "500g");
+  const [qty, setQty] = useState(product.stock === 0 ? 0 : 1);
   const [sellerTab, setSellerTab] = useState("shipping");
   const [added, setAdded] = useState(false);
-  const [localReviews, setLocalReviews] = useState([]);
-  const [similarProducts, setSimilarProducts] = useState([]);
+  const [localReviews, setLocalReviews] = useState(product.reviews || []);
   const [formOpen, setFormOpen] = useState(false);
 
   useEffect(() => {
-    if (!id) return;
-    async function fetchProduct() {
-      try {
-        const res = await fetch(`/api/products/${id}`);
-        if (!res.ok) throw new Error("Product not found");
-        const data = await res.json();
-        setProduct(data.product);
-        setSimilarProducts(data.similar || []);
-        setLocalReviews(data.product.reviews || []);
-        if (data.product.quantity) {
-          setSelectedWeight(data.product.quantity);
-        }
-        if (data.product.stock === 0) {
-          setQty(0);
-        } else {
-          setQty(1);
-        }
-      } catch (err) {
-        setError(err.message);
-      } finally {
-        setLoading(false);
-      }
+    if (product.quantity) {
+      setSelectedWeight(product.quantity);
     }
-    fetchProduct();
-  }, [id]);
-
-  const handleAddToCart = async () => {
-    try {
-      const res = await fetch("/api/cart", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          productId: product._id,
-          weight: selectedWeight,
-          qty: qty
-        })
-      });
-
-      if (res.status === 401) {
-        window.location.href = `/accounts/login?redirect=/products/${product._id}`;
-        return;
-      }
-
-      const data = await res.json();
-      if (!res.ok) {
-        alert(data.error || "Failed to add to cart");
-        return;
-      }
-
-      // Sync local storage cart as fallback for other parts of the site
-      if (data.cart) {
-        const cart = data.cart.map(item => {
-          const prod = item.product;
-          return {
-            id: item._id,
-            productId: prod?._id || "",
-            name: prod?.name || "",
-            weight: item.weight,
-            qty: item.qty,
-            image: prod?.image?.url || "/hero-honey-jar.png",
-            price: price
-          };
-        });
-        localStorage.setItem("cart", JSON.stringify(cart));
-      }
-
-      window.dispatchEvent(new Event("cartUpdate"));
-      setAdded(true);
-      setTimeout(() => setAdded(false), 2000);
-    } catch (err) {
-      console.error("Cart error:", err);
-      alert("Failed to add item to cart");
+    if (product.stock === 0) {
+      setQty(0);
+    } else {
+      setQty(1);
     }
-  };
+  }, [product]);
 
-  const handleReviewSubmit = async (review) => {
-    try {
-      const res = await fetch(`/api/products/${id}/reviews`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          rating: Number(review.rating),
-          comment: review.text,
-        }),
-      });
-
-      const data = await res.json();
-      if (!res.ok) {
-        alert(data.error || "Failed to submit review");
-        return;
-      }
-
-      if (data.product) {
-        setProduct(data.product);
-        setLocalReviews(data.product.reviews || []);
-      }
-    } catch (err) {
-      console.error("Error submitting review:", err);
-      alert("Something went wrong while submitting the review");
-    }
-  };
-
-  if (loading) {
-    return (
-      <div className="min-h-screen bg-[#0a0a0a] text-white flex items-center justify-center">
-        <p className="text-gray-400">Loading product details...</p>
-      </div>
-    );
-  }
-
-  if (error || !product) {
-    return (
-      <div className="min-h-screen bg-[#0a0a0a] text-white flex items-center justify-center">
-        <div className="text-center">
-          <p className="text-red-500 mb-4">{error || "Product not found"}</p>
-          <Link href="/products" className="text-[#C8A84B] underline">Back to Products</Link>
-        </div>
-      </div>
-    );
-  }
-
-  const images = [];
-  if (product.image?.url) images.push(product.image.url);
-  if (product.image1?.url) images.push(product.image1.url);
-  if (product.image2?.url) images.push(product.image2.url);
-  if (images.length === 0) images.push("/hero-honey-jar.png");
   const getMultiplier = (selected, base) => {
     const s = String(selected).toLowerCase().trim();
     const b = String(base || "500g").toLowerCase().trim();
@@ -315,22 +105,29 @@ export default function ProductDetailPage({ params }) {
     return ratio;
   };
 
-  const multiplier = product ? getMultiplier(selectedWeight, product.quantity) : 1.0;
-  const price = product ? (product.discountPrice ?? product.price) * multiplier : 0;
-  const original = product ? product.price * multiplier : 0;
-  const discount = product && product.price > 0 && product.discountPrice ? Math.round((((product.price - (product.discountPrice ?? product.price)) / product.price) * 100)) : 0;
+  const multiplier = getMultiplier(selectedWeight, product.quantity);
+  const price = (product.discountPrice ?? product.price) * multiplier;
+  const original = product.price * multiplier;
+  const discount = product.price > 0 && product.discountPrice ? Math.round((((product.price - (product.discountPrice ?? product.price)) / product.price) * 100)) : 0;
 
   const getWeightVal = (str) => {
     const num = parseFloat(str);
     const isKg = String(str).toLowerCase().includes("kg") || String(str).toLowerCase().includes("kilogram");
     return isKg ? num * 1000 : num;
   };
+
   const weightOptions = ["250g", "500g", "1kg"];
-  const prodQtyNormalized = product?.quantity ? product.quantity.trim() : "";
+  const prodQtyNormalized = product.quantity ? product.quantity.trim() : "";
   if (prodQtyNormalized && !weightOptions.some(w => w.toLowerCase() === prodQtyNormalized.toLowerCase())) {
     weightOptions.push(prodQtyNormalized);
   }
   weightOptions.sort((a, b) => getWeightVal(a) - getWeightVal(b));
+
+  const images = [];
+  if (product.image?.url) images.push(product.image.url);
+  if (product.image1?.url) images.push(product.image1.url);
+  if (product.image2?.url) images.push(product.image2.url);
+  if (images.length === 0) images.push("/hero-honey-jar.png");
 
   const specs = {
     inTheBox: [
@@ -362,11 +159,200 @@ export default function ProductDetailPage({ params }) {
     returns: "If you receive a damaged or incorrect product, you can request a return within 7 days of delivery.",
   };
 
+  const handleAddToCart = async () => {
+    // 1. Optimistic local cart update
+    const localCartStr = localStorage.getItem("cart") || "[]";
+    let localCart = [];
+    try {
+      localCart = JSON.parse(localCartStr);
+    } catch {
+      localCart = [];
+    }
 
+    const tempId = product._id + "_" + selectedWeight;
+    const existingIndex = localCart.findIndex(
+      (item) => item.productId === product._id && item.weight === selectedWeight
+    );
+
+    if (existingIndex > -1) {
+      localCart[existingIndex].qty += qty;
+    } else {
+      localCart.push({
+        id: tempId,
+        productId: product._id,
+        name: product.name,
+        price: price,
+        original: original,
+        image: product.image?.url || "/hero-honey-jar.png",
+        qty: qty,
+        weight: selectedWeight,
+        stock: product.stock
+      });
+    }
+
+    localStorage.setItem("cart", JSON.stringify(localCart));
+    window.dispatchEvent(new Event("cartUpdate"));
+    setAdded(true);
+    setTimeout(() => setAdded(false), 2000);
+
+    // 2. Database background sync
+    try {
+      const res = await fetch("/api/cart", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          productId: product._id,
+          weight: selectedWeight,
+          qty: qty
+        })
+      });
+
+      if (res.ok) {
+        const data = await res.json();
+        if (data.success && data.cart) {
+          const syncedCart = data.cart.map(item => {
+            const prod = item.product;
+            const pQtyNorm = prod?.quantity ? prod.quantity.trim() : "500g";
+            const mult = getMultiplier(item.weight, pQtyNorm);
+            return {
+              id: item._id,
+              productId: prod?._id || "",
+              name: prod?.name || "Deleted Product",
+              price: prod ? (prod.discountPrice ?? prod.price) * mult : 0,
+              original: prod ? prod.price * mult : 0,
+              image: prod?.image?.url || "/hero-honey-jar.png",
+              qty: item.qty,
+              weight: item.weight,
+              stock: prod ? prod.stock : 0
+            };
+          });
+          localStorage.setItem("cart", JSON.stringify(syncedCart));
+          window.dispatchEvent(new Event("cartUpdate"));
+        }
+      }
+    } catch (err) {
+      console.error("Cart background sync error:", err);
+    }
+  };
+
+  const handleBuyNow = async () => {
+    // 1. Optimistically write to localStorage
+    const localCartStr = localStorage.getItem("cart") || "[]";
+    let localCart = [];
+    try {
+      localCart = JSON.parse(localCartStr);
+    } catch {
+      localCart = [];
+    }
+
+    const tempId = product._id + "_" + selectedWeight;
+    const existingIndex = localCart.findIndex(
+      (item) => item.productId === product._id && item.weight === selectedWeight
+    );
+
+    if (existingIndex > -1) {
+      localCart[existingIndex].qty += qty;
+    } else {
+      localCart.push({
+        id: tempId,
+        productId: product._id,
+        name: product.name,
+        price: price,
+        original: original,
+        image: product.image?.url || "/hero-honey-jar.png",
+        qty: qty,
+        weight: selectedWeight,
+        stock: product.stock
+      });
+    }
+
+    localStorage.setItem("cart", JSON.stringify(localCart));
+    window.dispatchEvent(new Event("cartUpdate"));
+
+    // 2. Perform DB sync API call
+    try {
+      const res = await fetch("/api/cart", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          productId: product._id,
+          weight: selectedWeight,
+          qty: qty
+        })
+      });
+
+      if (res.status === 401) {
+        // Guest user goes to login, but must return to checkout after logging in
+        window.location.href = `/accounts/login?next=/checkout`;
+        return;
+      }
+
+      if (res.ok) {
+        const data = await res.json();
+        if (data.success && data.cart) {
+          const syncedCart = data.cart.map(item => {
+            const prod = item.product;
+            const pQtyNorm = prod?.quantity ? prod.quantity.trim() : "500g";
+            const mult = getMultiplier(item.weight, pQtyNorm);
+            return {
+              id: item._id,
+              productId: prod?._id || "",
+              name: prod?.name || "Deleted Product",
+              price: prod ? (prod.discountPrice ?? prod.price) * mult : 0,
+              original: prod ? prod.price * mult : 0,
+              image: prod?.image?.url || "/hero-honey-jar.png",
+              qty: item.qty,
+              weight: item.weight,
+              stock: prod ? prod.stock : 0
+            };
+          });
+          localStorage.setItem("cart", JSON.stringify(syncedCart));
+          window.dispatchEvent(new Event("cartUpdate"));
+        }
+      }
+    } catch (err) {
+      console.error("Cart merge error before checkout:", err);
+    }
+
+    // 3. Redirect directly to checkout
+    window.location.href = "/checkout";
+  };
+
+  const handleReviewSubmit = async (review) => {
+    try {
+      const res = await fetch(`/api/products/${product._id}/reviews`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          rating: Number(review.rating),
+          comment: review.text,
+        }),
+      });
+
+      if (res.status === 401) {
+        window.location.href = `/accounts/login?next=/products/${product._id}`;
+        return;
+      }
+
+      const data = await res.json();
+      if (!res.ok) {
+        alert(data.error || "Failed to submit review");
+        return;
+      }
+
+      if (data.product) {
+        setLocalReviews(data.product.reviews || []);
+      }
+    } catch (err) {
+      console.error("Error submitting review:", err);
+      alert("Something went wrong while submitting the review");
+    }
+  };
 
   return (
     <div className="min-h-screen bg-[#0a0a0a] text-white">
-
       <div className="max-w-7xl mx-auto px-4 md:px-6 pt-24 pb-16">
         {/* ── Breadcrumb ── */}
         <nav className="flex items-center gap-2 text-xs text-gray-500 mb-8">
@@ -485,12 +471,12 @@ export default function ProductDetailPage({ params }) {
             </div>
 
             {/* Stock alert warning */}
-            {product && product.stock <= 5 && product.stock > 0 && (
+            {product.stock <= 5 && product.stock > 0 && (
               <p className="text-amber-500 text-xs mb-3 font-semibold uppercase tracking-wider">
                 Only {product.stock} items left in stock!
               </p>
             )}
-            {product && product.stock === 0 && (
+            {product.stock === 0 && (
               <p className="text-red-500 text-xs mb-3 font-semibold uppercase tracking-wider">
                 Out of Stock
               </p>
@@ -501,7 +487,7 @@ export default function ProductDetailPage({ params }) {
               {/* Qty control */}
               <div className="flex items-center border border-gray-700">
                 <button
-                  disabled={!product || product.stock === 0}
+                  disabled={product.stock === 0}
                   onClick={() => setQty((q) => Math.max(1, q - 1))}
                   className="w-10 h-10 flex items-center justify-center text-gray-300 hover:text-[#C8A84B] hover:bg-[#C8A84B]/10 disabled:opacity-30 disabled:hover:bg-transparent transition-colors text-lg"
                 >
@@ -511,7 +497,7 @@ export default function ProductDetailPage({ params }) {
                   {qty}
                 </span>
                 <button
-                  disabled={!product || product.stock === 0}
+                  disabled={product.stock === 0}
                   onClick={() => setQty((q) => Math.min(product.stock || 0, q + 1))}
                   className="w-10 h-10 flex items-center justify-center text-gray-300 hover:text-[#C8A84B] hover:bg-[#C8A84B]/10 disabled:opacity-30 disabled:hover:bg-transparent transition-colors text-lg"
                 >
@@ -521,27 +507,25 @@ export default function ProductDetailPage({ params }) {
 
               {/* Add to cart */}
               <button
-                disabled={!product || product.stock === 0 || qty === 0}
+                disabled={product.stock === 0 || qty === 0}
                 onClick={handleAddToCart}
                 className={`flex-1 h-10 font-semibold text-sm tracking-widest uppercase transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed ${added
                   ? "bg-green-600 text-white"
                   : "bg-[#C8A84B] hover:bg-[#b8973e] text-black"
                   }`}
               >
-                {product && product.stock === 0 ? "Out of Stock" : added ? "✓ Added!" : "Add to Cart"}
+                {product.stock === 0 ? "Out of Stock" : added ? "✓ Added!" : "Add to Cart"}
               </button>
             </div>
 
             {/* Buy Now */}
             <button
-              disabled={!product || product.stock === 0 || qty === 0}
-              onClick={handleAddToCart}
+              disabled={product.stock === 0 || qty === 0}
+              onClick={handleBuyNow}
               className="w-full h-10 font-semibold text-sm tracking-widest uppercase border border-[#C8A84B] text-[#C8A84B] hover:bg-[#C8A84B] hover:text-black disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 mb-4"
             >
-              {product && product.stock === 0 ? "Out of Stock" : "Buy Now"}
+              {product.stock === 0 ? "Out of Stock" : "Buy Now"}
             </button>
-
-
 
             {/* Trust badges */}
             <div className="grid grid-cols-3 gap-3 border border-gray-800 p-4 mb-6">
@@ -733,14 +717,14 @@ export default function ProductDetailPage({ params }) {
         {/* ══════════════════════════════════════════════
             SIMILAR PRODUCTS
         ══════════════════════════════════════════════ */}
-        {similarProducts.length > 0 && (
+        {similar && similar.length > 0 && (
           <section>
             <h2 className="text-2xl text-white mb-8" style={serifItalic}>
               <span className="text-[#C8A84B]">Similar</span> Products
             </h2>
 
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-5">
-              {similarProducts.map((p) => {
+              {similar.map((p) => {
                 const similarImg = p.image?.url || p.image || "/hero-honey-jar.png";
                 const similarId = p._id || p.id;
                 const displayPrice = p.discountPrice ?? p.price;

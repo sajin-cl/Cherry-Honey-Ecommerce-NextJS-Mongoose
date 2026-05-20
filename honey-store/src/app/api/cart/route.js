@@ -36,10 +36,15 @@ export async function POST(request) {
     }
 
     await dbConnect();
-    const { productId, weight, qty } = await request.json();
+    const body = await request.json();
 
-    if (!productId || !weight || !qty) {
-      return NextResponse.json({ error: "Invalid data" }, { status: 400 });
+    let itemsToProcess = [];
+    if (Array.isArray(body)) {
+      itemsToProcess = body;
+    } else if (body && Array.isArray(body.items)) {
+      itemsToProcess = body.items;
+    } else {
+      itemsToProcess = [body];
     }
 
     const user = await User.findById(userPayload.id);
@@ -47,15 +52,31 @@ export async function POST(request) {
       return NextResponse.json({ error: "User not found" }, { status: 404 });
     }
 
-    // Check if item already exists in cart with same weight
-    const existingIndex = user.cart.findIndex(
-      (item) => item.product.toString() === productId && item.weight === weight
-    );
+    let processedAny = false;
+    for (const item of itemsToProcess) {
+      const pId = item.productId || (item.product && (typeof item.product === "object" ? item.product._id : item.product));
+      const weight = item.weight;
+      const qty = Number(item.qty);
 
-    if (existingIndex > -1) {
-      user.cart[existingIndex].qty += Number(qty);
-    } else {
-      user.cart.push({ product: productId, weight, qty: Number(qty) });
+      if (!pId || !weight || isNaN(qty) || qty <= 0) {
+        continue;
+      }
+
+      processedAny = true;
+      // Check if item already exists in cart with same weight
+      const existingIndex = user.cart.findIndex(
+        (cItem) => cItem.product.toString() === pId && cItem.weight === weight
+      );
+
+      if (existingIndex > -1) {
+        user.cart[existingIndex].qty += qty;
+      } else {
+        user.cart.push({ product: pId, weight, qty });
+      }
+    }
+
+    if (!processedAny && !Array.isArray(body) && !Array.isArray(body?.items)) {
+      return NextResponse.json({ error: "Invalid data" }, { status: 400 });
     }
 
     await user.save();

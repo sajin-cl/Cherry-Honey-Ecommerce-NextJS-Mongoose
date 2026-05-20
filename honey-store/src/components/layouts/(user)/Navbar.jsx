@@ -30,6 +30,53 @@ export default function Navbar() {
           const data = await res.json();
           if (data.user) {
             setUser(data.user);
+
+            // Sync database cart with localStorage cache in the background
+            const cartRes = await fetch("/api/cart");
+            if (cartRes.ok) {
+              const cartData = await cartRes.json();
+              if (cartData.cart) {
+                const getMultiplier = (selected, base) => {
+                  const s = String(selected).toLowerCase().trim();
+                  const b = String(base || "500g").toLowerCase().trim();
+                  if (s === b) return 1.0;
+
+                  const getVal = (str) => {
+                    const num = parseFloat(str);
+                    const isKg = str.includes("kg") || str.includes("kilogram");
+                    return isKg ? num * 1000 : num;
+                  };
+
+                  const sVal = getVal(s);
+                  const bVal = getVal(b);
+                  if (isNaN(sVal) || isNaN(bVal) || bVal === 0) return 1.0;
+
+                  const ratio = sVal / bVal;
+                  if (Math.abs(ratio - 2.0) < 0.1) return 1.8;
+                  if (Math.abs(ratio - 4.0) < 0.1) return 3.4;
+                  return ratio;
+                };
+
+                const localCart = cartData.cart.map((item) => {
+                  const prod = item.product;
+                  const pQtyNorm = prod?.quantity ? prod.quantity.trim() : "500g";
+                  const mult = getMultiplier(item.weight, pQtyNorm);
+                  return {
+                    id: item._id,
+                    productId: prod?._id || "",
+                    name: prod?.name || "Deleted Product",
+                    price: prod ? (prod.discountPrice ?? prod.price) * mult : 0,
+                    original: prod ? prod.price * mult : 0,
+                    image: prod?.image?.url || "/hero-honey-jar.png",
+                    qty: item.qty,
+                    weight: item.weight,
+                    stock: prod ? prod.stock : 0,
+                  };
+                });
+                localStorage.setItem("cart", JSON.stringify(localCart));
+                updateCartCount();
+              }
+            }
           }
         }
       } catch (err) {

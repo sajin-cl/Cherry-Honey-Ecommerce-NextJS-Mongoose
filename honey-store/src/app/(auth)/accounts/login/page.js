@@ -40,9 +40,40 @@ export default function LoginPage() {
         return;
       }
 
-      // Admin → admin dashboard, User → home
+      // Sync guest cart if exists
+      if (data.user?.role !== "admin") {
+        const localCartStr = localStorage.getItem("cart");
+        if (localCartStr) {
+          try {
+            const localCart = JSON.parse(localCartStr);
+            if (Array.isArray(localCart) && localCart.length > 0) {
+              const mergeRes = await fetch("/api/cart", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(localCart),
+              });
+              if (mergeRes.ok) {
+                const mergeData = await mergeRes.json();
+                if (mergeData.success && mergeData.cart) {
+                  localStorage.setItem("cart", JSON.stringify(mergeData.cart));
+                  window.dispatchEvent(new Event("cart-updated"));
+                }
+              }
+            }
+          } catch (e) {
+            console.error("Failed to merge guest cart:", e);
+          }
+        }
+      }
+
+      // Handle redirect params (next or redirect)
+      const searchParams = new URLSearchParams(window.location.search);
+      const targetRedirect = searchParams.get("next") || searchParams.get("redirect");
+
       if (data.user?.role === "admin") {
         router.push("/admin/dashboard");
+      } else if (targetRedirect) {
+        router.push(targetRedirect);
       } else {
         router.push("/");
       }
