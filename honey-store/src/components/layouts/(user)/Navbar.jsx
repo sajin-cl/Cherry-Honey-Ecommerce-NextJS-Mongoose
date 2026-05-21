@@ -78,7 +78,7 @@ export default function Navbar() {
                     name: prod?.name || "Deleted Product",
                     price: prod ? (prod.discountPrice ?? prod.price) * mult : 0,
                     original: prod ? prod.price * mult : 0,
-                    image: prod?.image?.url || "/hero-honey-jar.png",
+                    image: prod?.image?.url || "/hero-honey-jar.webp",
                     qty: item.qty,
                     weight: item.weight,
                     stock: prod ? prod.stock : 0,

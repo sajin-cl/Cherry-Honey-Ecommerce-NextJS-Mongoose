@@ -121,7 +121,7 @@ export default function RegisterPage() {
       {/* Left Image */}
       <div className="relative hidden md:block w-1/2 h-full">
         <Image
-          src="/honey-jar-bees.png"
+          src="/honey-jar-bees.webp"
           alt="Honey jar with bees"
           fill
           sizes="50vw"
@@ -245,11 +245,10 @@ export default function RegisterPage() {
                   />
 
                   <div
-                    className={`w-4 h-4 border transition-colors ${
-                      agreeTerms
+                    className={`w-4 h-4 border transition-colors ${agreeTerms
                         ? "bg-[#C8A84B] border-[#C8A84B]"
                         : "bg-transparent border-gray-500"
-                    } flex items-center justify-center`}
+                      } flex items-center justify-center`}
                   >
                     {agreeTerms && (
                       <svg

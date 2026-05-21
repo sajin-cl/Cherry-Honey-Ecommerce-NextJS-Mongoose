@@ -63,7 +63,7 @@ export default async function OrderDetailsPage({ params }) {
       name: i.name,
       qty: i.qty,
       price: i.price,
-      image: i.image || "/hero-honey-jar.png",
+      image: i.image || "/hero-honey-jar.webp",
     })),
     shipping: {
       name: orderRaw.shippingAddress?.name || "N/A",

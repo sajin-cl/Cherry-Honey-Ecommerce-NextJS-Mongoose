@@ -81,7 +81,7 @@ async function fetchProducts({ page, maxPrice, search, category, size }) {
 function ProductCard({ product }) {
   const price    = product.discountPrice ?? product.price;
   const original = product.price;
-  const img      = product.image?.url || "/hero-honey-jar.png";
+  const img      = product.image?.url || "/hero-honey-jar.webp";
 
   return (
     <Link href={`/products/${product._id}`} className="group block">

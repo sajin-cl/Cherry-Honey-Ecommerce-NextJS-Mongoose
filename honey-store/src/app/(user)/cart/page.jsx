@@ -68,7 +68,7 @@ export default async function CartPage() {
       name: prod?.name || "Deleted Product",
       price: itemPrice,
       original: itemOriginal,
-      image: prod?.image?.url || "/hero-honey-jar.png",
+      image: prod?.image?.url || "/hero-honey-jar.webp",
       qty: item.qty,
       weight: item.weight,
       stock: prod ? prod.stock : 0

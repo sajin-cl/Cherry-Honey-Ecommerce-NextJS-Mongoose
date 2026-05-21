@@ -75,7 +75,7 @@ export default async function ReviewPage() {
       name: prod?.name || "Deleted Product",
       price: itemPrice,
       original: itemOriginal,
-      image: prod?.image?.url || "/hero-honey-jar.png",
+      image: prod?.image?.url || "/hero-honey-jar.webp",
       qty: item.qty,
       weight: item.weight
     };

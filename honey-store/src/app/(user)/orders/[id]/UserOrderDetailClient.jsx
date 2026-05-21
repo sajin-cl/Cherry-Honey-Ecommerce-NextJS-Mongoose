@@ -48,7 +48,7 @@ export default function UserOrderDetailClient({ initialOrder, similarProducts })
             name: i.name,
             qty: i.qty,
             price: i.price,
-            image: i.image || "/hero-honey-jar.png",
+            image: i.image || "/hero-honey-jar.webp",
           })),
           shipping: {
             name: o.shippingAddress?.name || "N/A",
@@ -229,7 +229,7 @@ export default function UserOrderDetailClient({ initialOrder, similarProducts })
                   <Link key={p._id} href={`/products/${p._id}`} className="group block">
                     <div className="bg-[#111] border border-gray-800 hover:border-[#C8A84B]/40 transition-all duration-300 group-hover:-translate-y-1">
                       <div className="relative h-44 bg-black">
-                        <Image src={p.image?.url || "/hero-honey-jar.png"} alt={p.name} fill sizes="(max-width:640px) 50vw, 25vw" className="object-contain p-3" />
+                        <Image src={p.image?.url || "/hero-honey-jar.webp"} alt={p.name} fill sizes="(max-width:640px) 50vw, 25vw" className="object-contain p-3" />
                       </div>
                       <div className="p-3">
                         <p className="text-white text-xs mb-1 truncate group-hover:text-[#C8A84B] transition-colors">{p.name}</p>

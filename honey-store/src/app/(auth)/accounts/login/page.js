@@ -91,7 +91,7 @@ export default function LoginPage() {
       {/* ── Left panel: hero image ── */}
       <div className="relative hidden md:block w-1/2 h-full">
         <Image
-          src="/bee-honeycomb.png"
+          src="/bee-honeycomb.webp"
           alt="Honey bee on honeycomb"
           fill
           sizes="50vw"

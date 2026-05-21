@@ -69,7 +69,7 @@ export default function AboutClient() {
           >
             <div className="relative w-full max-w-[500px] aspect-square rounded-2xl overflow-hidden border border-gray-800 shadow-[0_0_50px_rgba(200,168,75,0.15)] group">
               <Image
-                src="/about-hero-honey.png"
+                src="/about-hero-honey.webp"
                 alt="Premium raw honey dripping from a wooden dipper"
                 fill
                 priority
@@ -90,7 +90,7 @@ export default function AboutClient() {
 
         <div className="absolute top-0 right-0 left-0 w-full pointer-events-none">
           <Image
-            src="/honey-dripv1.png"
+            src="/honey-dripv1.webp"
             alt="Honey drip"
             width={2000}
             height={1000}
@@ -272,7 +272,7 @@ export default function AboutClient() {
                 transition={{ duration: 0.9 }}
               >
                 <Image
-                  src="/bee-sunflower.png"
+                  src="/bee-sunflower.webp"
                   alt="Honey bee collecting nectar on a sunflower"
                   fill
                   sizes="(max-width: 768px) 100vw, 500px"
@@ -298,7 +298,7 @@ export default function AboutClient() {
                 transition={{ duration: 0.9 }}
               >
                 <Image
-                  src="/honey-jar-bees.png"
+                  src="/honey-jar-bees.webp"
                   alt="Raw organic honey jar in nature"
                   fill
                   sizes="(max-width: 768px) 100vw, 500px"
@@ -362,7 +362,7 @@ export default function AboutClient() {
                 transition={{ duration: 0.9 }}
               >
                 <Image
-                  src="/bees-honeycomb.png"
+                  src="/bees-honeycomb.webp"
                   alt="artisan honeycombs rich with honey"
                   fill
                   sizes="(max-width: 768px) 100vw, 500px"
@@ -382,7 +382,7 @@ export default function AboutClient() {
         {/* Banner background */}
         <div className="absolute inset-0 z-0">
           <Image
-            src="/bee-farm-misty.png"
+            src="/bee-farm-misty.webp"
             alt="Golden sunrise over a misty bee farm"
             fill
             className="object-cover transition-transform duration-1000"

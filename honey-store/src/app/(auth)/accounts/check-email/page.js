@@ -102,7 +102,7 @@ export default function CheckEmailPage() {
       {/* ── Left panel: hero image ── */}
       <div className="relative hidden md:block w-1/2 h-full">
         <Image
-          src="/bee-sunflower.png"
+          src="/bee-sunflower.webp"
           alt="Bee on sunflower"
           fill
           sizes="50vw"

@@ -147,7 +147,7 @@ export default function ProductDetailPage({ params }) {
             name: prod?.name || "",
             weight: item.weight,
             qty: item.qty,
-            image: prod?.image?.url || "/hero-honey-jar.png",
+            image: prod?.image?.url || "/hero-honey-jar.webp",
             price: price
           };
         });
@@ -215,7 +215,7 @@ export default function ProductDetailPage({ params }) {
   if (product.image?.url) images.push(product.image.url);
   if (product.image1?.url) images.push(product.image1.url);
   if (product.image2?.url) images.push(product.image2.url);
-  if (images.length === 0) images.push("/hero-honey-jar.png");
+  if (images.length === 0) images.push("/hero-honey-jar.webp");
   const getMultiplier = (selected, base) => {
     const s = String(selected).toLowerCase().trim();
     const b = String(base || "500g").toLowerCase().trim();
@@ -710,7 +710,7 @@ export default function ProductDetailPage({ params }) {
 
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-5">
               {similarProducts.map((p) => {
-                const similarImg = p.image?.url || p.image || "/hero-honey-jar.png";
+                const similarImg = p.image?.url || p.image || "/hero-honey-jar.webp";
                 const similarId = p._id || p.id;
                 const displayPrice = p.discountPrice ?? p.price;
                 return (

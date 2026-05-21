@@ -30,7 +30,7 @@ export default async function MyOrdersPage() {
       name: item.name,
       qty: item.qty,
       price: item.price,
-      image: item.image || "/hero-honey-jar.png",
+      image: item.image || "/hero-honey-jar.webp",
     })),
   }));
 

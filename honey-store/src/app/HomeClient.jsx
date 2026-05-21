@@ -106,7 +106,7 @@ export default function HomeClient({ featuredProducts }) {
         {/* Honey Drip Layer-2 */}
         <div className="absolute top-0 right-0 left-0 w-full pointer-events-none">
           <Image
-            src="/honey-dripv1.png"
+            src="/honey-dripv1.webp"
             alt="Honey drip"
             width={2000}
             height={1000}
@@ -126,7 +126,7 @@ export default function HomeClient({ featuredProducts }) {
               const productId = product._id || product.id;
               const priceVal = product.discountPrice ?? product.price;
               const priceText = typeof priceVal === "number" ? `₹${priceVal.toFixed(2)}` : priceVal;
-              const imgUrl = product.image?.url || product.image || "/hero-honey-jar.png";
+              const imgUrl = product.image?.url || product.image || "/hero-honey-jar.webp";
               return (
                 <Link key={productId} href={`/products/${productId}`} className="group">
                   <div className="bg-[#111] border border-gray-800 hover:border-[#C8A84B]/50 transition-all duration-300 group-hover:-translate-y-1 overflow-hidden">
@@ -180,7 +180,7 @@ export default function HomeClient({ featuredProducts }) {
             {/* Left — dripping bee image */}
             <div className="relative h-80 md:h-[440px] flex items-center justify-center">
               <Image
-                src="/two-bees.png"
+                src="/two-bees.webp"
                 alt="Two Honey bee"
                 fill
                 sizes="(max-width: 768px) 100vw, 50vw"
@@ -218,7 +218,7 @@ export default function HomeClient({ featuredProducts }) {
       <section className="py-20 bg-[#0a0a0a] relative">
         <div className="absolute top-0 right-0 left-0 w-full z-30 pointer-events-none">
           <Image
-            src="/honey-dripv1.png"
+            src="/honey-dripv1.webp"
             alt="Honey drip"
             width={2000}
             height={1000}
@@ -274,7 +274,7 @@ export default function HomeClient({ featuredProducts }) {
             {/* Right — bee image */}
             <div className="relative h-72 md:h-[380px] bg-[#111] border border-gray-800 overflow-hidden">
               <Image
-                src="/hero-bee.png"
+                src="/hero-bee.webp"
                 alt="Bee with honey"
                 fill
                 sizes="(max-width: 768px) 100vw, 50vw"
@@ -297,7 +297,7 @@ export default function HomeClient({ featuredProducts }) {
           {/* Full-width banner image with play overlay */}
           <div className="relative w-full h-72 md:h-[420px] overflow-hidden group">
             <Image
-              src="/hero-bee.png"
+              src="/hero-bee.webp"
               alt="Our bee journey"
               fill
               sizes="100vw"

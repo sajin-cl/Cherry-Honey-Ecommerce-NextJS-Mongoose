@@ -127,7 +127,7 @@ export default function ProductDetailClient({ product, similar }) {
   if (product.image?.url) images.push(product.image.url);
   if (product.image1?.url) images.push(product.image1.url);
   if (product.image2?.url) images.push(product.image2.url);
-  if (images.length === 0) images.push("/hero-honey-jar.png");
+  if (images.length === 0) images.push("/hero-honey-jar.webp");
 
   const specs = {
     inTheBox: [
@@ -183,7 +183,7 @@ export default function ProductDetailClient({ product, similar }) {
         name: product.name,
         price: price,
         original: original,
-        image: product.image?.url || "/hero-honey-jar.png",
+        image: product.image?.url || "/hero-honey-jar.webp",
         qty: qty,
         weight: selectedWeight,
         stock: product.stock
@@ -220,7 +220,7 @@ export default function ProductDetailClient({ product, similar }) {
               name: prod?.name || "Deleted Product",
               price: prod ? (prod.discountPrice ?? prod.price) * mult : 0,
               original: prod ? prod.price * mult : 0,
-              image: prod?.image?.url || "/hero-honey-jar.png",
+              image: prod?.image?.url || "/hero-honey-jar.webp",
               qty: item.qty,
               weight: item.weight,
               stock: prod ? prod.stock : 0
@@ -259,7 +259,7 @@ export default function ProductDetailClient({ product, similar }) {
         name: product.name,
         price: price,
         original: original,
-        image: product.image?.url || "/hero-honey-jar.png",
+        image: product.image?.url || "/hero-honey-jar.webp",
         qty: qty,
         weight: selectedWeight,
         stock: product.stock
@@ -300,7 +300,7 @@ export default function ProductDetailClient({ product, similar }) {
               name: prod?.name || "Deleted Product",
               price: prod ? (prod.discountPrice ?? prod.price) * mult : 0,
               original: prod ? prod.price * mult : 0,
-              image: prod?.image?.url || "/hero-honey-jar.png",
+              image: prod?.image?.url || "/hero-honey-jar.webp",
               qty: item.qty,
               weight: item.weight,
               stock: prod ? prod.stock : 0
@@ -725,7 +725,7 @@ export default function ProductDetailClient({ product, similar }) {
 
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-5">
               {similar.map((p) => {
-                const similarImg = p.image?.url || p.image || "/hero-honey-jar.png";
+                const similarImg = p.image?.url || p.image || "/hero-honey-jar.webp";
                 const similarId = p._id || p.id;
                 const displayPrice = p.discountPrice ?? p.price;
                 return (

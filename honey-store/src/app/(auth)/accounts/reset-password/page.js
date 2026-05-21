@@ -183,7 +183,7 @@ export default function ResetPasswordPage() {
       {/* ── Left panel: hero image ── */}
       <div className="relative hidden md:block w-1/2 h-full">
         <Image
-          src="/honeycomb-branch.png"
+          src="/honeycomb-branch.webp"
           alt="Honeycomb on branch with bees"
           fill
           sizes="50vw"

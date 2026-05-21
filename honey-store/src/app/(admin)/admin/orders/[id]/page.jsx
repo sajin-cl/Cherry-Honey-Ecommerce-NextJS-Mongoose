@@ -58,7 +58,7 @@ export default async function OrderDetailPage({ params }) {
       name: i.name,
       price: i.price,
       qty: i.qty,
-      image: i.image || "/hero-honey-jar.png",
+      image: i.image || "/hero-honey-jar.webp",
     })),
     payment: {
       subtotal: orderRaw.itemsTotal,

@@ -321,7 +321,7 @@ export default function CartClient({ initialItems }) {
               </h2>
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
                 {similar.map((p) => {
-                  const imgUrl = p.image?.url || "/hero-honey-jar.png";
+                  const imgUrl = p.image?.url || "/hero-honey-jar.webp";
                   const sellPrice = p.discountPrice ?? p.price;
                   return (
                     <Link key={p._id} href={`/products/${p._id}`} className="group block">

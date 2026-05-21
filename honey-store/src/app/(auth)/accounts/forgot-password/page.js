@@ -48,7 +48,7 @@ export default function ForgotPasswordPage() {
       {/* ── Left panel: hero image ── */}
       <div className="relative hidden md:block w-1/2 h-full">
         <Image
-          src="/bees-honeycomb.png"
+          src="/bees-honeycomb.webp"
           alt="Bees on honeycomb"
           fill
           sizes="50vw"
