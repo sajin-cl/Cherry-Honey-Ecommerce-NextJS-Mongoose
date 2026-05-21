@@ -86,7 +86,7 @@ export default function ProductsFilters({ searchParams, categories }) {
           <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M3 4h18M7 8h10M10 12h4" />
           </svg>
-          Filter
+          <span className="hidden md:block">Filter</span>
         </button>
       </div>
 
@@ -101,7 +101,7 @@ export default function ProductsFilters({ searchParams, categories }) {
 
       {/* Sidebar Container */}
       <div
-        className={`fixed right-0 top-0 h-full w-full max-w-sm bg-[#111] z-50 border-l border-gray-800 shadow-2xl transition-transform duration-300 transform ${
+        className={`fixed right-0 top-8 h-full w-full max-w-sm bg-[#111] z-50 border-l border-gray-800 shadow-2xl transition-transform duration-300 transform ${
           isOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >

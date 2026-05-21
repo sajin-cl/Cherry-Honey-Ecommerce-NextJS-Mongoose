@@ -76,28 +76,23 @@ export default function FilterSidebar({ onClose, onApply, initialParams, categor
   };
 
   return (
-    <div className="flex flex-col h-full bg-[#111111] w-full">
+    <div className="flex flex-col h-full bg-[#111111] w-full pt-4">
       {/* Header */}
       <div className="flex items-center justify-between px-6 pt-6 pb-2">
-        <h2 className="text-2xl text-white" style={{ fontFamily: "'Georgia', serif", fontStyle: "italic" }}>
-          Filter
-        </h2>
+         <span></span>
         <button
           onClick={onClose}
-          className="text-gray-400 hover:text-white transition-colors"
+          className="text-gray-400 hover:text-amber-200 transition-colors border-x border-gray-200 rounded-full p-1 cursor-pointer"
           aria-label="Close filter"
         >
-          <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+          <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
           </svg>
         </button>
       </div>
 
       {/* Scrollable body */}
-      <div className="flex-1 overflow-y-auto px-6">
-
-        {/* Divider */}
-        <div className="border-t border-gray-800 mt-2" />
+      <div className="flex-1 overflow-y-auto px-6 no-scrollbar">       
 
         {/* Categories */}
         <div>
@@ -185,16 +180,16 @@ export default function FilterSidebar({ onClose, onApply, initialParams, categor
       </div>
 
       {/* Action buttons */}
-      <div className="px-6 py-5 border-t border-gray-800 flex gap-3">
+      <div className="px-6 py-5 border-t border-gray-800 flex gap-3 mb-4">
         <button
           onClick={handleReset}
-          className="flex-1 py-3.5 border border-gray-600 text-white text-sm font-semibold tracking-wide hover:border-white transition-colors"
+          className="flex-1 py-3 border border-gray-600 text-white text-sm font-semibold tracking-wide hover:border-white transition-colors"
         >
           RESET
         </button>
         <button
           onClick={handleApply}
-          className="flex-1 py-3.5 bg-[#C8A84B] hover:bg-[#b8973e] text-black text-sm font-semibold tracking-wide transition-colors"
+          className="flex-1 py-3 bg-[#C8A84B] hover:bg-[#b8973e] text-black text-sm font-semibold tracking-wide transition-colors"
         >
           APPLY FILTER
         </button>
