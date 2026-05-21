@@ -5,10 +5,10 @@ import { SiFacebook } from "react-icons/si";
 
 
 export const SOCIAL_LINKS = [
-    { icon: SiFacebook, href: "", name: 'Facebook' },
-    { icon: FaInstagram, href: "", name: 'Instagram' },
-    { icon: FaXTwitter, href: "", name: 'X' },
-    { icon: RiYoutubeLine, href: "", name: 'Youtube' },
+    { icon: SiFacebook, href: "", name: 'Facebook', size: 20 },
+    { icon: FaInstagram, href: "", name: 'Instagram', size: 20 },
+    { icon: FaXTwitter, href: "", name: 'X', size: 20 },
+    { icon: RiYoutubeLine, href: "", name: 'Youtube', size: 25 },
 ];
 
 

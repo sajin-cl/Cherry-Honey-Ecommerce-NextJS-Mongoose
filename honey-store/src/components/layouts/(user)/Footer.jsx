@@ -37,7 +37,7 @@ export default function Footer() {
             </svg>
             <span className="text-[#C8A84B] font-bold" style={{ fontFamily: "'Georgia', serif" }}>Cherry Honey</span>
           </div>
-          <div className="flex gap-3 mt-4">
+          <div className="flex gap-3 mt-4 items-center">
             {SOCIAL_LINKS.map((social, idx) => {
               const Icon = social.icon;
               return (
@@ -46,9 +46,9 @@ export default function Footer() {
                   href={social.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="p-2 rounded-full hover:bg-white/10 hover:text-lime-300 transition"
+                  className="p-2 rounded-full hover:bg-white/10 hover:text-amber-300 transition"
                 >
-                  <Icon />
+                  <Icon size={social.size}/>
                 </Link>
               );
             })}
