@@ -131,7 +131,7 @@ export default function ContactClient() {
       ══════════════════════════════════════════════ */}
       <div className="relative w-full h-24 md:h-36 my-8 select-none pointer-events-none z-10 overflow-hidden">
         <Image
-          src="/honey-drip1.png"
+          src="/honey-dripv1.webp"
           fill
           className="object-cover mix-blend-screen contrast-125 brightness-95"
           alt="Golden honey drip divider"
