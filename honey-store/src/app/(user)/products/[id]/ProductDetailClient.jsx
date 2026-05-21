@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import WriteReviewModal from "@/components/ui/WriteReviewModal";
+import { motion, AnimatePresence } from "framer-motion";
 
 /* ── helpers ── */
 const serifItalic = {
@@ -352,10 +353,25 @@ export default function ProductDetailClient({ product, similar }) {
   };
 
   return (
-    <div className="min-h-screen bg-[#0a0a0a] text-white">
-      <div className="max-w-7xl mx-auto px-4 md:px-6 pt-24 pb-16">
+    <div className="min-h-screen bg-[#0a0a0a] text-white relative overflow-hidden">
+      {/* Honeycomb background for premium feel */}
+      <div className="absolute inset-0 z-0 opacity-15 pointer-events-none">
+        <Image
+          src="/honey-comb.png"
+          fill
+          className="object-cover animate-pulse"
+          alt="honeycomb background"
+        />
+      </div>
+
+      <div className="max-w-7xl mx-auto px-4 md:px-6 pt-24 pb-16 relative z-10">
         {/* ── Breadcrumb ── */}
-        <nav className="flex items-center gap-2 text-xs text-gray-500 mb-8">
+        <motion.nav
+          className="flex items-center gap-2 text-xs text-gray-500 mb-8"
+          initial={{ y: -10, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.6 }}
+        >
           <Link href="/" className="hover:text-[#C8A84B] transition-colors">
             Home
           </Link>
@@ -365,28 +381,33 @@ export default function ProductDetailClient({ product, similar }) {
           </Link>
           <span>/</span>
           <span className="text-gray-300">{product.name}</span>
-        </nav>
+        </motion.nav>
 
         {/* ══════════════════════════════════════════════
             PRODUCT HERO — image + info
         ══════════════════════════════════════════════ */}
         <div className="grid lg:grid-cols-2 gap-12 mb-20">
           {/* Left — images */}
-          <div className="flex flex-col gap-4">
+          <motion.div
+            className="flex flex-col gap-4"
+            initial={{ x: -40, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            transition={{ duration: 1.0, ease: "easeOut" }}
+          >
             {/* Main image */}
-            <div className="relative w-full aspect-square bg-[#111] border border-gray-800 overflow-hidden flex items-center justify-center">
+            <div className="relative w-full aspect-square bg-[#111] border border-gray-800 overflow-hidden flex items-center justify-center group">
               <Image
                 src={images[activeImage]}
                 alt={product.name}
                 fill
                 sizes="(max-width: 1024px) 100vw, 50vw"
-                className="object-contain p-10 transition-opacity duration-300"
+                className="object-contain p-10 transition-transform duration-500 group-hover:scale-105"
                 loading="eager"
                 priority
               />
               {/* Discount badge */}
               {discount > 0 && (
-                <span className="absolute top-4 left-4 bg-[#C8A84B] text-black text-xs font-bold px-2.5 py-1">
+                <span className="absolute top-4 left-4 bg-[#C8A84B] text-black text-xs font-bold px-2.5 py-1 z-10">
                   -{discount}%
                 </span>
               )}
@@ -414,10 +435,15 @@ export default function ProductDetailClient({ product, similar }) {
                 ))}
               </div>
             )}
-          </div>
+          </motion.div>
 
           {/* Right — product info */}
-          <div className="flex flex-col">
+          <motion.div
+            className="flex flex-col"
+            initial={{ x: 40, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            transition={{ duration: 1.0, ease: "easeOut" }}
+          >
             {/* Rating */}
             <StarRating rating={product.rating} count={product.numReviews} />
 
@@ -545,13 +571,19 @@ export default function ProductDetailClient({ product, similar }) {
             <p className="text-gray-400 text-sm leading-relaxed">
               {product.description}
             </p>
-          </div>
+          </motion.div>
         </div>
 
         {/* ══════════════════════════════════════════════
             PRODUCT SPECIFICATIONS
         ══════════════════════════════════════════════ */}
-        <section className="mb-20">
+        <motion.section
+          className="mb-20"
+          initial={{ y: 30, opacity: 0 }}
+          whileInView={{ y: 0, opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+        >
           <h2 className="text-2xl text-white mb-6" style={serifItalic}>
             <span className="text-[#C8A84B]">Product</span> Specifications
           </h2>
@@ -591,12 +623,18 @@ export default function ProductDetailClient({ product, similar }) {
               </div>
             ))}
           </div>
-        </section>
+        </motion.section>
 
         {/* ══════════════════════════════════════════════
             SHIPPING DETAILS
         ══════════════════════════════════════════════ */}
-        <section className="mb-20">
+        <motion.section
+          className="mb-20"
+          initial={{ y: 30, opacity: 0 }}
+          whileInView={{ y: 0, opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+        >
           <h2 className="text-2xl text-white mb-6" style={serifItalic}>
             <span className="text-[#C8A84B]">Shipping</span> Details
           </h2>
@@ -607,7 +645,7 @@ export default function ProductDetailClient({ product, similar }) {
               <button
                 key={tab}
                 onClick={() => setSellerTab(tab)}
-                className={`px-6 py-3 text-sm font-medium capitalize transition-all duration-200 border-b-2 -mb-px ${sellerTab === tab
+                className={`px-6 py-3 text-sm font-medium capitalize transition-all duration-200 border-b-2 -mb-px cursor-pointer ${sellerTab === tab
                   ? "border-[#C8A84B] text-[#C8A84B]"
                   : "border-transparent text-gray-400 hover:text-white"
                   }`}
@@ -617,15 +655,32 @@ export default function ProductDetailClient({ product, similar }) {
             ))}
           </div>
 
-          <p className="text-gray-400 text-sm leading-relaxed max-w-3xl">
-            {shippingDetails[sellerTab]}
-          </p>
-        </section>
+          <div className="overflow-hidden min-h-[48px]">
+            <AnimatePresence mode="wait">
+              <motion.p
+                key={sellerTab}
+                initial={{ opacity: 0, x: -10 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: 10 }}
+                transition={{ duration: 0.3 }}
+                className="text-gray-400 text-sm leading-relaxed max-w-3xl"
+              >
+                {shippingDetails[sellerTab]}
+              </motion.p>
+            </AnimatePresence>
+          </div>
+        </motion.section>
 
         {/* ══════════════════════════════════════════════
             FAQ
         ══════════════════════════════════════════════ */}
-        <section className="mb-20">
+        <motion.section
+          className="mb-20"
+          initial={{ y: 30, opacity: 0 }}
+          whileInView={{ y: 0, opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+        >
           <h2 className="text-2xl text-white mb-6" style={serifItalic}>
             <span className="text-[#C8A84B]">FAQ</span>
           </h2>
@@ -635,12 +690,18 @@ export default function ProductDetailClient({ product, similar }) {
               <FAQItem key={i} q={faq.q} a={faq.a} />
             ))}
           </div>
-        </section>
+        </motion.section>
 
         {/* ══════════════════════════════════════════════
             REVIEWS
         ══════════════════════════════════════════════ */}
-        <section className="mb-20">
+        <motion.section
+          className="mb-20"
+          initial={{ y: 30, opacity: 0 }}
+          whileInView={{ y: 0, opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+        >
           {/* Header row */}
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-2xl text-white" style={serifItalic}>
@@ -648,7 +709,7 @@ export default function ProductDetailClient({ product, similar }) {
             </h2>
             <button
               onClick={() => setFormOpen(true)}
-              className="flex items-center gap-2 bg-[#C8A84B] hover:bg-[#b8973e] text-black text-sm font-semibold px-5 py-2.5 transition-colors"
+              className="flex items-center gap-2 bg-[#C8A84B] hover:bg-[#b8973e] text-black text-sm font-semibold px-5 py-2.5 transition-colors cursor-pointer"
             >
               <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M16.862 3.487a2.25 2.25 0 113.182 3.182L7.5 19.213l-4.5 1.125 1.125-4.5L16.862 3.487z" />
@@ -668,7 +729,21 @@ export default function ProductDetailClient({ product, similar }) {
             </div>
           </div>
 
-          <div className="space-y-6 max-w-3xl">
+          <motion.div
+            className="space-y-6 max-w-3xl"
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true }}
+            variants={{
+              hidden: { opacity: 0 },
+              show: {
+                opacity: 1,
+                transition: {
+                  staggerChildren: 0.1
+                }
+              }
+            }}
+          >
             {[...localReviews]
               .sort((a, b) => new Date(b.createdAt || 0) - new Date(a.createdAt || 0))
               .map((rev, i) => {
@@ -680,7 +755,14 @@ export default function ProductDetailClient({ product, similar }) {
                 }) : "Recent");
                 const commentText = rev.text || rev.comment || "";
                 return (
-                  <div key={i} className="bg-[#111] border border-gray-800 p-5 animate-fadeIn">
+                  <motion.div
+                    key={i}
+                    className="bg-[#111] border border-gray-800 p-5"
+                    variants={{
+                      hidden: { y: 20, opacity: 0 },
+                      show: { y: 0, opacity: 1, transition: { duration: 0.5 } }
+                    }}
+                  >
                     <div className="flex items-start gap-4">
                       {/* Avatar */}
                       <div className="w-10 h-10 rounded-full bg-[#C8A84B]/20 border border-[#C8A84B]/40 flex items-center justify-center text-[#C8A84B] font-bold text-sm flex-shrink-0">
@@ -701,10 +783,10 @@ export default function ProductDetailClient({ product, similar }) {
                         </p>
                       </div>
                     </div>
-                  </div>
+                  </motion.div>
                 );
               })}
-          </div>
+          </motion.div>
 
           {/* ── Write a Review Modal ── */}
           <WriteReviewModal
@@ -712,55 +794,82 @@ export default function ProductDetailClient({ product, similar }) {
             onClose={() => setFormOpen(false)}
             onSubmit={handleReviewSubmit}
           />
-        </section>
+        </motion.section>
 
         {/* ══════════════════════════════════════════════
             SIMILAR PRODUCTS
         ══════════════════════════════════════════════ */}
         {similar && similar.length > 0 && (
-          <section>
+          <motion.section
+            initial={{ y: 30, opacity: 0 }}
+            whileInView={{ y: 0, opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+          >
             <h2 className="text-2xl text-white mb-8" style={serifItalic}>
               <span className="text-[#C8A84B]">Similar</span> Products
             </h2>
 
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-5">
+            <motion.div
+              className="grid grid-cols-2 sm:grid-cols-4 gap-5"
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true }}
+              variants={{
+                hidden: { opacity: 0 },
+                show: {
+                  opacity: 1,
+                  transition: {
+                    staggerChildren: 0.08
+                  }
+                }
+              }}
+            >
               {similar.map((p) => {
                 const similarImg = p.image?.url || p.image || "/hero-honey-jar.webp";
                 const similarId = p._id || p.id;
                 const displayPrice = p.discountPrice ?? p.price;
                 return (
-                  <Link key={similarId} href={`/products/${similarId}`} className="group block">
-                    <div className="bg-[#111] border border-gray-800 hover:border-[#C8A84B]/50 transition-all duration-300 group-hover:-translate-y-1">
-                      <div className="relative h-48 bg-black">
-                        <Image
-                          src={similarImg}
-                          alt={p.name}
-                          fill
-                          sizes="(max-width: 640px) 50vw, 25vw"
-                          className="object-contain p-4"
-                        />
-                      </div>
-                      <div className="p-4">
-                        <h3 className="text-white text-sm mb-1 group-hover:text-[#C8A84B] transition-colors truncate">
-                          {p.name}
-                        </h3>
-                        <div className="flex items-center gap-2">
-                          <span className="text-[#C8A84B] text-sm font-semibold">
-                            ₹{displayPrice}
-                          </span>
-                          {p.discountPrice && (
-                            <span className="text-gray-500 text-xs line-through">
-                              ₹{p.price}
+                  <motion.div
+                    key={similarId}
+                    variants={{
+                      hidden: { y: 20, opacity: 0 },
+                      show: { y: 0, opacity: 1, transition: { duration: 0.5 } }
+                    }}
+                  >
+                    <Link href={`/products/${similarId}`} className="group block">
+                      <div className="bg-[#111] border border-gray-800 hover:border-[#C8A84B]/50 transition-all duration-300 group-hover:-translate-y-1">
+                        <div className="relative h-48 bg-black overflow-hidden">
+                          <Image
+                            src={similarImg}
+                            alt={p.name}
+                            fill
+                            sizes="(max-width: 640px) 50vw, 25vw"
+                            className="object-contain p-4 group-hover:scale-105 transition-transform duration-500"
+                          />
+                        </div>
+                        <div className="p-4">
+                          <h3 className="text-white text-sm mb-1 group-hover:text-[#C8A84B] transition-colors truncate">
+                            {p.name}
+                          </h3>
+                          <div className="flex items-center gap-2">
+                            <span className="text-[#C8A84B] text-sm font-semibold">
+                              ₹{displayPrice}
                             </span>
-                          )}
+                            {p.discountPrice && (
+                              <span className="text-gray-500 text-xs line-through">
+                                ₹{p.price}
+                              </span>
+                            )}
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  </Link>
+                    </Link>
+                  </motion.div>
                 );
               })}
-            </div>
-          </section>
+            </motion.div>
+          </motion.section>
         )}
       </div>
     </div>

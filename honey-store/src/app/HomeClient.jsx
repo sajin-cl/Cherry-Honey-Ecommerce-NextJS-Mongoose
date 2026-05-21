@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import Navbar from "@/components/layouts/(user)/Navbar";
 import Footer from "@/components/layouts/(user)/Footer";
 import { TESTIMONIALS } from "@/config/staticData"
@@ -38,7 +38,12 @@ export default function HomeClient({ featuredProducts }) {
 
         <div className="relative max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-8 items-center w-full py-16 z-10">
           {/* LEFT CONTENT */}
-          <div className="z-10 order-2 md:order-1">
+          <motion.div
+            className="z-10 order-2 md:order-1"
+            initial={{ x: -50, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            transition={{ duration: 1.0, ease: "easeOut" }}
+          >
             <p className="text-[#C8A84B] text-xs tracking-[0.3em] uppercase mb-5">Pure &amp; Natural</p>
             <h1 className="text-5xl md:text-6xl lg:text-7xl text-white leading-tight mb-6" style={serifItalic}>
               Crafted by Bees,<br />
@@ -63,10 +68,15 @@ export default function HomeClient({ featuredProducts }) {
                 View Products
               </Link>
             </div>
-          </div>
+          </motion.div>
 
           {/* RIGHT — bee image */}
-          <div className="relative flex justify-center items-center order-1 md:order-2">
+          <motion.div
+            className="relative flex justify-center items-center order-1 md:order-2"
+            initial={{ x: 50, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            transition={{ duration: 1.0, ease: "easeOut" }}
+          >
             <div className="relative w-full max-w-[520px] aspect-square">
               <MotionImage
                 src="/bee.png"
@@ -75,14 +85,20 @@ export default function HomeClient({ featuredProducts }) {
                 priority
                 sizes="(max-width: 768px) 90vw, 520px"
                 className="object-contain scale-120"
-                initial={{ x: 80, opacity: 0.01 }}
-                whileInView={{ x: 0, opacity: 1 }}
+                animate={{
+                  y: [0, -15, 0],
+                }}
                 transition={{
-                  duration: 4,
+                  y: {
+                    duration: 6,
+                    repeat: Infinity,
+                    ease: "easeInOut"
+                  },
+                  duration: 1.2
                 }}
               />
             </div>
-          </div>
+          </motion.div>
         </div>
       </section>
 
@@ -117,46 +133,81 @@ export default function HomeClient({ featuredProducts }) {
 
         {/* Content */}
         <div className="max-w-7xl mx-auto px-6 relative" style={{ zIndex: 2 }}>
-          <h2 className="text-3xl md:text-4xl mb-12 z-50 md:mt-12" style={serifItalic}>
+          <motion.h2
+            className="text-3xl md:text-4xl mb-12 z-50 md:mt-12"
+            style={serifItalic}
+            initial={{ y: 30, opacity: 0 }}
+            whileInView={{ y: 0, opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+          >
             <span className="text-[#C8A84B]">Featured</span> Products
-          </h2>
+          </motion.h2>
 
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
+          <motion.div
+            className="grid grid-cols-1 sm:grid-cols-3 gap-5"
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, margin: "-100px" }}
+            variants={{
+              hidden: { opacity: 0 },
+              show: {
+                opacity: 1,
+                transition: {
+                  staggerChildren: 0.15
+                }
+              }
+            }}
+          >
             {featuredProducts.map((product) => {
               const productId = product._id || product.id;
               const priceVal = product.discountPrice ?? product.price;
               const priceText = typeof priceVal === "number" ? `₹${priceVal.toFixed(2)}` : priceVal;
               const imgUrl = product.image?.url || product.image || "/hero-honey-jar.webp";
               return (
-                <Link key={productId} href={`/products/${productId}`} className="group">
-                  <div className="bg-[#111] border border-gray-800 hover:border-[#C8A84B]/50 transition-all duration-300 group-hover:-translate-y-1 overflow-hidden">
-                    <div className="relative h-52 bg-black flex items-center justify-center">
-                      <Image
-                        src={imgUrl}
-                        alt={product.name}
-                        fill
-                        sizes="(max-width: 640px) 100vw, 33vw"
-                        className="object-contain p-6 group-hover:scale-105 transition-transform duration-500"
-                      />
+                <motion.div
+                  key={productId}
+                  variants={{
+                    hidden: { y: 30, opacity: 0 },
+                    show: { y: 0, opacity: 1, transition: { duration: 0.6 } }
+                  }}
+                >
+                  <Link href={`/products/${productId}`} className="group">
+                    <div className="bg-[#111] border border-gray-800 hover:border-[#C8A84B]/50 transition-all duration-300 group-hover:-translate-y-1 overflow-hidden">
+                      <div className="relative h-52 bg-black flex items-center justify-center">
+                        <Image
+                          src={imgUrl}
+                          alt={product.name}
+                          fill
+                          sizes="(max-width: 640px) 100vw, 33vw"
+                          className="object-contain p-6 group-hover:scale-105 transition-transform duration-500"
+                        />
+                      </div>
+                      <div className="p-4 border-t border-gray-800">
+                        <h3 className="text-white text-sm font-medium mb-1 truncate">{product.name}</h3>
+                        <p className="text-[#C8A84B] text-sm font-bold">{priceText}</p>
+                      </div>
                     </div>
-                    <div className="p-4 border-t border-gray-800">
-                      <h3 className="text-white text-sm font-medium mb-1 truncate">{product.name}</h3>
-                      <p className="text-[#C8A84B] text-sm font-bold">{priceText}</p>
-                    </div>
-                  </div>
-                </Link>
+                  </Link>
+                </motion.div>
               );
             })}
-          </div>
+          </motion.div>
 
-          <div className="flex justify-end mt-8">
+          <motion.div
+            className="flex justify-end mt-8"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.3 }}
+          >
             <Link
               href="/products"
               className="bg-[#C8A84B] hover:bg-[#b8973e] text-black font-bold text-xs px-8 py-3.5 tracking-[0.2em] uppercase transition-colors"
             >
               View All Products
             </Link>
-          </div>
+          </motion.div>
         </div>
       </section>
 
@@ -178,7 +229,13 @@ export default function HomeClient({ featuredProducts }) {
         <div className="py-20">
           <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
             {/* Left — dripping bee image */}
-            <div className="relative h-80 md:h-[440px] flex items-center justify-center">
+            <motion.div
+              className="relative h-80 md:h-[440px] flex items-center justify-center"
+              initial={{ x: -50, opacity: 0 }}
+              whileInView={{ x: 0, opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+            >
               <Image
                 src="/two-bees.webp"
                 alt="Two Honey bee"
@@ -186,10 +243,15 @@ export default function HomeClient({ featuredProducts }) {
                 sizes="(max-width: 768px) 100vw, 50vw"
                 className="object-contain drop-shadow-[0_0_60px_rgba(200,168,75,0.25)]"
               />
-            </div>
+            </motion.div>
 
             {/* Right text */}
-            <div>
+            <motion.div
+              initial={{ x: 50, opacity: 0 }}
+              whileInView={{ x: 0, opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+            >
               <h2 className="text-3xl md:text-5xl mb-6" style={serifItalic}>
                 <span className="text-[#C8A84B]">Our</span> Story
               </h2>
@@ -207,7 +269,7 @@ export default function HomeClient({ featuredProducts }) {
               >
                 Read More
               </Link>
-            </div>
+            </motion.div>
           </div>
         </div>
       </section>
@@ -240,9 +302,16 @@ export default function HomeClient({ featuredProducts }) {
 
 
         <div className="max-w-7xl mx-auto px-6">
-          <h2 className="text-3xl md:text-4xl mb-12 md:mt-12" style={serifItalic}>
+          <motion.h2
+            className="text-3xl md:text-4xl mb-12 md:mt-12"
+            style={serifItalic}
+            initial={{ y: 30, opacity: 0 }}
+            whileInView={{ y: 0, opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+          >
             <span className="text-[#C8A84B]">This is what</span> they say
-          </h2>
+          </motion.h2>
 
           <div className="grid md:grid-cols-2 gap-12 items-center">
             {/* Left — testimonial */}
@@ -250,13 +319,25 @@ export default function HomeClient({ featuredProducts }) {
               <div className="text-[#C8A84B] text-6xl leading-none mb-3" style={{ fontFamily: "Georgia, serif" }}>
                 &#8220;&#8220;
               </div>
-              <p className="text-gray-300 text-base leading-relaxed mb-6 italic">
-                {TESTIMONIALS[currentTestimonial].text}
-              </p>
-              <p className="text-[#C8A84B] font-semibold text-sm mb-1">
-                {TESTIMONIALS[currentTestimonial].name}
-              </p>
-              <p className="text-gray-600 text-xs mb-6">{TESTIMONIALS[currentTestimonial].role}</p>
+              <div className="relative min-h-[160px] md:min-h-[140px]">
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={currentTestimonial}
+                    initial={{ opacity: 0, y: 15 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -15 }}
+                    transition={{ duration: 0.4 }}
+                  >
+                    <p className="text-gray-300 text-base leading-relaxed mb-6 italic">
+                      {TESTIMONIALS[currentTestimonial].text}
+                    </p>
+                    <p className="text-[#C8A84B] font-semibold text-sm mb-1">
+                      {TESTIMONIALS[currentTestimonial].name}
+                    </p>
+                    <p className="text-gray-600 text-xs mb-6">{TESTIMONIALS[currentTestimonial].role}</p>
+                  </motion.div>
+                </AnimatePresence>
+              </div>
               {/* Dots */}
               <div className="flex gap-2">
                 {TESTIMONIALS.map((_, i) => (
@@ -272,7 +353,13 @@ export default function HomeClient({ featuredProducts }) {
             </div>
 
             {/* Right — bee image */}
-            <div className="relative h-72 md:h-[380px] bg-[#111] border border-gray-800 overflow-hidden">
+            <motion.div
+              className="relative h-72 md:h-[380px] bg-[#111] border border-gray-800 overflow-hidden"
+              initial={{ opacity: 0, scale: 0.95 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+            >
               <Image
                 src="/hero-bee.webp"
                 alt="Bee with honey"
@@ -280,7 +367,7 @@ export default function HomeClient({ featuredProducts }) {
                 sizes="(max-width: 768px) 100vw, 50vw"
                 className="object-cover aspect-square p-6 hover:scale-105 transition-transform duration-700"
               />
-            </div>
+            </motion.div>
           </div>
         </div>
       </section>
@@ -290,12 +377,25 @@ export default function HomeClient({ featuredProducts }) {
       ══════════════════════════════════════════════ */}
       <section className="py-20 bg-black">
         <div className="max-w-7xl mx-auto px-6">
-          <h2 className="text-3xl md:text-4xl text-center mb-12" style={serifItalic}>
+          <motion.h2
+            className="text-3xl md:text-4xl text-center mb-12"
+            style={serifItalic}
+            initial={{ y: 30, opacity: 0 }}
+            whileInView={{ y: 0, opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+          >
             <span className="text-[#C8A84B]">Our</span> Journey
-          </h2>
+          </motion.h2>
 
           {/* Full-width banner image with play overlay */}
-          <div className="relative w-full h-72 md:h-[420px] overflow-hidden group">
+          <motion.div
+            className="relative w-full h-72 md:h-[420px] overflow-hidden group border border-gray-800"
+            initial={{ y: 40, opacity: 0 }}
+            whileInView={{ y: 0, opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+          >
             <Image
               src="/hero-bee.webp"
               alt="Our bee journey"
@@ -307,13 +407,17 @@ export default function HomeClient({ featuredProducts }) {
             <div className="absolute inset-0 bg-black/50" />
             {/* Play button */}
             <div className="absolute inset-0 flex items-center justify-center">
-              <div className="w-16 h-16 rounded-full bg-[#C8A84B]/90 hover:bg-[#C8A84B] flex items-center justify-center cursor-pointer transition-colors shadow-[0_0_30px_rgba(200,168,75,0.5)]">
+              <motion.div
+                className="w-16 h-16 rounded-full bg-[#C8A84B]/90 hover:bg-[#C8A84B] flex items-center justify-center cursor-pointer transition-colors shadow-[0_0_30px_rgba(200,168,75,0.5)]"
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.95 }}
+              >
                 <svg className="w-6 h-6 text-black ml-1" fill="currentColor" viewBox="0 0 24 24">
                   <path d="M8 5v14l11-7z" />
                 </svg>
-              </div>
+              </motion.div>
             </div>
-          </div>
+          </motion.div>
         </div>
       </section>
 

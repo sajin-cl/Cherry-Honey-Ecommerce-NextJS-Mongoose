@@ -14,14 +14,14 @@ export default function Footer() {
             Let's Get In Touch <br />
             <span className="text-xs text-black font-semibold" style={{ fontFamily: "'Georgia', serif" }}>What' s inside? Exclusive sales, new arrivals & much more.</span>
           </h3>
-          <div className="flex w-full md:w-auto gap-2">
+          <div className="flex flex-col md:flex-row w-full md:w-auto gap-2">
             <input
               type="email"
               placeholder="Enter your email"
               className="bg-black/20 text-black placeholder-black/60 text-sm px-5 py-3 rounded-lg flex-1 md:w-72 focus:outline-none focus:ring-2 focus:ring-black/30"
             />
-            <button className="bg-black text-white text-sm font-semibold px-6 py-3 rounded-lg hover:bg-gray-900 transition-colors">
-              Sign Up
+            <button className="bg-black text-white text-sm font-semibold px-6 py-3 rounded-lg hover:bg-gray-900 transition-colors cursor-pointer">
+              Subscribe
             </button>
           </div>
         </div>
@@ -87,7 +87,7 @@ export default function Footer() {
 
       {/* Copyright */}
       <div className="border-t border-gray-800 py-6 text-center text-xs text-gray-500">
-        © 2026 Queen Honey. All rights reserved and developed by sajin-cl.
+        © 2026 Cherry Honey. All rights reserved and developed by sajin-cl.
       </div>
     </footer>
   );
