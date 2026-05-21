@@ -87,12 +87,25 @@ export default function AboutClient() {
           CORE VALUES SECTION
       ══════════════════════════════════════════════ */}
       <section className="relative py-24 bg-[#050505] z-10">
+
+        <div className="absolute top-0 right-0 left-0 w-full pointer-events-none">
+          <Image
+            src="/honey-dripv1.png"
+            alt="Honey drip"
+            width={2000}
+            height={1000}
+            priority
+            className="w-full h-30 md:h-40 object-cover mix-blend-screen contrast-125 brightness-100"
+          />
+        </div>
+
         <Image
-                  src={"/honey-comb.png"}
-                  fill
-                  className="object-cover animate-pulse"
-                  alt="honey-comb"
-                />
+          src={"/honey-comb.png"}
+          fill
+          className="object-cover animate-pulse mask-fade"
+          alt="honey-comb"
+        />
+
         <div className="max-w-7xl mx-auto px-6">
           <motion.div
             className="text-center mb-16"
@@ -101,7 +114,7 @@ export default function AboutClient() {
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.8 }}
           >
-            <p className="text-[#C8A84B] text-xs tracking-[0.4em] uppercase mb-4 font-bold">
+            <p className="text-[#C8A84B] text-xs tracking-[0.4em] uppercase mb-4 font-bold md:mt-12">
               Our Promise
             </p>
             <h2 className="text-3xl md:text-5xl text-white font-light" style={serifItalic}>

@@ -54,3 +54,25 @@ input[type="range"]::-moz-range-thumb {
   border: none;
   cursor: pointer;
 }
+
+@layer utilities {
+  .mask-fade {
+    -webkit-mask-image: radial-gradient(
+      circle at top right,
+      transparent 0%,
+      black 80%
+    );
+
+    mask-image: radial-gradient(
+      circle at top right,
+      transparent 0%,
+      black 80%
+    );
+
+    -webkit-mask-size: 100% 100%;
+    mask-size: 100% 100%;
+
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+  }
+}

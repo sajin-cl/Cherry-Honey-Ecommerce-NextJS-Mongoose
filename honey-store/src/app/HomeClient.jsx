@@ -105,88 +105,92 @@ export default function HomeClient({ featuredProducts }) {
       {/* ══════════════════════════════════════════════
           FEATURED PRODUCTS
       ══════════════════════════════════════════════ */}
-     
-        <section className="py-20 bg-dark relative overflow-hidden min-h-screen">
-          {/* Honey Comb Layer-1*/}
-          <div className="absolute inset-0">
-            <Image
-              src="/honey-comb.png"
-              fill
-              className="object-cover animate-pulse"
-              alt="overlay"
-              sizes="100vw"
-            />
-            <div className="absolute inset-0 bg-gradient-to-bl from-black/80 via-black/0 to-transparent" />
-          </div>
 
-          {/* Honey Drip Layer-2 */}
-          <div className="absolute top-0 right-0 left-0 w-full pointer-events-none">
-            <Image
-              src="/honey-dripv1.png"
-              alt="Honey drip"
-              width={2000}
-              height={1000}
-              priority
-              className="w-full h-full object-cover mix-blend-screen contrast-125 brightness-100"
-            />
-          </div>
+      <section className="py-20 bg-dark relative overflow-hidden min-h-screen">
+        {/* Honey Comb Layer-1*/}
+        <div className="absolute inset-0">
+          <Image
+            src="/honey-comb.png"
+            fill
+            className="object-cover animate-pulse mask-fade"
+            alt="overlay"
+            sizes="100vw"
+          />
+          <div className="absolute inset-0 bg-gradient-to-bl from-black/80 via-black/0 to-transparent" />
+        </div>
 
-          {/* Content */}
-          <div className="max-w-7xl mx-auto px-6 relative" style={{ zIndex: 2 }}>
-            <h2 className="text-3xl md:text-4xl mb-12 z-50" style={serifItalic}>
-              <span className="text-[#C8A84B]">Featured</span> Products
-            </h2>
+        {/* Honey Drip Layer-2 */}
+        <div className="absolute top-0 right-0 left-0 w-full pointer-events-none">
+          <Image
+            src="/honey-dripv1.png"
+            alt="Honey drip"
+            width={2000}
+            height={1000}
+            priority
+            className="w-full h-30 md:h-40 object-cover mix-blend-screen contrast-125 brightness-100"
+          />
+        </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
-              {featuredProducts.map((product) => {
-                const productId = product._id || product.id;
-                const priceVal = product.discountPrice ?? product.price;
-                const priceText = typeof priceVal === "number" ? `₹${priceVal.toFixed(2)}` : priceVal;
-                const imgUrl = product.image?.url || product.image || "/hero-honey-jar.png";
-                return (
-                  <Link key={productId} href={`/products/${productId}`} className="group">
-                    <div className="bg-[#111] border border-gray-800 hover:border-[#C8A84B]/50 transition-all duration-300 group-hover:-translate-y-1 overflow-hidden">
-                      <div className="relative h-52 bg-black flex items-center justify-center">
-                        <Image
-                          src={imgUrl}
-                          alt={product.name}
-                          fill
-                          sizes="(max-width: 640px) 100vw, 33vw"
-                          className="object-contain p-6 group-hover:scale-105 transition-transform duration-500"
-                        />
-                      </div>
-                      <div className="p-4 border-t border-gray-800">
-                        <h3 className="text-white text-sm font-medium mb-1 truncate">{product.name}</h3>
-                        <p className="text-[#C8A84B] text-sm font-bold">{priceText}</p>
-                      </div>
+        {/* Content */}
+        <div className="max-w-7xl mx-auto px-6 relative" style={{ zIndex: 2 }}>
+          <h2 className="text-3xl md:text-4xl mb-12 z-50 md:mt-12" style={serifItalic}>
+            <span className="text-[#C8A84B]">Featured</span> Products
+          </h2>
+
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
+            {featuredProducts.map((product) => {
+              const productId = product._id || product.id;
+              const priceVal = product.discountPrice ?? product.price;
+              const priceText = typeof priceVal === "number" ? `₹${priceVal.toFixed(2)}` : priceVal;
+              const imgUrl = product.image?.url || product.image || "/hero-honey-jar.png";
+              return (
+                <Link key={productId} href={`/products/${productId}`} className="group">
+                  <div className="bg-[#111] border border-gray-800 hover:border-[#C8A84B]/50 transition-all duration-300 group-hover:-translate-y-1 overflow-hidden">
+                    <div className="relative h-52 bg-black flex items-center justify-center">
+                      <Image
+                        src={imgUrl}
+                        alt={product.name}
+                        fill
+                        sizes="(max-width: 640px) 100vw, 33vw"
+                        className="object-contain p-6 group-hover:scale-105 transition-transform duration-500"
+                      />
                     </div>
-                  </Link>
-                );
-              })}
-            </div>
-
-            <div className="flex justify-end mt-8">
-              <Link
-                href="/products"
-                className="bg-[#C8A84B] hover:bg-[#b8973e] text-black font-bold text-xs px-8 py-3.5 tracking-[0.2em] uppercase transition-colors"
-              >
-                View All Products
-              </Link>
-            </div>
+                    <div className="p-4 border-t border-gray-800">
+                      <h3 className="text-white text-sm font-medium mb-1 truncate">{product.name}</h3>
+                      <p className="text-[#C8A84B] text-sm font-bold">{priceText}</p>
+                    </div>
+                  </div>
+                </Link>
+              );
+            })}
           </div>
-        </section>
-      
+
+          <div className="flex justify-end mt-8">
+            <Link
+              href="/products"
+              className="bg-[#C8A84B] hover:bg-[#b8973e] text-black font-bold text-xs px-8 py-3.5 tracking-[0.2em] uppercase transition-colors"
+            >
+              View All Products
+            </Link>
+          </div>
+        </div>
+      </section>
+
 
       {/* ══════════════════════════════════════════════
           OUR STORY
       ══════════════════════════════════════════════ */}
       <section className="relative py-0 bg-black overflow-hidden">
-        <Image
-          src={"/honey-comb.png"}
-          fill
-          className="object-cover animate-pulse"
-          alt="honey-comb"
-        />
+
+        {/* background layer */}
+        <div className="absolute inset-0 z-30 pointer-events-none">
+          <Image
+            src="/honey-comb.png"
+            fill
+            className="object-cover animate-pulse"
+            alt="bg"
+          />
+        </div>
         <div className="py-20">
           <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
             {/* Left — dripping bee image */}
@@ -214,7 +218,7 @@ export default function HomeClient({ featuredProducts }) {
                 giving you honey the way nature intended.
               </p>
               <Link
-                href="/about"
+                href={'/about'}
                 className="inline-block bg-[#C8A84B] hover:bg-[#b8973e] text-black font-bold text-xs px-8 py-3.5 tracking-[0.2em] uppercase transition-colors"
               >
                 Read More
@@ -228,15 +232,31 @@ export default function HomeClient({ featuredProducts }) {
           TESTIMONIALS
       ══════════════════════════════════════════════ */}
       <section className="py-20 bg-[#0a0a0a] relative">
-        <Image
-          src={"/honey-comb.png"}
-          fill
-          className="object-cover opacity-25 animate-pulse"
-          alt="overlay"
-        />
+        <div className="absolute top-0 right-0 left-0 w-full z-30 pointer-events-none">
+          <Image
+            src="/honey-dripv1.png"
+            alt="Honey drip"
+            width={2000}
+            height={1000}
+            priority
+            className="w-full h-30 md:h-40 object-cover mix-blend-screen contrast-125 brightness-100 "
+          />
+
+        </div>
+
+        {/* background layer */}
+        <div className="absolute inset-0 z-30 pointer-events-none mask-fade">
+          <Image
+            src="/honey-comb.png"
+            fill
+            className="object-cover opacity-25 animate-pulse "
+            alt="overlay"
+          />
+        </div>
+
 
         <div className="max-w-7xl mx-auto px-6">
-          <h2 className="text-3xl md:text-4xl mb-12" style={serifItalic}>
+          <h2 className="text-3xl md:text-4xl mb-12 md:mt-12" style={serifItalic}>
             <span className="text-[#C8A84B]">This is what</span> they say
           </h2>
 
