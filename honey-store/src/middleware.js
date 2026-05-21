@@ -2,12 +2,14 @@ import { NextResponse } from "next/server";
 import { verifyToken } from "@/lib/jwt";
 
 const protectedUserRoutes = ["/cart", "/checkout", "/orders", "/profile"];
-const adminRoutes = ["/admin"];
 const guestOnlyRoutes = [
   "/accounts/login",
   "/accounts/register",
   "/accounts/forgot-password",
 ];
+
+// Pages that admin should NOT access (redirect them to dashboard instead)
+const userOnlyRoutes = ["/", "/cart", "/checkout", "/orders", "/profile", "/products", "/accounts"];
 
 export async function middleware(request) {
   const { pathname } = request.nextUrl;
@@ -22,7 +24,7 @@ export async function middleware(request) {
     }
   }
 
-  // Protect admin routes
+  // ── Admin route protection ──────────────────────────────────────
   if (pathname.startsWith("/admin")) {
     if (!user) {
       return NextResponse.redirect(new URL("/accounts/login", request.url));
@@ -30,9 +32,17 @@ export async function middleware(request) {
     if (user.role !== "admin") {
       return NextResponse.redirect(new URL("/", request.url));
     }
+    // Admin is authorised — let through
+    return NextResponse.next();
   }
 
-  // Protect user routes
+  // ── Redirect admin away from user-facing pages → dashboard ──────
+  if (user?.role === "admin") {
+    // Admin should always be in the admin panel
+    return NextResponse.redirect(new URL("/admin/dashboard", request.url));
+  }
+
+  // ── Protect user-only routes ────────────────────────────────────
   if (protectedUserRoutes.some((r) => pathname.startsWith(r))) {
     if (!user) {
       const loginUrl = new URL("/accounts/login", request.url);
@@ -41,7 +51,7 @@ export async function middleware(request) {
     }
   }
 
-  // Redirect logged-in users away from guest-only pages
+  // ── Redirect logged-in users away from guest-only pages ─────────
   if (guestOnlyRoutes.some((r) => pathname.startsWith(r))) {
     if (user) {
       return NextResponse.redirect(new URL("/", request.url));

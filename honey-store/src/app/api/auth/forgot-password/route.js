@@ -56,13 +56,6 @@ export async function POST(request) {
       }
     }
 
-    if (!emailSent) {
-      console.log("\n==================================================");
-      console.log("PASSWORD RESET URL (DEVELOPMENT CONSOLE):");
-      console.log(resetUrl);
-      console.log("==================================================\n");
-    }
-
     return NextResponse.json({
       message: "If that email exists, a reset link will be sent.",
       resetUrl: process.env.NODE_ENV !== "production" ? resetUrl : undefined
