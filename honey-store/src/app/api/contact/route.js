@@ -76,7 +76,6 @@ export async function POST(request) {
                 <div style="background-color: #0b0b0b; padding: 15px; border-radius: 8px; border: 1px solid #111; color: #eee; line-height: 1.6; white-space: pre-wrap;">${message}</div>
               </div>
               
-              <p style="font-size: 11px; text-align: center; color: #555; margin-top: 30px; border-top: 1px solid #222; padding-top: 15px;">This is an automated notification. To reply to this customer directly, click reply to send a message back to their email.</p>
             </div>
           `,
         };

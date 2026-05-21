@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import UserMenu from "@/components/ui/UserMenu";
 import { MdOutlineShoppingCartCheckout } from "react-icons/md";
+import { MOBILE_NAV_ITEMS } from '@/config/staticData'
 import Image from "next/image";
 
 export default function Navbar() {
@@ -15,13 +16,7 @@ export default function Navbar() {
   const [cartCount, setCartCount] = useState(0);
 
 
-  const MOBILE_NAV_ITEMS = [
-  { label: "Home", href: "/" },
-  { label: "Products", href: "/products" },
-  { label: "Orders", href: "/orders" },
-  { label: "About", href: "/about" },
-  { label: "Contact", href: "/contact" },
-];
+
 
   const isActive = (path) => {
     if (path === "/") return pathname === "/";
@@ -265,8 +260,8 @@ export default function Navbar() {
                 href={item.href}
                 onClick={() => setMenuOpen(false)}
                 className={`flex items-center gap-3 text-sm tracking-widest transition-colors duration-200 hover:ml-1 ${isActive(item.href)
-                    ? "text-[#C8A84B] font-medium"
-                    : "text-gray-300 hover:text-[#C8A84B]"
+                  ? "text-[#C8A84B] font-medium"
+                  : "text-gray-300 hover:text-[#C8A84B]"
                   }`}
               >
                 {item.label}

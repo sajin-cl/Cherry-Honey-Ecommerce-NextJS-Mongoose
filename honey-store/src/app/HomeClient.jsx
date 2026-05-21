@@ -6,6 +6,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import Navbar from "@/components/layouts/(user)/Navbar";
 import Footer from "@/components/layouts/(user)/Footer";
+import { TESTIMONIALS } from "@/config/staticData"
 
 const serifItalic = {
   fontFamily: "'Georgia', 'Times New Roman', serif",
@@ -15,23 +16,6 @@ const serifItalic = {
 
 const MotionImage = motion(Image);
 
-const testimonials = [
-  {
-    text: "A completely change in my way of experiencing honey. The taste is pure, rich and absolutely divine. I can never go back to store-bought honey again!",
-    name: "Amanda Muingo",
-    role: "Buyer",
-  },
-  {
-    text: "Best honey I have ever tasted. The quality is unmatched and you can truly taste the difference. Highly recommend Cherry Honey to everyone!",
-    name: "Rajesh Kumar",
-    role: "Regular Customer",
-  },
-  {
-    text: "From the packaging to the taste, everything about Cherry Honey screams premium quality. My entire family loves it!",
-    name: "Priya Sharma",
-    role: "Loyal Customer",
-  },
-];
 
 export default function HomeClient({ featuredProducts }) {
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
@@ -267,15 +251,15 @@ export default function HomeClient({ featuredProducts }) {
                 &#8220;&#8220;
               </div>
               <p className="text-gray-300 text-base leading-relaxed mb-6 italic">
-                {testimonials[currentTestimonial].text}
+                {TESTIMONIALS[currentTestimonial].text}
               </p>
               <p className="text-[#C8A84B] font-semibold text-sm mb-1">
-                {testimonials[currentTestimonial].name}
+                {TESTIMONIALS[currentTestimonial].name}
               </p>
-              <p className="text-gray-600 text-xs mb-6">{testimonials[currentTestimonial].role}</p>
+              <p className="text-gray-600 text-xs mb-6">{TESTIMONIALS[currentTestimonial].role}</p>
               {/* Dots */}
               <div className="flex gap-2">
-                {testimonials.map((_, i) => (
+                {TESTIMONIALS.map((_, i) => (
                   <button
                     key={i}
                     onClick={() => setCurrentTestimonial(i)}

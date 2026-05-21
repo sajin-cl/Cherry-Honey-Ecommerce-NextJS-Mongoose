@@ -134,11 +134,13 @@ export default function AboutClient() {
 
               <div className="flex justify-center">
                 <Image
-                  src={'/lotus.png'}
+                  src={'https://res.cloudinary.com/ddchr0sbn/image/upload/f_auto,q_auto/lotus_r4kwto.webp'}
                   alt="lotus png"
                   width={60}
                   height={60}
-
+                  priority
+                  loading="eager"
+                  fetchPriority="high"
                 />
               </div>
 
@@ -160,11 +162,13 @@ export default function AboutClient() {
             >
               <div className="flex justify-center">
                 <Image
-                  src={'/leaf.png'}
+                  src={'https://res.cloudinary.com/ddchr0sbn/image/upload/f_auto,q_auto/leaf_gelssq.webp'}
                   alt="lotus png"
                   width={60}
                   height={60}
-
+                  priority
+                  loading="eager"
+                  fetchPriority="high"
                 />
               </div>
               <h3 className="text-xl font-bold mb-4 text-white group-hover:text-[#C8A84B] transition-colors duration-300">
@@ -185,10 +189,13 @@ export default function AboutClient() {
             >
               <div className="flex justify-center">
                 <Image
-                  src={'/tick.png'}
+                  src={'https://res.cloudinary.com/ddchr0sbn/image/upload/f_auto,q_auto/tick_fuix7c.webp'}
                   alt="lotus png"
                   width={60}
                   height={60}
+                  priority
+                  loading="eager"
+                  fetchPriority="high"
                 />
               </div>
               <h3 className="text-xl font-bold mb-4 text-white group-hover:text-[#C8A84B] transition-colors duration-300">

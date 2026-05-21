@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { SOCIAL_LINKS } from '@/config/staticData'
 
 export default function Footer() {
   return (
@@ -7,10 +8,11 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto px-6 py-12">
         <div className="bg-[#C8A84B] rounded-xl px-8 py-8 flex flex-col md:flex-row items-center justify-between gap-6">
           <h3
-            className="text-2xl text-black font-semibold"
+            className="text-2xl text-white font-semibold"
             style={{ fontFamily: "'Georgia', serif", fontStyle: "italic" }}
           >
-            Join Our Newsletter
+            Let's Get In Touch <br />
+            <span className="text-xs text-black font-semibold" style={{ fontFamily: "'Georgia', serif" }}>What' s inside? Exclusive sales, new arrivals & much more.</span>
           </h3>
           <div className="flex w-full md:w-auto gap-2">
             <input
@@ -19,7 +21,7 @@ export default function Footer() {
               className="bg-black/20 text-black placeholder-black/60 text-sm px-5 py-3 rounded-lg flex-1 md:w-72 focus:outline-none focus:ring-2 focus:ring-black/30"
             />
             <button className="bg-black text-white text-sm font-semibold px-6 py-3 rounded-lg hover:bg-gray-900 transition-colors">
-              Subscribe
+              Sign Up
             </button>
           </div>
         </div>
@@ -33,14 +35,23 @@ export default function Footer() {
             <svg className="w-6 h-6 text-[#C8A84B]" viewBox="0 0 24 24" fill="currentColor">
               <path d="M12 2C9.5 2 7 4 7 7c0 1.5.5 2.8 1.3 3.8C6.5 12 5.5 14 5.5 16c0 3.5 3 6 6.5 6s6.5-2.5 6.5-6c0-2-1-4-2.8-5.2C16.5 9.8 17 8.5 17 7c0-3-2.5-5-5-5zm0 2c1.5 0 3 1.2 3 3s-1.5 3-3 3-3-1.2-3-3 1.5-3 3-3z" />
             </svg>
-            <span className="text-[#C8A84B] font-bold" style={{ fontFamily: "'Georgia', serif" }}>Queen Honey</span>
+            <span className="text-[#C8A84B] font-bold" style={{ fontFamily: "'Georgia', serif" }}>Cherry Honey</span>
           </div>
           <div className="flex gap-3 mt-4">
-            {["facebook", "instagram", "twitter"].map((s) => (
-              <a key={s} href="#" className="w-8 h-8 rounded-full border border-gray-700 flex items-center justify-center text-gray-400 hover:text-[#C8A84B] hover:border-[#C8A84B] transition-colors">
-                <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4" /></svg>
-              </a>
-            ))}
+            {SOCIAL_LINKS.map((social, idx) => {
+              const Icon = social.icon;
+              return (
+                <Link
+                  key={idx}
+                  href={social.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-2 rounded-full hover:bg-white/10 hover:text-lime-300 transition"
+                >
+                  <Icon />
+                </Link>
+              );
+            })}
           </div>
         </div>
         {/* Quick Links */}

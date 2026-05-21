@@ -37,84 +37,6 @@ function StarRating({ rating = 4.5, count = 128 }) {
   );
 }
 
-/* ── mock product data ── */
-const PRODUCT = {
-  id: 1,
-  name: "Kashmir White Honey",
-  rating: 4.5,
-  reviewCount: 128,
-  price: 549,
-  original: 699,
-  discount: 21,
-  images: [
-    "/hero-honey-jar.png",
-    "/honey-jar-bees.png",
-    "/hero-honey-jar.png",
-  ],
-  quantity: ["50ml", "100ml", "500ml"],
-  description:
-    "Sourced from the pristine valleys of Kashmir, this rare white honey is harvested from wildflower meadows at high altitudes. Known for its delicate floral aroma, creamy texture, and exceptional purity.",
-  specs: {
-    inTheBox: [
-      { label: "Sales Package", value: "1 Bottle Pure Honey" },
-      { label: "Pack of", value: "1" },
-    ],
-    general: [
-      { label: "Product Name", value: "Kashmir White Honey" },
-      { label: "Model Name", value: "Kashmir Honey" },
-      { label: "Flavour", value: "Natural Sweet" },
-      { label: "Quantity", value: "500ml" },
-      { label: "Container type", value: "Glass Bottle" },
-      { label: "Suitable for", value: "Bottle" },
-      { label: "Self Life", value: "12Months" },
-
-    ],
-  },
-  shippingDetails: {
-    shipping:
-      "We ensure fast and secure delivery of your honey products. Orders are processed within 24 hours and delivered within 3–5 business days depending on your location. All products are carefully packed to maintain freshness and quality",
-    returns:
-      "If you receive a damaged or incorrect product, you can request a return within 7 days of delivery. The product must be unused and in its original packaging. We aim to provide the highest quality honey, and your satisfaction is our priority",
-  },
-  faqs: [
-    {
-      q: "What makes Kashmir White Honey different from regular honey?",
-      a: "Our Kashmir White Honey is harvested from high-altitude wildflower meadows in Kashmir. The unique flora, combined with a cool climate, gives this honey its characteristic light colour, mild taste, and higher antioxidant content compared to regular honey.",
-    },
-    {
-      q: "How should I store this honey?",
-      a: "Store at room temperature away from direct sunlight. Do not refrigerate as it accelerates crystallisation. If crystallisation occurs, warm the jar gently in lukewarm water — this is a natural sign of purity.",
-    },
-    {
-      q: "Is it safe for children/diabetics?",
-      a: "Not recommended for children under 1 year. Diabetics should consult their physician before consumption. Natural honey does contain natural sugars.",
-    },
-  ],
-  reviews: [
-    {
-      name: "Priya S.",
-      avatar: "P",
-      rating: 5,
-      date: "January 12, 2026",
-      text: "Absolutely love this honey! The flavour is unlike anything I've tasted. Light, floral and incredibly pure. Will definitely order again.",
-    },
-    {
-      name: "Rahul M.",
-      avatar: "R",
-      rating: 4,
-      date: "February 5, 2026",
-      text: "Very good quality honey. Packaging is premium and the honey smells amazing. Slightly expensive but totally worth it for the quality.",
-    },
-  ],
-  similar: [
-    { id: 2, name: "Wildflower Honey", price: 449, image: "/hero-honey-jar.png" },
-    { id: 3, name: "Forest Honey", price: 399, image: "/honey-jar-bees.png" },
-    { id: 4, name: "Organic Honey", price: 499, image: "/hero-honey-jar.png" },
-    { id: 5, name: "Tulsi Honey", price: 349, image: "/honey-jar-bees.png" },
-  ],
-};
-
-
 
 /* ── sub-components ── */
 function FAQItem({ q, a }) {
@@ -362,8 +284,6 @@ export default function ProductDetailPage({ params }) {
     returns: "If you receive a damaged or incorrect product, you can request a return within 7 days of delivery.",
   };
 
-
-
   return (
     <div className="min-h-screen bg-[#0a0a0a] text-white">
 
@@ -544,19 +464,68 @@ export default function ProductDetailPage({ params }) {
 
 
             {/* Trust badges */}
-            <div className="grid grid-cols-3 gap-3 border border-gray-800 p-4 mb-6">
-              {[
-                { icon: "🌿", label: "100% Natural" },
-                { icon: "🚚", label: "Free Shipping" },
-                { icon: "🔒", label: "Secure Payment" },
-              ].map((b) => (
-                <div key={b.label} className="flex flex-col items-center gap-1 text-center">
-                  <span className="text-2xl">{b.icon}</span>
-                  <span className="text-gray-400 text-xs">{b.label}</span>
-                </div>
-              ))}
+            <div className="flex gap-5 items-center p-4 pb-5 mb-6 border-b border-gray-600">
+              <div className="flex items-center gap-2">
+                <Image
+                  src={'https://res.cloudinary.com/ddchr0sbn/image/upload/f_auto,q_auto/email-btn_ewnois.webp'}
+                  width={28}
+                  height={28}
+                  alt="contact-btn"
+                  priority
+                  loading="eager"
+                  fetchPriority="high"
+                />
+                <span className="font-sans text-sm">Contact us</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <Image
+                  src={'https://res.cloudinary.com/ddchr0sbn/image/upload/f_auto,q_auto/shipping-info_kn4ieo.webp'}
+                  width={28}
+                  height={28}
+                  alt="shipping-info-btn"
+                  priority
+                  loading="eager"
+                  fetchPriority="high"
+                />
+                <span className="text-sm font-sans">Shipping Info</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <Image
+                  src={'https://res.cloudinary.com/ddchr0sbn/image/upload/f_auto,q_auto/share-btn_kgel2l.webp'}
+                  width={28}
+                  height={28}
+                  alt="share-btn"
+                  priority
+                  loading="eager"
+                  fetchPriority="high"
+                />
+                <span className="text-sm font-sans">Share</span>
+              </div>
             </div>
 
+            {/* Deleivery Details */}
+            <div className="space-y-3 mb-5 border-b border-gray-600 pb-5">
+              <div className="flex items-center gap-2">
+                <Image
+                  src={'https://res.cloudinary.com/ddchr0sbn/image/upload/f_auto,q_auto/fast-delivery_eqtnfe.webp'}
+                  width={24}
+                  height={24}
+                  alt="shipping-car"
+                  className="text-gray-400"
+                />
+                <span className="text-xs font-sans text-gray-400">Free shipping above 500 in India</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <Image
+                  src={'https://res.cloudinary.com/ddchr0sbn/image/upload/f_auto,q_auto/open-box_da5vvy.webp'}
+                  width={24}
+                  height={24}
+                  alt="shipping-car"
+                  className="text-gray-400"
+                />
+                <span className="text-xs font-sans text-gray-400">Delivers in 2-4 working days</span>
+              </div>
+            </div>
             {/* Short description */}
             <p className="text-gray-400 text-sm leading-relaxed">
               {product.description}
