@@ -1,11 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
-import Navbar from "@/components/layouts/(user)/Navbar";
-import Footer from "@/components/layouts/(user)/Footer";
 import { TESTIMONIALS } from "@/config/staticData"
 
 const serifItalic = {
@@ -20,9 +18,16 @@ const MotionImage = motion(Image);
 export default function HomeClient({ featuredProducts }) {
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
 
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentTestimonial((prev) => (prev + 1) % TESTIMONIALS.length);
+    }, 3000);
+    return () => clearInterval(timer);
+  }, [currentTestimonial]);
+
   return (
     <div className="min-h-screen bg-black text-white">
-      <Navbar />
+    
 
       {/* ══════════════════════════════════════════════
           HERO SECTION
@@ -420,8 +425,6 @@ export default function HomeClient({ featuredProducts }) {
           </motion.div>
         </div>
       </section>
-
-      <Footer />
     </div>
   );
 }
