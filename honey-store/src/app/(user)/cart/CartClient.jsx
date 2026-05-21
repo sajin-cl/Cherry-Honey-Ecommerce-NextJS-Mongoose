@@ -140,7 +140,7 @@ export default function CartClient({ initialItems }) {
   };
 
   const subtotal = items.filter((i) => selected.has(i.id)).reduce((sum, i) => sum + i.price * i.qty, 0);
-  const delivery = subtotal >= DELIVERY_THRESHOLD ? 0 : 0;
+  const delivery = subtotal >= DELIVERY_THRESHOLD ? 0 : 50;
   const grandTotal = subtotal + TAXES + delivery;
 
   return (
@@ -154,194 +154,198 @@ export default function CartClient({ initialItems }) {
 
         <h1 className="text-3xl text-white mb-8" style={serif}>My Cart</h1>
 
-        <div className="flex flex-col lg:flex-row gap-8 items-start">
-          <div className="flex-1 w-full min-w-0">
-            <div className="flex items-center justify-between bg-[#111] border border-gray-800 px-4 py-3 mb-3">
-              <label className="flex items-center gap-3 cursor-pointer select-none">
-                <button
-                  disabled={updating}
-                  onClick={toggleAll}
-                  className={`w-4 h-4 border flex items-center justify-center flex-shrink-0 transition-colors ${selected.size === items.length
-                      ? "bg-[#C8A84B] border-[#C8A84B]"
-                      : "border-gray-600"
-                    }`}
-                  aria-label="Select all"
-                >
-                  {selected.size === items.length && (
-                    <svg className="w-2.5 h-2.5 text-black" viewBox="0 0 12 10" fill="none" stroke="currentColor" strokeWidth={2}>
-                      <path d="M1 5l3 4 7-8" strokeLinecap="round" strokeLinejoin="round" />
-                    </svg>
-                  )}
-                </button>
-                <span className="text-sm text-gray-300">
-                  {selected.size}/{items.length} Items Selected
-                </span>
-              </label>
-              <button
-                disabled={updating || selected.size === 0}
-                onClick={removeSelected}
-                className="text-gray-500 hover:text-red-400 disabled:opacity-30 transition-colors"
-                aria-label="Remove selected"
-              >
-                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
-                </svg>
-              </button>
-            </div>
-
-            {items.length === 0 ? (
-              <div className="bg-[#111] border border-gray-800 p-12 text-center">
-                <p className="text-gray-400 text-sm mb-4">Your cart is empty.</p>
-                <Link href="/products" className="bg-[#C8A84B] hover:bg-[#b8973e] text-black text-sm font-semibold px-6 py-2.5 transition-colors inline-block">
-                  Shop Now
-                </Link>
-              </div>
-            ) : (
-              <div className="space-y-3">
-                {items.map((item) => (
-                  <div key={item.id} className="bg-[#111] border border-gray-800 px-4 py-4 flex gap-4 relative">
+        {items.length === 0 ? (
+          <div className="bg-[#111] border border-gray-800 p-12 text-center max-w-md mx-auto my-12">
+            <p className="text-gray-400 text-sm mb-4">Your cart is empty.</p>
+            <Link href="/products" className="bg-[#C8A84B] hover:bg-[#b8973e] text-black text-sm font-semibold px-6 py-2.5 transition-colors inline-block">
+              Shop Now
+            </Link>
+          </div>
+        ) : (
+          <>
+            <div className="flex flex-col lg:flex-row gap-8 items-start">
+              <div className="flex-1 w-full min-w-0">
+                <div className="flex items-center justify-between bg-[#111] border border-gray-800 px-4 py-3 mb-3">
+                  <label className="flex items-center gap-3 cursor-pointer select-none">
                     <button
                       disabled={updating}
-                      onClick={() => toggleItem(item.id)}
-                      className={`w-4 h-4 border flex-shrink-0 mt-1 flex items-center justify-center transition-colors ${selected.has(item.id)
+                      onClick={toggleAll}
+                      className={`w-4 h-4 border flex items-center justify-center flex-shrink-0 transition-colors ${selected.size === items.length
                           ? "bg-[#C8A84B] border-[#C8A84B]"
                           : "border-gray-600"
                         }`}
-                      aria-label={`Select ${item.name}`}
+                      aria-label="Select all"
                     >
-                      {selected.has(item.id) && (
+                      {selected.size === items.length && (
                         <svg className="w-2.5 h-2.5 text-black" viewBox="0 0 12 10" fill="none" stroke="currentColor" strokeWidth={2}>
                           <path d="M1 5l3 4 7-8" strokeLinecap="round" strokeLinejoin="round" />
                         </svg>
                       )}
                     </button>
+                    <span className="text-sm text-gray-300">
+                      {selected.size}/{items.length} Items Selected
+                    </span>
+                  </label>
+                  <button
+                    disabled={updating || selected.size === 0}
+                    onClick={removeSelected}
+                    className="text-gray-500 hover:text-red-400 disabled:opacity-30 transition-colors"
+                    aria-label="Remove selected"
+                  >
+                    <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
+                    </svg>
+                  </button>
+                </div>
 
-                    <div className="relative w-20 h-20 flex-shrink-0 bg-black">
-                      <Image
-                        src={item.image}
-                        alt={item.name}
-                        fill
-                        sizes="80px"
-                        className="object-contain p-1"
-                        loading="eager"
-                      />
-                    </div>
-
-                    <div className="flex-1 min-w-0">
-                      <p className="text-white text-sm font-medium mb-1">{item.name}</p>
-                      {item.weight && (
-                        <p className="text-gray-500 text-xs mb-1">
-                          Size: <span className="text-gray-300">{item.weight}</span>
-                        </p>
-                      )}
-                      <div className="flex items-center gap-2 mb-2">
-                        <span className="text-[#C8A84B] text-sm font-semibold">₹{item.price.toFixed(2)}</span>
-                        {item.original && item.original > item.price && (
-                          <span className="text-gray-500 text-xs line-through">₹{item.original.toFixed(2)}</span>
+                <div className="space-y-3">
+                  {items.map((item) => (
+                    <div key={item.id} className="bg-[#111] border border-gray-800 px-4 py-4 flex gap-4 relative">
+                      <button
+                        disabled={updating}
+                        onClick={() => toggleItem(item.id)}
+                        className={`w-4 h-4 border flex-shrink-0 mt-1 flex items-center justify-center transition-colors ${selected.has(item.id)
+                            ? "bg-[#C8A84B] border-[#C8A84B]"
+                            : "border-gray-600"
+                          }`}
+                        aria-label={`Select ${item.name}`}
+                      >
+                        {selected.has(item.id) && (
+                          <svg className="w-2.5 h-2.5 text-black" viewBox="0 0 12 10" fill="none" stroke="currentColor" strokeWidth={2}>
+                            <path d="M1 5l3 4 7-8" strokeLinecap="round" strokeLinejoin="round" />
+                          </svg>
                         )}
+                      </button>
+
+                      <div className="relative w-20 h-20 flex-shrink-0 bg-black">
+                        <Image
+                          src={item.image}
+                          alt={item.name}
+                          fill
+                          sizes="80px"
+                          className="object-contain p-1"
+                          loading="eager"
+                        />
                       </div>
 
-                      {/* Stock Alerts */}
-                      {item.stock <= 5 && item.stock > 0 && (
-                        <p className="text-amber-500 text-[10px] mb-2 font-semibold uppercase tracking-wider">
-                          Only {item.stock} left in stock!
-                        </p>
-                      )}
-                      {item.stock === 0 && (
-                        <p className="text-red-500 text-[10px] mb-2 font-semibold uppercase tracking-wider">
-                          Out of Stock
-                        </p>
-                      )}
+                      <div className="flex-1 min-w-0">
+                        <p className="text-white text-sm font-medium mb-1">{item.name}</p>
+                        {item.weight && (
+                          <p className="text-gray-500 text-xs mb-1">
+                            Size: <span className="text-gray-300">{item.weight}</span>
+                          </p>
+                        )}
+                        <div className="flex items-center gap-2 mb-2">
+                          <span className="text-[#C8A84B] text-sm font-semibold">₹{item.price.toFixed(2)}</span>
+                          {item.original && item.original > item.price && (
+                            <span className="text-gray-500 text-xs line-through">₹{item.original.toFixed(2)}</span>
+                          )}
+                        </div>
 
-                      <QtySelect value={item.qty} stock={item.stock} onChange={(q) => updateQty(item.id, q)} />
+                        {/* Stock Alerts */}
+                        {item.stock <= 5 && item.stock > 0 && (
+                          <p className="text-amber-500 text-[10px] mb-2 font-semibold uppercase tracking-wider">
+                            Only {item.stock} left in stock!
+                          </p>
+                        )}
+                        {item.stock === 0 && (
+                          <p className="text-red-500 text-[10px] mb-2 font-semibold uppercase tracking-wider">
+                            Out of Stock
+                          </p>
+                        )}
 
-                      <div className="flex flex-col gap-1 mt-3">
-                        <div className="flex items-center gap-1.5 text-xs text-gray-400">
-                          <svg className="w-3.5 h-3.5 text-[#C8A84B] flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" />
-                          </svg>
-                          15 Days return available
+                        <QtySelect value={item.qty} stock={item.stock} onChange={(q) => updateQty(item.id, q)} />
+
+                        <div className="flex flex-col gap-1 mt-3">
+                          <div className="flex items-center gap-1.5 text-xs text-gray-400">
+                            <svg className="w-3.5 h-3.5 text-[#C8A84B] flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                              <path strokeLinecap="round" strokeLinejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" />
+                            </svg>
+                            15 Days return available
+                          </div>
                         </div>
                       </div>
+
+                      <button
+                        disabled={updating}
+                        onClick={() => removeItem(item.id)}
+                        className="absolute top-3 right-3 text-gray-600 hover:text-red-400 transition-colors text-lg leading-none"
+                        aria-label="Remove item"
+                      >
+                        ×
+                      </button>
                     </div>
+                  ))}
+                </div>
+              </div>
 
-                    <button
-                      disabled={updating}
-                      onClick={() => removeItem(item.id)}
-                      className="absolute top-3 right-3 text-gray-600 hover:text-red-400 transition-colors text-lg leading-none"
-                      aria-label="Remove item"
-                    >
-                      ×
-                    </button>
+              <div className="w-full lg:w-72 flex-shrink-0">
+                <div className="bg-[#111] border border-gray-800 p-5">
+                  <div className="space-y-4 mb-6">
+                    <div className="flex justify-between text-sm">
+                      <span className="text-gray-400">Subtotal</span>
+                      <span className="text-white font-medium">₹{subtotal.toFixed(2)}</span>
+                    </div>
+                    <div className="flex justify-between text-sm">
+                      <span className="text-gray-400">Taxes</span>
+                      <span className="text-white font-medium">₹{TAXES.toFixed(2)}</span>
+                    </div>
+                    <div className="flex justify-between text-sm">
+                      <span className="text-gray-400">Delivery Fee</span>
+                      <span className={delivery === 0 ? "text-green-400 font-semibold" : "text-white font-medium"}>
+                        {delivery === 0 ? "FREE" : `₹${delivery.toFixed(2)}`}
+                      </span>
+                    </div>
+                    <div className="h-px bg-gray-800" />
+                    <div className="flex justify-between text-sm font-semibold">
+                      <span className="text-white">Grand Total</span>
+                      <span className="text-white">₹{grandTotal.toFixed(2)}</span>
+                    </div>
                   </div>
-                ))}
-              </div>
-            )}
-          </div>
 
-          <div className="w-full lg:w-72 flex-shrink-0">
-            <div className="bg-[#111] border border-gray-800 p-5">
-              <div className="space-y-4 mb-6">
-                <div className="flex justify-between text-sm">
-                  <span className="text-gray-400">Subtotal</span>
-                  <span className="text-white font-medium">₹{subtotal.toFixed(2)}</span>
-                </div>
-                <div className="flex justify-between text-sm">
-                  <span className="text-gray-400">Taxes</span>
-                  <span className="text-white font-medium">₹{TAXES.toFixed(2)}</span>
-                </div>
-                <div className="flex justify-between text-sm">
-                  <span className="text-gray-400">Delivery Fee</span>
-                  <span className="text-green-400 font-semibold">FREE</span>
-                </div>
-                <div className="h-px bg-gray-800" />
-                <div className="flex justify-between text-sm font-semibold">
-                  <span className="text-white">Grand Total</span>
-                  <span className="text-white">₹{grandTotal.toFixed(2)}</span>
+                  <Link
+                    href="/checkout"
+                    className={`block w-full bg-[#C8A84B] hover:bg-[#b8973e] text-white text-center font-bold text-sm tracking-[0.2em] uppercase py-4 transition-colors ${
+                      items.length === 0 ? "pointer-events-none opacity-50" : ""
+                    }`}
+                  >
+                    CHECKOUT
+                  </Link>
                 </div>
               </div>
-
-              <Link
-                href="/checkout"
-                className={`block w-full bg-[#C8A84B] hover:bg-[#b8973e] text-white text-center font-bold text-sm tracking-[0.2em] uppercase py-4 transition-colors ${
-                  items.length === 0 ? "pointer-events-none opacity-50" : ""
-                }`}
-              >
-                CHECKOUT
-              </Link>
             </div>
-          </div>
-        </div>
 
-        <section className="mt-20">
-          <h2 className="text-2xl text-white mb-8" style={serif}>
-            <span className="text-[#C8A84B]">Similar</span> Products
-          </h2>
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-            {similar.map((p) => {
-              const imgUrl = p.image?.url || "/hero-honey-jar.png";
-              const sellPrice = p.discountPrice ?? p.price;
-              return (
-                <Link key={p._id} href={`/products/${p._id}`} className="group block">
-                  <div className="bg-[#111] border border-gray-800 hover:border-[#C8A84B]/40 transition-all duration-300 group-hover:-translate-y-1">
-                    <div className="relative h-44 bg-black">
-                      <Image src={imgUrl} alt={p.name} fill sizes="(max-width:640px) 50vw, 25vw" className="object-contain p-3" />
-                    </div>
-                    <div className="p-3">
-                      <p className="text-white text-xs mb-1 truncate group-hover:text-[#C8A84B] transition-colors">{p.name}</p>
-                      <div className="flex items-center gap-2">
-                        <span className="text-[#C8A84B] text-xs font-semibold">₹{sellPrice.toFixed(2)}</span>
-                        {p.discountPrice && (
-                          <span className="text-gray-500 text-xs line-through">₹{p.price.toFixed(2)}</span>
-                        )}
+            <section className="mt-20">
+              <h2 className="text-2xl text-white mb-8" style={serif}>
+                <span className="text-[#C8A84B]">Similar</span> Products
+              </h2>
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+                {similar.map((p) => {
+                  const imgUrl = p.image?.url || "/hero-honey-jar.png";
+                  const sellPrice = p.discountPrice ?? p.price;
+                  return (
+                    <Link key={p._id} href={`/products/${p._id}`} className="group block">
+                      <div className="bg-[#111] border border-gray-800 hover:border-[#C8A84B]/40 transition-all duration-300 group-hover:-translate-y-1">
+                        <div className="relative h-44 bg-black">
+                          <Image src={imgUrl} alt={p.name} fill sizes="(max-width:640px) 50vw, 25vw" className="object-contain p-3" />
+                        </div>
+                        <div className="p-3">
+                          <p className="text-white text-xs mb-1 truncate group-hover:text-[#C8A84B] transition-colors">{p.name}</p>
+                          <div className="flex items-center gap-2">
+                            <span className="text-[#C8A84B] text-xs font-semibold">₹{sellPrice.toFixed(2)}</span>
+                            {p.discountPrice && (
+                              <span className="text-gray-500 text-xs line-through">₹{p.price.toFixed(2)}</span>
+                            )}
+                          </div>
+                        </div>
                       </div>
-                    </div>
-                  </div>
-                </Link>
-              );
-            })}
-          </div>
-        </section>
+                    </Link>
+                  );
+                })}
+              </div>
+            </section>
+          </>
+        )}
       </div>
     </div>
   );
