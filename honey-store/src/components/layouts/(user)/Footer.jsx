@@ -33,9 +33,9 @@ export default function Footer() {
         {/* Brand */}
         <div>
           <div className="flex items-center gap-2 mb-4">
-            <Image src="/footer-logo.png" alt="Logo" width={150} height={100} />
+            <Image src="/footer-logo.png" alt="Logo" width={120} height={100} />
           </div>
-          <div className="flex gap-3 mt-4 items-center">
+          <div className="flex gap-1 md:gap-2 lg:gap-4 mt-4 items-center">
             {SOCIAL_LINKS.map((social, idx) => {
               const Icon = social.icon;
               return (
