@@ -5,7 +5,7 @@
 import dbConnect from "@/lib/dbConnect";
 import Product from "@/models/product.model";
 import Category from "@/models/category.model";
-import ProductsClient from "./ProductsClient";
+import ProductsClient from "@/components/products/ProductsPage";
 
 export const metadata = { title: "Our Products | Cherry Honey" };
 
@@ -78,11 +78,11 @@ async function fetchProducts({ page, maxPrice, search, category, size }) {
 
 export default async function ProductsPage({ searchParams }) {
   const resolvedParams = await searchParams;
-  const page     = Math.max(1, parseInt(resolvedParams?.page    || "1"));
+  const page = Math.max(1, parseInt(resolvedParams?.page || "1"));
   const maxPrice = resolvedParams?.maxPrice || "";
-  const search   = resolvedParams?.search   || "";
+  const search = resolvedParams?.search || "";
   const category = resolvedParams?.category || "";
-  const size     = resolvedParams?.size     || "";
+  const size = resolvedParams?.size || "";
 
   await dbConnect();
   const dbCats = await Category.find({}).lean();
@@ -95,7 +95,7 @@ export default async function ProductsPage({ searchParams }) {
   const { products, total, totalPages } = await fetchProducts({ page, maxPrice, search, category, size });
 
   const from = total === 0 ? 0 : (page - 1) * PER_PAGE + 1;
-  const to   = Math.min(page * PER_PAGE, total);
+  const to = Math.min(page * PER_PAGE, total);
 
   const serializedProducts = JSON.parse(JSON.stringify(products));
 

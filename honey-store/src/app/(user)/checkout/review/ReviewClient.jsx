@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import OrderConfirmedModal from "@/components/ui/OrderConfirmedModal";
+import OrderConfirmedModal from "@/components/order/OrderConfirmedModal";
 
 const serif = { fontFamily: "'Georgia','Times New Roman',serif", fontStyle: "italic" };
 const TAXES = 10;

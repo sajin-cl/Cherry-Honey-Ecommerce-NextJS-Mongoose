@@ -1,0 +1,52 @@
+import { motion } from "framer-motion";
+import Link from "next/link";
+
+
+export default function Pagination({ page, totalPages, searchParams }) {
+  function buildUrl(p) {
+    const params = new URLSearchParams(searchParams);
+    params.set("page", String(p));
+    return `/products?${params.toString()}`;
+  }
+  if (totalPages <= 1) return null;
+
+  return (
+    <motion.div
+      className="flex items-center justify-center gap-2 mt-14"
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: 0.4, duration: 0.5 }}
+    >
+      {page > 1 && (
+        <Link
+          href={buildUrl(page - 1)}
+          className="px-4 py-2 text-xs border border-gray-700 text-gray-400 hover:border-[#C8A84B] hover:text-[#C8A84B] transition-colors tracking-widest"
+        >
+          PREV
+        </Link>
+      )}
+      {Array.from({ length: Math.min(totalPages, 5) }, (_, i) => i + 1).map(
+        (p) => (
+          <Link
+            key={p}
+            href={buildUrl(p)}
+            className={`w-9 h-9 flex items-center justify-center text-xs border transition-colors ${p === page
+              ? "bg-[#C8A84B] border-[#C8A84B] text-black font-bold"
+              : "border-gray-700 text-gray-400 hover:border-[#C8A84B] hover:text-[#C8A84B]"
+              }`}
+          >
+            {p < 10 ? `0${p}` : p}
+          </Link>
+        )
+      )}
+      {page < totalPages && (
+        <Link
+          href={buildUrl(page + 1)}
+          className="px-4 py-2 text-xs border border-gray-700 text-gray-400 hover:border-[#C8A84B] hover:text-[#C8A84B] transition-colors tracking-widest"
+        >
+          NEXT
+        </Link>
+      )}
+    </motion.div>
+  );
+}

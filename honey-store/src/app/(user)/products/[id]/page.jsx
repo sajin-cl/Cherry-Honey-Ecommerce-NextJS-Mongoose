@@ -3,73 +3,19 @@
 import { useState, useEffect, use } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import WriteReviewModal from "@/components/ui/WriteReviewModal";
+import StarRating from "@/components/ui/StarRating";
+import ProductCard from "@/components/products/ProductCard";
+import FAQItem from "@/components/products/FAQItem";
+import ShowReview from "@/components/products/ShowReview";
 
 /* ── helpers ── */
 const serifItalic = {
   fontFamily: "'Georgia', 'Times New Roman', serif",
   fontStyle: "italic",
 };
-const serif = { fontFamily: "'Georgia', 'Times New Roman', serif" };
-
-function StarRating({ rating = 4.5, count = 128 }) {
-  return (
-    <div className="flex items-center gap-2">
-      <div className="flex items-center gap-0.5">
-        {[1, 2, 3, 4, 5].map((s) => (
-          <svg
-            key={s}
-            className={`w-4 h-4 ${s <= Math.floor(rating)
-              ? "text-[#C8A84B]"
-              : s - 0.5 <= rating
-                ? "text-[#C8A84B]"
-                : "text-gray-600"
-              }`}
-            viewBox="0 0 20 20"
-            fill="currentColor"
-          >
-            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-          </svg>
-        ))}
-      </div>
-      <span className="text-gray-400 text-xs">({count} reviews)</span>
-    </div>
-  );
-}
 
 
-/* ── sub-components ── */
-function FAQItem({ q, a }) {
-  const [open, setOpen] = useState(false);
-  return (
-    <div className="border-b border-gray-800">
-      <button
-        onClick={() => setOpen(!open)}
-        className="w-full flex items-center justify-between py-4 text-left group"
-      >
-        <span className="text-white text-sm font-medium group-hover:text-[#C8A84B] transition-colors pr-4">
-          {q}
-        </span>
-        <span
-          className={`text-[#C8A84B] text-lg font-bold flex-shrink-0 transition-transform duration-300 ${open ? "rotate-45" : "rotate-0"
-            }`}
-        >
-          +
-        </span>
-      </button>
-      <div
-        className={`overflow-hidden transition-all duration-300 ${open ? "max-h-60 pb-4" : "max-h-0"
-          }`}
-      >
-        <p className="text-gray-400 text-sm leading-relaxed">{a}</p>
-      </div>
-    </div>
-  );
-}
-
-/* ══════════════════════════════════════════════════════
-   MAIN PAGE
-══════════════════════════════════════════════════════ */
+/* ═══════════════════   MAIN PAGE         ══════════════════════════════════════════════════════ */
 export default function ProductDetailPage({ params }) {
   const resolvedParams = use(params);
   const id = resolvedParams.id;
@@ -162,6 +108,7 @@ export default function ProductDetailPage({ params }) {
       alert("Failed to add item to cart");
     }
   };
+
 
   const handleReviewSubmit = async (review) => {
     try {
@@ -444,7 +391,7 @@ export default function ProductDetailPage({ params }) {
                 disabled={!product || product.stock === 0 || qty === 0}
                 onClick={handleAddToCart}
                 className={`flex-1 h-10 font-semibold text-sm tracking-widest uppercase transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed ${added
-                  ? "bg-green-600 text-white"
+                  ? "bg-amber-400 text-white"
                   : "bg-[#C8A84B] hover:bg-[#b8973e] text-black"
                   }`}
               >
@@ -625,125 +572,23 @@ export default function ProductDetailPage({ params }) {
         {/* ══════════════════════════════════════════════
             REVIEWS
         ══════════════════════════════════════════════ */}
-        <section className="mb-20">
-          {/* Header row */}
-          <div className="flex items-center justify-between mb-4">
-            <h2 className="text-2xl text-white" style={serifItalic}>
-              <span className="text-[#C8A84B]">Reviews</span>
-            </h2>
-            <button
-              onClick={() => setFormOpen(true)}
-              className="flex items-center gap-2 bg-[#C8A84B] hover:bg-[#b8973e] text-black text-sm font-semibold px-5 py-2.5 transition-colors"
-            >
-              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M16.862 3.487a2.25 2.25 0 113.182 3.182L7.5 19.213l-4.5 1.125 1.125-4.5L16.862 3.487z" />
-              </svg>
-              Write a Review
-            </button>
-          </div>
-          <div className="flex items-center gap-3 mb-8">
-            <span className="text-4xl font-bold text-[#C8A84B]">
-              {product.rating}
-            </span>
-            <div>
-              <StarRating rating={product.rating} count={product.numReviews} />
-              <p className="text-gray-500 text-xs mt-1">
-                Based on {product.numReviews} verified reviews
-              </p>
-            </div>
-          </div>
+        <ShowReview
+          product={product}
+          localReviews={localReviews}
+          formOpen={formOpen}
+          setFormOpen={setFormOpen}
+          handleReviewSubmit={handleReviewSubmit}
+        />
 
-          <div className="space-y-6 max-w-3xl">
-            {[...localReviews]
-              .sort((a, b) => new Date(b.createdAt || 0) - new Date(a.createdAt || 0))
-              .map((rev, i) => {
-                const avatar = rev.avatar || rev.name?.charAt(0) || "U";
-                const dateStr = rev.date || (rev.createdAt ? new Date(rev.createdAt).toLocaleDateString("en-US", {
-                  year: 'numeric',
-                  month: 'long',
-                  day: 'numeric'
-                }) : "Recent");
-                const commentText = rev.text || rev.comment || "";
-                return (
-                  <div key={i} className="bg-[#111] border border-gray-800 p-5 animate-fadeIn">
-                    <div className="flex items-start gap-4">
-                      {/* Avatar */}
-                      <div className="w-10 h-10 rounded-full bg-[#C8A84B]/20 border border-[#C8A84B]/40 flex items-center justify-center text-[#C8A84B] font-bold text-sm flex-shrink-0">
-                        {avatar}
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <div className="flex items-center justify-between gap-2 mb-1">
-                          <span className="text-white text-sm font-semibold">
-                            {rev.name}
-                          </span>
-                          <span className="text-gray-500 text-xs flex-shrink-0">
-                            {dateStr}
-                          </span>
-                        </div>
-                        <StarRating rating={rev.rating} count={null} />
-                        <p className="text-gray-400 text-sm leading-relaxed mt-3">
-                          {commentText}
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                );
-              })}
-          </div>
-
-          {/* ── Write a Review Modal ── */}
-          <WriteReviewModal
-            isOpen={formOpen}
-            onClose={() => setFormOpen(false)}
-            onSubmit={handleReviewSubmit}
-          />
-        </section>
-
-        {/* ══════════════════════════════════════════════
-            SIMILAR PRODUCTS
-        ══════════════════════════════════════════════ */}
+        {/* ═══════════════     SIMILAR PRODUCTS   ══════════════════════════════════════════════ */}
         {similarProducts.length > 0 && (
-          <section>
+          <section id="similar-product-section">
             <h2 className="text-2xl text-white mb-8" style={serifItalic}>
               <span className="text-[#C8A84B]">Similar</span> Products
             </h2>
 
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-5">
-              {similarProducts.map((p) => {
-                const similarImg = p.image?.url || p.image || "/hero-honey-jar.webp";
-                const similarId = p._id || p.id;
-                const displayPrice = p.discountPrice ?? p.price;
-                return (
-                  <Link key={similarId} href={`/products/${similarId}`} className="group block">
-                    <div className="bg-[#111] border border-gray-800 hover:border-[#C8A84B]/50 transition-all duration-300 group-hover:-translate-y-1">
-                      <div className="relative h-48 bg-black">
-                        <Image
-                          src={similarImg}
-                          alt={p.name}
-                          fill
-                          sizes="(max-width: 640px) 50vw, 25vw"
-                          className="object-contain p-4"
-                        />
-                      </div>
-                      <div className="p-4">
-                        <h3 className="text-white text-sm mb-1 group-hover:text-[#C8A84B] transition-colors truncate">
-                          {p.name}
-                        </h3>
-                        <div className="flex items-center gap-2">
-                          <span className="text-[#C8A84B] text-sm font-semibold">
-                            ₹{displayPrice}
-                          </span>
-                          {p.discountPrice && (
-                            <span className="text-gray-500 text-xs line-through">
-                              ₹{p.price}
-                            </span>
-                          )}
-                        </div>
-                      </div>
-                    </div>
-                  </Link>
-                );
-              })}
+              {similarProducts.map((p) => <ProductCard key={p._id.toString()} product={p} />)}
             </div>
           </section>
         )}

@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import FilterSidebar from "@/components/ui/FilterSidebar";
+import FilterSidebar from "@/components/products/FilterSidebar";
 
 /**
  * Filter bar component.
@@ -94,16 +94,14 @@ export default function ProductsFilters({ searchParams, categories }) {
       {/* Backdrop */}
       <div
         onClick={() => setIsOpen(false)}
-        className={`fixed inset-0 bg-black/70 z-50 transition-opacity duration-300 ${
-          isOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
-        }`}
+        className={`fixed inset-0 bg-black/70 z-50 transition-opacity duration-300 ${isOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
+          }`}
       />
 
       {/* Sidebar Container */}
       <div
-        className={`fixed right-0 top-8 h-full w-full max-w-sm bg-[#111] z-50 border-l border-gray-800 shadow-2xl transition-transform duration-300 transform ${
-          isOpen ? "translate-x-0" : "translate-x-full"
-        }`}
+        className={`fixed right-0 top-8 h-full w-full max-w-sm bg-[#111] z-50 border-l border-gray-800 shadow-2xl transition-transform duration-300 transform ${isOpen ? "translate-x-0" : "translate-x-full"
+          }`}
       >
         <FilterSidebar
           initialParams={searchParams}

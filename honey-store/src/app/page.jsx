@@ -1,6 +1,6 @@
 import dbConnect from "@/lib/dbConnect";
 import Product from "@/models/product.model";
-import HomeClient from "./HomeClient";
+import HomePage from "@/components/home/HomePage";
 import Navbar from "@/components/layouts/(user)/Navbar";
 import Footer from "@/components/layouts/(user)/Footer";
 
@@ -10,7 +10,7 @@ export const metadata = {
   description: "Experience 100% natural, raw, and ethically harvested honey straight from organic bee farms. Shop premium white wildflower honey today.",
 };
 
-export default async function HomePage() {
+export default async function LandingPage() {
   await dbConnect();
 
   // Fetch featured products directly from database on the server
@@ -21,7 +21,7 @@ export default async function HomePage() {
 
   return <>
     <Navbar />
-    <HomeClient featuredProducts={serializedProducts} />
+    <HomePage featuredProducts={serializedProducts} />
     <Footer />
   </>;
 }
