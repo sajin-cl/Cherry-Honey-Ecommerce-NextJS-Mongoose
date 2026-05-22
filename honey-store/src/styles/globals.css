@@ -124,7 +124,7 @@ input[type="range"]::-moz-range-thumb {
 
   .cur-ring.big {
     width: 60px;
-    height: 0px;
+    height: 60px;
     border-color: rgba(233, 188, 9, 0.8);
   }
 }

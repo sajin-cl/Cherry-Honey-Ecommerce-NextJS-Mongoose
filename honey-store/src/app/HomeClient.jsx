@@ -27,7 +27,7 @@ export default function HomeClient({ featuredProducts }) {
 
   return (
     <div className="min-h-screen bg-black text-white">
-    
+
 
       {/* ══════════════════════════════════════════════
           HERO SECTION
@@ -150,7 +150,7 @@ export default function HomeClient({ featuredProducts }) {
           </motion.h2>
 
           <motion.div
-            className="grid grid-cols-1 sm:grid-cols-3 gap-5"
+            className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"
             initial="hidden"
             whileInView="show"
             viewport={{ once: true, margin: "-100px" }}
@@ -178,19 +178,21 @@ export default function HomeClient({ featuredProducts }) {
                   }}
                 >
                   <Link href={`/products/${productId}`} className="group">
-                    <div className="bg-[#111] border border-gray-800 hover:border-[#C8A84B]/50 transition-all duration-300 group-hover:-translate-y-1 overflow-hidden">
-                      <div className="relative h-52 bg-black flex items-center justify-center">
+                    <div className=" transition-all duration-300 group-hover:-translate-y-1 overflow-hidden">
+                      <div className="relative h-[350px] bg-black flex items-center justify-center ">
                         <Image
                           src={imgUrl}
                           alt={product.name}
                           fill
-                          sizes="(max-width: 640px) 100vw, 33vw"
-                          className="object-contain p-6 group-hover:scale-105 transition-transform duration-500"
+                          className="object-cover group-hover:scale-105 transition-transform duration-500 rounded-2xl"
                         />
                       </div>
-                      <div className="p-4 border-t border-gray-800">
-                        <h3 className="text-white text-sm font-medium mb-1 truncate">{product.name}</h3>
-                        <p className="text-[#C8A84B] text-sm font-bold">{priceText}</p>
+                      <div className="px-2 py-5 flex justify-between items-center">
+                        <div>
+                          <h3 className="text-white text-sm font-medium mb-1 truncate uppercase group-hover:text-amber-300">{product?.name}</h3>
+                          <h4 className="text-gray-400 text-xs font-xs mb-1 truncate">{product?.category}</h4>
+                        </div>
+                        <button className="text-white  text-sm font-bold cursor-pointer px-3 py-1 border border-gray-600 group-hover:bg-gray-900 rounded-full">{priceText}</button>
                       </div>
                     </div>
                   </Link>
@@ -306,22 +308,23 @@ export default function HomeClient({ featuredProducts }) {
         </div>
 
 
-        <div className="max-w-7xl mx-auto px-6">
-          <motion.h2
-            className="text-3xl md:text-4xl mb-12 md:mt-12"
-            style={serifItalic}
-            initial={{ y: 30, opacity: 0 }}
-            whileInView={{ y: 0, opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-          >
-            <span className="text-[#C8A84B]">This is what</span> they say
-          </motion.h2>
+        <div className=" mx-auto px-6">
 
-          <div className="grid md:grid-cols-2 gap-12 items-center">
+
+          <div className="grid md:grid-cols-2 gap-16 md:gap-36 items-center justify-between">
             {/* Left — testimonial */}
             <div>
               <div className="text-[#C8A84B] text-6xl leading-none mb-3" style={{ fontFamily: "Georgia, serif" }}>
+                <motion.h2
+                  className="text-3xl md:text-4xl mb-5 md:mt-12"
+                  style={serifItalic}
+                  initial={{ y: 30, opacity: 0 }}
+                  whileInView={{ y: 0, opacity: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.8 }}
+                >
+                  <span className="text-[#C8A84B]">This is what</span> they say
+                </motion.h2>
                 &#8220;&#8220;
               </div>
               <div className="relative min-h-[160px] md:min-h-[140px]">
@@ -359,7 +362,7 @@ export default function HomeClient({ featuredProducts }) {
 
             {/* Right — bee image */}
             <motion.div
-              className="relative h-72 md:h-[380px] bg-[#111] border border-gray-800 overflow-hidden"
+              className="relative h-72 md:h-[380px] w-full md:w-[500px] bg-[#111] border border-gray-800 overflow-hidden"
               initial={{ opacity: 0, scale: 0.95 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
@@ -369,7 +372,6 @@ export default function HomeClient({ featuredProducts }) {
                 src="/hero-bee.webp"
                 alt="Bee with honey"
                 fill
-                sizes="(max-width: 768px) 100vw, 50vw"
                 className="object-cover aspect-square p-6 hover:scale-105 transition-transform duration-700"
               />
             </motion.div>
