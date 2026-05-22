@@ -171,8 +171,8 @@ export default function CartClient({ initialItems }) {
                       disabled={updating}
                       onClick={toggleAll}
                       className={`w-4 h-4 border flex items-center justify-center flex-shrink-0 transition-colors ${selected.size === items.length
-                          ? "bg-[#C8A84B] border-[#C8A84B]"
-                          : "border-gray-600"
+                        ? "bg-[#C8A84B] border-[#C8A84B]"
+                        : "border-gray-600"
                         }`}
                       aria-label="Select all"
                     >
@@ -205,8 +205,8 @@ export default function CartClient({ initialItems }) {
                         disabled={updating}
                         onClick={() => toggleItem(item.id)}
                         className={`w-4 h-4 border flex-shrink-0 mt-1 flex items-center justify-center transition-colors ${selected.has(item.id)
-                            ? "bg-[#C8A84B] border-[#C8A84B]"
-                            : "border-gray-600"
+                          ? "bg-[#C8A84B] border-[#C8A84B]"
+                          : "border-gray-600"
                           }`}
                         aria-label={`Select ${item.name}`}
                       >
@@ -305,9 +305,8 @@ export default function CartClient({ initialItems }) {
 
                   <Link
                     href="/checkout"
-                    className={`block w-full bg-[#C8A84B] hover:bg-[#b8973e] text-white text-center font-bold text-sm tracking-[0.2em] uppercase py-4 transition-colors ${
-                      items.length === 0 ? "pointer-events-none opacity-50" : ""
-                    }`}
+                    className={`block w-full bg-[#C8A84B] hover:bg-[#b8973e] text-white text-center font-bold text-sm tracking-[0.2em] uppercase py-4 transition-colors ${items.length === 0 ? "pointer-events-none opacity-50" : ""
+                      }`}
                   >
                     CHECKOUT
                   </Link>
@@ -326,17 +325,17 @@ export default function CartClient({ initialItems }) {
                   return (
                     <Link key={p._id} href={`/products/${p._id}`} className="group block">
                       <div className="bg-[#111] border border-gray-800 hover:border-[#C8A84B]/40 transition-all duration-300 group-hover:-translate-y-1">
-                        <div className="relative h-44 bg-black">
-                          <Image src={imgUrl} alt={p.name} fill sizes="(max-width:640px) 50vw, 25vw" className="object-contain p-3" />
+                        <div className="relative h-[340px] bg-black">
+                          <Image src={imgUrl} alt={p.name} fill sizes="(max-width:640px) 50vw, 25vw" className="object-cover" />
                         </div>
-                        <div className="p-3">
-                          <p className="text-white text-xs mb-1 truncate group-hover:text-[#C8A84B] transition-colors">{p.name}</p>
-                          <div className="flex items-center gap-2">
-                            <span className="text-[#C8A84B] text-xs font-semibold">₹{sellPrice.toFixed(2)}</span>
-                            {p.discountPrice && (
-                              <span className="text-gray-500 text-xs line-through">₹{p.price.toFixed(2)}</span>
-                            )}
-                          </div>
+                      </div>
+                      <div className="p-3">
+                        <p className="text-white text-xs mb-1 truncate group-hover:text-[#C8A84B] transition-colors">{p.name}</p>
+                        <div className="flex items-center gap-2">
+                          <span className="text-[#C8A84B] text-xs font-semibold group-hover:text-white">₹{sellPrice.toFixed(2)}</span>
+                          {p.discountPrice && (
+                            <span className="text-gray-500 text-xs line-through">₹{p.price.toFixed(2)}</span>
+                          )}
                         </div>
                       </div>
                     </Link>

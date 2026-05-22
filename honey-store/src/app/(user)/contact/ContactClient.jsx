@@ -313,7 +313,7 @@ export default function ContactClient() {
                 sustainable harvesting practices. Fill out the form, and we will
                 respond with the utmost priority.
               </p>
-              <div className="hidden lg:block w-32 h-[1px] bg-gradient-to-r from-[#C8A84B] to-transparent mt-12" />
+             
             </motion.div>
           </div>
 
