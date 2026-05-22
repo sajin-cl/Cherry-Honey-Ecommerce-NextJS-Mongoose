@@ -54,31 +54,31 @@ export default function Footer() {
         </div>
         {/* Quick Links */}
         <div>
-          <h4 className="text-white font-semibold mb-4">Quick Links</h4>
+          <h4 className="text-amber-200 font-semibold mb-4">Quick Links</h4>
           <ul className="space-y-2 text-gray-400">
-            <li><Link href="/" className="hover:text-[#C8A84B] transition-colors">Home</Link></li>
-            <li><Link href="/products" className="hover:text-[#C8A84B] transition-colors">Products</Link></li>
-            <li><Link href="/about" className="hover:text-[#C8A84B] transition-colors">About Us</Link></li>
-            <li><Link href="/contact" className="hover:text-[#C8A84B] transition-colors">Contact</Link></li>
+            <li><Link href="/" className="hover:text-white transition-colors ">Home</Link></li>
+            <li><Link href="/products" className="hover:text-white transition-colors">Products</Link></li>
+            <li><Link href="/about" className="hover:text-white transition-colors">About Us</Link></li>
+            <li><Link href="/contact" className="hover:text-white transition-colors">Contact</Link></li>
           </ul>
         </div>
         {/* Support */}
         <div>
-          <h4 className="text-white font-semibold mb-4">Support</h4>
+          <h4 className="text-amber-200 font-semibold mb-4">Support</h4>
           <ul className="space-y-2 text-gray-400">
-            <li><Link href="/faq" className="hover:text-[#C8A84B] transition-colors">FAQ</Link></li>
-            <li><Link href="/shipping" className="hover:text-[#C8A84B] transition-colors">Shipping</Link></li>
-            <li><Link href="/returns" className="hover:text-[#C8A84B] transition-colors">Returns</Link></li>
-            <li><Link href="/privacy-policy" className="hover:text-[#C8A84B] transition-colors">Privacy Policy</Link></li>
+            <li><Link href="/faq" className="hover:text-white transition-colors">FAQ</Link></li>
+            <li><Link href="/shipping" className="hover:text-white transition-colors">Shipping</Link></li>
+            <li><Link href="/returns" className="hover:text-white transition-colors">Returns</Link></li>
+            <li><Link href="/privacy-policy" className="hover:text-white transition-colors">Privacy Policy</Link></li>
           </ul>
         </div>
         {/* Contact */}
         <div>
-          <h4 className="text-white font-semibold mb-4">Contact</h4>
+          <h4 className="text-amber-200 font-semibold mb-4">Contact</h4>
           <ul className="space-y-2 text-gray-400">
-            <li>info@Cherryhoney.com</li>
-            <li><Link href="tel:+919677562116">+91 96775 62116</Link></li>
-            <li>Kanyakumari, Tamilnadu</li>
+            <li className="hover:text-white transition-colors">info@Cherryhoney.com</li>
+            <li className="hover:text-white transition-colors"><Link href="tel:+919677562116">+91 96775 62116</Link></li>
+            <li className="hover:text-white transition-colors">Kanyakumari, Tamilnadu</li>
           </ul>
         </div>
       </div>
