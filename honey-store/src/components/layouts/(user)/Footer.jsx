@@ -29,11 +29,11 @@ export default function Footer() {
       </div>
 
       {/* Footer links */}
-      <div className="max-w-7xl mx-auto px-6 pb-8 grid grid-cols-2 md:grid-cols-4 gap-8 text-sm">
+      <div className="max-w-7xl mx-auto px-6 pb-8 grid grid-cols-2 md:grid-cols-4 gap-5 md:gap-8 text-sm">
         {/* Brand */}
         <div>
           <div className="flex items-center gap-2 mb-4">
-            <Image src="/footer-logo.png" alt="Logo" width={100} height={100} />
+            <Image src="/footer-logo.png" alt="Logo" width={150} height={100} />
           </div>
           <div className="flex gap-3 mt-4 items-center">
             {SOCIAL_LINKS.map((social, idx) => {

@@ -29,12 +29,11 @@ function ProductCard({ product }) {
     <motion.div variants={itemVariants}>
       <Link href={`/products/${product._id}`} className="group block">
         <div className="bg-[#111] border border-gray-800 hover:border-[#C8A84B]/50 transition-all duration-500 group-hover:-translate-y-1">
-          <div className="relative h-[300px]  bg-black overflow-hidden">
+          <div className="relative h-[350px] bg-black flex items-center justify-center">
             <Image
               src={img}
               alt={product.name}
               fill
-              sizes="(max-width:640px) 50vw, (max-width:1024px) 33vw, 25vw"
               className="object-cover  group-hover:scale-105 transition-transform duration-500"
             />
           </div>
@@ -165,7 +164,7 @@ export default function ProductsClient({
         {/* Grid */}
         {products.length > 0 ? (
           <motion.div
-            className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-5"
+            className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-4 gap-5"
             variants={containerVariants}
             initial="hidden"
             animate="show"

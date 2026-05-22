@@ -636,7 +636,7 @@ export default function ProductDetailClient({ product, similar }) {
           transition={{ duration: 0.8 }}
         >
           <h2 className="text-2xl text-white mb-6" style={serifItalic}>
-            <span className="text-[#C8A84B]">Shipping</span> Details
+            <span className="text-[#C8A84B]">Shipping</span> Detailsf
           </h2>
 
           {/* Tabs */}
