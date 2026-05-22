@@ -29,7 +29,7 @@ function ProductCard({ product }) {
     <motion.div variants={itemVariants}>
       <Link href={`/products/${product._id}`} className="group block">
         <div className="bg-[#111] border border-gray-800 hover:border-[#C8A84B]/50 transition-all duration-500 group-hover:-translate-y-1">
-          <div className="relative h-[340px] bg-black overflow-hidden">
+          <div className="relative h-[300px]  bg-black overflow-hidden">
             <Image
               src={img}
               alt={product.name}

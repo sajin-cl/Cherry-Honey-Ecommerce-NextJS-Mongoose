@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { SOCIAL_LINKS } from '@/config/staticData'
 
 export default function Footer() {
@@ -32,10 +33,7 @@ export default function Footer() {
         {/* Brand */}
         <div>
           <div className="flex items-center gap-2 mb-4">
-            <svg className="w-6 h-6 text-[#C8A84B]" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M12 2C9.5 2 7 4 7 7c0 1.5.5 2.8 1.3 3.8C6.5 12 5.5 14 5.5 16c0 3.5 3 6 6.5 6s6.5-2.5 6.5-6c0-2-1-4-2.8-5.2C16.5 9.8 17 8.5 17 7c0-3-2.5-5-5-5zm0 2c1.5 0 3 1.2 3 3s-1.5 3-3 3-3-1.2-3-3 1.5-3 3-3z" />
-            </svg>
-            <span className="text-[#C8A84B] font-bold" style={{ fontFamily: "'Georgia', serif" }}>Cherry Honey</span>
+            <Image src="/footer-logo.png" alt="Logo" width={100} height={100} />
           </div>
           <div className="flex gap-3 mt-4 items-center">
             {SOCIAL_LINKS.map((social, idx) => {
@@ -48,7 +46,7 @@ export default function Footer() {
                   rel="noopener noreferrer"
                   className="p-2 rounded-full hover:bg-white/10 hover:text-amber-300 transition"
                 >
-                  <Icon size={social.size}/>
+                  <Icon size={social.size} />
                 </Link>
               );
             })}
@@ -78,8 +76,8 @@ export default function Footer() {
         <div>
           <h4 className="text-white font-semibold mb-4">Contact</h4>
           <ul className="space-y-2 text-gray-400">
-            <li>info@cherryhoney.com</li>
-            <li>+91 8056 8258 14</li>
+            <li>info@Cherryhoney.com</li>
+            <li><Link href="tel:+919677562116">+91 96775 62116</Link></li>
             <li>Kanyakumari, Tamilnadu</li>
           </ul>
         </div>

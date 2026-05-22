@@ -88,6 +88,14 @@ export default function HomeClient({ featuredProducts }) {
                 alt="Honey bee over honey bowl"
                 fill
                 priority
+                drag
+                dragConstraints={{
+                  top: 0,
+                  left: 0,
+                  right: 0,
+                  bottom: 0
+                }}
+                dragMomentum={false}
                 sizes="(max-width: 768px) 90vw, 520px"
                 className="object-contain scale-120"
                 animate={{
