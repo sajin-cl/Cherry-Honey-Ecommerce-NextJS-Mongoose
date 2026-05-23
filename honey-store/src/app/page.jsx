@@ -24,4 +24,5 @@ export default async function LandingPage() {
     <HomePage featuredProducts={serializedProducts} />
     <Footer />
   </>;
-}
+};
+
