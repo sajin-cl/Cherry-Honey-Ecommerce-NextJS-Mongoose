@@ -7,7 +7,10 @@ import CheckoutClient from "./CheckoutClient";
 
 export const metadata = { title: "Checkout | Cherry Honey" };
 
-export default async function CheckoutPage() {
+export default async function CheckoutPage({ searchParams }) {
+  const resolvedParams = await searchParams;
+  const isBuyNow = resolvedParams?.buyNow === "true";
+
   const userPayload = await getServerUser();
   if (!userPayload) {
     return (
@@ -15,7 +18,7 @@ export default async function CheckoutPage() {
         <div className="text-center">
           <p className="text-gray-400 mb-4 font-light">Please login to continue checkout.</p>
           <Link
-            href="/accounts/login?redirect=/checkout"
+            href={`/accounts/login?redirect=/checkout${isBuyNow ? '?buyNow=true' : ''}`}
             className="bg-[#C8A84B] hover:bg-[#b8973e] px-8 py-3 text-black font-semibold text-sm tracking-[0.1em] uppercase transition-colors inline-block"
           >
             Login
@@ -38,40 +41,44 @@ export default async function CheckoutPage() {
     );
   }
 
-  // Calculate real subtotal of cart items
-  const dbCart = user.cart || [];
+  // For buyNow mode, subtotal is handled client-side from sessionStorage
   let cartSubtotal = 0;
 
-  dbCart.forEach((item) => {
-    const prod = item.product;
-    if (!prod) return;
-    const prodQtyNormalized = prod.quantity ? prod.quantity.trim() : "500g";
+  if (!isBuyNow) {
+    // Calculate real subtotal of cart items
+    const dbCart = user.cart || [];
 
-    const getMultiplier = (selected, base) => {
-      const s = String(selected).toLowerCase().trim();
-      const b = String(base || "500g").toLowerCase().trim();
-      if (s === b) return 1.0;
+    dbCart.forEach((item) => {
+      const prod = item.product;
+      if (!prod) return;
+      const prodQtyNormalized = prod.quantity ? prod.quantity.trim() : "500g";
 
-      const getVal = (str) => {
-        const num = parseFloat(str);
-        const isKg = str.includes("kg") || str.includes("kilogram");
-        return isKg ? num * 1000 : num;
+      const getMultiplier = (selected, base) => {
+        const s = String(selected).toLowerCase().trim();
+        const b = String(base || "500g").toLowerCase().trim();
+        if (s === b) return 1.0;
+
+        const getVal = (str) => {
+          const num = parseFloat(str);
+          const isKg = str.includes("kg") || str.includes("kilogram");
+          return isKg ? num * 1000 : num;
+        };
+
+        const sVal = getVal(s);
+        const bVal = getVal(b);
+        if (isNaN(sVal) || isNaN(bVal) || bVal === 0) return 1.0;
+
+        const ratio = sVal / bVal;
+        if (Math.abs(ratio - 2.0) < 0.1) return 1.8;
+        if (Math.abs(ratio - 4.0) < 0.1) return 3.4;
+        return ratio;
       };
 
-      const sVal = getVal(s);
-      const bVal = getVal(b);
-      if (isNaN(sVal) || isNaN(bVal) || bVal === 0) return 1.0;
-
-      const ratio = sVal / bVal;
-      if (Math.abs(ratio - 2.0) < 0.1) return 1.8;
-      if (Math.abs(ratio - 4.0) < 0.1) return 3.4;
-      return ratio;
-    };
-
-    const multiplier = getMultiplier(item.weight, prodQtyNormalized);
-    const itemPrice = (prod.discountPrice ?? prod.price) * multiplier;
-    cartSubtotal += itemPrice * item.qty;
-  });
+      const multiplier = getMultiplier(item.weight, prodQtyNormalized);
+      const itemPrice = (prod.discountPrice ?? prod.price) * multiplier;
+      cartSubtotal += itemPrice * item.qty;
+    });
+  }
 
   const addresses = (user.addresses || []).map((addr) => ({
     id: addr._id.toString(),
@@ -82,5 +89,5 @@ export default async function CheckoutPage() {
     isDefault: addr.isDefault || false
   }));
 
-  return <CheckoutClient initialAddresses={addresses} cartSubtotal={cartSubtotal} />;
+  return <CheckoutClient initialAddresses={addresses} cartSubtotal={cartSubtotal} isBuyNow={isBuyNow} />;
 }

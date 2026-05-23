@@ -1,10 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 
 const serif = { fontFamily: "'Georgia','Times New Roman',serif", fontStyle: "italic" };
 const TAXES = 10;
+const DELIVERY_THRESHOLD = 500;
 
 const STEPS = [
   {
@@ -97,7 +98,7 @@ function AddressCard({ addr, selected, onSelect, onDelete }) {
   );
 }
 
-export default function CheckoutClient({ initialAddresses, cartSubtotal }) {
+export default function CheckoutClient({ initialAddresses, cartSubtotal, isBuyNow = false }) {
   const [addresses, setAddresses] = useState(initialAddresses);
   const [selectedId, setSelectedId] = useState(
     initialAddresses.find(a => a.isDefault)?.id || initialAddresses[0]?.id || ""
@@ -105,8 +106,24 @@ export default function CheckoutClient({ initialAddresses, cartSubtotal }) {
   const [showNewForm, setShowNewForm] = useState(false);
   const [newAddr, setNewAddr] = useState({ name: "", line1: "", phone: "", tag: "HOME" });
   const [loading, setLoading] = useState(false);
+  const [buyNowSubtotal, setBuyNowSubtotal] = useState(0);
 
-  const grandTotal = cartSubtotal + TAXES;
+  useEffect(() => {
+    if (isBuyNow) {
+      try {
+        const item = JSON.parse(sessionStorage.getItem("buyNowItem") || "null");
+        if (item) {
+          setBuyNowSubtotal(item.price * item.qty);
+        }
+      } catch (e) {
+        console.error("Failed to load buyNow item:", e);
+      }
+    }
+  }, [isBuyNow]);
+
+  const subtotal = isBuyNow ? buyNowSubtotal : cartSubtotal;
+  const delivery = subtotal >= DELIVERY_THRESHOLD ? 0 : 50;
+  const grandTotal = subtotal + TAXES + delivery;
 
   const handleAddNew = async (e) => {
     e.preventDefault();
@@ -181,7 +198,7 @@ export default function CheckoutClient({ initialAddresses, cartSubtotal }) {
       return;
     }
     sessionStorage.setItem("shippingAddress", JSON.stringify(selectedAddress));
-    window.location.href = "/checkout/payment";
+    window.location.href = isBuyNow ? "/checkout/payment?buyNow=true" : "/checkout/payment";
   };
 
   return (
@@ -317,7 +334,7 @@ export default function CheckoutClient({ initialAddresses, cartSubtotal }) {
               <div className="space-y-4 mb-6">
                 <div className="flex justify-between text-sm">
                   <span className="text-gray-400">Subtotal</span>
-                  <span className="text-white font-medium">₹{cartSubtotal.toFixed(2)}</span>
+                <span className="text-white font-medium">₹{subtotal.toFixed(2)}</span>
                 </div>
                 <div className="flex justify-between text-sm">
                   <span className="text-gray-400">Taxes</span>
@@ -325,7 +342,9 @@ export default function CheckoutClient({ initialAddresses, cartSubtotal }) {
                 </div>
                 <div className="flex justify-between text-sm">
                   <span className="text-gray-400">Delivery Fee</span>
-                  <span className="text-green-400 font-semibold">FREE</span>
+                  <span className={delivery === 0 ? "text-green-400 font-semibold" : "text-white font-medium"}>
+                    {delivery === 0 ? "FREE" : `₹${delivery.toFixed(2)}`}
+                  </span>
                 </div>
                 <div className="h-px bg-gray-800" />
                 <div className="flex justify-between text-sm font-bold">

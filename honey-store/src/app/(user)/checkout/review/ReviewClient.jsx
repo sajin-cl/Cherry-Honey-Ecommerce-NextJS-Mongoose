@@ -16,7 +16,7 @@ function EditIcon() {
   );
 }
 
-export default function ReviewClient({ initialItems }) {
+export default function ReviewClient({ initialItems, isBuyNow = false }) {
   const [items, setItems] = useState(initialItems);
   const [shippingAddress, setShippingAddress] = useState(null);
   const [paymentMethod, setPaymentMethod] = useState("cod");
@@ -33,15 +33,42 @@ export default function ReviewClient({ initialItems }) {
       if (payMethod) {
         setPaymentMethod(payMethod);
       }
+
+      // For buyNow mode, load the single item from sessionStorage
+      if (isBuyNow) {
+        const buyNowStr = sessionStorage.getItem("buyNowItem");
+        if (buyNowStr) {
+          const buyNowItem = JSON.parse(buyNowStr);
+          setItems([{
+            id: "buyNow_" + buyNowItem.productId,
+            productId: buyNowItem.productId,
+            name: buyNowItem.name,
+            price: buyNowItem.price,
+            original: buyNowItem.original,
+            image: buyNowItem.image,
+            qty: buyNowItem.qty,
+            weight: buyNowItem.weight,
+            isBuyNow: true,
+          }]);
+        }
+      }
     } catch (e) {
       console.error("Failed to load checkout settings:", e);
     }
-  }, []);
+  }, [isBuyNow]);
 
   const subtotal = items.reduce((s, i) => s + i.price * i.qty, 0);
   const grandTotal = subtotal + TAXES;
 
   const removeItem = async (id) => {
+    // For buyNow items, just remove from local state (not from cart API)
+    const item = items.find((i) => i.id === id);
+    if (item?.isBuyNow) {
+      setItems([]);
+      sessionStorage.removeItem("buyNowItem");
+      return;
+    }
+
     try {
       const res = await fetch("/api/cart", {
         method: "DELETE",
@@ -93,11 +120,16 @@ export default function ReviewClient({ initialItems }) {
       const data = await res.json();
       if (res.ok) {
         setPlaced(true);
-        // Clear local storage and session storage
-        localStorage.removeItem("cart");
+        if (isBuyNow) {
+          // Only clear buyNow session data, don't touch the cart
+          sessionStorage.removeItem("buyNowItem");
+        } else {
+          // Clear cart for normal checkout
+          localStorage.removeItem("cart");
+          window.dispatchEvent(new Event("cartUpdate"));
+        }
         sessionStorage.removeItem("shippingAddress");
         sessionStorage.removeItem("paymentMethod");
-        window.dispatchEvent(new Event("cartUpdate"));
       } else {
         alert(data.error || "Failed to place order");
       }
@@ -115,11 +147,15 @@ export default function ReviewClient({ initialItems }) {
         <nav className="flex items-center gap-2 text-xs text-gray-500 mb-6">
           <Link href="/" className="hover:text-[#C8A84B] transition-colors">Home</Link>
           <span>/</span>
-          <Link href="/cart" className="hover:text-[#C8A84B] transition-colors">Cart</Link>
+          {isBuyNow ? (
+            <span className="text-gray-300">Buy Now</span>
+          ) : (
+            <Link href="/cart" className="hover:text-[#C8A84B] transition-colors">Cart</Link>
+          )}
           <span>/</span>
-          <Link href="/checkout" className="hover:text-[#C8A84B] transition-colors">Address</Link>
+          <Link href={isBuyNow ? "/checkout?buyNow=true" : "/checkout"} className="hover:text-[#C8A84B] transition-colors">Address</Link>
           <span>/</span>
-          <Link href="/checkout/payment" className="hover:text-[#C8A84B] transition-colors">Payment</Link>
+          <Link href={isBuyNow ? "/checkout/payment?buyNow=true" : "/checkout/payment"} className="hover:text-[#C8A84B] transition-colors">Payment</Link>
           <span>/</span>
           <span className="text-gray-300">Review</span>
         </nav>
@@ -176,7 +212,7 @@ export default function ReviewClient({ initialItems }) {
                 ) : (
                   <p className="text-red-400 text-xs">No address selected.</p>
                 )}
-                <Link href="/checkout" className="w-8 h-8 flex-shrink-0 flex items-center justify-center bg-[#1a1a1a] border border-gray-700 text-gray-400 hover:text-[#C8A84B] hover:border-[#C8A84B] transition-colors" aria-label="Edit address">
+                <Link href={isBuyNow ? "/checkout?buyNow=true" : "/checkout"} className="w-8 h-8 flex-shrink-0 flex items-center justify-center bg-[#1a1a1a] border border-gray-700 text-gray-400 hover:text-[#C8A84B] hover:border-[#C8A84B] transition-colors" aria-label="Edit address">
                   <EditIcon />
                 </Link>
               </div>
@@ -190,7 +226,7 @@ export default function ReviewClient({ initialItems }) {
                     {paymentMethod === "cod" ? "Cash On Delivery (COD)" : "Online Payment (Cashfree)"}
                   </p>
                 </div>
-                <Link href="/checkout/payment" className="w-8 h-8 flex-shrink-0 flex items-center justify-center bg-[#1a1a1a] border border-gray-700 text-gray-400 hover:text-[#C8A84B] hover:border-[#C8A84B] transition-colors" aria-label="Edit payment">
+                <Link href={isBuyNow ? "/checkout/payment?buyNow=true" : "/checkout/payment"} className="w-8 h-8 flex-shrink-0 flex items-center justify-center bg-[#1a1a1a] border border-gray-700 text-gray-400 hover:text-[#C8A84B] hover:border-[#C8A84B] transition-colors" aria-label="Edit payment">
                   <EditIcon />
                 </Link>
               </div>

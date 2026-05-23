@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, use } from "react";
+import { useRouter } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import StarRating from "@/components/ui/StarRating";
@@ -19,6 +20,7 @@ const serifItalic = {
 export default function ProductDetailPage({ params }) {
   const resolvedParams = use(params);
   const id = resolvedParams.id;
+  const router = useRouter();
 
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -402,7 +404,20 @@ export default function ProductDetailPage({ params }) {
             {/* Buy Now */}
             <button
               disabled={!product || product.stock === 0 || qty === 0}
-              onClick={handleAddToCart}
+              onClick={() => {
+                // Store this single product in sessionStorage for direct checkout
+                const buyNowItem = {
+                  productId: product._id,
+                  name: product.name,
+                  price: price,
+                  original: original,
+                  image: product.image?.url || "/hero-honey-jar.webp",
+                  qty: qty,
+                  weight: selectedWeight,
+                };
+                sessionStorage.setItem("buyNowItem", JSON.stringify(buyNowItem));
+                router.push("/checkout?buyNow=true");
+              }}
               className="w-full h-10 font-semibold text-sm tracking-widest uppercase border border-[#C8A84B] text-[#C8A84B] hover:bg-[#C8A84B] hover:text-black disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 mb-4"
             >
               {product && product.stock === 0 ? "Out of Stock" : "Buy Now"}

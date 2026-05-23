@@ -5,6 +5,7 @@ import Link from "next/link";
 
 const serif = { fontFamily: "'Georgia','Times New Roman',serif", fontStyle: "italic" };
 const TAXES = 10;
+const DELIVERY_THRESHOLD = 500;
 
 const STEPS = [
   {
@@ -38,8 +39,9 @@ const PAYMENT_METHODS = [
   { id: "online",   label: "Online Payment (Cashfree)" },
 ];
 
-export default function PaymentClient({ cartSubtotal }) {
+export default function PaymentClient({ cartSubtotal, isBuyNow = false }) {
   const [method, setMethod] = useState("cod");
+  const [buyNowSubtotal, setBuyNowSubtotal] = useState(0);
 
   useEffect(() => {
     const saved = sessionStorage.getItem("paymentMethod");
@@ -48,14 +50,27 @@ export default function PaymentClient({ cartSubtotal }) {
     } else {
       sessionStorage.setItem("paymentMethod", "cod");
     }
-  }, []);
+
+    if (isBuyNow) {
+      try {
+        const item = JSON.parse(sessionStorage.getItem("buyNowItem") || "null");
+        if (item) {
+          setBuyNowSubtotal(item.price * item.qty);
+        }
+      } catch (e) {
+        console.error("Failed to load buyNow item:", e);
+      }
+    }
+  }, [isBuyNow]);
 
   const selectMethod = (m) => {
     setMethod(m);
     sessionStorage.setItem("paymentMethod", m);
   };
 
-  const grandTotal = cartSubtotal + TAXES;
+  const subtotal = isBuyNow ? buyNowSubtotal : cartSubtotal;
+  const delivery = subtotal >= DELIVERY_THRESHOLD ? 0 : 50;
+  const grandTotal = subtotal + TAXES + delivery;
 
   return (
     <div className="min-h-screen bg-[#0a0a0a] text-white flex flex-col">
@@ -130,7 +145,7 @@ export default function PaymentClient({ cartSubtotal }) {
               <div className="space-y-4 mb-6">
                 <div className="flex justify-between text-sm">
                   <span className="text-gray-400">Subtotal</span>
-                  <span className="text-white font-medium">₹{cartSubtotal.toFixed(2)}</span>
+                  <span className="text-white font-medium">₹{subtotal.toFixed(2)}</span>
                 </div>
                 <div className="flex justify-between text-sm">
                   <span className="text-gray-400">Taxes</span>
@@ -138,7 +153,9 @@ export default function PaymentClient({ cartSubtotal }) {
                 </div>
                 <div className="flex justify-between text-sm">
                   <span className="text-gray-400">Delivery Fee</span>
-                  <span className="text-green-400 font-semibold">FREE</span>
+                  <span className={delivery === 0 ? "text-green-400 font-semibold" : "text-white font-medium"}>
+                    {delivery === 0 ? "FREE" : `₹${delivery.toFixed(2)}`}
+                  </span>
                 </div>
                 <div className="h-px bg-gray-800" />
                 <div className="flex justify-between font-bold">
@@ -148,7 +165,7 @@ export default function PaymentClient({ cartSubtotal }) {
               </div>
 
               <Link
-                href="/checkout/review"
+                href={isBuyNow ? "/checkout/review?buyNow=true" : "/checkout/review"}
                 className="block w-full bg-[#C8A84B] hover:bg-[#b8973e] text-white text-center font-bold text-sm tracking-[0.2em] uppercase py-4 transition-colors"
               >
                 CONTINUE
