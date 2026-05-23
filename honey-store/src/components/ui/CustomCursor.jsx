@@ -1,13 +1,22 @@
 "use client";
 
 import React, { useEffect, useRef } from 'react';
+import { usePathname } from "next/navigation"
 
 
 export default function CustomCursor() {
+
+    const pathName = usePathname();
     const dotRef = useRef(null);
     const ringRef = useRef(null);
     const pos = useRef({ x: 0, y: 0 });
     const ring = useRef({ x: 0, y: 0 });
+
+
+    const isAdminPath = pathName.startsWith("/admin");
+    if (isAdminPath) {
+        return null;
+    }
 
     useEffect(() => {
         if (typeof window === 'undefined') return;

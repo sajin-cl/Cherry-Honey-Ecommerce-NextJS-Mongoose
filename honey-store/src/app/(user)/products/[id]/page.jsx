@@ -8,6 +8,7 @@ import StarRating from "@/components/ui/StarRating";
 import ProductCard from "@/components/products/ProductCard";
 import FAQItem from "@/components/products/FAQItem";
 import ShowReview from "@/components/products/ShowReview";
+import Loading from "@/components/ui/Loading";
 
 /* ── helpers ── */
 const serifItalic = {
@@ -143,9 +144,7 @@ export default function ProductDetailPage({ params }) {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-[#0a0a0a] text-white flex items-center justify-center">
-        <p className="text-gray-400">Loading product details...</p>
-      </div>
+      <Loading message="Loading product details...."/>
     );
   }
 
