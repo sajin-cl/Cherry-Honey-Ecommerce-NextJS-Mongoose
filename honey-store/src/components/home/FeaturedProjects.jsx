@@ -77,7 +77,7 @@ export default function FeaturedProjects({ featuredProducts }) {
                                 }}
                             >
                                 <Link href={`/products/${productId}`} className="group">
-                                    <div className=" transition-all duration-300 group-hover:-translate-y-1 overflow-hidden">
+                                    <div className=" transition-all duration-300  overflow-hidden">
                                         <div className="relative h-[350px] bg-black flex items-center justify-center ">
                                             <Image
                                                 src={imgUrl}
