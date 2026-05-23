@@ -103,8 +103,8 @@ export default async function NotFound() {
         {/* Role badge — logged in users only */}
         {roleBadge && (
           <div className="flex justify-center mb-6">
-            <span className={`text-xs px-3 py-1 border rounded-full tracking-wider uppercase ${roleBadge.color}`}>
-              Signed in as {roleBadge.label}
+            <span className={`text-xs px-3 py-1 border rounded-full tracking-wider uppercase ${roleBadge?.color}`}>
+              Signed in as {roleBadge?.label}
             </span>
           </div>
         )}
