@@ -6,7 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 import StarRating from "@/components/ui/StarRating";
 import ProductCard from "@/components/products/ProductCard";
-import FAQItem from "@/components/products/FAQItem";
+import FAQItem from "@/components/products/ProductFAQ";
 import ShowReview from "@/components/products/ShowReview";
 import Loading from "@/components/ui/Loading";
 
