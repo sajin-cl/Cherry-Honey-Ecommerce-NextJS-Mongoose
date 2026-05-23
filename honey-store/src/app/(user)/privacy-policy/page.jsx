@@ -10,7 +10,7 @@ const serif = {
     fontStyle: "italic",
 };
 
-const LAST_UPDATED = "24 May 2025";
+const LAST_UPDATED = "24 May 2026";
 
 const SECTIONS = [
     {
@@ -141,7 +141,7 @@ export default function PrivacyPolicyPage() {
                     Legal
                 </p>
                 <h1 className="text-5xl md:text-6xl text-white mb-4" style={serif}>
-                    Privacy Policy
+                    Privacy <span className="text-[#C8A84B]">Policy</span>
                 </h1>
                 <p className="text-gray-500 text-xs tracking-wider uppercase">
                     Last updated: {LAST_UPDATED}
@@ -149,7 +149,7 @@ export default function PrivacyPolicyPage() {
             </div>
 
             {/* ── Content ── */}
-            <div className="max-w-6xl mx-auto px-4 py-14">
+            <div className="max-w-5xl mx-auto px-4 py-14">
 
                 {/* Intro */}
                 <div className="border-l-2 border-[#C8A84B] pl-5 mb-12">

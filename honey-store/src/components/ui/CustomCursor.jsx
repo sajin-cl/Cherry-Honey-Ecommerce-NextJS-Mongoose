@@ -1,25 +1,20 @@
 "use client";
 
 import React, { useEffect, useRef } from 'react';
-import { usePathname } from "next/navigation"
-
+import { usePathname } from "next/navigation";
 
 export default function CustomCursor() {
-
     const pathName = usePathname();
     const dotRef = useRef(null);
     const ringRef = useRef(null);
     const pos = useRef({ x: 0, y: 0 });
     const ring = useRef({ x: 0, y: 0 });
 
-
     const isAdminPath = pathName.startsWith("/admin");
-    if (isAdminPath) {
-        return null;
-    }
 
     useEffect(() => {
-        if (typeof window === 'undefined') return;
+        // if on an admin path, do not bind cursor events
+        if (isAdminPath || typeof window === 'undefined') return;
 
         const onMove = (e) => {
             pos.current = { x: e.clientX, y: e.clientY };
@@ -65,7 +60,12 @@ export default function CustomCursor() {
             document.removeEventListener('mousemove', onMove);
             observer.disconnect();
         };
-    }, []);
+    }, [isAdminPath]); //You must add isAdminPath to the dependency list.
+
+    //  CRITICAL: Always place your early return statements AFTER all of your React hooks!
+    if (isAdminPath) {
+        return null;
+    }
 
     return (
         <>
