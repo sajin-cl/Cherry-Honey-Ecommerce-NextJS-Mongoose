@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import ProductCard from "@/components/products/ProductCard";
 
 const serif = { fontFamily: "'Georgia','Times New Roman',serif", fontStyle: "italic" };
 const TAXES = 10;
@@ -320,25 +321,9 @@ export default function CartClient({ initialItems }) {
               </h2>
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
                 {similar.map((p) => {
-                  const imgUrl = p.image?.url || "/hero-honey-jar.webp";
-                  const sellPrice = p.discountPrice ?? p.price;
+
                   return (
-                    <Link key={p._id} href={`/products/${p._id}`} className="group block">
-                      <div className="bg-[#111] border border-gray-800 hover:border-[#C8A84B]/40 transition-all duration-300 group-hover:-translate-y-1">
-                        <div className="relative h-[340px] bg-black">
-                          <Image src={imgUrl} alt={p.name} fill sizes="(max-width:640px) 50vw, 25vw" className="object-cover" />
-                        </div>
-                      </div>
-                      <div className="p-3">
-                        <p className="text-white text-xs mb-1 truncate group-hover:text-[#C8A84B] transition-colors">{p.name}</p>
-                        <div className="flex items-center gap-2">
-                          <span className="text-[#C8A84B] text-xs font-semibold group-hover:text-white">₹{sellPrice.toFixed(2)}</span>
-                          {p.discountPrice && (
-                            <span className="text-gray-500 text-xs line-through">₹{p.price.toFixed(2)}</span>
-                          )}
-                        </div>
-                      </div>
-                    </Link>
+                    <ProductCard key={p._id.toString()} product={p} />
                   );
                 })}
               </div>

@@ -86,7 +86,7 @@ export default function FeaturedProjects({ featuredProducts }) {
                                                 className="object-cover group-hover:scale-105 transition-transform duration-500 rounded-2xl"
                                             />
                                         </div>
-                                        <div className="px-2 py-5 flex justify-between items-center">
+                                        <div className="p-5 flex justify-between items-center">
                                             <div>
                                                 <h3 className="text-white text-sm font-medium mb-1 truncate uppercase group-hover:text-amber-300">{product?.name}</h3>
                                                 <h4 className="text-gray-400 text-xs font-xs mb-1 truncate">{product?.category}</h4>
