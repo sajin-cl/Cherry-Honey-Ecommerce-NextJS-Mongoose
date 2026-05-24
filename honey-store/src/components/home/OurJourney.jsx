@@ -4,8 +4,7 @@ import { motion } from 'framer-motion'
 
 const serifItalic = {
     fontFamily: "'Georgia', 'Times New Roman', serif",
-    fontStyle: "italic",
-    fontWeight: 400,
+    fontStyle: "italic"
 };
 
 
@@ -14,7 +13,7 @@ const OurJourney = () => {
         <section className="py-20 bg-black">
             <div className="max-w-7xl mx-auto px-6">
                 <motion.h2
-                    className="text-3xl md:text-4xl text-center mb-12"
+                    className="text-3xl md:text-4xl text-center mb-12 font-semibold"
                     style={serifItalic}
                     initial={{ y: 30, opacity: 0 }}
                     whileInView={{ y: 0, opacity: 1 }}
