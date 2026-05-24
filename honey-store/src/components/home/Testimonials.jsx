@@ -8,7 +8,7 @@ import { TESTIMONIALS } from '@/config/staticData'
 const serifItalic = {
   fontFamily: "'Georgia', 'Times New Roman', serif",
   fontStyle: "italic",
-  fontWeight: 400,
+  
 };
 
 const Testimonials = () => {
@@ -59,7 +59,7 @@ const Testimonials = () => {
                     <div>
                         <div className="text-[#C8A84B] text-6xl leading-none mb-3" style={{ fontFamily: "Georgia, serif" }}>
                             <motion.h2
-                                className="text-3xl md:text-4xl mb-5 mt-5 md:mt-12"
+                                className="text-3xl md:text-4xl mb-5 mt-5 md:mt-12 font-semibold"
                                 style={serifItalic}
                                 initial={{ y: 30, opacity: 0 }}
                                 whileInView={{ y: 0, opacity: 1 }}
@@ -79,7 +79,7 @@ const Testimonials = () => {
                                     exit={{ opacity: 0, y: -15 }}
                                     transition={{ duration: 0.4 }}
                                 >
-                                    <p className="text-gray-300 text-base leading-relaxed mb-6 italic">
+                                    <p className="text-gray-200 text-base leading-relaxed mb-6 italic">
                                         {TESTIMONIALS[currentTestimonial]?.text}
                                     </p>
                                     <p className="text-[#C8A84B] font-semibold text-sm mb-1">

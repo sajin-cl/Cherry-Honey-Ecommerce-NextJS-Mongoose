@@ -38,7 +38,7 @@ export default function FeaturedProjects({ featuredProducts }) {
             {/*Image Content */}
             <div className="max-w-7xl mx-auto px-6 relative" style={{ zIndex: 2 }}>
                 <motion.h2
-                    className="text-3xl md:text-4xl mb-12 z-50 md:mt-12"
+                    className="text-3xl md:text-4xl my-6 z-50 font-semibold"
                     style={serifItalic}
                     initial={{ y: 30, opacity: 0 }}
                     whileInView={{ y: 0, opacity: 1 }}

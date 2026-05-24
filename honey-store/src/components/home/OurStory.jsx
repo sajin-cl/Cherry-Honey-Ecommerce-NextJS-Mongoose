@@ -5,7 +5,6 @@ import { motion } from "framer-motion"
 const serifItalic = {
   fontFamily: "'Georgia', 'Times New Roman', serif",
   fontStyle: "italic",
-  fontWeight: 400,
 };
  
 
@@ -49,7 +48,7 @@ export default function OurStory() {
                         viewport={{ once: true }}
                         transition={{ duration: 0.8 }}
                     >
-                        <h2 className="text-3xl md:text-5xl mb-6" style={serifItalic}>
+                        <h2 className="text-3xl md:text-5xl mb-6 font-semibold" style={serifItalic}>
                             <span className="text-[#C8A84B]">Our</span> Story
                         </h2>
                         <p className="text-gray-400 leading-relaxed mb-4 text-sm">
