@@ -16,7 +16,7 @@ export default function OurStory() {
             {/* background layer */}
             <div className="absolute inset-0 z-30 pointer-events-none">
                 <Image
-                    src="/honey-comb.png"
+                    src="/honey-comb.webp"
                     fill
                     className="object-cover animate-pulse"
                     alt="bg"

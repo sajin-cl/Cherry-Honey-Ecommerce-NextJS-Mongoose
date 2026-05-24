@@ -14,7 +14,7 @@ export default function FeaturedProjects({ featuredProducts }) {
             {/* Honey Comb Layer-1*/}
             <div className="absolute inset-0">
                 <Image
-                    src="/honey-comb.png"
+                    src="/honey-comb.webp"
                     fill
                     className="object-cover animate-pulse mask-fade"
                     alt="overlay"

@@ -79,7 +79,7 @@ export default function ContactClient() {
       {/* Background honeycomb overlay */}
       <div className="absolute inset-0 z-0 opacity-40 pointer-events-none">
         <Image
-          src="/honey-comb.png"
+          src="/honey-comb.webp"
           fill
           className="object-cover"
           alt="honeycomb pattern"
@@ -145,7 +145,7 @@ export default function ContactClient() {
       ══════════════════════════════════════════════ */}
       <section className="relative z-10 max-w-7xl mx-auto px-6 py-12">
         <Image
-          src="/honey-comb.png"
+          src="/honey-comb.webp"
           fill
           className="object-cover"
           alt="honeycomb pattern"

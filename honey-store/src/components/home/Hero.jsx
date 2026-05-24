@@ -16,7 +16,7 @@ export default function Hero() {
     return (
         <section className="relative min-h-screen flex items-center overflow-hidden pt-16 bg-black">
             <Image
-                src={"/honey-comb.png"}
+                src={"/honey-comb.webp"}
                 fill
                 className="object-cover animate-pulse"
                 alt="honey-comb"
@@ -66,7 +66,7 @@ export default function Hero() {
                 >
                     <div className="relative w-full max-w-[520px] aspect-square">
                         <MotionImage
-                            src="/bee.png"
+                            src="/bee.webp"
                             alt="Honey bee over honey bowl"
                             fill
                             priority

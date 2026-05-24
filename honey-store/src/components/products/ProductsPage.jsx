@@ -24,7 +24,7 @@ export default function ProductsClient({
       {/* Background honeycomb overlay matching About page */}
       <div className="absolute inset-0 z-0 opacity-20 pointer-events-none">
         <Image
-          src="/honey-comb.png"
+          src="/honey-comb.webp"
           fill
           className="object-cover"
           alt="honeycomb pattern"

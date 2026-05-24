@@ -100,7 +100,7 @@ export default function AboutClient() {
         </div>
 
         <Image
-          src={"/honey-comb.png"}
+          src={"/honey-comb.webp"}
           fill
           className="object-cover animate-pulse mask-fade"
           alt="honey-comb"

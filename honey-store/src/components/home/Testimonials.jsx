@@ -46,7 +46,7 @@ const Testimonials = () => {
             {/* background layer */}
             <div className="absolute inset-0 z-30 pointer-events-none mask-fade">
                 <Image
-                    src="/honey-comb.png"
+                    src="/honey-comb.webp"
                     fill
                     className="object-cover opacity-25 animate-pulse "
                     alt="overlay"
