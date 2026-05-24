@@ -116,7 +116,7 @@ export default function Navbar() {
             <li>
               <Link
                 href="/"
-                className={`transition-colors duration-200 ${isActive('/') ? 'text-[#C8A84B] font-medium' : 'text-gray-300 hover:text-[#C8A84B]'}`}
+                className={`transition-colors duration-200 font-mono uppercase ${isActive('/') ? 'text-[#C8A84B] font-medium' : 'text-gray-300 hover:text-[#C8A84B]'}`}
               >
                 Home
               </Link>
@@ -124,7 +124,7 @@ export default function Navbar() {
             <li>
               <Link
                 href="/products"
-                className={`transition-colors duration-200 ${isActive('/products') ? 'text-[#C8A84B] font-medium' : 'text-gray-300 hover:text-[#C8A84B]'}`}
+                className={`transition-colors duration-200 font-mono uppercase ${isActive('/products') ? 'text-[#C8A84B] font-medium' : 'text-gray-300 hover:text-[#C8A84B]'}`}
               >
                 Products
               </Link>
@@ -132,7 +132,7 @@ export default function Navbar() {
             <li>
               <Link
                 href="/about"
-                className={`transition-colors duration-200 ${isActive('/about') ? 'text-[#C8A84B] font-medium' : 'text-gray-300 hover:text-[#C8A84B]'}`}
+                className={`transition-colors duration-200 font-mono uppercase ${isActive('/about') ? 'text-[#C8A84B] font-medium' : 'text-gray-300 hover:text-[#C8A84B]'}`}
               >
                 About
               </Link>
@@ -140,7 +140,7 @@ export default function Navbar() {
             <li>
               <Link
                 href="/contact"
-                className={`transition-colors duration-200 ${isActive('/contact') ? 'text-[#C8A84B] font-medium' : 'text-gray-300 hover:text-[#C8A84B]'}`}
+                className={`transition-colors duration-200 font-mono uppercase ${isActive('/contact') ? 'text-[#C8A84B] font-medium' : 'text-gray-300 hover:text-[#C8A84B]'}`}
               >
                 Contact
               </Link>

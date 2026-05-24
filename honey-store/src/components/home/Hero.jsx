@@ -5,8 +5,9 @@ import Link from "next/link"
 import { motion } from "framer-motion"
 
 const serifItalic = {
-    fontFamily: 'Playfair Display',
-    fontStyle: 'italic'
+    fontFamily: "'Georgia', 'Times New Roman', serif",
+    fontStyle: "italic",
+    fontWeight: 400,
 };
 
 const MotionImage = motion(Image);

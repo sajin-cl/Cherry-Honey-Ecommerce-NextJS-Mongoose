@@ -12,6 +12,10 @@ export const serif = {
     fontStyle: "italic",
 };
 
+/* ADMIN DETAILS */
+export const ADMIN_PHONE = "+91 96775 62116"
+export const CUSTOMER_CARE_EMAIL = "support@cherryhoney.in"
+
 
 export const SOCIAL_LINKS = [
     { icon: SiFacebook, href: "", name: 'Facebook', size: 20 },

@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import { SOCIAL_LINKS } from '@/config/staticData'
+import { ADMIN_PHONE, CUSTOMER_CARE_EMAIL, SOCIAL_LINKS } from '@/config/staticData'
 
 export default function Footer() {
   return (
@@ -78,12 +78,12 @@ export default function Footer() {
           <ul className="space-y-2 text-gray-400">
             <li className="hover:text-white transition-colors">
               <Link
-                href={`mailto:${process.env.NEXT_PUBLIC_ADMIN_EMAIL}`}
+                href={`mailto:${CUSTOMER_CARE_EMAIL}`}
               >
-                {process.env.NEXT_PUBLIC_ADMIN_EMAIL}
+                {CUSTOMER_CARE_EMAIL}
               </Link>
             </li>
-            <li className="hover:text-white transition-colors"><Link href={`tel:${process.env.NEXT_PUBLIC_ADMIN_PHONE}`}>{process.env.NEXT_PUBLIC_ADMIN_PHONE}</Link></li>
+            <li className="hover:text-white transition-colors"><Link href={`tel:${ADMIN_PHONE}`}>{ADMIN_PHONE}</Link></li>
             <li className="hover:text-white transition-colors">Kanyakumari, Tamilnadu</li>
           </ul>
         </div>

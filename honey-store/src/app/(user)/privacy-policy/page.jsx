@@ -1,3 +1,4 @@
+import { ADMIN_PHONE, CUSTOMER_CARE_EMAIL } from "@/config/staticData";
 import Link from "next/link";
 
 export const metadata = {
@@ -216,10 +217,10 @@ export default function PrivacyPolicyPage() {
                         <p className="text-gray-400">
                             Email:{" "}
                             <a
-                                href={`mailto:${process.env.NEXT_PUBLIC_CUSTOMER_CARE_EMAIL}`}
+                                href={`mailto:${CUSTOMER_CARE_EMAIL}`}
                                 className="text-[#C8A84B] hover:underline"
                             >
-                                {process.env.NEXT_PUBLIC_CUSTOMER_CARE_EMAIL}
+                                {CUSTOMER_CARE_EMAIL}
                             </a>
                         </p>
                         <p className="text-gray-400">
@@ -228,7 +229,7 @@ export default function PrivacyPolicyPage() {
                                 href="tel:+919876543210"
                                 className="text-[#C8A84B] hover:underline"
                             >
-                                {process.env.NEXT_PUBLIC_ADMIN_PHONE}
+                                {ADMIN_PHONE}
                             </a>
                         </p>
                         <p className="text-gray-400">

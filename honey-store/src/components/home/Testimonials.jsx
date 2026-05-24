@@ -59,14 +59,14 @@ const Testimonials = () => {
                     <div>
                         <div className="text-[#C8A84B] text-6xl leading-none mb-3" style={{ fontFamily: "Georgia, serif" }}>
                             <motion.h2
-                                className="text-3xl md:text-4xl mb-5 md:mt-12"
+                                className="text-3xl md:text-4xl mb-5 mt-5 md:mt-12"
                                 style={serifItalic}
                                 initial={{ y: 30, opacity: 0 }}
                                 whileInView={{ y: 0, opacity: 1 }}
                                 viewport={{ once: true }}
                                 transition={{ duration: 0.8 }}
                             >
-                                <span className="text-[#C8A84B]">This is what</span> they say
+                                <span className="text-[#C8A84B]">This is what</span> <span className='text-white'>they say</span>
                             </motion.h2>
                             ““
                         </div>
