@@ -214,7 +214,7 @@ export default function Navbar() {
             <div className="relative">
               <button
                 onClick={() => setUserMenuOpen((o) => !o)}
-                className="w-7 h-7 bg-[#C8A84B] hover:bg-[#b8973e] text-black rounded-full flex items-center justify-center font-bold text-xs transition-colors shrink-0 focus:outline-none"
+                className="w-7 h-7 cursor-pointer bg-[#C8A84B] hover:bg-[#b8973e] text-black rounded-full flex items-center justify-center font-bold text-xs transition-colors shrink-0 focus:outline-none"
                 aria-label="Account menu"
                 aria-haspopup="true"
                 aria-expanded={userMenuOpen}

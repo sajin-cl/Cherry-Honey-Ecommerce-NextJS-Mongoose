@@ -91,10 +91,10 @@ export default function WriteReviewModal({ isOpen, onClose, onSubmit }) {
         className="fixed inset-0 bg-black/60 backdrop-blur-sm z-40"
         onClick={onClose}
         aria-hidden="true"
-      />
+      /> 
 
       {/* Modal */}
-      <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+      <div className="fixed inset-0 z-50 flex items-center justify-center p-4 mt-12">
         <div
           className="bg-[#0d0d0d] w-full max-w-lg shadow-[0_0_80px_rgba(200,168,75,0.15)]"
           role="dialog"
@@ -164,7 +164,7 @@ export default function WriteReviewModal({ isOpen, onClose, onSubmit }) {
                     type="text"
                     value={form.name}
                     onChange={update("name")}
-                    placeholder="Alexa Johnson"
+                    placeholder="Enter your name"
                     className="w-full bg-[#1a1a1a] border border-gray-700 focus:border-gray-500 text-white text-sm px-4 py-3 outline-none transition-colors placeholder-gray-600"
                   />
                 </div>
@@ -179,7 +179,7 @@ export default function WriteReviewModal({ isOpen, onClose, onSubmit }) {
                     type="email"
                     value={form.email}
                     onChange={update("email")}
-                    placeholder="alexa.johnson@example.com"
+                    placeholder="Enter your email"
                     className="w-full bg-[#1a1a1a] border border-gray-700 focus:border-gray-500 text-white text-sm px-4 py-3 outline-none transition-colors placeholder-gray-600"
                   />
                 </div>
@@ -188,11 +188,11 @@ export default function WriteReviewModal({ isOpen, onClose, onSubmit }) {
                 <div>
                   <textarea
                     id="review-text"
-                    rows={5}
+                    rows={2}
                     maxLength={100}
                     value={form.text}
                     onChange={update("text")}
-                    placeholder="Enter Your Review"
+                    placeholder="Enter Your Honest Review"
                     className="w-full bg-[#1a1a1a] border border-gray-700 focus:border-gray-500 text-white text-sm px-4 py-3 outline-none transition-colors placeholder-gray-600 resize-y"
                   />
                   <div className="text-right text-gray-500 text-xs -mt-1">

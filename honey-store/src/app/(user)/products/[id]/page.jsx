@@ -17,6 +17,8 @@ const serifItalic = {
 };
 
 
+
+
 /* ═══════════════════   MAIN PAGE         ══════════════════════════════════════════════════════ */
 export default function ProductDetailPage({ params }) {
   const resolvedParams = use(params);
@@ -35,6 +37,26 @@ export default function ProductDetailPage({ params }) {
   const [localReviews, setLocalReviews] = useState([]);
   const [similarProducts, setSimilarProducts] = useState([]);
   const [formOpen, setFormOpen] = useState(false);
+
+
+  const handleShare = async () => {
+    const shareData = {
+      title: document.title,
+      text: "Check this product",
+      url: window.location.href,
+    };
+
+    try {
+      if (navigator.share) {
+        await navigator.share(shareData);
+      } else {
+        await navigator.clipboard.writeText(window.location.href);
+        alert("Link copied!");
+      }
+    } catch (err) {
+      console.log("Share failed:", err);
+    }
+  };
 
   useEffect(() => {
     if (!id) return;
@@ -144,7 +166,7 @@ export default function ProductDetailPage({ params }) {
 
   if (loading) {
     return (
-      <Loading message="Loading product details...."/>
+      <Loading message="Loading product details...." />
     );
   }
 
@@ -436,7 +458,7 @@ export default function ProductDetailPage({ params }) {
                   loading="eager"
                   fetchPriority="high"
                 />
-                <span className="font-sans text-sm">Contact us</span>
+                <Link href={'/contact'} className="font-sans text-sm cursor-pointer">Contact us</Link>
               </div>
               <div className="flex items-center gap-2">
                 <Image
@@ -450,7 +472,7 @@ export default function ProductDetailPage({ params }) {
                 />
                 <span className="text-sm font-sans">Shipping Info</span>
               </div>
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2 cursor-pointer"  onClick={handleShare}>
                 <Image
                   src={'https://res.cloudinary.com/ddchr0sbn/image/upload/f_auto,q_auto/share-btn_kgel2l.webp'}
                   width={28}
@@ -460,7 +482,8 @@ export default function ProductDetailPage({ params }) {
                   loading="eager"
                   fetchPriority="high"
                 />
-                <span className="text-sm font-sans">Share</span>
+                <span className="text-sm font-sans"
+                >Share</span>
               </div>
             </div>
 
