@@ -142,7 +142,7 @@ export default function ProductsPage() {
         loadData();
       } else {
         const err = await res.json();
-        alert(err.error || "Failed to delete product");
+        alert( "Failed to delete product");
       }
     } catch (err) {
       console.error(err);

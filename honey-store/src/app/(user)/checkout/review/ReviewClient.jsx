@@ -142,7 +142,7 @@ export default function ReviewClient({ initialItems, isBuyNow = false }) {
         sessionStorage.removeItem("shippingAddress");
         sessionStorage.removeItem("paymentMethod");
       } else {
-        alert(data.error || "Failed to place order");
+        alert( "Failed to place order");
       }
     } catch (err) {
       console.error(err);

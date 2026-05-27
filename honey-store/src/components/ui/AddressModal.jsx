@@ -55,7 +55,7 @@ export default function AddressModal({ isOpen, onClose, onSave }) {
         setForm(EMPTY_FORM);
         onClose();
       } else {
-        alert(data.error || "Failed to save address");
+        alert( "Failed to save address");
       }
     } catch (err) {
       console.error(err);

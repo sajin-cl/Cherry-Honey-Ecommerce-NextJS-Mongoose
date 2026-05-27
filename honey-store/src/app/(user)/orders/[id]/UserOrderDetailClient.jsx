@@ -74,7 +74,7 @@ export default function UserOrderDetailClient({ initialOrder, similarProducts })
           ],
         });
       } else {
-        alert(data.error || "Failed to cancel order");
+        alert( "Failed to cancel order");
       }
     } catch (err) {
       console.error(err);

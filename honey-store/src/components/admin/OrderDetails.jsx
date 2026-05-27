@@ -25,7 +25,7 @@ export default function OrderDetails({ initialOrder }) {
           orderStatus: data.order.orderStatus,
         }));
       } else {
-        alert(data.error || "Failed to update order status");
+        alert( "Failed to update order status");
       }
     } catch (err) {
       console.error(err);
@@ -50,7 +50,7 @@ export default function OrderDetails({ initialOrder }) {
           paymentStatus: data.order.paymentStatus,
         }));
       } else {
-        alert(data.error || "Failed to update payment status");
+        alert( "Failed to update payment status");
       }
     } catch (err) {
       console.error(err);

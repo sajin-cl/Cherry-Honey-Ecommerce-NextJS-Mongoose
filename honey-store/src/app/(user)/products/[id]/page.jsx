@@ -104,7 +104,7 @@ export default function ProductDetailPage({ params }) {
 
       const data = await res.json();
       if (!res.ok) {
-        alert(data.error || "Failed to add to cart");
+        alert( "Failed to add to cart");
         return;
       }
 
@@ -150,7 +150,7 @@ export default function ProductDetailPage({ params }) {
 
       const data = await res.json();
       if (!res.ok) {
-        alert(data.error || "Failed to submit review");
+        alert("Failed to submit review");
         return;
       }
 
