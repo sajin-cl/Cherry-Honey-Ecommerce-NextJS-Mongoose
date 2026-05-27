@@ -22,11 +22,11 @@ export default function ProductsClient({
   return (
     <div className="min-h-screen bg-black text-white relative overflow-hidden">
       {/* Background honeycomb overlay matching About page */}
-      <div className="absolute inset-0 z-0 opacity-20 pointer-events-none">
+      <div className="absolute inset-0 z-0 opacity-70 pointer-events-none">
         <Image
           src="/honey-comb.webp"
           fill
-          className="object-cover"
+          className="object-cover animate-pulse"
           alt="honeycomb pattern"
         />
       </div>
