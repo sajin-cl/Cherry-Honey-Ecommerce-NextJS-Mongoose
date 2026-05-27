@@ -14,7 +14,7 @@ export const serif = {
 
 /* ADMIN DETAILS */
 export const ADMIN_PHONE = "+91 96775 62116"
-export const CUSTOMER_CARE_EMAIL = "support@cherryhoney.in"
+export const CUSTOMER_CARE_EMAIL = "support@cherryshoney.com"
 
 
 export const SOCIAL_LINKS = [
@@ -37,7 +37,7 @@ export const MOBILE_NAV_ITEMS = [
 export const TESTIMONIALS = [
     {
         text: "A completely change in my way of experiencing honey. The taste is pure, rich and absolutely divine. I can never go back to store-bought honey again!",
-        name: "Sanjeev Trans",
+        name: "C.L.Sajin",
         role: "Buyer",
     },
     {
@@ -47,7 +47,7 @@ export const TESTIMONIALS = [
     },
     {
         text: "From the packaging to the taste, everything about Cherry Honey screams premium quality. My entire family loves it!",
-        name: "Hamzaa",
+        name: "Sanjeev",
         role: "Loyal Customer",
     },
 ];
