@@ -2,10 +2,9 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import { calculateDelivery, calculateGrandTotal, TAXES } from "@/lib/pricing";
 
 const serif = { fontFamily: "'Georgia','Times New Roman',serif", fontStyle: "italic" };
-const TAXES = 10;
-const DELIVERY_THRESHOLD = 500;
 
 const STEPS = [
   {
@@ -44,7 +43,7 @@ function DotMenu({ onDelete }) {
         aria-label="Options"
       >
         <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-          <circle cx="12" cy="5"  r="1.5" />
+          <circle cx="12" cy="5" r="1.5" />
           <circle cx="12" cy="12" r="1.5" />
           <circle cx="12" cy="19" r="1.5" />
         </svg>
@@ -64,14 +63,12 @@ function DotMenu({ onDelete }) {
 function AddressCard({ addr, selected, onSelect, onDelete }) {
   return (
     <div
-      className={`border px-5 py-4 flex items-start gap-4 transition-all duration-200 cursor-pointer ${
-        selected ? "border-gray-600 bg-[#111]" : "border-gray-800 bg-[#0d0d0d] hover:border-gray-700"
-      }`}
+      className={`border px-5 py-4 flex items-start gap-4 transition-all duration-200 cursor-pointer ${selected ? "border-gray-600 bg-[#111]" : "border-gray-800 bg-[#0d0d0d] hover:border-gray-700"
+        }`}
       onClick={onSelect}
     >
-      <div className={`w-4 h-4 rounded-full border-2 flex-shrink-0 mt-0.5 flex items-center justify-center transition-colors ${
-        selected ? "border-[#C8A84B]" : "border-gray-600"
-      }`}>
+      <div className={`w-4 h-4 rounded-full border-2 flex-shrink-0 mt-0.5 flex items-center justify-center transition-colors ${selected ? "border-[#C8A84B]" : "border-gray-600"
+        }`}>
         {selected && <div className="w-2 h-2 rounded-full bg-[#C8A84B]" />}
       </div>
 
@@ -122,8 +119,8 @@ export default function CheckoutClient({ initialAddresses, cartSubtotal, isBuyNo
   }, [isBuyNow]);
 
   const subtotal = isBuyNow ? buyNowSubtotal : cartSubtotal;
-  const delivery = subtotal >= DELIVERY_THRESHOLD ? 0 : 50;
-  const grandTotal = subtotal + TAXES + delivery;
+  const delivery = calculateDelivery(subtotal);
+  const grandTotal = calculateGrandTotal(subtotal);
 
   const handleAddNew = async (e) => {
     e.preventDefault();
@@ -218,9 +215,8 @@ export default function CheckoutClient({ initialAddresses, cartSubtotal, isBuyNo
           {STEPS.map((step, i) => (
             <div key={step.label} className="flex items-center flex-1 last:flex-none">
               <div className="flex flex-col items-center gap-1.5">
-                <div className={`w-10 h-10 flex items-center justify-center transition-colors ${
-                  i === 0 ? "bg-[#C8A84B] text-black" : "bg-[#1a1a1a] border border-gray-700 text-gray-500"
-                }`}>
+                <div className={`w-10 h-10 flex items-center justify-center transition-colors ${i === 0 ? "bg-[#C8A84B] text-black" : "bg-[#1a1a1a] border border-gray-700 text-gray-500"
+                  }`}>
                   {step.icon}
                 </div>
                 <span className={`text-xs whitespace-nowrap ${i === 0 ? "text-[#C8A84B]" : "text-gray-500"}`}>
@@ -334,7 +330,7 @@ export default function CheckoutClient({ initialAddresses, cartSubtotal, isBuyNo
               <div className="space-y-4 mb-6">
                 <div className="flex justify-between text-sm">
                   <span className="text-gray-400">Subtotal</span>
-                <span className="text-white font-medium">₹{subtotal.toFixed(2)}</span>
+                  <span className="text-white font-medium">₹{subtotal.toFixed(2)}</span>
                 </div>
                 <div className="flex justify-between text-sm">
                   <span className="text-gray-400">Taxes</span>

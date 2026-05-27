@@ -4,9 +4,9 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import OrderConfirmedModal from "@/components/order/OrderConfirmedModal";
+import { calculateDelivery, calculateGrandTotal, TAXES } from "@/lib/pricing";
 
 const serif = { fontFamily: "'Georgia','Times New Roman',serif", fontStyle: "italic" };
-const TAXES = 10;
 
 function EditIcon() {
   return (
@@ -58,7 +58,8 @@ export default function ReviewClient({ initialItems, isBuyNow = false }) {
   }, [isBuyNow]);
 
   const subtotal = items.reduce((s, i) => s + i.price * i.qty, 0);
-  const grandTotal = subtotal + TAXES;
+  const delivery = calculateDelivery(subtotal);
+  const grandTotal = calculateGrandTotal(subtotal);
 
   const removeItem = async (id) => {
     // For buyNow items, just remove from local state (not from cart API)
@@ -112,7 +113,7 @@ export default function ReviewClient({ initialItems, isBuyNow = false }) {
           paymentMethod: paymentMethod === "cod" ? "cod" : "cashfree",
           itemsTotal: subtotal,
           tax: TAXES,
-          shippingCharge: 0,
+          shippingCharge: delivery,
           grandTotal: grandTotal
         })
       });
@@ -246,7 +247,17 @@ export default function ReviewClient({ initialItems, isBuyNow = false }) {
                 </div>
                 <div className="flex justify-between text-sm">
                   <span className="text-gray-400">Delivery Fee</span>
-                  <span className="text-green-400 font-semibold">FREE</span>
+                  <span
+                    className={
+                      delivery === 0
+                        ? "text-green-400 font-semibold"
+                        : "text-white font-medium"
+                    }
+                  >
+                    {delivery === 0
+                      ? "FREE"
+                      : `₹${delivery.toFixed(2)}`}
+                  </span>
                 </div>
                 <div className="h-px bg-gray-800" />
                 <div className="flex justify-between font-bold">

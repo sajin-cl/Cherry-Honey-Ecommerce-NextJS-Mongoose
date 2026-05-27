@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import ProductCard from "@/components/products/ProductCard";
 
 const serif = { fontFamily: "'Georgia','Times New Roman',serif", fontStyle: "italic" };
 
@@ -168,11 +169,10 @@ export default function UserOrderDetailClient({ initialOrder, similarProducts })
                   <div className="space-y-6">
                     {order.tracking.map((step, i) => (
                       <div key={i} className="flex items-start gap-4 relative">
-                        <div className={`relative z-10 w-4 h-4 rounded-full border-2 flex-shrink-0 mt-0.5 ${
-                          step.done
-                            ? "bg-[#C8A84B] border-[#C8A84B]"
-                            : "bg-[#0a0a0a] border-gray-600"
-                        }`}>
+                        <div className={`relative z-10 w-4 h-4 rounded-full border-2 flex-shrink-0 mt-0.5 ${step.done
+                          ? "bg-[#C8A84B] border-[#C8A84B]"
+                          : "bg-[#0a0a0a] border-gray-600"
+                          }`}>
                           {step.done && (
                             <div className="absolute inset-0 rounded-full bg-[#C8A84B]/30 scale-150" />
                           )}
@@ -223,27 +223,9 @@ export default function UserOrderDetailClient({ initialOrder, similarProducts })
               <span className="text-[#C8A84B]">Similar</span> Products
             </h2>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-              {similarProducts.map((p) => {
-                const sellPrice = p.discountPrice ?? p.price;
-                return (
-                  <Link key={p._id} href={`/products/${p._id}`} className="group block">
-                    <div className="bg-[#111] border border-gray-800 hover:border-[#C8A84B]/40 transition-all duration-300 group-hover:-translate-y-1">
-                      <div className="relative h-44 bg-black">
-                        <Image src={p.image?.url || "/hero-honey-jar.webp"} alt={p.name} fill sizes="(max-width:640px) 50vw, 25vw" className="object-contain p-3" />
-                      </div>
-                      <div className="p-3">
-                        <p className="text-white text-xs mb-1 truncate group-hover:text-[#C8A84B] transition-colors">{p.name}</p>
-                        <div className="flex items-center gap-2">
-                          <span className="text-[#C8A84B] text-xs font-semibold">₹{sellPrice.toFixed(2)}</span>
-                          {p.discountPrice && (
-                            <span className="text-gray-500 text-xs line-through">₹{p.price.toFixed(2)}</span>
-                          )}
-                        </div>
-                      </div>
-                    </div>
-                  </Link>
-                );
-              })}
+              {similarProducts.map((p) => (
+                <ProductCard key={p._id} product={p} />
+              ))}
             </div>
           </section>
         )}

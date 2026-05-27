@@ -4,10 +4,9 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import ProductCard from "@/components/products/ProductCard";
+import { calculateDelivery, calculateGrandTotal, TAXES } from "@/lib/pricing";
 
 const serif = { fontFamily: "'Georgia','Times New Roman',serif", fontStyle: "italic" };
-const TAXES = 10;
-const DELIVERY_THRESHOLD = 500;
 
 function QtySelect({ value, stock = 10, onChange }) {
   const maxQty = Math.max(1, Math.min(stock, 10));
@@ -141,8 +140,8 @@ export default function CartClient({ initialItems }) {
   };
 
   const subtotal = items.filter((i) => selected.has(i.id)).reduce((sum, i) => sum + i.price * i.qty, 0);
-  const delivery = subtotal >= DELIVERY_THRESHOLD ? 0 : 50;
-  const grandTotal = subtotal + TAXES + delivery;
+  const delivery = calculateDelivery(subtotal);
+  const grandTotal = calculateGrandTotal(subtotal);
 
   return (
     <div className="min-h-screen bg-[#0a0a0a] text-white">

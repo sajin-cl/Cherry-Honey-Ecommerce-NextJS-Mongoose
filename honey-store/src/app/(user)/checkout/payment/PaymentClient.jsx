@@ -2,10 +2,9 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import { calculateDelivery, calculateGrandTotal, TAXES } from "@/lib/pricing";
 
 const serif = { fontFamily: "'Georgia','Times New Roman',serif", fontStyle: "italic" };
-const TAXES = 10;
-const DELIVERY_THRESHOLD = 500;
 
 const STEPS = [
   {
@@ -35,8 +34,8 @@ const STEPS = [
 ];
 
 const PAYMENT_METHODS = [
-  { id: "cod",      label: "Cash On Delivery (COD)" },
-  { id: "online",   label: "Online Payment (Cashfree)" },
+  { id: "cod", label: "Cash On Delivery (COD)" },
+  { id: "online", label: "Online Payment (Cashfree)" },
 ];
 
 export default function PaymentClient({ cartSubtotal, isBuyNow = false }) {
@@ -69,8 +68,8 @@ export default function PaymentClient({ cartSubtotal, isBuyNow = false }) {
   };
 
   const subtotal = isBuyNow ? buyNowSubtotal : cartSubtotal;
-  const delivery = subtotal >= DELIVERY_THRESHOLD ? 0 : 50;
-  const grandTotal = subtotal + TAXES + delivery;
+  const delivery = calculateDelivery(subtotal);
+  const grandTotal = calculateGrandTotal(subtotal);
 
   return (
     <div className="min-h-screen bg-[#0a0a0a] text-white flex flex-col">
@@ -91,9 +90,8 @@ export default function PaymentClient({ cartSubtotal, isBuyNow = false }) {
           {STEPS.map((step, i) => (
             <div key={step.label} className="flex items-center flex-1 last:flex-none">
               <div className="flex flex-col items-center gap-1.5">
-                <div className={`w-10 h-10 flex items-center justify-center transition-colors ${
-                  i <= 1 ? "bg-[#C8A84B] text-black" : "bg-[#1a1a1a] border border-gray-700 text-gray-500"
-                }`}>
+                <div className={`w-10 h-10 flex items-center justify-center transition-colors ${i <= 1 ? "bg-[#C8A84B] text-black" : "bg-[#1a1a1a] border border-gray-700 text-gray-500"
+                  }`}>
                   {step.icon}
                 </div>
                 <span className={`text-xs whitespace-nowrap ${i <= 1 ? "text-[#C8A84B]" : "text-gray-500"}`}>
@@ -114,24 +112,21 @@ export default function PaymentClient({ cartSubtotal, isBuyNow = false }) {
                 <button
                   key={pm.id}
                   onClick={() => selectMethod(pm.id)}
-                  className={`flex items-start gap-4 w-full border px-5 py-4 transition-all duration-200 text-left ${
-                    method === pm.id ? "border-gray-600 bg-[#111]" : "border-gray-800 bg-[#0d0d0d] hover:border-gray-700"
-                  }`}
+                  className={`flex items-start gap-4 w-full border px-5 py-4 transition-all duration-200 text-left ${method === pm.id ? "border-gray-600 bg-[#111]" : "border-gray-800 bg-[#0d0d0d] hover:border-gray-700"
+                    }`}
                 >
-                  <div className={`w-4 h-4 rounded-full border-2 flex-shrink-0 mt-0.5 flex items-center justify-center transition-colors ${
-                    method === pm.id ? "border-[#C8A84B]" : "border-gray-600"
-                  }`}>
+                  <div className={`w-4 h-4 rounded-full border-2 flex-shrink-0 mt-0.5 flex items-center justify-center transition-colors ${method === pm.id ? "border-[#C8A84B]" : "border-gray-600"
+                    }`}>
                     {method === pm.id && <div className="w-2 h-2 rounded-full bg-[#C8A84B]" />}
                   </div>
                   <div>
-                    <span className={`text-sm font-semibold block transition-colors ${
-                      method === pm.id ? "text-white" : "text-gray-400"
-                    }`}>
+                    <span className={`text-sm font-semibold block transition-colors ${method === pm.id ? "text-white" : "text-gray-400"
+                      }`}>
                       {pm.label}
                     </span>
                     <p className="text-xs text-gray-500 mt-1">
-                      {pm.id === "cod" 
-                        ? "Pay in cash (Indian Rupee) when your order is delivered to your doorstep." 
+                      {pm.id === "cod"
+                        ? "Pay in cash (Indian Rupee) when your order is delivered to your doorstep."
                         : "Pay online securely via credit/debit cards, UPI, net banking using Cashfree gateway."}
                     </p>
                   </div>
