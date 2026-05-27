@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import OrderConfirmedModal from "@/components/order/OrderConfirmedModal";
+import AddressModal from "@/components/ui/AddressModal";
 import { calculateDelivery, calculateGrandTotal, TAXES } from "@/lib/pricing";
 
 const serif = { fontFamily: "'Georgia','Times New Roman',serif", fontStyle: "italic" };
@@ -22,6 +23,7 @@ export default function ReviewClient({ initialItems, isBuyNow = false }) {
   const [paymentMethod, setPaymentMethod] = useState("cod");
   const [placed, setPlaced] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [showAddressModal, setShowAddressModal] = useState(false);
 
   useEffect(() => {
     try {
@@ -56,6 +58,14 @@ export default function ReviewClient({ initialItems, isBuyNow = false }) {
       console.error("Failed to load checkout settings:", e);
     }
   }, [isBuyNow]);
+
+  const handleAddressSaved = (normalizedAddresses) => {
+    const newest = normalizedAddresses[normalizedAddresses.length - 1];
+    if (newest) {
+      setShippingAddress(newest);
+      sessionStorage.setItem("shippingAddress", JSON.stringify(newest));
+    }
+  };
 
   const subtotal = items.reduce((s, i) => s + i.price * i.qty, 0);
   const delivery = calculateDelivery(subtotal);
@@ -213,9 +223,13 @@ export default function ReviewClient({ initialItems, isBuyNow = false }) {
                 ) : (
                   <p className="text-red-400 text-xs">No address selected.</p>
                 )}
-                <Link href={isBuyNow ? "/checkout?buyNow=true" : "/checkout"} className="w-8 h-8 flex-shrink-0 flex items-center justify-center bg-[#1a1a1a] border border-gray-700 text-gray-400 hover:text-[#C8A84B] hover:border-[#C8A84B] transition-colors" aria-label="Edit address">
+                <button
+                  onClick={() => setShowAddressModal(true)}
+                  className="w-8 h-8 flex-shrink-0 flex items-center justify-center bg-[#1a1a1a] border border-gray-700 text-gray-400 hover:text-[#C8A84B] hover:border-[#C8A84B] transition-colors"
+                  aria-label="Edit address"
+                >
                   <EditIcon />
-                </Link>
+                </button>
               </div>
             </div>
 
@@ -227,9 +241,7 @@ export default function ReviewClient({ initialItems, isBuyNow = false }) {
                     {paymentMethod === "cod" ? "Cash On Delivery (COD)" : "Online Payment (Cashfree)"}
                   </p>
                 </div>
-                <Link href={isBuyNow ? "/checkout/payment?buyNow=true" : "/checkout/payment"} className="w-8 h-8 flex-shrink-0 flex items-center justify-center bg-[#1a1a1a] border border-gray-700 text-gray-400 hover:text-[#C8A84B] hover:border-[#C8A84B] transition-colors" aria-label="Edit payment">
-                  <EditIcon />
-                </Link>
+              
               </div>
             </div>
           </div>
@@ -278,6 +290,12 @@ export default function ReviewClient({ initialItems, isBuyNow = false }) {
       </div>
 
       {placed && <OrderConfirmedModal onClose={() => { setPlaced(false); window.location.href = "/orders"; }} />}
+
+      <AddressModal
+        isOpen={showAddressModal}
+        onClose={() => setShowAddressModal(false)}
+        onSave={handleAddressSaved}
+      />
     </div>
   );
 }

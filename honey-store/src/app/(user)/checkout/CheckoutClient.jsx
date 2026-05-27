@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { calculateDelivery, calculateGrandTotal, TAXES } from "@/lib/pricing";
+import AddressModal from "../../../components/ui/AddressModal";
 
 const serif = { fontFamily: "'Georgia','Times New Roman',serif", fontStyle: "italic" };
 
@@ -101,8 +102,6 @@ export default function CheckoutClient({ initialAddresses, cartSubtotal, isBuyNo
     initialAddresses.find(a => a.isDefault)?.id || initialAddresses[0]?.id || ""
   );
   const [showNewForm, setShowNewForm] = useState(false);
-  const [newAddr, setNewAddr] = useState({ name: "", line1: "", phone: "", tag: "HOME" });
-  const [loading, setLoading] = useState(false);
   const [buyNowSubtotal, setBuyNowSubtotal] = useState(0);
 
   useEffect(() => {
@@ -122,43 +121,10 @@ export default function CheckoutClient({ initialAddresses, cartSubtotal, isBuyNo
   const delivery = calculateDelivery(subtotal);
   const grandTotal = calculateGrandTotal(subtotal);
 
-  const handleAddNew = async (e) => {
-    e.preventDefault();
-    if (!newAddr.name.trim() || !newAddr.line1.trim() || !newAddr.phone.trim()) {
-      alert("Please fill in all fields.");
-      return;
-    }
-    setLoading(true);
-    try {
-      const res = await fetch("/api/user/addresses", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(newAddr),
-      });
-      const data = await res.json();
-      if (res.ok && data.addresses) {
-        const normalized = data.addresses.map(addr => ({
-          id: addr._id,
-          name: addr.name,
-          tag: addr.tag,
-          line1: addr.line1,
-          phone: addr.phone,
-          isDefault: addr.isDefault
-        }));
-        setAddresses(normalized);
-        const newlyAdded = normalized[normalized.length - 1];
-        if (newlyAdded) setSelectedId(newlyAdded.id);
-
-        setNewAddr({ name: "", line1: "", phone: "", tag: "HOME" });
-        setShowNewForm(false);
-      } else {
-        alert(data.error || "Failed to save address");
-      }
-    } catch (err) {
-      console.error(err);
-    } finally {
-      setLoading(false);
-    }
+  const handleAddressSaved = (normalizedAddresses) => {
+    setAddresses(normalizedAddresses);
+    const newlyAdded = normalizedAddresses[normalizedAddresses.length - 1];
+    if (newlyAdded) setSelectedId(newlyAdded.id);
   };
 
   const handleDeleteAddress = async (id) => {
@@ -246,83 +212,19 @@ export default function CheckoutClient({ initialAddresses, cartSubtotal, isBuyNo
               </div>
             )}
 
-            {showNewForm ? (
-              <form onSubmit={handleAddNew} className="border border-gray-700 p-5 space-y-4 mb-4 bg-[#111]">
-                <h3 className="text-white text-sm font-semibold mb-2">New Address</h3>
-                <div>
-                  <label className="block text-gray-400 text-xs mb-1">Full Name</label>
-                  <input
-                    type="text"
-                    required
-                    value={newAddr.name}
-                    onChange={(e) => setNewAddr((a) => ({ ...a, name: e.target.value }))}
-                    placeholder="e.g. Alexa Johnson"
-                    className="w-full bg-[#1a1a1a] border border-gray-700 focus:border-[#C8A84B] text-white text-sm px-4 py-2.5 outline-none transition-colors placeholder-gray-600"
-                  />
-                </div>
-                <div>
-                  <label className="block text-gray-400 text-xs mb-1">Address Details</label>
-                  <input
-                    type="text"
-                    required
-                    value={newAddr.line1}
-                    onChange={(e) => setNewAddr((a) => ({ ...a, line1: e.target.value }))}
-                    placeholder="Street, City, State PIN"
-                    className="w-full bg-[#1a1a1a] border border-gray-700 focus:border-[#C8A84B] text-white text-sm px-4 py-2.5 outline-none transition-colors placeholder-gray-600"
-                  />
-                </div>
-                <div className="grid grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-gray-400 text-xs mb-1">Phone (10 digits)</label>
-                    <input
-                      type="tel"
-                      required
-                      pattern="[0-9]{10}"
-                      value={newAddr.phone}
-                      onChange={(e) => setNewAddr((a) => ({ ...a, phone: e.target.value }))}
-                      placeholder="9876543210"
-                      className="w-full bg-[#1a1a1a] border border-gray-700 focus:border-[#C8A84B] text-white text-sm px-4 py-2.5 outline-none transition-colors placeholder-gray-600"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-gray-400 text-xs mb-1">Tag</label>
-                    <select
-                      value={newAddr.tag}
-                      onChange={(e) => setNewAddr((a) => ({ ...a, tag: e.target.value }))}
-                      className="w-full bg-[#1a1a1a] border border-gray-700 focus:border-[#C8A84B] text-white text-sm px-4 py-2.5 outline-none transition-colors"
-                    >
-                      <option value="HOME">HOME</option>
-                      <option value="WORK">WORK</option>
-                      <option value="OTHER">OTHER</option>
-                    </select>
-                  </div>
-                </div>
-                <div className="flex gap-3 pt-2">
-                  <button
-                    type="button"
-                    onClick={() => setShowNewForm(false)}
-                    className="flex-1 py-2.5 border border-gray-700 text-gray-400 hover:text-white text-sm transition-colors"
-                  >
-                    Cancel
-                  </button>
-                  <button
-                    type="submit"
-                    disabled={loading}
-                    className="flex-1 py-2.5 bg-[#C8A84B] hover:bg-[#b8973e] disabled:opacity-50 text-black font-semibold text-sm transition-colors"
-                  >
-                    {loading ? "Saving..." : "Save Address"}
-                  </button>
-                </div>
-              </form>
-            ) : (
-              <button
-                onClick={() => setShowNewForm(true)}
-                className="flex items-center gap-2 border border-[#C8A84B] text-[#C8A84B] hover:bg-[#C8A84B]/10 text-sm font-semibold px-5 py-3 transition-colors tracking-widest"
-              >
-                <span className="text-lg leading-none">+</span>
-                ADD NEW ADDRESS
-              </button>
-            )}
+            <button
+              onClick={() => setShowNewForm(true)}
+              className="flex items-center gap-2 border border-[#C8A84B] text-[#C8A84B] hover:bg-[#C8A84B]/10 text-sm font-semibold px-5 py-3 transition-colors tracking-widest"
+            >
+              <span className="text-lg leading-none">+</span>
+              ADD NEW ADDRESS
+            </button>
+
+            <AddressModal
+              isOpen={showNewForm}
+              onClose={() => setShowNewForm(false)}
+              onSave={handleAddressSaved}
+            />
           </div>
 
           <div className="w-full lg:w-72 flex-shrink-0">
