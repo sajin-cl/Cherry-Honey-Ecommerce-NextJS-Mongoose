@@ -1,7 +1,6 @@
 import { NextResponse } from "next/server";
 import dbConnect from "@/lib/dbConnect";
 import User from "@/models/user.model";
-import Product from "@/models/product.model";
 import { getServerUser } from "@/lib/auth";
 
 // GET /api/cart
@@ -27,7 +26,8 @@ export async function GET() {
   }
 }
 
-// POST /api/cart
+// POST /api/cart — add item(s) to cart
+// Uses atomic $inc / $push so concurrent requests can't overwrite each other
 export async function POST(request) {
   try {
     const userPayload = await getServerUser();
@@ -47,31 +47,31 @@ export async function POST(request) {
       itemsToProcess = [body];
     }
 
-    const user = await User.findById(userPayload.id);
-    if (!user) {
-      return NextResponse.json({ error: "User not found" }, { status: 404 });
-    }
-
     let processedAny = false;
+
     for (const item of itemsToProcess) {
-      const pId = item.productId || (item.product && (typeof item.product === "object" ? item.product._id : item.product));
+      const pId =
+        item.productId ||
+        (item.product &&
+          (typeof item.product === "object" ? item.product._id : item.product));
       const weight = item.weight;
       const qty = Number(item.qty);
 
-      if (!pId || !weight || isNaN(qty) || qty <= 0) {
-        continue;
-      }
+      if (!pId || !weight || isNaN(qty) || qty <= 0) continue;
 
       processedAny = true;
-      // Check if item already exists in cart with same weight
-      const existingIndex = user.cart.findIndex(
-        (cItem) => cItem.product.toString() === pId && cItem.weight === weight
+
+      // Try to increment qty if this product+weight combination already exists
+      const updated = await User.findOneAndUpdate(
+        { _id: userPayload.id, "cart.product": pId, "cart.weight": weight },
+        { $inc: { "cart.$.qty": qty } }
       );
 
-      if (existingIndex > -1) {
-        user.cart[existingIndex].qty += qty;
-      } else {
-        user.cart.push({ product: pId, weight, qty });
+      // If not found (item not yet in cart), push a new entry
+      if (!updated) {
+        await User.findByIdAndUpdate(userPayload.id, {
+          $push: { cart: { product: pId, weight, qty } },
+        });
       }
     }
 
@@ -79,9 +79,10 @@ export async function POST(request) {
       return NextResponse.json({ error: "Invalid data" }, { status: 400 });
     }
 
-    await user.save();
-    
-    const updatedUser = await User.findById(userPayload.id).populate("cart.product").lean();
+    // Single read to return updated cart
+    const updatedUser = await User.findById(userPayload.id)
+      .populate("cart.product")
+      .lean();
 
     return NextResponse.json({ success: true, cart: updatedUser.cart });
   } catch (err) {
@@ -89,7 +90,8 @@ export async function POST(request) {
   }
 }
 
-// PUT /api/cart
+// PUT /api/cart — update qty of one cart item
+// Atomic $set via positional operator — no read-modify-write
 export async function PUT(request) {
   try {
     const userPayload = await getServerUser();
@@ -104,27 +106,30 @@ export async function PUT(request) {
       return NextResponse.json({ error: "Invalid data" }, { status: 400 });
     }
 
-    const user = await User.findById(userPayload.id);
-    if (!user) {
-      return NextResponse.json({ error: "User not found" }, { status: 404 });
+    const newQty = Number(qty);
+    if (isNaN(newQty) || newQty < 1) {
+      return NextResponse.json({ error: "Quantity must be at least 1" }, { status: 400 });
     }
 
-    const item = user.cart.id(cartItemId);
-    if (!item) {
+    // Atomic update — no read step needed
+    const updated = await User.findOneAndUpdate(
+      { _id: userPayload.id, "cart._id": cartItemId },
+      { $set: { "cart.$.qty": newQty } },
+      { new: true }
+    ).populate("cart.product").lean();
+
+    if (!updated) {
       return NextResponse.json({ error: "Item not found in cart" }, { status: 404 });
     }
 
-    item.qty = Number(qty);
-    await user.save();
-
-    const updatedUser = await User.findById(userPayload.id).populate("cart.product").lean();
-    return NextResponse.json({ success: true, cart: updatedUser.cart });
+    return NextResponse.json({ success: true, cart: updated.cart });
   } catch (err) {
     return NextResponse.json({ error: err.message }, { status: 500 });
   }
 }
 
-// DELETE /api/cart
+// DELETE /api/cart — remove one or more cart items
+// Atomic $pull — no read-modify-write
 export async function DELETE(request) {
   try {
     const userPayload = await getServerUser();
@@ -135,20 +140,22 @@ export async function DELETE(request) {
     await dbConnect();
     const { cartItemIds } = await request.json();
 
-    if (!cartItemIds || !Array.isArray(cartItemIds)) {
+    if (!cartItemIds || !Array.isArray(cartItemIds) || cartItemIds.length === 0) {
       return NextResponse.json({ error: "Invalid data" }, { status: 400 });
     }
 
-    const user = await User.findById(userPayload.id);
-    if (!user) {
+    // Atomic $pull — removes matching items in a single DB operation
+    const updated = await User.findByIdAndUpdate(
+      userPayload.id,
+      { $pull: { cart: { _id: { $in: cartItemIds } } } },
+      { new: true }
+    ).populate("cart.product").lean();
+
+    if (!updated) {
       return NextResponse.json({ error: "User not found" }, { status: 404 });
     }
 
-    user.cart = user.cart.filter((item) => !cartItemIds.includes(item._id.toString()));
-    await user.save();
-
-    const updatedUser = await User.findById(userPayload.id).populate("cart.product").lean();
-    return NextResponse.json({ success: true, cart: updatedUser.cart });
+    return NextResponse.json({ success: true, cart: updated.cart });
   } catch (err) {
     return NextResponse.json({ error: err.message }, { status: 500 });
   }

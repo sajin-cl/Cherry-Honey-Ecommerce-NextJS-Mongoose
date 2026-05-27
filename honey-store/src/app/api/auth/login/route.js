@@ -2,9 +2,20 @@ import { NextResponse } from "next/server";
 import dbConnect from "@/lib/dbConnect";
 import User from "@/models/user.model";
 import { signToken } from "@/lib/jwt";
+import { rateLimit, getClientIp } from "@/lib/rateLimit";
 
 export async function POST(request) {
   try {
+    // Rate limit: max 10 login attempts per IP per 15 minutes
+    const ip = getClientIp(request);
+    const { limited, retryAfter } = rateLimit(`login:${ip}`, 10, 15 * 60 * 1000);
+    if (limited) {
+      return NextResponse.json(
+        { error: `Too many login attempts. Please try again in ${retryAfter} seconds.` },
+        { status: 429, headers: { "Retry-After": String(retryAfter) } }
+      );
+    }
+
     await dbConnect();
     const { email, password } = await request.json();
 

@@ -2,9 +2,20 @@ import { NextResponse } from "next/server";
 import dbConnect from "@/lib/dbConnect";
 import Contact from "@/models/contact.model";
 import nodemailer from "nodemailer";
+import { rateLimit, getClientIp } from "@/lib/rateLimit";
 
 export async function POST(request) {
   try {
+    // Rate limit: 5 contact messages per IP per hour
+    const ip = getClientIp(request);
+    const { limited, retryAfter } = rateLimit(`contact:${ip}`, 5, 60 * 60 * 1000);
+    if (limited) {
+      return NextResponse.json(
+        { error: `Too many messages sent. Please try again in ${retryAfter} seconds.` },
+        { status: 429, headers: { "Retry-After": String(retryAfter) } }
+      );
+    }
+
     const body = await request.json();
     const { fullName, email, phone, subject, message } = body;
 
@@ -44,7 +55,7 @@ export async function POST(request) {
 
         const adminMailOptions = {
           from: process.env.EMAIL_FROM || `"Cherry Honey Admin" <noreply@example.com>`,
-          to: process.env.SMTP_USER, // sends to the registered admin email
+          to: process.env.SMTP_USER,
           replyTo: email,
           subject: `New Contact Submission: ${subject}`,
           html: `

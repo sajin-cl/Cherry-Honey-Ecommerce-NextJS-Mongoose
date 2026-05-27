@@ -45,21 +45,58 @@ export async function POST(request) {
     if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
     await dbConnect();
-    const body  = await request.json();
-    const order = await Order.create({ ...body, user: user.id });
+    const body = await request.json();
 
-    // Decrement product stock in DB
-    if (body.items && Array.isArray(body.items)) {
-      for (const item of body.items) {
-        if (item.product) {
-          await Product.findByIdAndUpdate(item.product, {
-            $inc: { stock: -Number(item.qty || 1) }
-          });
-        }
+    // ── Input validation ──────────────────────────────────────────────────────
+    if (!body.items || !Array.isArray(body.items) || body.items.length === 0) {
+      return NextResponse.json({ error: "Order must contain at least one item" }, { status: 400 });
+    }
+    if (!body.paymentMethod || !["cashfree", "cod"].includes(body.paymentMethod)) {
+      return NextResponse.json({ error: "Invalid payment method" }, { status: 400 });
+    }
+    if (typeof body.grandTotal !== "number" || body.grandTotal <= 0) {
+      return NextResponse.json({ error: "Invalid order total" }, { status: 400 });
+    }
+    if (!body.shippingAddress?.name || !body.shippingAddress?.line1 || !body.shippingAddress?.phone) {
+      return NextResponse.json({ error: "Shipping address is incomplete" }, { status: 400 });
+    }
+
+    // ── Stock check — verify ALL items have sufficient stock BEFORE creating order ──
+    // Uses a single parallel check so we fail early without touching the DB order collection
+    const stockChecks = await Promise.all(
+      body.items.map((item) =>
+        Product.findOne(
+          { _id: item.product, stock: { $gte: Number(item.qty || 1) } },
+          { _id: 1, name: 1, stock: 1 }
+        ).lean()
+      )
+    );
+
+    for (let i = 0; i < stockChecks.length; i++) {
+      if (!stockChecks[i]) {
+        const itemName = body.items[i].name || `Item ${i + 1}`;
+        return NextResponse.json(
+          { error: `"${itemName}" is out of stock or has insufficient quantity.` },
+          { status: 409 }
+        );
       }
     }
 
-    // Clear user's cart in DB
+    // ── Create the order ──────────────────────────────────────────────────────
+    const order = await Order.create({ ...body, user: user.id });
+
+    // ── Atomically decrement stock for each item ──────────────────────────────
+    // Uses $inc with a $gte guard so stock can never go below 0 even under race conditions
+    await Promise.all(
+      body.items.map((item) =>
+        Product.findOneAndUpdate(
+          { _id: item.product, stock: { $gte: Number(item.qty || 1) } },
+          { $inc: { stock: -Number(item.qty || 1) } }
+        )
+      )
+    );
+
+    // ── Clear user's cart in DB ───────────────────────────────────────────────
     await User.findByIdAndUpdate(user.id, { $set: { cart: [] } });
 
     return NextResponse.json({ order }, { status: 201 });

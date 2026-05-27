@@ -1,9 +1,20 @@
 import { NextResponse } from "next/server";
 import dbConnect from "@/lib/dbConnect";
 import User from "@/models/user.model";
+import { rateLimit, getClientIp } from "@/lib/rateLimit";
 
 export async function POST(request) {
   try {
+    // Rate limit: max 5 registrations per IP per hour
+    const ip = getClientIp(request);
+    const { limited, retryAfter } = rateLimit(`register:${ip}`, 5, 60 * 60 * 1000);
+    if (limited) {
+      return NextResponse.json(
+        { error: `Too many registration attempts. Please try again in ${retryAfter} seconds.` },
+        { status: 429, headers: { "Retry-After": String(retryAfter) } }
+      );
+    }
+
     await dbConnect();
     const { fullName, email, mobile, password } = await request.json();
 
@@ -19,12 +30,17 @@ export async function POST(request) {
       return NextResponse.json({ error: "Email already registered" }, { status: 409 });
     }
 
-    const user = await User.create({ fullName: fullName.trim(), email: email.toLowerCase().trim(), mobile: mobile.trim(), password });
+    const user = await User.create({
+      fullName: fullName.trim(),
+      email: email.toLowerCase().trim(),
+      mobile: mobile.trim(),
+      password,
+    });
 
     const response = NextResponse.json(
       {
         success: true,
-        user: { id: user._id, fullName: user.fullName, email: user.email, mobile: user.mobile, role: user.role }
+        user: { id: user._id, fullName: user.fullName, email: user.email, mobile: user.mobile, role: user.role },
       },
       { status: 201 }
     );

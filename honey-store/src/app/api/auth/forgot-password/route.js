@@ -4,13 +4,37 @@ import dbConnect from "@/lib/dbConnect";
 import User from "@/models/user.model";
 import nodemailer from "nodemailer";
 import crypto from "crypto";
+import { rateLimit, getClientIp } from "@/lib/rateLimit";
 
 export async function POST(request) {
   try {
-    await dbConnect();
+    const body = await request.json();
+    const { email } = body;
 
-    const { email } = await request.json();
     if (!email) return NextResponse.json({ error: "Email required" }, { status: 400 });
+
+    // Rate limit per IP: 5 requests per 15 minutes
+    const ip = getClientIp(request);
+    const ipCheck = rateLimit(`forgot-ip:${ip}`, 5, 15 * 60 * 1000);
+    if (ipCheck.limited) {
+      return NextResponse.json(
+        { error: `Too many requests. Try again in ${ipCheck.retryAfter} seconds.` },
+        { status: 429, headers: { "Retry-After": String(ipCheck.retryAfter) } }
+      );
+    }
+
+    // Rate limit per email: 3 requests per 15 minutes
+    const emailKey = `forgot-email:${email.toLowerCase().trim()}`;
+    const emailCheck = rateLimit(emailKey, 3, 15 * 60 * 1000);
+    if (emailCheck.limited) {
+      // Return generic message so we don't leak that this email exists
+      return NextResponse.json(
+        { message: "If that email exists, a reset link will be sent." },
+        { status: 200 }
+      );
+    }
+
+    await dbConnect();
 
     const user = await User.findOne({ email: email.toLowerCase().trim() });
     if (!user) return NextResponse.json({ message: "If that email exists, a reset link will be sent." }, { status: 200 });
@@ -25,7 +49,6 @@ export async function POST(request) {
 
     // send email
     const resetUrl = `${process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000"}/accounts/reset-password?token=${token}`;
-    let emailSent = false;
 
     if (process.env.SMTP_HOST && process.env.SMTP_USER) {
       try {
@@ -39,26 +62,23 @@ export async function POST(request) {
           },
         });
 
-        const mailOptions = {
+        await transporter.sendMail({
           from: process.env.EMAIL_FROM || '"Honey Store" <noreply@example.com>',
           to: user.email,
           subject: "Password Reset Request",
           html: `<p>Hello ${user.fullName || ""},</p>
                  <p>You requested a password reset. Click the link below (valid for 1 hour):</p>
                  <p><a href="${resetUrl}">${resetUrl}</a></p>
-                 <p>If you didn’t request this, you can ignore this email.</p>`,
-        };
-
-        await transporter.sendMail(mailOptions);
-        emailSent = true;
+                 <p>If you didn't request this, you can ignore this email.</p>`,
+        });
       } catch (mailErr) {
-        console.error("Nodemailer failed to send email via SMTP:", mailErr.message);
+        console.error("Nodemailer failed:", mailErr.message);
       }
     }
 
     return NextResponse.json({
       message: "If that email exists, a reset link will be sent.",
-      resetUrl: process.env.NODE_ENV !== "production" ? resetUrl : undefined
+      resetUrl: process.env.NODE_ENV !== "production" ? resetUrl : undefined,
     });
   } catch (err) {
     console.error("[FORGOT_PASSWORD]", err);
