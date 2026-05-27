@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { revalidatePath } from "next/cache";
 import dbConnect from "@/lib/dbConnect";
 import Product from "@/models/product.model";
 import { getServerUser } from "@/lib/auth";
@@ -51,6 +52,9 @@ export async function POST(request) {
     await dbConnect();
     const body = await request.json();
     const product = await Product.create(body);
+    // Invalidate user-facing pages so new product appears immediately
+    revalidatePath("/products");
+    revalidatePath("/");
     return NextResponse.json({ product }, { status: 201 });
   } catch (err) {
     console.error("[POST /products]", err);

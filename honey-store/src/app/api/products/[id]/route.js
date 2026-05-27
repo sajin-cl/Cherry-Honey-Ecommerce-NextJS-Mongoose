@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { revalidatePath } from "next/cache";
 import dbConnect from "@/lib/dbConnect";
 import Product from "@/models/product.model";
 import { getServerUser } from "@/lib/auth";
@@ -41,6 +42,10 @@ export async function PUT(request, { params }) {
       runValidators: true,
     }).lean();
     if (!product) return NextResponse.json({ error: "Not found" }, { status: 404 });
+    // Invalidate user-facing pages so they show updated data immediately
+    revalidatePath("/products");
+    revalidatePath("/");
+    revalidatePath(`/products/${id}`);
     return NextResponse.json({ product });
   } catch (err) {
     return NextResponse.json({ error: err.message || "Server error" }, { status: 500 });
@@ -55,6 +60,10 @@ export async function DELETE(_, { params }) {
     const { id } = await params;
     const product = await Product.findByIdAndDelete(id);
     if (!product) return NextResponse.json({ error: "Not found" }, { status: 404 });
+    // Invalidate user-facing pages so deleted product disappears immediately
+    revalidatePath("/products");
+    revalidatePath("/");
+    revalidatePath(`/products/${id}`);
     return NextResponse.json({ success: true });
   } catch {
     return NextResponse.json({ error: "Server error" }, { status: 500 });
