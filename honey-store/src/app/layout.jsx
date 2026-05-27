@@ -19,6 +19,11 @@ export const viewport = {
 
 
 export const metadata = {
+  metadataBase: new URL(
+    process.env.NODE_ENV === 'production'
+      ? 'https://cherry-honey-ecommerce.vercel.app'
+      : 'http://localhost:3000'
+  ),
   title: "Cherry Honey Ecommerce | Pure Natural Honey & Organic Products Shop In Kanyakumari District",
   description: "Buy 100% pure, raw, and organic Cherry Honey online...",
   keywords: ["buy pure honey online", "cherry honey shop"],

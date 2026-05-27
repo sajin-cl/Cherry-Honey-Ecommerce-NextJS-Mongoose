@@ -11,7 +11,7 @@ const guestOnlyRoutes = [
 // Pages that admin should NOT access (redirect them to dashboard instead)
 const userOnlyRoutes = ["/", "/cart", "/checkout", "/orders", "/profile", "/products", "/accounts"];
 
-export async function middleware(request) {
+export async function proxy(request) {
   const { pathname } = request.nextUrl;
   const token = request.cookies.get("token")?.value;
 

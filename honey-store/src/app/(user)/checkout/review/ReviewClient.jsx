@@ -189,7 +189,7 @@ export default function ReviewClient({ initialItems, isBuyNow = false }) {
                 <div className="divide-y divide-gray-800 border border-gray-800 bg-[#111]">
                   {items.map((item) => (
                     <div key={item.id} className="flex items-center gap-4 px-4 py-4 relative">
-                      <div className="relative w-16 h-16 flex-shrink-0 bg-black border border-gray-800">
+                      <div className="relative w-16 h-16 shrink-0 bg-black border border-gray-800">
                         <Image src={item.image} alt={item.name} fill sizes="64px" className="object-contain p-1" />
                       </div>
                       <div className="flex-1 min-w-0">
@@ -225,7 +225,7 @@ export default function ReviewClient({ initialItems, isBuyNow = false }) {
                 )}
                 <button
                   onClick={() => setShowAddressModal(true)}
-                  className="w-8 h-8 flex-shrink-0 flex items-center justify-center bg-[#1a1a1a] border border-gray-700 text-gray-400 hover:text-[#C8A84B] hover:border-[#C8A84B] transition-colors"
+                  className="w-8 h-8 shrink-0 flex items-center justify-center bg-[#1a1a1a] border border-gray-700 text-gray-400 hover:text-[#C8A84B] hover:border-[#C8A84B] transition-colors"
                   aria-label="Edit address"
                 >
                   <EditIcon />
@@ -246,7 +246,7 @@ export default function ReviewClient({ initialItems, isBuyNow = false }) {
             </div>
           </div>
 
-          <div className="w-full lg:w-72 flex-shrink-0">
+          <div className="w-full lg:w-72 shrink-0">
             <div className="bg-[#111] border border-gray-800 p-5">
               <div className="space-y-4 mb-6">
                 <div className="flex justify-between text-sm">

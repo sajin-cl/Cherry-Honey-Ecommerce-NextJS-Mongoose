@@ -10,7 +10,7 @@ const serifItalic = {
     fontWeight: 400,
 };
 
-const MotionImage = motion(Image);
+const MotionImage = motion.create(Image);
 
 export default function Hero() {
     return (
@@ -71,8 +71,8 @@ export default function Hero() {
                             fill
                             priority
                             dragMomentum={false}
-                            sizes="(max-width: 768px) 90vw, 520px"
-                            className="object-contain scale-120"
+                            sizes="100vw"
+                            className="object-cover scale-120"
                             animate={{
                                 y: [0, -15, 0],
                             }}
