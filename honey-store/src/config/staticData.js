@@ -2,7 +2,7 @@ import { FaInstagram } from "react-icons/fa";
 import { RiYoutubeLine } from "react-icons/ri";
 import { FaXTwitter } from "react-icons/fa6";
 import { SiFacebook } from "react-icons/si";
-import { FiPackage, FiCreditCard, FiUser, FiClock, FiCheckCircle } from "react-icons/fi";
+import { FiPackage, FiCreditCard, FiUser, FiClock, FiCheckCircle, FiTruck, FiShield } from "react-icons/fi";
 import { GiHoneypot } from "react-icons/gi";
 
 
@@ -283,6 +283,153 @@ export const REFUND_POLICY_SECTIONS = [
             {
                 subtitle: "",
                 text: "We reserve the right to update or modify this Refund Policy at any time. Any changes will be reflected on this page with an updated effective date. We encourage you to review this policy periodically. Continued use of our services after changes are posted constitutes your acceptance of the revised policy.",
+            },
+        ],
+    },
+];
+
+
+/* ---------------------------------------- Shipping Policy Data ---------------------------------------- */
+
+export const SHIPPING_POLICY_SUMMARY_CARDS = [
+    {
+        Icon: FiTruck,
+        label: "Dispatched In",
+        value: "1–2 Days",
+        sub: "business days",
+    },
+    {
+        Icon: FiClock,
+        label: "Delivered In",
+        value: "3–5 Days",
+        sub: "across India",
+    },
+    {
+        Icon: FiShield,
+        label: "Free Shipping",
+        value: "₹500+",
+        sub: "order value",
+    },
+];
+
+export const SHIPPING_POLICY_SECTIONS = [
+    {
+        title: "Order Processing",
+        content: [
+            {
+                subtitle: "Processing Time",
+                text: "All orders placed on Cherry Honey are processed within 1–2 business days (excluding Sundays and public holidays). You will receive an order confirmation email immediately after placing your order, and a shipping confirmation with a tracking link once your order is dispatched.",
+            },
+            {
+                subtitle: "Cut-off Time",
+                text: "Orders placed before 12:00 PM (noon) IST on a business day are typically dispatched the same day. Orders placed after noon or on non-business days will be dispatched the next business day.",
+            },
+        ],
+    },
+    {
+        title: "Delivery Timelines",
+        content: [
+            {
+                subtitle: "Metro Cities",
+                text: "Orders to major cities such as Chennai, Bangalore, Mumbai, Delhi, Hyderabad, and Kolkata are typically delivered within 2–3 business days from the date of dispatch.",
+            },
+            {
+                subtitle: "Other Cities & Towns",
+                text: "Orders to Tier-2 and Tier-3 cities are generally delivered within 3–5 business days from the date of dispatch.",
+            },
+            {
+                subtitle: "Remote Areas",
+                text: "Deliveries to remote or hilly areas, islands, or locations with limited courier coverage may take up to 7 business days. We will notify you if your delivery is likely to be delayed.",
+            },
+            {
+                subtitle: "Disclaimer",
+                text: "Delivery timelines are estimates and not guarantees. Delays may occur due to weather conditions, public holidays, courier backlogs, or circumstances beyond our control. We appreciate your patience in such situations.",
+            },
+        ],
+    },
+    {
+        title: "Shipping Charges",
+        content: [
+            {
+                subtitle: "Free Shipping",
+                text: "We offer free shipping on all orders above ₹500. This applies to all locations across India where our courier partners operate.",
+            },
+            {
+                subtitle: "Standard Shipping",
+                text: "A flat shipping charge of ₹50 is applied to orders below ₹500. This charge will be clearly shown at checkout before you complete your purchase — no surprises.",
+            },
+            {
+                subtitle: "No Hidden Charges",
+                text: "The total amount you see at checkout is exactly what you pay. There are no additional handling fees, packaging charges, or surcharges.",
+            },
+        ],
+    },
+    {
+        title: "Order Tracking",
+        content: [
+            {
+                subtitle: "Tracking Link",
+                text: "Once your order is shipped, you will receive a tracking link via email and SMS. You can use this link to monitor your shipment in real time.",
+            },
+            {
+                subtitle: "My Orders",
+                text: "You can also track your order at any time by visiting the 'My Orders' section in your Cherry Honey account. Live status updates are available there.",
+            },
+            {
+                subtitle: "Tracking Delays",
+                text: "Please allow up to 24 hours after dispatch for tracking information to become active on the courier's website.",
+            },
+        ],
+    },
+    {
+        title: "Delivery Locations",
+        content: [
+            {
+                subtitle: "Pan-India Shipping",
+                text: "We currently ship to all serviceable pin codes across India through our trusted courier partners. Enter your pin code at checkout to confirm delivery availability in your area.",
+            },
+            {
+                subtitle: "International Shipping",
+                text: "We do not currently offer international shipping. We hope to expand to international deliveries in the future — stay tuned for updates.",
+            },
+        ],
+    },
+    {
+        title: "Delivery Attempts",
+        content: [
+            {
+                subtitle: "Failed Delivery",
+                text: "Our courier partners will attempt delivery up to 3 times if you are unavailable. After 3 failed attempts, the package will be returned to us. In such cases, re-delivery charges may apply.",
+            },
+            {
+                subtitle: "Incorrect Address",
+                text: "We are not responsible for delays or non-delivery caused by an incorrect or incomplete shipping address. Please double-check your address, pin code, and contact number before placing an order.",
+            },
+            {
+                subtitle: "Address Changes",
+                text: "If you need to change your delivery address after placing an order, please contact us immediately. Address changes can only be accommodated before the order is dispatched.",
+            },
+        ],
+    },
+    {
+        title: "Damaged or Lost Shipments",
+        content: [
+            {
+                subtitle: "Damaged in Transit",
+                text: "If your order arrives visibly damaged, please photograph the package before opening it and contact us within 48 hours of delivery. We will arrange a replacement or refund as per our Refund Policy.",
+            },
+            {
+                subtitle: "Lost Shipment",
+                text: "In the rare event that your shipment is lost in transit, please contact us with your order ID. We will investigate with the courier partner and resolve the issue within 5–7 business days.",
+            },
+        ],
+    },
+    {
+        title: "Changes to This Policy",
+        content: [
+            {
+                subtitle: "",
+                text: "We reserve the right to update or modify this Shipping & Delivery Policy at any time. Changes will be posted on this page with an updated effective date. Your continued use of our services after changes are posted constitutes your acceptance of the revised policy.",
             },
         ],
     },
