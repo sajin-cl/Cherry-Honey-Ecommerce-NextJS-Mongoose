@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import dbConnect from "@/lib/dbConnect";
 import Order from "@/models/order.model";
 import Product from "@/models/product.model";
+import User from "@/models/user.model";
 import { getServerUser } from "@/lib/auth";
 
 // GET /api/orders/[id]

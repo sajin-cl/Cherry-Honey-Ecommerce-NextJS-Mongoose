@@ -1,6 +1,7 @@
 import Link from "next/link";
 import dbConnect from "@/lib/dbConnect";
 import Order from "@/models/order.model";
+import User from "@/models/user.model";
 import { getServerUser } from "@/lib/auth";
 import OrderDetails from "@/components/admin/OrderDetails";
 
