@@ -2,7 +2,7 @@ import { FaInstagram } from "react-icons/fa";
 import { RiYoutubeLine } from "react-icons/ri";
 import { FaXTwitter } from "react-icons/fa6";
 import { SiFacebook } from "react-icons/si";
-import { FiPackage, FiCreditCard, FiUser } from "react-icons/fi";
+import { FiPackage, FiCreditCard, FiUser, FiClock, FiCheckCircle } from "react-icons/fi";
 import { GiHoneypot } from "react-icons/gi";
 
 
@@ -135,6 +135,154 @@ export const FAQS = [
             {
                 q: "How do I contact customer support?",
                 a: "You can reach us at support@cherryhoney.in or WhatsApp us at +91 98765 43210. Our support team is available Monday to Saturday, 9 AM – 6 PM.",
+            },
+        ],
+    },
+];
+
+
+/* ----------------------------------------Refund POlicy sections Data --------------------------------------------*/
+
+export const REFUND_POLICY_SUMMARY_CARD = [
+    {
+        Icon: FiClock,
+        label: "Report Within",
+        value: "48 Hours",
+        sub: "of delivery",
+    },
+    {
+        Icon: FiCheckCircle,
+        label: "Refund Processed",
+        value: "5–7 Days",
+        sub: "after approval",
+    },
+    {
+        Icon: FiPackage,
+        label: "Replacement",
+        value: "2–3 Days",
+        sub: "after approval",
+    },
+];
+
+
+export const REFUND_POLICY_SECTIONS = [
+    {
+        title: "Our Commitment",
+        content: [
+            {
+                subtitle: "",
+                text: "At Cherry Honey, your satisfaction is our priority. We take great care in packaging and delivering our products in perfect condition. However, if something goes wrong, we are here to make it right. Please read our policy carefully to understand your options.",
+            },
+        ],
+    },
+    {
+        title: "Eligibility for Returns",
+        content: [
+            {
+                subtitle: "Accepted Reasons",
+                text: "We accept return and refund requests only under the following circumstances: the product received is damaged or broken, the product is defective or of poor quality, you received a wrong product (different from what you ordered), or the product is missing from your order.",
+            },
+            {
+                subtitle: "Time Limit",
+                text: "All return requests must be raised within 48 hours of delivery. Requests made after this window will not be entertained. Please check your order immediately upon receipt.",
+            },
+            {
+                subtitle: "Proof Required",
+                text: "To process your request, you must provide clear photographic or video evidence of the damaged, defective, or incorrect product. Evidence should clearly show the product, packaging, and the issue. You can share this via email or WhatsApp.",
+            },
+        ],
+    },
+    {
+        title: "Non-Returnable Items",
+        content: [
+            {
+                subtitle: "Taste & Preference",
+                text: "Returns are not accepted for reasons related to personal taste preferences. Pure honey may have slight natural variations in colour, aroma, and flavour between batches — this is normal and not a defect.",
+            },
+            {
+                subtitle: "Opened or Used Products",
+                text: "Once a product has been opened and partially consumed, it is not eligible for a return or refund, unless it is found to be genuinely defective or contaminated.",
+            },
+            {
+                subtitle: "Crystallised Honey",
+                text: "Crystallisation is a completely natural process in raw honey and is a sign of purity. Products that have crystallised are not considered defective and are not eligible for a return. Warm the jar in lukewarm water to restore its liquid form.",
+            },
+            {
+                subtitle: "Incorrect Address",
+                text: "We are not responsible for non-delivery or delays caused by an incorrect or incomplete shipping address provided by the customer. Please double-check your address before placing an order.",
+            },
+        ],
+    },
+    {
+        title: "How to Request a Refund",
+        content: [
+            {
+                subtitle: "Step 1 – Contact Us",
+                text: "Email us at " + CUSTOMER_CARE_EMAIL + " or WhatsApp us at " + ADMIN_PHONE + " within 48 hours of receiving your order. Mention your order ID and describe the issue clearly.",
+            },
+            {
+                subtitle: "Step 2 – Submit Evidence",
+                text: "Attach clear photos or a short video showing the damaged, defective, or incorrect product along with its packaging. This helps us resolve your request faster.",
+            },
+            {
+                subtitle: "Step 3 – Review",
+                text: "Our support team will review your request within 1–2 business days and get back to you with a resolution — either a replacement, store credit, or a full refund.",
+            },
+            {
+                subtitle: "Step 4 – Resolution",
+                text: "Once approved, refunds are processed within 5–7 business days. You will be notified at every step of the process.",
+            },
+        ],
+    },
+    {
+        title: "Refund Methods",
+        content: [
+            {
+                subtitle: "Online Payments (UPI, Card, Net Banking)",
+                text: "Refunds for orders paid online will be credited back to the original payment method (UPI, credit/debit card, or bank account) within 5–7 business days after approval.",
+            },
+            {
+                subtitle: "Cash on Delivery (COD)",
+                text: "Refunds for COD orders will be transferred via bank transfer or UPI. You will need to provide your bank account number (or UPI ID) when submitting the refund request.",
+            },
+            {
+                subtitle: "Processing Time",
+                text: "While we process refunds promptly on our end, the time taken for the amount to appear in your account may vary depending on your bank or payment provider. This is typically within 5–7 business days.",
+            },
+        ],
+    },
+    {
+        title: "Order Cancellations",
+        content: [
+            {
+                subtitle: "Before Shipment",
+                text: "You may cancel your order before it is dispatched by contacting our support team as soon as possible. If the cancellation is processed before shipment, a full refund will be issued to your original payment method.",
+            },
+            {
+                subtitle: "After Shipment",
+                text: "Once an order has been dispatched, cancellation is not possible. You may initiate a return request upon delivery if the product meets our return eligibility criteria.",
+            },
+            {
+                subtitle: "COD Cancellations",
+                text: "Repeated cancellation of COD orders at the time of delivery may result in the suspension of COD privileges on your account. Please only place COD orders if you genuinely intend to receive them.",
+            },
+        ],
+    },
+    {
+        title: "Replacements",
+        content: [
+            {
+                subtitle: "",
+                text: "In many cases, instead of a refund, we will offer to send a replacement product at no extra cost. If you prefer a replacement over a refund, please mention this when raising your request. Replacements are dispatched within 2–3 business days after approval.",
+            },
+        ],
+    },
+    {
+        title: "Changes to This Policy",
+        content: [
+            {
+                subtitle: "",
+                text: "We reserve the right to update or modify this Refund Policy at any time. Any changes will be reflected on this page with an updated effective date. We encourage you to review this policy periodically. Continued use of our services after changes are posted constitutes your acceptance of the revised policy.",
             },
         ],
     },
