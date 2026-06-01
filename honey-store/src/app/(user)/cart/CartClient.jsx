@@ -155,9 +155,9 @@ export default function CartClient({ initialItems }) {
         <h1 className="text-3xl text-white mb-8" style={serif}>My Cart</h1>
 
         {items.length === 0 ? (
-          <div className="bg-[#111] border border-gray-800 p-12 text-center max-w-md mx-auto my-12">
+          <div className="border border-gray-800 p-12 text-center max-w-md mx-auto my-12 rounded-3xl">
             <p className="text-gray-400 text-sm mb-4">Your cart is empty.</p>
-            <Link href="/products" className="bg-[#C8A84B] hover:bg-[#b8973e] text-black text-sm font-semibold px-6 py-2.5 transition-colors inline-block">
+            <Link href="/products" className="bg-[#C8A84B] hover:bg-[#b8973e] text-black text-sm font-semibold px-6 py-2.5 transition-colors inline-block active:scale-95 rounded-full">
               Shop Now
             </Link>
           </div>
