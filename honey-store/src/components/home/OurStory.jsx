@@ -1,27 +1,12 @@
 import Image from "next/image"
 import Link from "next/link"
 import { motion } from "framer-motion"
-
-const serifItalic = {
-  fontFamily: "'Georgia', 'Times New Roman', serif",
-  fontStyle: "italic",
-};
- 
+import { serifItalic } from '@/config/staticData'
 
 
 export default function OurStory() {
     return (
         <section className="relative py-0 bg-black overflow-hidden">
-
-            {/* background layer */}
-            <div className="absolute inset-0 z-30 pointer-events-none">
-                <Image
-                    src="/honey-comb.webp"
-                    fill
-                    className="object-cover animate-pulse"
-                    alt="bg"
-                />
-            </div>
             <div className="py-20">
                 <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
                     {/* Left — dripping bee image */}
@@ -37,7 +22,7 @@ export default function OurStory() {
                             alt="Two Honey bee"
                             fill
                             sizes="(max-width: 768px) 100vw, 50vw"
-                            className="object-contain drop-shadow-[0_0_60px_rgba(200,168,75,0.25)]"
+                            className="object-contain "
                         />
                     </motion.div>
 
@@ -61,7 +46,7 @@ export default function OurStory() {
                         </p>
                         <Link
                             href={'/about'}
-                            className="inline-block bg-[#C8A84B] hover:bg-[#b8973e] text-black font-bold text-xs px-8 py-3.5 tracking-[0.2em] uppercase transition-colors"
+                            className="inline-block active:scale-95 bg-[#C8A84B] hover:bg-[#b8973e] text-black font-bold text-xs px-8 py-3.5 tracking-[0.2em] uppercase transition-colors"
                         >
                             Read More
                         </Link>

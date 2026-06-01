@@ -132,7 +132,7 @@ export default function Navbar() {
             <li>
               <Link
                 href="/about"
-                className={`transition-colors duration-200 font-mono uppercase ${isActive('/about') ? 'text-[#C8A84B] font-medium' : 'text-gray-300 hover:text-[#C8A84B]'}`}
+                className={`transition-colors  duration-200 font-mono uppercase ${isActive('/about') ? 'text-[#C8A84B] font-medium' : 'text-gray-300 hover:text-[#C8A84B]'}`}
               >
                 About
               </Link>
@@ -162,7 +162,7 @@ export default function Navbar() {
           {/* Center logo */}
           <Link
             href="/"
-            className="flex items-center gap-2 absolute left-1/2 -translate-x-1/2"
+            className="flex items-center gap-2 absolute left-1/2 -translate-x-1/2 active:scale-95"
           >
             <Image
               src={'/logo.png'}
@@ -180,7 +180,7 @@ export default function Navbar() {
             {/* Cart icon */}
             <Link
               href="/cart"
-              className="group text-gray-300 hover:text-[#C8A84B] transition-colors relative"
+              className="group text-gray-300 hover:text-[#C8A84B] transition-colors relative active:scale-95"
               aria-label="Cart"
               title="cart"
             >
@@ -199,7 +199,7 @@ export default function Navbar() {
             {/* Order icon */}
             <Link
               href="/orders"
-              className="text-gray-300 hover:text-[#C8A84B] transition-colors"
+              className="text-gray-300 hover:text-[#C8A84B] transition-colors active:scale-95"
               aria-label="Orders"
               title="my orders"
             >
@@ -214,7 +214,7 @@ export default function Navbar() {
             <div className="relative">
               <button
                 onClick={() => setUserMenuOpen((o) => !o)}
-                className="w-7 h-7 cursor-pointer bg-[#C8A84B] hover:bg-[#b8973e] text-black rounded-full flex items-center justify-center font-bold text-xs transition-colors shrink-0 focus:outline-none"
+                className="w-7 h-7 cursor-pointer active:scale-95 bg-[#C8A84B] hover:bg-[#b8973e] text-black rounded-full flex items-center justify-center font-bold text-xs transition-colors shrink-0 focus:outline-none"
                 aria-label="Account menu"
                 aria-haspopup="true"
                 aria-expanded={userMenuOpen}

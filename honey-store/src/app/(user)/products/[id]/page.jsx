@@ -413,8 +413,8 @@ export default function ProductDetailPage({ params }) {
               <button
                 disabled={!product || product.stock === 0 || qty === 0}
                 onClick={handleAddToCart}
-                className={`flex-1 h-10 font-semibold text-sm tracking-widest uppercase transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed ${added
-                  ? "bg-amber-400 text-white"
+                className={`flex-1 h-10 font-semibold text-sm tracking-widest uppercase transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed active:scale-95 ${added
+                  ? "bg-[#b8973e] text-black"
                   : "bg-[#C8A84B] hover:bg-[#b8973e] text-black"
                   }`}
               >
@@ -439,7 +439,7 @@ export default function ProductDetailPage({ params }) {
                 sessionStorage.setItem("buyNowItem", JSON.stringify(buyNowItem));
                 router.push("/checkout?buyNow=true");
               }}
-              className="w-full h-10 font-semibold text-sm tracking-widest uppercase border border-[#C8A84B] text-[#C8A84B] hover:bg-[#C8A84B] hover:text-black disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 mb-4"
+              className="w-full h-10 font-semibold text-sm tracking-widest uppercase active:scale-95 border border-[#C8A84B] text-[#C8A84B] hover:bg-[#C8A84B] hover:text-black disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 mb-4"
             >
               {product && product.stock === 0 ? "Out of Stock" : "Buy Now"}
             </button>

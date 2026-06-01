@@ -44,13 +44,13 @@ export default function Hero() {
                     <div className="flex items-center gap-4 flex-wrap">
                         <Link
                             href="/products"
-                            className="inline-block bg-[#C8A84B] hover:bg-[#b8973e] text-black font-bold text-xs px-8 py-4 tracking-[0.2em] uppercase transition-colors duration-200"
+                            className="inline-block active:scale-95 bg-[#C8A84B] hover:bg-[#b8973e] text-black font-bold text-xs px-8 py-4 tracking-[0.2em] uppercase transition-colors duration-200"
                         >
                             Shop Now
                         </Link>
                         <Link
                             href="/products"
-                            className="inline-block border border-gray-600 text-gray-300 hover:border-[#C8A84B] hover:text-[#C8A84B] font-semibold text-xs px-8 py-4 tracking-widest uppercase transition-colors duration-200"
+                            className="inline-block active:scale-95 border border-gray-600 text-gray-300 hover:border-[#C8A84B] hover:text-[#C8A84B] font-semibold text-xs px-8 py-4 tracking-widest uppercase transition-colors duration-200"
                         >
                             View Products
                         </Link>

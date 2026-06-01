@@ -21,7 +21,7 @@ export default function Footer() {
               placeholder="Enter your email"
               className="bg-black/20 text-black placeholder-black/60 text-sm px-5 py-3 rounded-lg flex-1 md:w-72 focus:outline-none focus:ring-2 focus:ring-black/30"
             />
-            <button className="bg-black text-white text-sm font-semibold px-6 py-3 rounded-lg hover:bg-gray-900 transition-colors cursor-pointer">
+            <button className="bg-black text-white text-sm font-semibold px-6 py-3 rounded-lg hover:bg-gray-900 transition-colors cursor-pointer active:scale-95">
               Subscribe
             </button>
           </div>

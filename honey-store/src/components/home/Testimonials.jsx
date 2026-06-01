@@ -3,13 +3,8 @@
 import React, { useState, useEffect, useCallback } from 'react'
 import Image from 'next/image'
 import { AnimatePresence, motion } from 'framer-motion'
-import { TESTIMONIALS } from '@/config/staticData'
+import { TESTIMONIALS, serifItalic } from '@/config/staticData'
 
-const serifItalic = {
-  fontFamily: "'Georgia', 'Times New Roman', serif",
-  fontStyle: "italic",
-  
-};
 
 const Testimonials = () => {
     const [currentTestimonial, setCurrentTestimonial] = useState(0);
@@ -22,7 +17,7 @@ const Testimonials = () => {
     // 2. this function change testimonial based on index
     useEffect(() => {
         const timer = setInterval(nextTestimonial, 3000);
-        return () => clearInterval(timer); 
+        return () => clearInterval(timer);
     }, [nextTestimonial]);
 
     // 3. this function change testimonial when user click on dot

@@ -12,6 +12,11 @@ export const serif = {
     fontStyle: "italic",
 };
 
+export const serifItalic = {
+    fontFamily: "'Georgia', 'Times New Roman', serif",
+    fontStyle: "italic",
+};
+
 /* ADMIN DETAILS */
 export const ADMIN_PHONE = "+91 96775 62116"
 export const CUSTOMER_CARE_EMAIL = "support@cherryshoney.com"

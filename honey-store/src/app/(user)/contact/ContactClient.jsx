@@ -4,6 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
+import { ADMIN_PHONE, CUSTOMER_CARE_EMAIL } from "@/config/staticData";
 
 const serifItalic = {
   fontFamily: "'Georgia', 'Times New Roman', serif",
@@ -118,7 +119,7 @@ export default function ContactClient() {
             </button>
             <Link
               href="/products"
-              className="inline-block border border-gray-600 text-gray-300 hover:border-[#C8A84B] hover:text-[#C8A84B] font-semibold text-xs px-8 py-4 tracking-[0.2em] uppercase transition-all duration-300 transform hover:scale-105"
+              className="inline-block border border-gray-600 text-gray-300 hover:border-[#C8A84B] hover:text-[#C8A84B] font-semibold text-xs px-8 py-4 tracking-[0.2em] uppercase transition-all duration-300 transform hover:scale-105 active:scale-95"
             >
               Explore Products
             </Link>
@@ -179,7 +180,7 @@ export default function ContactClient() {
               Phone
             </p>
             <p className="text-white text-sm font-medium tracking-wide">
-              +91 98765 43210
+              {ADMIN_PHONE}
             </p>
           </motion.div>
 
@@ -210,7 +211,7 @@ export default function ContactClient() {
               Email
             </p>
             <p className="text-white text-sm font-medium tracking-wide">
-              hello@cherryhoney.com
+              {CUSTOMER_CARE_EMAIL}
             </p>
           </motion.div>
 
@@ -459,7 +460,7 @@ export default function ContactClient() {
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="relative w-full bg-[#C8A84B] hover:bg-[#b8973e] disabled:bg-[#555] disabled:cursor-not-allowed text-black font-bold text-xs py-4 tracking-[0.25em] uppercase transition-all duration-300 transform active:scale-95 shadow-[0_4px_25px_rgba(200,168,75,0.2)] flex items-center justify-center gap-2 cursor-pointer"
+                    className="relative w-full active:scale-95 bg-[#C8A84B] hover:bg-[#b8973e] disabled:bg-[#555] disabled:cursor-not-allowed text-black font-bold text-xs py-4 tracking-[0.25em] uppercase transition-all duration-300 transform active:scale-95 shadow-[0_4px_25px_rgba(200,168,75,0.2)] flex items-center justify-center gap-2 cursor-pointer"
                   >
                     {isSubmitting ? (
                       <>

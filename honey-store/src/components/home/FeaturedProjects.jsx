@@ -4,7 +4,7 @@ import { motion } from "framer-motion"
 import Link from "next/link"
 
 const serifItalic = {
-  fontFamily: "'Georgia', 'Times New Roman', serif",
+    fontFamily: "'Georgia', 'Times New Roman', serif",
 }
 
 export default function FeaturedProjects({ featuredProducts }) {
@@ -109,7 +109,7 @@ export default function FeaturedProjects({ featuredProducts }) {
                 >
                     <Link
                         href="/products"
-                        className="bg-[#C8A84B] hover:bg-[#b8973e] text-black font-bold text-xs px-8 py-3.5 tracking-[0.2em] uppercase transition-colors"
+                        className="bg-[#C8A84B] hover:bg-[#b8973e] text-black font-bold text-xs px-8 py-3.5 tracking-[0.2em] uppercase transition-colors active:scale-95"
                     >
                         View All Products
                     </Link>
