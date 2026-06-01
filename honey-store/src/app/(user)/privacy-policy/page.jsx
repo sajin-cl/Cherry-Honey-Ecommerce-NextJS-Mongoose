@@ -244,7 +244,7 @@ export default function PrivacyPolicyPage() {
                         FAQ
                     </Link>
                     <span>·</span>
-                    <Link href="/terms" className="hover:text-[#C8A84B] transition-colors">
+                    <Link href="/terms-conditions" className="hover:text-[#C8A84B] transition-colors">
                         Terms of Use
                     </Link>
                     <span>·</span>
