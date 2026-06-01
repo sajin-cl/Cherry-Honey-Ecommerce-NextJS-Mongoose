@@ -67,9 +67,10 @@ export default function Footer() {
           <h4 className="text-amber-200 font-semibold mb-4">Support</h4>
           <ul className="space-y-2 text-gray-400">
             <li><Link href="/faq" className="hover:text-white transition-colors">FAQ</Link></li>
-            <li><Link href="/faq" className="hover:text-white transition-colors">Shipping</Link></li>
-            <li><Link href="/faq" className="hover:text-white transition-colors">Returns</Link></li>
+            <li><Link href="/refund-policy" className="hover:text-white transition-colors">Refund Policy</Link></li>
+            <li><Link href="/terms-conditions" className="hover:text-white transition-colors">Terms & Conditions</Link></li>
             <li><Link href="/privacy-policy" className="hover:text-white transition-colors">Privacy Policy</Link></li>
+            <li><Link href="/shipping-policy" className="hover:text-white transition-colors">Shipping & Delivery Policy</Link></li>
           </ul>
         </div>
         {/* Contact */}
