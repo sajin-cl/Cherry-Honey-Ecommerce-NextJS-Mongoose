@@ -85,7 +85,7 @@ export default function Footer() {
               </Link>
             </li>
             <li className="hover:text-white transition-colors"><Link href={`tel:${ADMIN_PHONE}`}>{ADMIN_PHONE}</Link></li>
-            <li className="hover:text-white transition-colors">Kanyakumari, Tamilnadu</li>
+            <li className="hover:text-white transition-colors">Chennai, Tamilnadu</li>
           </ul>
         </div>
       </div>

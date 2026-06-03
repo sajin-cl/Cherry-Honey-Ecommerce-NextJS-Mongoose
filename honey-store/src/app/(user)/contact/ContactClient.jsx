@@ -247,7 +247,7 @@ export default function ContactClient() {
               Location
             </p>
             <p className="text-white text-sm font-medium tracking-wide">
-              Kanyakumari,Tamil Nadu,India
+              Chennai,Tamil Nadu,India
             </p>
           </motion.div>
 

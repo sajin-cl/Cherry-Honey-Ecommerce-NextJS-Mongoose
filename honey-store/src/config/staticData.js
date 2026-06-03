@@ -149,7 +149,7 @@ export const FAQS = [
             },
             {
                 q: "How do I contact customer support?",
-                a: "You can reach us at support@cherryhoney.in or WhatsApp us at +91 98765 43210. Our support team is available Monday to Saturday, 9 AM – 6 PM.",
+                a: `You can reach us at ${CUSTOMER_CARE_EMAIL} or WhatsApp us at ${ADMIN_PHONE}. Our support team is available Monday to Saturday, 9 AM – 6 PM.`,
             },
         ],
     },
@@ -186,7 +186,7 @@ export const REFUND_POLICY_SECTIONS = [
         content: [
             {
                 subtitle: "",
-                text: "At Cherry Honey, your satisfaction is our priority. We take great care in packaging and delivering our products in perfect condition. However, if something goes wrong, we are here to make it right. Please read our policy carefully to understand your options.",
+                text: "At Cherrys Honey, your satisfaction is our priority. We take great care in packaging and delivering our products in perfect condition. However, if something goes wrong, we are here to make it right. Please read our policy carefully to understand your options.",
             },
         ],
     },
