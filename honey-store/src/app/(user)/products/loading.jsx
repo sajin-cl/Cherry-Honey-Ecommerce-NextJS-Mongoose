@@ -15,7 +15,7 @@ export default function ProductsLoading() {
             </div>
             <div className="flex justify-between items-center mt-4 mb-4">
               <div className="h-4 w-1/4 bg-gray-800 rounded" />
-              <div className="h-8 w-8 bg-[#C8A84B]/20 rounded-full" />
+              <div className="h-8 w-8 bg-gray-800 rounded-full" />
             </div>
           </div>
         ))}
