@@ -32,10 +32,16 @@ export async function GET(request) {
       Product.countDocuments(query),
     ]);
 
-    return NextResponse.json({
+    const response = NextResponse.json({
       products,
       pagination: { page, limit, total, totalPages: Math.ceil(total / limit) },
     });
+    // Cache for 30 s at CDN; serve stale for up to 5 min while revalidating
+    response.headers.set(
+      "Cache-Control",
+      "public, s-maxage=30, stale-while-revalidate=300"
+    );
+    return response;
   } catch (err) {
     console.error("[GET /products]", err);
     return NextResponse.json({ error: "Server error" }, { status: 500 });

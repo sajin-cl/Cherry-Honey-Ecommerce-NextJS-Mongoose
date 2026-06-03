@@ -37,30 +37,29 @@ export default function CustomCursor() {
         };
         raf = requestAnimationFrame(loop);
 
-        const onEnter = () => ringRef.current?.classList.add('big');
-        const onLeave = () => ringRef.current?.classList.remove('big');
+        // Event delegation — one listener on body instead of one per element (no memory leak)
+        const onEnter = (e) => {
+            if (e.target.closest('a, button, [data-hover]')) {
+                ringRef.current?.classList.add('big');
+            }
+        };
+        const onLeave = (e) => {
+            if (e.target.closest('a, button, [data-hover]')) {
+                ringRef.current?.classList.remove('big');
+            }
+        };
 
         document.addEventListener('mousemove', onMove, { passive: true });
-        document.querySelectorAll('a, button, [data-hover]').forEach(el => {
-            el.addEventListener('mouseenter', onEnter);
-            el.addEventListener('mouseleave', onLeave);
-        });
-
-        // Re-bind on DOM changes
-        const observer = new MutationObserver(() => {
-            document.querySelectorAll('a, button, [data-hover]').forEach(el => {
-                el.addEventListener('mouseenter', onEnter);
-                el.addEventListener('mouseleave', onLeave);
-            });
-        });
-        observer.observe(document.body, { childList: true, subtree: true });
+        document.body.addEventListener('mouseenter', onEnter, true);
+        document.body.addEventListener('mouseleave', onLeave, true);
 
         return () => {
             cancelAnimationFrame(raf);
             document.removeEventListener('mousemove', onMove);
-            observer.disconnect();
+            document.body.removeEventListener('mouseenter', onEnter, true);
+            document.body.removeEventListener('mouseleave', onLeave, true);
         };
-    }, [isAdminPath]); //You must add isAdminPath to the dependency list.
+    }, [isAdminPath]);
 
     //  CRITICAL: Always place your early return statements AFTER all of your React hooks!
     if (isAdminPath) {

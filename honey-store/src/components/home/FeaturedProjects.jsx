@@ -83,6 +83,7 @@ export default function FeaturedProjects({ featuredProducts }) {
                                                 src={imgUrl}
                                                 alt={product?.name}
                                                 fill
+                                                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
                                                 className="object-cover group-hover:scale-105 transition-transform duration-500 rounded-2xl"
                                             />
                                         </div>

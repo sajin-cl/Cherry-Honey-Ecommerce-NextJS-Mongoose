@@ -71,7 +71,7 @@ export default function Hero() {
                             fill
                             priority
                             dragMomentum={false}
-                            sizes="100vw"
+                            sizes="(max-width: 768px) 100vw, 520px"
                             className="object-cover scale-120"
                             animate={{
                                 y: [0, -15, 0],
