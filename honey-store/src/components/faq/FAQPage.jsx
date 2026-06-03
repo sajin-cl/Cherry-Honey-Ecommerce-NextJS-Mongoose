@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { FAQS, serif } from "@/config/staticData"
 import FAQItem from "@/components/ui/FAQ";
+import { CUSTOMER_CARE_EMAIL } from "@/config/staticData";
 
 
 export default function FAQPage() {
@@ -49,7 +50,7 @@ export default function FAQPage() {
                     <span className="text-[#C8A84B]">Questions</span>
                 </h1>
                 <p className="text-gray-400 text-sm max-w-md mx-auto leading-relaxed">
-                    Everything you need to know about Cherry Honey — our products,
+                    Everything you need to know about Cherrys Honey — our products,
                     shipping, payments, and more.
                 </p>
             </div>
@@ -126,7 +127,7 @@ export default function FAQPage() {
                     </p>
                     <div className="flex flex-col sm:flex-row gap-3 justify-center">
                         <a
-                            href="mailto:support@cherryhoney.in"
+                            href={`mailto:${CUSTOMER_CARE_EMAIL}`}
                             className="px-8 py-3 bg-[#C8A84B] hover:bg-[#b8973e] text-black font-semibold text-sm tracking-widest uppercase transition-colors"
                         >
                             Email Us

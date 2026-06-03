@@ -1,11 +1,7 @@
 "use client";
 
 import { useState } from "react";
-
-const serifItalic = {
-  fontFamily: "'Georgia', 'Times New Roman', serif",
-  fontStyle: "italic",
-};
+import { serifItalic } from "@/config/staticData";
 
 /* ── Clickable star picker ── */
 function StarPicker({ value, onChange }) {
@@ -67,12 +63,12 @@ export default function WriteReviewModal({ isOpen, onClose, onSubmit }) {
     });
 
     onSubmit?.({
-      name: form.name.trim(),
-      email: form.email.trim(),
-      rating: form.rating,
-      text: form.text.trim(),
+      name: form?.name.trim(),
+      email: form?.email.trim(),
+      rating: form?.rating,
+      text: form?.text.trim(),
       date: dateStr,
-      avatar: form.name.trim()[0].toUpperCase(),
+      avatar: form?.name.trim()[0].toUpperCase(),
     });
 
     setSubmitted(true);
@@ -219,4 +215,4 @@ export default function WriteReviewModal({ isOpen, onClose, onSubmit }) {
       </div>
     </>
   );
-}
+};

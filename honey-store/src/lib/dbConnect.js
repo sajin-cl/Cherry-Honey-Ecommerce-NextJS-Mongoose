@@ -34,7 +34,7 @@ async function dbConnect() {
         connectTimeoutMS: 10000,  // give up initial connect after 10 s
       })
       .catch((err) => {
-        // ⚠️ Reset promise so the NEXT request retries a fresh connection
+        //  Reset promise so the NEXT request retries a fresh connection
         // Without this the server gets stuck on a permanently rejected promise
         cached.promise = null;
         throw err;
@@ -45,7 +45,7 @@ async function dbConnect() {
     cached.conn = await cached.promise;
   } catch (err) {
     cached.promise = null;
-    console.error("❌ MongoDB Connection Error:", err.message);
+    console.error(" MongoDB Connection Error:", err.message);
     throw err;
   }
 

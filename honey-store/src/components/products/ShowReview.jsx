@@ -1,11 +1,8 @@
 import React from 'react'
 import WriteReviewModal from '@/components/products/WriteReviewModal';
 import StarRating from '@/components/ui/StarRating';
+import { serifItalic } from '@/config/staticData';
 
-const serifItalic = {
-    fontFamily: "'Georgia', 'Times New Roman', serif",
-    fontStyle: "italic",
-};
 
 const ShowReview = ({product, localReviews, formOpen, setFormOpen, handleReviewSubmit}) => {
     return (
@@ -27,12 +24,12 @@ const ShowReview = ({product, localReviews, formOpen, setFormOpen, handleReviewS
             </div>
             <div className="flex items-center gap-3 mb-8">
                 <span className="text-4xl font-bold text-[#C8A84B]">
-                    {product.rating}
+                    {product?.rating}
                 </span>
                 <div>
                     <StarRating rating={product.rating} count={product.numReviews} />
                     <p className="text-gray-500 text-xs mt-1">
-                        Based on {product.numReviews} verified reviews
+                        Based on {product?.numReviews} verified reviews
                     </p>
                 </div>
             </div>
@@ -41,26 +38,26 @@ const ShowReview = ({product, localReviews, formOpen, setFormOpen, handleReviewS
                 {[...localReviews]
                     .sort((a, b) => new Date(b.createdAt || 0) - new Date(a.createdAt || 0))
                     .map((rev, i) => {
-                        const avatar = rev.avatar || rev.name?.charAt(0) || "U";
-                        const dateStr = rev.date || (rev.createdAt ? new Date(rev.createdAt).toLocaleDateString("en-US", {
+                        const avatar = rev?.avatar || rev.name?.charAt(0) || "U";
+                        const dateStr = rev?.date || (rev.createdAt ? new Date(rev.createdAt).toLocaleDateString("en-US", {
                             year: 'numeric',
                             month: 'long',
                             day: 'numeric'
                         }) : "Recent");
-                        const commentText = rev.text || rev.comment || "";
+                        const commentText = rev?.text || rev?.comment || "";
                         return (
                             <div key={i} className="bg-[#111] border border-gray-800 p-5 animate-fadeIn">
                                 <div className="flex items-start gap-4">
                                     {/* Avatar */}
-                                    <div className="w-10 h-10 rounded-full bg-[#C8A84B]/20 border border-[#C8A84B]/40 flex items-center justify-center text-[#C8A84B] font-bold text-sm flex-shrink-0">
+                                    <div className="w-10 h-10 rounded-full bg-[#C8A84B]/20 border border-[#C8A84B]/40 flex items-center justify-center text-[#C8A84B] font-bold text-sm shrink-0">
                                         {avatar}
                                     </div>
                                     <div className="flex-1 min-w-0">
                                         <div className="flex items-center justify-between gap-2 mb-1">
                                             <span className="text-white text-sm font-semibold">
-                                                {rev.name}
+                                                {rev?.name}
                                             </span>
-                                            <span className="text-gray-500 text-xs flex-shrink-0">
+                                            <span className="text-gray-500 text-xs shrink-0">
                                                 {dateStr}
                                             </span>
                                         </div>
@@ -83,6 +80,6 @@ const ShowReview = ({product, localReviews, formOpen, setFormOpen, handleReviewS
             />
         </section>
     )
-}
+};
 
-export default ShowReview
+export default ShowReview;

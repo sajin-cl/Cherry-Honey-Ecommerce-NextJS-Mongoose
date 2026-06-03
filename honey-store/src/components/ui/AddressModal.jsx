@@ -44,12 +44,12 @@ export default function AddressModal({ isOpen, onClose, onSave }) {
       const data = await res.json();
       if (res.ok && data.addresses) {
         const normalized = data.addresses.map((addr) => ({
-          id: addr._id,
-          name: addr.name,
-          tag: addr.tag,
-          line1: addr.line1,
-          phone: addr.phone,
-          isDefault: addr.isDefault,
+          id: addr?._id,
+          name: addr?.name,
+          tag: addr?.tag,
+          line1: addr?.line1,
+          phone: addr?.phone,
+          isDefault: addr?.isDefault,
         }));
         onSave(normalized);
         setForm(EMPTY_FORM);

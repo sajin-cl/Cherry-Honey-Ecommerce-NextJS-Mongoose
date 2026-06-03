@@ -257,7 +257,7 @@ export default function ProductModal({ mode = "add", product = null, categories 
         style={{ opacity: visible ? 1 : 0, transform: visible ? "scale(1) translateY(0)" : "scale(0.97) translateY(12px)" }}
       >
         {/* ── Modal header ── */}
-        <div className="flex items-center justify-between px-7 py-5 border-b border-gray-100 flex-shrink-0">
+        <div className="flex items-center justify-between px-7 py-5 border-b border-gray-100 shrink-0">
           <h2 className="text-[16px] font-semibold text-gray-900">Product Details</h2>
           <button
             onClick={() => closeWithAnimation()}
@@ -289,7 +289,7 @@ export default function ProductModal({ mode = "add", product = null, categories 
 
           {error && (
             <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-xl flex items-start gap-3 text-red-700 text-[13px] animate-fadeIn">
-              <svg className="flex-shrink-0 w-4 h-4 mt-0.5 text-red-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+              <svg className="shrink-0 w-4 h-4 mt-0.5 text-red-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                 <circle cx="12" cy="12" r="10" />
                 <line x1="12" y1="8" x2="12" y2="12" />
                 <line x1="12" y1="16" x2="12.01" y2="16" />
@@ -477,4 +477,4 @@ export default function ProductModal({ mode = "add", product = null, categories 
       </div>
     </div>
   );
-}
+};

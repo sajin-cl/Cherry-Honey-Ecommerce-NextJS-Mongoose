@@ -112,4 +112,4 @@ export default function ProductsFilters({ searchParams, categories }) {
       </div>
     </>
   );
-}
+};

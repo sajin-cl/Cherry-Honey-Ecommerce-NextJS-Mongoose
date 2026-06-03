@@ -85,7 +85,7 @@ export default function AdminNavbar({ onMenuClick }) {
             {/* User info row */}
             <div className="flex items-center gap-3 mb-4">
               {/* Mini avatar */}
-              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-amber-400 to-amber-600 flex items-center justify-center text-white text-sm font-bold flex-shrink-0 ring-2 ring-amber-100">
+              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-amber-400 to-amber-600 flex items-center justify-center text-white text-sm font-bold shrink-0 ring-2 ring-amber-100">
                 {avatarLetter}
               </div>
               <div className="min-w-0">
@@ -119,7 +119,7 @@ export default function AdminNavbar({ onMenuClick }) {
                 strokeWidth="2"
                 strokeLinecap="round"
                 strokeLinejoin="round"
-                className="flex-shrink-0"
+                className="shrink-0"
               >
                 <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
                 <polyline points="16 17 21 12 16 7" />

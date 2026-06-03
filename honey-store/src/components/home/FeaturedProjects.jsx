@@ -81,7 +81,7 @@ export default function FeaturedProjects({ featuredProducts }) {
                                         <div className="relative h-[350px] bg-black flex items-center justify-center ">
                                             <Image
                                                 src={imgUrl}
-                                                alt={product.name}
+                                                alt={product?.name}
                                                 fill
                                                 className="object-cover group-hover:scale-105 transition-transform duration-500 rounded-2xl"
                                             />

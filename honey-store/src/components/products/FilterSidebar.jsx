@@ -126,9 +126,9 @@ export default function FilterSidebar({ onClose, onApply, initialParams, categor
               {SIZES.map((size) => (
                 <Checkbox
                   key={size.id}
-                  id={`size-${size.id}`}
-                  label={size.label}
-                  count={size.count}
+                  id={`size-${size?.id}`}
+                  label={size?.label}
+                  count={size?.count}
                   checked={!!sizeChecked[size.id]}
                   onChange={(val) => toggle(sizeChecked, setSizeChecked, size.id, val)}
                 />

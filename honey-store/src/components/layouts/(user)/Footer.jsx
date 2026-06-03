@@ -37,16 +37,16 @@ export default function Footer() {
           </div>
           <div className="flex gap-1 md:gap-2 lg:gap-4 mt-4 items-center">
             {SOCIAL_LINKS.map((social, idx) => {
-              const Icon = social.icon;
+              const Icon = social?.icon;
               return (
                 <Link
                   key={idx}
-                  href={social.href}
+                  href={social?.href}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="p-2 rounded-full hover:bg-white/10 hover:text-amber-300 transition"
                 >
-                  <Icon size={social.size} />
+                  <Icon size={social?.size} />
                 </Link>
               );
             })}
@@ -92,7 +92,7 @@ export default function Footer() {
 
       {/* Copyright */}
       <div className="border-t border-gray-800 py-6 text-center text-xs text-gray-500">
-        © 2026 Cherry Honey. All rights reserved and developed by sajin-cl.
+        © {new Date().getFullYear()} Cherrys Honey. All rights reserved and developed by <Link href="https://sajincl-porfolio.vercel.app" target="_blank" rel="noopener noreferrer" className=" text-amber-200 hover:text-amber-400 font-mono transition-colors">sajin-cl</Link>
       </div>
     </footer>
   );

@@ -112,4 +112,4 @@ export default function EditCategoryModal({ category, onClose, onSave }) {
       </div>
     </div>
   );
-}
+};

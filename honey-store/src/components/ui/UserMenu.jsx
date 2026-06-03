@@ -46,8 +46,8 @@ export default function UserMenu({ user, onClose, onLogout }) {
             {(user.fullName?.[0] || "U").toUpperCase()}
           </div>
           <div className="min-w-0">
-            <p className="text-[12px] font-semibold text-white truncate leading-tight">{user.fullName}</p>
-            <p className="text-[10px] text-gray-400 truncate leading-tight mt-0.5">{user.email}</p>
+            <p className="text-[12px] font-semibold text-white truncate leading-tight">{user?.fullName}</p>
+            <p className="text-[10px] text-gray-400 truncate leading-tight mt-0.5">{user?.email}</p>
           </div>
         </div>
       ) : (

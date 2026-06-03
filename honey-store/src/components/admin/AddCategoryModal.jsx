@@ -108,4 +108,4 @@ export default function AddCategoryModal({ onClose, onAdd }) {
       </div>
     </div>
   );
-}
+};

@@ -28,4 +28,4 @@ export default function FAQItem({ q, a }) {
             </div>
         </div>
     );
-}
+};

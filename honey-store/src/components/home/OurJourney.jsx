@@ -1,11 +1,7 @@
 import React from 'react'
 import Image from 'next/image'
 import { motion } from 'framer-motion'
-
-const serifItalic = {
-    fontFamily: "'Georgia', 'Times New Roman', serif",
-    fontStyle: "italic"
-};
+import { serifItalic } from '@/config/staticData';
 
 
 const OurJourney = () => {

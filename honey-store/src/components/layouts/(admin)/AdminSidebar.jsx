@@ -75,7 +75,7 @@ export default function AdminSidebar({ isOpen, onClose }) {
       >
         {/* Logo */}
         <div className="px-5 py-4 border-b border-gray-100 flex items-center justify-between">
-          <h1 className="text-[17px] font-bold text-gray-900 tracking-tight">Cherry&apos;s  
+          <h1 className="text-[17px] font-bold text-gray-900 tracking-tight">Cherrys  
             <span className="text-amber-500"> Honey</span>
           </h1>
           {/* Mobile close button */}
