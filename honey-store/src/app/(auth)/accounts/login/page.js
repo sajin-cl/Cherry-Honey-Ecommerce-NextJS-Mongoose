@@ -207,12 +207,12 @@ export default function LoginPage() {
             </div>
 
             {/* Sign In button */}
-            <div className="flex justify-end pt-2">
+            <div className="flex pt-2">
               <button
                 id="sign-in-btn"
                 type="submit"
                 disabled={loading}
-                className="bg-[#C8A84B] hover:bg-[#b8973e] active:bg-[#a8872e] disabled:opacity-50 disabled:cursor-not-allowed text-white font-semibold text-sm px-10 py-3.5 transition-colors duration-200 tracking-wide"
+                className="bg-[#C8A84B] hover:bg-[#b8973e] active:bg-[#a8872e] active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed text-white font-semibold text-sm px-10 py-3.5 transition-colors duration-200 tracking-wide w-full"
               >
                 {loading ? "Signing in..." : "Sign In"}
               </button>

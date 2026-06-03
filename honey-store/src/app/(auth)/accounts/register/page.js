@@ -278,7 +278,7 @@ export default function RegisterPage() {
                   </Link>{" "}
                   and{" "}
                   <Link
-                    href="/terms"
+                    href="/terms-conditions"
                     className="font-bold text-gray-200 hover:text-[#C8A84B] underline transition-colors"
                   >
                     Terms of Use
@@ -299,7 +299,7 @@ export default function RegisterPage() {
               <button
                 type="submit"
                 disabled={loading}
-                className="bg-[#C8A84B] hover:bg-[#b8973e] disabled:opacity-50 disabled:cursor-not-allowed text-white font-semibold text-sm px-10 py-3.5 transition-colors duration-200 tracking-wide"
+                className="bg-[#C8A84B] hover:bg-[#b8973e] disabled:opacity-50 disabled:cursor-not-allowed text-white font-semibold text-sm px-10 py-3.5 transition-colors duration-200 tracking-wide w-full active:bg-[#a8872e] active:scale-95"
               >
                 {loading ? "Creating account..." : "Sign Up"}
               </button>
