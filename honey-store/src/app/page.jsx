@@ -6,7 +6,7 @@ import Footer from "@/components/layouts/(user)/Footer";
 
 
 export const metadata = {
-  title: "Cherry Honey | Premium Raw Organic Honey Store",
+  title: "Cherrys Honey | Premium Raw Organic Honey Store",
   description: "Experience 100% natural, raw, and ethically harvested honey straight from organic bee farms. Shop premium white wildflower honey today.",
 };
 

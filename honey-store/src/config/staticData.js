@@ -17,6 +17,16 @@ export const serifItalic = {
     fontStyle: "italic",
 };
 
+/* Admin CSS class shortcuts */
+export const STATUS_COLORS = {
+    placed: "bg-blue-50 text-blue-700 border-blue-200",
+    processing: "bg-amber-50 text-amber-700 border-amber-200",
+    shipped: "bg-purple-50 text-purple-700 border-purple-200",
+    delivered: "bg-green-50 text-green-700 border-green-200",
+    cancelled: "bg-red-50 text-red-600 border-red-200",
+};
+
+
 /* ADMIN DETAILS */
 export const ADMIN_PHONE = "+91 96775 62116"
 export const CUSTOMER_CARE_EMAIL = "support@cherryshoney.com"

@@ -54,8 +54,8 @@ export default function LoginPage() {
               });
               if (mergeRes.ok) {
                 const mergeData = await mergeRes.json();
-                if (mergeData.success && mergeData.cart) {
-                  localStorage.setItem("cart", JSON.stringify(mergeData.cart));
+                if (mergeData.success && mergeData?.cart) {
+                  localStorage.setItem("cart", JSON.stringify(mergeData?.cart));
                   window.dispatchEvent(new Event("cart-updated"));
                 }
               }

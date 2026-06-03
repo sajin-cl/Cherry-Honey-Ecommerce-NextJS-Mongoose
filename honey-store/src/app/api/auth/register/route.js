@@ -40,7 +40,7 @@ export async function POST(request) {
     const response = NextResponse.json(
       {
         success: true,
-        user: { id: user._id, fullName: user.fullName, email: user.email, mobile: user.mobile, role: user.role },
+        user: { id: user?._id, fullName: user?.fullName, email: user?.email, mobile: user?.mobile, role: user?.role },
       },
       { status: 201 }
     );
@@ -53,4 +53,4 @@ export async function POST(request) {
     }
     return NextResponse.json({ error: "Server error" }, { status: 500 });
   }
-}
+};

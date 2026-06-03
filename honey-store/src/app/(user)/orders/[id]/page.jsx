@@ -8,7 +8,7 @@ import UserOrderDetailClient from "./UserOrderDetailClient";
 export async function generateMetadata({ params }) {
   const { id } = await params;
   return {
-    title: `Order Details | Cherry Honey`,
+    title: `Order Details | Cherrys Honey`,
     description: `Track and view order details for order ID ${id}`,
   };
 }
@@ -58,26 +58,26 @@ export default async function OrderDetailsPage({ params }) {
     date: new Date(orderRaw.createdAt).toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric" }),
     status: orderRaw.orderStatus,
     items: orderRaw.items.map((i, index) => ({
-      id: i._id?.toString() || index,
-      productId: i.product?.toString() || "",
-      name: i.name,
-      qty: i.qty,
-      price: i.price,
-      image: i.image || "/hero-honey-jar.webp",
+      id: i?._id?.toString() || index,
+      productId: i?.product?.toString() || "",
+      name: i?.name,
+      qty: i?.qty,
+      price: i?.price,
+      image: i?.image || "/hero-honey-jar.webp",
     })),
     shipping: {
       name: orderRaw.shippingAddress?.name || "N/A",
-      address: orderRaw.shippingAddress?.line1 || "N/A",
-      phone: orderRaw.shippingAddress?.phone || "N/A",
+      address: orderRaw?.shippingAddress?.line1 || "N/A",
+      phone: orderRaw?.shippingAddress?.phone || "N/A",
     },
     payment: {
-      type: orderRaw.paymentMethod === "cod" ? "Cash On Delivery (COD)" : "Online Payment",
-      status: orderRaw.paymentStatus || "pending",
+      type: orderRaw?.paymentMethod === "cod" ? "Cash On Delivery (COD)" : "Online Payment",
+      status: orderRaw?.paymentStatus || "pending",
     },
     summary: {
-      subtotal: orderRaw.itemsTotal,
-      shipping: orderRaw.shippingCharge,
-      tax: orderRaw.tax,
+      subtotal: orderRaw?.itemsTotal,
+      shipping: orderRaw?.shippingCharge,
+      tax: orderRaw?.tax,
       total: orderRaw.grandTotal,
     },
     tracking: [

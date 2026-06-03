@@ -5,7 +5,7 @@ import Product from "@/models/product.model";
 import { getServerUser } from "@/lib/auth";
 import ReviewClient from "./ReviewClient";
 
-export const metadata = { title: "Review Order | Cherry Honey" };
+export const metadata = { title: "Review Order | Cherrys Honey" };
 
 export default async function ReviewPage({ searchParams }) {
   const resolvedParams = await searchParams;

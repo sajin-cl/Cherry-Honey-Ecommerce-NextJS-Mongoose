@@ -60,4 +60,4 @@ export async function POST(request) {
     console.error("[POST /products]", err);
     return NextResponse.json({ error: err.message || "Server error" }, { status: 500 });
   }
-}
+};

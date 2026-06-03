@@ -54,14 +54,14 @@ export async function POST(request) {
         });
 
         const adminMailOptions = {
-          from: process.env.EMAIL_FROM || `"Cherry Honey Admin" <noreply@example.com>`,
+          from: process.env.EMAIL_FROM || `"Cherrys Honey Admin" <support@cherryshoney.com>`,
           to: process.env.SMTP_USER,
           replyTo: email,
           subject: `New Contact Submission: ${subject}`,
           html: `
             <div style="font-family: 'Georgia', serif; background-color: #000; color: #fff; padding: 30px; border-radius: 12px; border: 1px solid #C8A84B; max-width: 600px; margin: 0 auto;">
-              <h2 style="color: #C8A84B; text-align: center; border-bottom: 1px solid #222; padding-bottom: 15px; margin-top: 0;">Cherry Honey Store Inquiry</h2>
-              <p style="font-size: 14px; line-height: 1.6; color: #ccc;">You have received a new contact inquiry from the Cherry Honey website contact form. Here are the details:</p>
+              <h2 style="color: #C8A84B; text-align: center; border-bottom: 1px solid #222; padding-bottom: 15px; margin-top: 0;">Cherrys Honey Inquiry</h2>
+              <p style="font-size: 14px; line-height: 1.6; color: #ccc;">You have received a new contact inquiry from the Cherrys Honey website contact form. Here are the details:</p>
               
               <table style="width: 100%; border-collapse: collapse; margin-top: 20px; font-size: 14px;">
                 <tr>
@@ -111,4 +111,4 @@ export async function POST(request) {
       { status: 500 }
     );
   }
-}
+};

@@ -6,6 +6,7 @@ import dbConnect from "@/lib/dbConnect";
 import Order from "@/models/order.model";
 import Product from "@/models/product.model";
 import User from "@/models/user.model";
+import { STATUS_COLORS } from "@/config/staticData";
 
 export const metadata = {
   title: "Dashboard | Admin",
@@ -40,7 +41,7 @@ function StatCard({ label, value, icon, change }) {
   return (
     <div className="bg-white rounded-xl border border-gray-100 p-5 hover:shadow-sm transition-shadow duration-200">
       <div className="flex items-center gap-3 mb-4">
-        <div className="w-10 h-10 rounded-full bg-gray-900 flex items-center justify-center text-white flex-shrink-0">
+        <div className="w-10 h-10 rounded-full bg-gray-900 flex items-center justify-center text-white shrink-0">
           {icon}
         </div>
         <span className="text-[13px] text-gray-500 font-medium">{label}</span>
@@ -58,13 +59,6 @@ function StatCard({ label, value, icon, change }) {
   );
 }
 
-const statusColors = {
-  placed:      "bg-blue-50 text-blue-700 border-blue-200",
-  processing:  "bg-amber-50 text-amber-700 border-amber-200",
-  shipped:     "bg-purple-50 text-purple-700 border-purple-200",
-  delivered:   "bg-green-50 text-green-700 border-green-200",
-  cancelled:   "bg-red-50 text-red-600 border-red-200",
-};
 
 export default async function DashboardPage() {
   await requireAdmin();
@@ -133,7 +127,7 @@ export default async function DashboardPage() {
                     <p className="text-[11px] text-gray-400">{order.user?.email ?? ""}</p>
                   </td>
                   <td className="px-4 py-4 whitespace-nowrap">
-                    <span className={`inline-flex items-center px-2.5 py-1 rounded text-[11px] font-semibold border ${statusColors[order.orderStatus] ?? ""}`}>
+                    <span className={`inline-flex items-center px-2.5 py-1 rounded text-[11px] font-semibold border ${STATUS_COLORS[order.orderStatus] ?? ""}`}>
                       {order.orderStatus}
                     </span>
                   </td>

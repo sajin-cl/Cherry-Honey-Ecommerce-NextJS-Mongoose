@@ -4,7 +4,7 @@ import { useState } from "react";
 import AdminSidebar from "@/components/layouts/(admin)/AdminSidebar";
 import AdminNavbar from "@/components/layouts/(admin)/AdminNavbar";
 
-export default function AdminLayoutClient({ children }) {
+export default function AdminLayout({ children }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (

@@ -2,7 +2,7 @@ import Link from "next/link";
 import { getServerUser } from "@/lib/auth";
 
 export const metadata = {
-  title: "Page Not Found | Cherry Honey",
+  title: "Page Not Found | Cherrys Honey",
 };
 
 const serif = {

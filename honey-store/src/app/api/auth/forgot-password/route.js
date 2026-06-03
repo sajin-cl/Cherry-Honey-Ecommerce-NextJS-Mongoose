@@ -63,7 +63,7 @@ export async function POST(request) {
         });
 
         await transporter.sendMail({
-          from: process.env.EMAIL_FROM || '"Honey Store" <noreply@example.com>',
+          from: process.env.EMAIL_FROM || '"Cherrys Honey" <support@cherryshoney.com>',
           to: user.email,
           subject: "Password Reset Request",
           html: `<p>Hello ${user.fullName || ""},</p>

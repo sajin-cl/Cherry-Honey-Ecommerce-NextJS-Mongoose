@@ -34,8 +34,8 @@ export async function POST(request) {
     });
 
     return NextResponse.json({
-      url: uploadResult.secure_url,
-      publicId: uploadResult.public_id,
+      url: uploadResult?.secure_url,
+      publicId: uploadResult?.public_id,
     });
   } catch (err) {
     console.error("[POST /api/upload]", err);

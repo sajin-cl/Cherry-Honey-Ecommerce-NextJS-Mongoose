@@ -39,7 +39,7 @@ export default function AdminNavbar({ onMenuClick }) {
   const displayName = user?.fullName || "Admin";
   const displayEmail = user?.email || "admin@honeybee.com";
   const avatarLetter = (displayName[0] || "A").toUpperCase();
-  const roleName = user?.role ? (user.role.charAt(0).toUpperCase() + user.role.slice(1)) : "Admin";
+  const roleName = user?.role ? (user.role.charAt(0).toUpperCase() + user?.role.slice(1)) : "Admin";
 
   return (
     <header className="h-[60px] bg-white border-b border-gray-100 flex items-center px-4 md:px-6 gap-4 sticky top-0 z-30">

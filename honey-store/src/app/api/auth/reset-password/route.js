@@ -31,4 +31,4 @@ export async function POST(request) {
     console.error("[RESET_PASSWORD]", err);
     return NextResponse.json({ error: "Server error" }, { status: 500 });
   }
-}
+};

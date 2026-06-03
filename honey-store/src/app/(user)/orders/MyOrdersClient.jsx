@@ -20,27 +20,27 @@ function OrderCard({ order }) {
       <div className="flex items-center justify-between px-5 py-3 border-b border-gray-800">
         <div className="flex items-center gap-4">
           <span className="border border-[#C8A84B] text-[#C8A84B] text-xs px-3 py-1 font-mono">
-            Order : {order.shortId}
+            Order : {order?.shortId}
           </span>
-          <span className="text-gray-400 text-xs">{order.date}</span>
+          <span className="text-gray-400 text-xs">{order?.date}</span>
         </div>
-        <span className={`text-xs font-semibold px-3 py-1 ${STATUS_CLS[order.status] ?? "border border-gray-600 text-gray-400"}`}>
-          {order.status}
+        <span className={`text-xs font-semibold px-3 py-1 ${STATUS_CLS[order?.status] ?? "border border-gray-600 text-gray-400"}`}>
+          {order?.status}
         </span>
       </div>
 
       <div className="divide-y divide-gray-800/60">
         {order.items.map((item) => (
           <div key={item.id} className="flex items-center gap-4 px-5 py-3">
-            <div className="relative w-12 h-12 flex-shrink-0 bg-black border border-gray-800">
-              <Image src={item.image} alt={item.name} fill sizes="48px" className="object-contain p-1" />
+            <div className="relative w-12 h-12 shrink-0 bg-black border border-gray-800">
+              <Image src={item?.image} alt={item?.name} fill sizes="48px" className="object-contain p-1" />
             </div>
             <div className="flex-1 min-w-0">
-              <p className="text-white text-sm font-medium">{item.name}</p>
-              <p className="text-gray-500 text-xs mt-0.5">Qty : {item.qty}</p>
+              <p className="text-white text-sm font-medium">{item?.name}</p>
+              <p className="text-gray-500 text-xs mt-0.5">Qty : {item?.qty}</p>
             </div>
-            <span className="text-white text-sm font-semibold flex-shrink-0">
-              ₹{item.price.toFixed(2)}
+            <span className="text-white text-sm font-semibold shrink-0">
+              ₹{item?.price.toFixed(2)}
             </span>
           </div>
         ))}
@@ -52,7 +52,7 @@ function OrderCard({ order }) {
         </span>
         <div className="flex items-center gap-3">
           <Link
-            href={`/orders/${order.id}`}
+            href={`/orders/${order?.id}`}
             className="bg-[#C8A84B] hover:bg-[#b8973e] text-white text-xs font-semibold px-4 py-2 transition-colors"
           >
             View Details
@@ -114,4 +114,4 @@ export default function MyOrdersClient({ orders }) {
       </div>
     </div>
   );
-}
+};

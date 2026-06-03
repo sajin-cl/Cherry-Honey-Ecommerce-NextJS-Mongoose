@@ -21,12 +21,12 @@ export const viewport = {
 export const metadata = {
   metadataBase: new URL(
     process.env.NODE_ENV === 'production'
-      ? 'https://cherry-honey-ecommerce.vercel.app'
+      ? 'https://www.cherryshoney.com'
       : 'http://localhost:3000'
   ),
-  title: "Cherry Honey Ecommerce | Pure Natural Honey & Organic Products Shop In Kanyakumari District",
-  description: "Buy 100% pure, raw, and organic Cherry Honey online...",
-  keywords: ["buy pure honey online", "cherry honey shop"],
+  title: "Cherrys Honey Ecommerce | Pure Natural Honey & Organic Products Shop In Kanyakumari District",
+  description: "Buy 100% pure, raw, and organic Honey online...",
+  keywords: ["buy pure honey online", "cherrys honey shop","Cherrys Honey in Kanyakumari"],
   authors: [{ name: "Sajin.C.L" }],
   robots: {
     index: true,
@@ -43,7 +43,7 @@ export const metadata = {
   },
 
   alternates: {
-    canonical: "https://cherry-honey-ecommerce.vercel.app/",
+    canonical: "/",
   },
   icons: {
     icon: [
@@ -55,17 +55,17 @@ export const metadata = {
     ]
   },
   openGraph: {
-    title: "Cherry Honey | Pure Natural Honey Shop Online",
+    title: "Cherrys Honey | Pure Natural Honey Shop Online",
     description: "Looking for 100% organic raw honey?...",
-    url: "https://cherry-honey-ecommerce.vercel.app/",
-    siteName: "Cherry's Honey Store",
+    url: "/",
+    siteName: "Cherrys Honey",
     type: "website",
     images: [
       {
         url: "/og-honey-banner.jpg",
         width: 1200,
         height: 630,
-        alt: "Cherry's Honey Pure Organic Products",
+        alt: "Cherrys Honey Pure Organic Products",
       },
     ],
   },

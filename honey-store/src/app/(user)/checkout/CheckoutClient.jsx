@@ -4,8 +4,8 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { calculateDelivery, calculateGrandTotal, TAXES } from "@/lib/pricing";
 import AddressModal from "../../../components/ui/AddressModal";
+import { serif } from "@/config/staticData";
 
-const serif = { fontFamily: "'Georgia','Times New Roman',serif", fontStyle: "italic" };
 
 const STEPS = [
   {
@@ -75,19 +75,19 @@ function AddressCard({ addr, selected, onSelect, onDelete }) {
 
       <div className="flex-1 min-w-0">
         <div className="flex items-center gap-2 mb-1">
-          <span className="text-white text-sm font-medium">{addr.name}</span>
+          <span className="text-white text-sm font-medium">{addr?.name}</span>
           {addr.tag && (
             <span className="border border-[#C8A84B] text-[#C8A84B] text-[10px] font-semibold px-1.5 py-0.5 tracking-wide uppercase">
-              {addr.tag}
+              {addr?.tag}
             </span>
           )}
         </div>
-        <p className="text-gray-400 text-xs mb-2">{addr.line1}</p>
+        <p className="text-gray-400 text-xs mb-2">{addr?.line1}</p>
         <div className="flex items-center gap-1.5 text-gray-400 text-xs">
           <svg className="w-3.5 h-3.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z" />
           </svg>
-          {addr.phone}
+          {addr?.phone}
         </div>
       </div>
 
@@ -137,12 +137,12 @@ export default function CheckoutClient({ initialAddresses, cartSubtotal, isBuyNo
       const data = await res.json();
       if (res.ok && data.addresses) {
         const normalized = data.addresses.map(addr => ({
-          id: addr._id,
-          name: addr.name,
-          tag: addr.tag,
-          line1: addr.line1,
-          phone: addr.phone,
-          isDefault: addr.isDefault
+          id: addr?._id,
+          name: addr?.name,
+          tag: addr?.tag,
+          line1: addr?.line1,
+          phone: addr?.phone,
+          isDefault: addr?.isDefault
         }));
         setAddresses(normalized);
         if (selectedId === id) {
@@ -179,14 +179,14 @@ export default function CheckoutClient({ initialAddresses, cartSubtotal, isBuyNo
 
         <div className="flex items-center mb-10 max-w-2xl">
           {STEPS.map((step, i) => (
-            <div key={step.label} className="flex items-center flex-1 last:flex-none">
+            <div key={step?.label} className="flex items-center flex-1 last:flex-none">
               <div className="flex flex-col items-center gap-1.5">
                 <div className={`w-10 h-10 flex items-center justify-center transition-colors ${i === 0 ? "bg-[#C8A84B] text-black" : "bg-[#1a1a1a] border border-gray-700 text-gray-500"
                   }`}>
-                  {step.icon}
+                  {step?.icon}
                 </div>
                 <span className={`text-xs whitespace-nowrap ${i === 0 ? "text-[#C8A84B]" : "text-gray-500"}`}>
-                  {step.label}
+                  {step?.label}
                 </span>
               </div>
               {i < STEPS.length - 1 && (

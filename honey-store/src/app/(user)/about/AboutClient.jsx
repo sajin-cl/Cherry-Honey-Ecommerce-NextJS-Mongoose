@@ -42,7 +42,7 @@ export default function AboutClient() {
               </span>
             </h1>
             <p className="text-gray-400 text-sm md:text-base max-w-lg mb-8 leading-relaxed">
-              At Cherry Honey, we work closely with nature and our beekeepers to bring you 100% natural, raw, and ethically harvested honey straight from organic bee farms. Taste the purity, feel the difference, and indulge in a healthier, golden lifestyle.
+              At Cherrys Honey, we work closely with nature and our beekeepers to bring you 100% natural, raw, and ethically harvested honey straight from organic bee farms. Taste the purity, feel the difference, and indulge in a healthier, golden lifestyle.
             </p>
             <div className="flex items-center gap-4 flex-wrap">
               <Link
@@ -240,7 +240,7 @@ export default function AboutClient() {
             {/* Row 1 - Wildflowers */}
             <div className="relative grid md:grid-cols-2 gap-12 md:gap-24 items-center mb-24 md:mb-32">
               {/* Central Circle Badge for desktop */}
-              <div className="absolute left-[50%] -translate-x-1/2 w-10 h-10 rounded-full bg-black border-2 border-[#C8A84B] flex items-center justify-center z-20 shadow-[0_0_15px_rgba(200,168,75,0.4)] hidden md:flex font-serif text-sm text-[#C8A84B]">
+              <div className="absolute left-[50%] -translate-x-1/2 w-10 h-10 rounded-full bg-black border-2 border-[#C8A84B]  items-center justify-center z-20 shadow-[0_0_15px_rgba(200,168,75,0.4)] hidden md:flex font-serif text-sm text-[#C8A84B]">
                 01
               </div>
 
@@ -259,7 +259,7 @@ export default function AboutClient() {
                   01 <span className="text-[#C8A84B]" style={serifItalic}>The Wildflowers</span>
                 </h3>
                 <p className="text-gray-400 text-sm md:text-base leading-relaxed max-w-lg ml-auto">
-                  Our journey begins in protected fields of pristine, wild organic blossoms. Our honey bees forage freely in these wild environments, gathering pure premium nectar. This beautiful mixture of natural wildflowers yields the uniquely complex, multi-floral taste profile that makes Cherry Honey legendary.
+                  Our journey begins in protected fields of pristine, wild organic blossoms. Our honey bees forage freely in these wild environments, gathering pure premium nectar. This beautiful mixture of natural wildflowers yields the uniquely complex, multi-floral taste profile that makes Cherrys Honey legendary.
                 </p>
               </motion.div>
 
@@ -285,7 +285,7 @@ export default function AboutClient() {
             {/* Row 2 - The Alchemists */}
             <div className="relative grid md:grid-cols-2 gap-12 md:gap-24 items-center mb-24 md:mb-32">
               {/* Central Circle Badge for desktop */}
-              <div className="absolute left-[50%] -translate-x-1/2 w-10 h-10 rounded-full bg-black border-2 border-[#C8A84B] flex items-center justify-center z-20 shadow-[0_0_15px_rgba(200,168,75,0.4)] hidden md:flex font-serif text-sm text-[#C8A84B]">
+              <div className="absolute left-[50%] -translate-x-1/2 w-10 h-10 rounded-full bg-black border-2 border-[#C8A84B]  items-center justify-center z-20 shadow-[0_0_15px_rgba(200,168,75,0.4)] hidden md:flex font-serif text-sm text-[#C8A84B]">
                 02
               </div>
 
@@ -330,7 +330,7 @@ export default function AboutClient() {
             {/* Row 3 - The Harvest */}
             <div className="relative grid md:grid-cols-2 gap-12 md:gap-24 items-center">
               {/* Central Circle Badge for desktop */}
-              <div className="absolute left-[50%] -translate-x-1/2 w-10 h-10 rounded-full bg-black border-2 border-[#C8A84B] flex items-center justify-center z-20 shadow-[0_0_15px_rgba(200,168,75,0.4)] hidden md:flex font-serif text-sm text-[#C8A84B]">
+              <div className="absolute left-[50%] -translate-x-1/2 w-10 h-10 rounded-full bg-black border-2 border-[#C8A84B]  items-center justify-center z-20 shadow-[0_0_15px_rgba(200,168,75,0.4)] hidden md:flex font-serif text-sm text-[#C8A84B]">
                 03
               </div>
 
@@ -469,7 +469,7 @@ export default function AboutClient() {
               <iframe
                 className="w-full h-full border-0"
                 src="https://www.youtube.com/embed/l06uRqnEcn8?autoplay=1&mute=1"
-                title="Cherry Honey Story Journey"
+                title="Cherrys Honey Story Journey"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen
               ></iframe>

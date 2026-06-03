@@ -1,15 +1,11 @@
-import { ADMIN_PHONE, CUSTOMER_CARE_EMAIL } from "@/config/staticData";
+import { ADMIN_PHONE, CUSTOMER_CARE_EMAIL,serif } from "@/config/staticData";
 import Link from "next/link";
 
 export const metadata = {
-    title: "Privacy Policy | Cherry Honey",
-    description: "Learn how Cherry Honey collects, uses, and protects your personal information.",
+    title: "Privacy Policy | Cherrys Honey",
+    description: "Learn how Cherrys Honey collects, uses, and protects your personal information.",
 };
 
-const serif = {
-    fontFamily: "'Georgia','Times New Roman',serif",
-    fontStyle: "italic",
-};
 
 const LAST_UPDATED = "24 May 2026";
 
@@ -155,7 +151,7 @@ export default function PrivacyPolicyPage() {
                 {/* Intro */}
                 <div className="border-l-2 border-[#C8A84B] pl-5 mb-12">
                     <p className="text-gray-300 text-sm leading-relaxed">
-                        At <span className="text-white font-medium">Cherry Honey</span>, we
+                        At <span className="text-white font-medium">Cherrys Honey</span>, we
                         are committed to protecting your privacy. This policy explains what
                         personal information we collect, how we use it, and the choices you
                         have. By using our website and services, you agree to the practices
@@ -170,13 +166,13 @@ export default function PrivacyPolicyPage() {
                             {/* Section heading */}
                             <div className="flex items-center gap-3 mb-5">
                                 <span
-                                    className="text-xs font-bold text-black bg-[#C8A84B] w-6 h-6 flex items-center justify-center flex-shrink-0"
+                                    className="text-xs font-bold text-black bg-[#C8A84B] w-6 h-6 flex items-center justify-center shrink-0"
                                     style={{ fontStyle: "normal" }}
                                 >
                                     {idx + 1}
                                 </span>
                                 <h2 className="text-white text-lg font-semibold" style={serif}>
-                                    {section.title}
+                                    {section?.title}
                                 </h2>
                             </div>
 
@@ -190,7 +186,7 @@ export default function PrivacyPolicyPage() {
                                             </p>
                                         )}
                                         <p className="text-gray-400 text-sm leading-relaxed">
-                                            {block.text}
+                                            {block?.text}
                                         </p>
                                     </div>
                                 ))}

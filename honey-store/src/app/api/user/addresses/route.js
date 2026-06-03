@@ -27,11 +27,11 @@ export async function POST(request) {
       line1,
       phone,
       tag: tag || "HOME",
-      isDefault: user.addresses.length === 0
+      isDefault: user?.addresses?.length === 0
     };
 
-    user.addresses.push(newAddress);
-    await user.save();
+    user?.addresses.push(newAddress);
+    await user?.save();
 
     return NextResponse.json({ success: true, addresses: user.addresses });
   } catch (err) {
@@ -65,4 +65,4 @@ export async function DELETE(request) {
   } catch (err) {
     return NextResponse.json({ error: err.message }, { status: 500 });
   }
-}
+};

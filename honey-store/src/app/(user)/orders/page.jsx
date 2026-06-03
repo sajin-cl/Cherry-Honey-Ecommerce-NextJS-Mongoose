@@ -7,7 +7,7 @@ import dbConnect from "@/lib/dbConnect";
 import Order from "@/models/order.model";
 import MyOrdersClient from "./MyOrdersClient";
 
-export const metadata = { title: "My Orders | Cherry Honey" };
+export const metadata = { title: "My Orders | Cherrys Honey" };
 
 export default async function MyOrdersPage() {
   const user = await requireUser();
@@ -35,4 +35,4 @@ export default async function MyOrdersPage() {
   }));
 
   return <MyOrdersClient orders={orders} />;
-}
+};

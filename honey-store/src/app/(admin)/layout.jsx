@@ -1,10 +1,10 @@
-import AdminLayoutClient from "./AdminLayoutClient";
+import AdminLayout from "../../components/layouts/(admin)/AdminLayout";
 
 export const metadata = {
   title: "Admin | Honey Bee",
   description: "Honey Bee Admin Dashboard",
 };
 
-export default function AdminLayout({ children }) {
-  return <AdminLayoutClient>{children}</AdminLayoutClient>;
+export default function AdminRootLayout({ children }) {
+  return <AdminLayout>{children}</AdminLayout>;
 }

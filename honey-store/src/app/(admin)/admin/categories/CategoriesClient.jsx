@@ -41,14 +41,14 @@ function CategoryRow({ category, onEdit, onDelete, deleting }) {
 
       {/* Name + description + slug (slug only shows on mobile, hidden on md+) */}
       <div className="flex-1 min-w-0">
-        <p className="text-[13.5px] font-semibold text-gray-800 truncate">{category.name}</p>
-        <p className="text-[12px] text-gray-400 truncate mt-0.5">{category.description || "No description"}</p>
+        <p className="text-[13.5px] font-semibold text-gray-800 truncate">{category?.name}</p>
+        <p className="text-[12px] text-gray-400 truncate mt-0.5">{category?.description || "No description"}</p>
         {/* Slug inline on mobile */}
-        <p className="text-[11px] text-gray-400 font-mono truncate mt-0.5 md:hidden">{category.slug}</p>
+        <p className="text-[11px] text-gray-400 font-mono truncate mt-0.5 md:hidden">{category?.slug}</p>
       </div>
 
       {/* Slug column hidden on mobile */}
-      <div className="w-36 text-[13.5px] text-gray-500 font-mono hidden md:block">{category.slug}</div>
+      <div className="w-36 text-[13.5px] text-gray-500 font-mono hidden md:block">{category?.slug}</div>
 
       <div className="w-24 flex items-center justify-end gap-3">
         <button onClick={() => onEdit(category)} className="text-gray-400 hover:text-amber-500 transition-colors p-1 rounded-md hover:bg-amber-50" aria-label="Edit">
@@ -81,7 +81,7 @@ export default function CategoriesClient({ initialCategories }) {
     });
     const data = await res.json();
     if (res.ok) {
-      setCategories((prev) => [{ id: data.category._id, name: data.category.name, slug: data.category.slug, description: data.category.description ?? "" }, ...prev]);
+      setCategories((prev) => [{ id: data?.category?._id, name: data?.category?.name, slug: data?.category?.slug, description: data?.category?.description ?? "" }, ...prev]);
     }
   }
 

@@ -35,7 +35,7 @@ const STEPS = [
 
 const PAYMENT_METHODS = [
   { id: "cod", label: "Cash On Delivery (COD)" },
-  { id: "online", label: "Online Payment (Cashfree)" },
+  { id: "online", label: "Online Payment" },
 ];
 
 export default function PaymentClient({ cartSubtotal, isBuyNow = false }) {
@@ -115,7 +115,7 @@ export default function PaymentClient({ cartSubtotal, isBuyNow = false }) {
                   className={`flex items-start gap-4 w-full border px-5 py-4 transition-all duration-200 text-left ${method === pm.id ? "border-gray-600 bg-[#111]" : "border-gray-800 bg-[#0d0d0d] hover:border-gray-700"
                     }`}
                 >
-                  <div className={`w-4 h-4 rounded-full border-2 flex-shrink-0 mt-0.5 flex items-center justify-center transition-colors ${method === pm.id ? "border-[#C8A84B]" : "border-gray-600"
+                  <div className={`w-4 h-4 rounded-full border-2 shrink-0 mt-0.5 flex items-center justify-center transition-colors ${method === pm.id ? "border-[#C8A84B]" : "border-gray-600"
                     }`}>
                     {method === pm.id && <div className="w-2 h-2 rounded-full bg-[#C8A84B]" />}
                   </div>
@@ -135,7 +135,7 @@ export default function PaymentClient({ cartSubtotal, isBuyNow = false }) {
             </div>
           </div>
 
-          <div className="w-full lg:w-72 flex-shrink-0">
+          <div className="w-full lg:w-72 shrink-0">
             <div className="bg-[#111] border border-gray-800 p-5">
               <div className="space-y-4 mb-6">
                 <div className="flex justify-between text-sm">

@@ -3,9 +3,9 @@ import Link from "next/link";
 
 
 export const metadata = {
-    title: "Refund Policy | Cherry Honey",
+    title: "Refund Policy | Cherrys Honey",
     description:
-        "Understand Cherry Honey's refund, return, and cancellation policy for your orders.",
+        "Understand Cherrys Honey's refund, return, and cancellation policy for your orders.",
 };
 
 
@@ -37,7 +37,7 @@ export default function RefundPolicyPage() {
                 <div className="border-l-2 border-[#C8A84B] pl-5 mb-12">
                     <p className="text-gray-300 text-sm leading-relaxed">
                         We want every order from{" "}
-                        <span className="text-white font-medium">Cherry Honey</span> to reach
+                        <span className="text-white font-medium">Cherrys Honey</span> to reach
                         you in perfect condition. If something is not right, this policy explains
                         how to raise a return or refund request, what qualifies, and how we will
                         resolve it for you — quickly and fairly.
@@ -57,12 +57,12 @@ export default function RefundPolicyPage() {
                                     <Icon className="w-7 h-7 text-[#C8A84B]" />
                                 </div>
                                 <p className="text-[#C8A84B] text-xs tracking-wider uppercase mb-1">
-                                    {card.label}
+                                    {card?.label}
                                 </p>
                                 <p className="text-white text-xl font-semibold" style={serif}>
-                                    {card.value}
+                                    {card?.value}
                                 </p>
-                                <p className="text-gray-500 text-xs mt-0.5">{card.sub}</p>
+                                <p className="text-gray-500 text-xs mt-0.5">{card?.sub}</p>
                             </div>
                         );
                     })}
@@ -75,7 +75,7 @@ export default function RefundPolicyPage() {
                             {/* Section heading */}
                             <div className="flex items-center gap-3 mb-5">
                                 <span
-                                    className="text-xs font-bold text-black bg-[#C8A84B] w-6 h-6 flex items-center justify-center flex-shrink-0"
+                                    className="text-xs font-bold text-black bg-[#C8A84B] w-6 h-6 flex items-center justify-center shrink-0"
                                     style={{ fontStyle: "normal" }}
                                 >
                                     {idx + 1}
@@ -164,4 +164,4 @@ export default function RefundPolicyPage() {
             </div>
         </div>
     );
-}
+};

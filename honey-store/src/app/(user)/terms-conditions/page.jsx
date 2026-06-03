@@ -1,15 +1,10 @@
-import { ADMIN_PHONE, CUSTOMER_CARE_EMAIL } from "@/config/staticData";
+import { ADMIN_PHONE, CUSTOMER_CARE_EMAIL,serif } from "@/config/staticData";
 import Link from "next/link";
 
 export const metadata = {
-    title: "Terms & Conditions | Cherry Honey",
+    title: "Terms & Conditions | Cherrys Honey",
     description:
-        "Read the Terms & Conditions governing your use of the Cherry Honey website and services.",
-};
-
-const serif = {
-    fontFamily: "'Georgia','Times New Roman',serif",
-    fontStyle: "italic",
+        "Read the Terms & Conditions governing your use of the Cherrys Honey website and services.",
 };
 
 const LAST_UPDATED = "01 June 2026";
@@ -20,7 +15,7 @@ const SECTIONS = [
         content: [
             {
                 subtitle: "",
-                text: "By accessing or using the Cherry Honey website (cherryshoney.com), placing an order, or creating an account, you confirm that you have read, understood, and agree to be bound by these Terms & Conditions. If you do not agree to any part of these terms, please do not use our website or services.",
+                text: "By accessing or using the Cherrys Honey website (cherryshoney.com), placing an order, or creating an account, you confirm that you have read, understood, and agree to be bound by these Terms & Conditions. If you do not agree to any part of these terms, please do not use our website or services.",
             },
         ],
     },
@@ -80,7 +75,7 @@ const SECTIONS = [
         content: [
             {
                 subtitle: "Delivery Timelines",
-                text: "We aim to dispatch all orders within 1–2 business days. Estimated delivery times are 3–5 business days across India, though delays may occur due to logistics or unforeseen circumstances. We are not liable for delays caused by courier partners or circumstances beyond our control.",
+                text: "We aim to dispatch all orders within 1-2 business days. Estimated delivery times are 3–5 business days across Tamilnadu, though delays may occur due to logistics or unforeseen circumstances. We are not liable for delays caused by courier partners or circumstances beyond our control.",
             },
             {
                 subtitle: "Shipping Charges",
@@ -114,7 +109,7 @@ const SECTIONS = [
         content: [
             {
                 subtitle: "",
-                text: "All content on the Cherry Honey website — including text, images, logos, product names, and graphics — is the intellectual property of Cherry Honey and is protected by applicable copyright and trademark laws. You may not reproduce, distribute, or use any content from this site without our prior written permission.",
+                text: "All content on the Cherrys Honey website — including text, images, logos, product names, and graphics — is the intellectual property of Cherrys Honey and is protected by applicable copyright and trademark laws. You may not reproduce, distribute, or use any content from this site without our prior written permission.",
             },
         ],
     },
@@ -123,7 +118,7 @@ const SECTIONS = [
         content: [
             {
                 subtitle: "",
-                text: "To the fullest extent permitted by law, Cherry Honey shall not be liable for any indirect, incidental, special, or consequential damages arising from your use of the website or our products, even if we have been advised of the possibility of such damages. Our total liability for any claim shall not exceed the value of the order in question.",
+                text: "To the fullest extent permitted by law, Cherrys Honey shall not be liable for any indirect, incidental, special, or consequential damages arising from your use of the website or our products, even if we have been advised of the possibility of such damages. Our total liability for any claim shall not exceed the value of the order in question.",
             },
         ],
     },
@@ -170,7 +165,7 @@ export default function TermsAndConditionsPage() {
                 {/* Intro */}
                 <div className="border-l-2 border-[#C8A84B] pl-5 mb-12">
                     <p className="text-gray-300 text-sm leading-relaxed">
-                        Welcome to <span className="text-white font-medium">Cherry Honey</span>.
+                        Welcome to <span className="text-white font-medium">Cherrys Honey</span>.
                         These Terms &amp; Conditions govern your use of our website and the
                         purchase of our products. Please read them carefully before using our
                         services. By accessing our website or placing an order, you agree to be
@@ -185,13 +180,13 @@ export default function TermsAndConditionsPage() {
                             {/* Section heading */}
                             <div className="flex items-center gap-3 mb-5">
                                 <span
-                                    className="text-xs font-bold text-black bg-[#C8A84B] w-6 h-6 flex items-center justify-center flex-shrink-0"
+                                    className="text-xs font-bold text-black bg-[#C8A84B] w-6 h-6 flex items-center justify-center shrink-0"
                                     style={{ fontStyle: "normal" }}
                                 >
                                     {idx + 1}
                                 </span>
                                 <h2 className="text-white text-lg font-semibold" style={serif}>
-                                    {section.title}
+                                    {section?.title}
                                 </h2>
                             </div>
 
@@ -201,11 +196,11 @@ export default function TermsAndConditionsPage() {
                                     <div key={bIdx}>
                                         {block.subtitle && (
                                             <p className="text-[#C8A84B] text-xs font-semibold tracking-wider uppercase mb-1.5">
-                                                {block.subtitle}
+                                                {block?.subtitle}
                                             </p>
                                         )}
                                         <p className="text-gray-400 text-sm leading-relaxed">
-                                            {block.text}
+                                            {block?.text}
                                         </p>
                                     </div>
                                 ))}
@@ -274,4 +269,4 @@ export default function TermsAndConditionsPage() {
             </div>
         </div>
     );
-}
+};

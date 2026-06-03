@@ -2,9 +2,9 @@ import { ADMIN_PHONE, CUSTOMER_CARE_EMAIL, SHIPPING_POLICY_SUMMARY_CARDS, SHIPPI
 import Link from "next/link";
 
 export const metadata = {
-    title: "Shipping & Delivery Policy | Cherry Honey",
+    title: "Shipping & Delivery Policy | Cherrys Honey",
     description:
-        "Learn about Cherry Honey's shipping timelines, delivery charges, tracking, and more.",
+        "Learn about Cherrys Honey's shipping timelines, delivery charges, tracking, and more.",
 };
 
 const LAST_UPDATED = "01 June 2026";
@@ -32,7 +32,7 @@ export default function ShippingPolicyPage() {
                 {/* Intro */}
                 <div className="border-l-2 border-[#C8A84B] pl-5 mb-12">
                     <p className="text-gray-300 text-sm leading-relaxed">
-                        At <span className="text-white font-medium">Cherry Honey</span>, we
+                        At <span className="text-white font-medium">Cherrys Honey</span>, we
                         are committed to delivering your order safely and on time. This policy
                         explains our shipping process, delivery timelines, charges, and what
                         to do if something goes wrong with your shipment.
@@ -52,12 +52,12 @@ export default function ShippingPolicyPage() {
                                     <Icon className="w-7 h-7 text-[#C8A84B]" />
                                 </div>
                                 <p className="text-[#C8A84B] text-xs tracking-wider uppercase mb-1">
-                                    {card.label}
+                                    {card?.label}
                                 </p>
                                 <p className="text-white text-xl font-semibold" style={serif}>
-                                    {card.value}
+                                    {card?.value}
                                 </p>
-                                <p className="text-gray-500 text-xs mt-0.5">{card.sub}</p>
+                                <p className="text-gray-500 text-xs mt-0.5">{card?.sub}</p>
                             </div>
                         );
                     })}
@@ -70,13 +70,13 @@ export default function ShippingPolicyPage() {
                             {/* Section heading */}
                             <div className="flex items-center gap-3 mb-5">
                                 <span
-                                    className="text-xs font-bold text-black bg-[#C8A84B] w-6 h-6 flex items-center justify-center flex-shrink-0"
+                                    className="text-xs font-bold text-black bg-[#C8A84B] w-6 h-6 flex items-center justify-center shrink-0"
                                     style={{ fontStyle: "normal" }}
                                 >
                                     {idx + 1}
                                 </span>
                                 <h2 className="text-white text-lg font-semibold" style={serif}>
-                                    {section.title}
+                                    {section?.title}
                                 </h2>
                             </div>
 
@@ -86,11 +86,11 @@ export default function ShippingPolicyPage() {
                                     <div key={bIdx}>
                                         {block.subtitle && (
                                             <p className="text-[#C8A84B] text-xs font-semibold tracking-wider uppercase mb-1.5">
-                                                {block.subtitle}
+                                                {block?.subtitle}
                                             </p>
                                         )}
                                         <p className="text-gray-400 text-sm leading-relaxed">
-                                            {block.text}
+                                            {block?.text}
                                         </p>
                                     </div>
                                 ))}

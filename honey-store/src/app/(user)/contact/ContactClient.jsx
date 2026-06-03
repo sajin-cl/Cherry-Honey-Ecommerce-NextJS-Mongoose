@@ -358,7 +358,7 @@ export default function ContactClient() {
                       Message Sent Successfully
                     </h3>
                     <p className="text-gray-400 text-sm max-w-sm mb-8 leading-relaxed">
-                      Thank you for contacting Cherry Honey. Our concierge team
+                      Thank you for contacting Cherrys Honey. Our concierge team
                       has received your message and will review it with absolute
                       priority.
                     </p>
@@ -460,7 +460,7 @@ export default function ContactClient() {
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="relative w-full active:scale-95 bg-[#C8A84B] hover:bg-[#b8973e] disabled:bg-[#555] disabled:cursor-not-allowed text-black font-bold text-xs py-4 tracking-[0.25em] uppercase transition-all duration-300 transform active:scale-95 shadow-[0_4px_25px_rgba(200,168,75,0.2)] flex items-center justify-center gap-2 cursor-pointer"
+                    className="relative w-full  bg-[#C8A84B] hover:bg-[#b8973e] disabled:bg-[#555] disabled:cursor-not-allowed text-black font-bold text-xs py-4 tracking-[0.25em] uppercase transition-all duration-300 transform active:scale-95 shadow-[0_4px_25px_rgba(200,168,75,0.2)] flex items-center justify-center gap-2 cursor-pointer"
                   >
                     {isSubmitting ? (
                       <>

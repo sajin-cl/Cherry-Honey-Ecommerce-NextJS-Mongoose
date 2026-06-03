@@ -5,7 +5,7 @@ import Product from "@/models/product.model";
 import { getServerUser } from "@/lib/auth";
 import CartClient from "./CartClient";
 
-export const metadata = { title: "My Cart | Cherry Honey" };
+export const metadata = { title: "My Cart | Cherrys Honey" };
 
 export default async function CartPage() {
   const userPayload = await getServerUser();
@@ -16,7 +16,7 @@ export default async function CartPage() {
           <p className="text-gray-400 mb-4 font-light">Please login to view your cart.</p>
           <Link
             href="/accounts/login"
-            className="bg-[#C8A84B] hover:bg-[#b8973e] px-8 py-3 text-black font-semibold text-sm tracking-[0.1em] uppercase transition-colors inline-block"
+            className="bg-[#C8A84B] hover:bg-[#b8973e] px-8 py-3 text-black font-semibold text-sm tracking-widest uppercase transition-colors inline-block"
           >
             Login
           </Link>

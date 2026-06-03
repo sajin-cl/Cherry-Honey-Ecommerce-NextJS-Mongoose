@@ -56,4 +56,4 @@ export async function DELETE(_, { params }) {
   } catch {
     return NextResponse.json({ error: "Server error" }, { status: 500 });
   }
-}
+};

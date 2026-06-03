@@ -7,7 +7,7 @@ import Product from "@/models/product.model";
 import Category from "@/models/category.model";
 import ProductsClient from "@/components/products/ProductsPage";
 
-export const metadata = { title: "Our Products | Cherry Honey" };
+export const metadata = { title: "Our Products | Cherrys Honey" };
 
 const PER_PAGE = 12;
 
@@ -87,8 +87,8 @@ export default async function ProductsPage({ searchParams }) {
   await dbConnect();
   const dbCats = await Category.find({}).lean();
   const categoriesList = dbCats.map((cat) => ({
-    id: cat.name,
-    label: cat.name,
+    id: cat?.name,
+    label: cat?.name,
     count: undefined
   }));
 

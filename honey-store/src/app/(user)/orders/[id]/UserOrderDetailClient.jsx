@@ -115,14 +115,14 @@ export default function UserOrderDetailClient({ initialOrder, similarProducts })
               <div className="divide-y divide-gray-800">
                 {order.items.map((item) => (
                   <div key={item.id} className="flex items-center gap-4 px-5 py-4">
-                    <div className="relative w-14 h-14 flex-shrink-0 bg-black border border-gray-800">
+                    <div className="relative w-14 h-14 shrink-0 bg-black border border-gray-800">
                       <Image src={item.image} alt={item.name} fill sizes="56px" className="object-contain p-1" />
                     </div>
                     <div className="flex-1 min-w-0">
                       <p className="text-white text-sm font-medium">{item.name}</p>
                       <p className="text-gray-500 text-xs mt-0.5">Qty : {item.qty}</p>
                     </div>
-                    <span className="text-white text-sm font-semibold flex-shrink-0">
+                    <span className="text-white text-sm font-semibold shrink-0">
                       ₹{item.price.toFixed(2)}
                     </span>
                   </div>
@@ -145,22 +145,22 @@ export default function UserOrderDetailClient({ initialOrder, similarProducts })
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
               <div className="bg-[#111] border border-gray-800 px-5 py-5">
                 <h3 className="text-white text-sm font-semibold mb-3">Shipping Details</h3>
-                <p className="text-white text-sm font-medium mb-1">{order.shipping.name}</p>
-                <p className="text-gray-400 text-xs leading-relaxed">{order.shipping.address}</p>
-                <p className="text-gray-400 text-xs mt-2">Phone: {order.shipping.phone}</p>
+                <p className="text-white text-sm font-medium mb-1">{order?.shipping?.name}</p>
+                <p className="text-gray-400 text-xs leading-relaxed">{order?.shipping?.address}</p>
+                <p className="text-gray-400 text-xs mt-2">Phone: {order?.shipping?.phone}</p>
               </div>
 
               <div className="bg-[#111] border border-gray-800 px-5 py-5">
                 <h3 className="text-white text-sm font-semibold mb-3">Payment Details</h3>
                 <div className="space-y-1">
-                  <p className="text-white text-sm font-medium">{order.payment.type}</p>
-                  <p className="text-gray-400 text-xs mt-0.5">Status: <span className="text-gray-300 capitalize">{order.payment.status}</span></p>
+                  <p className="text-white text-sm font-medium">{order?.payment?.type}</p>
+                  <p className="text-gray-400 text-xs mt-0.5">Status: <span className="text-gray-300 capitalize">{order?.payment?.status}</span></p>
                 </div>
               </div>
             </div>
           </div>
 
-          <div className="w-full lg:w-64 flex-shrink-0 space-y-5">
+          <div className="w-full lg:w-64 shrink-0 space-y-5">
             {order.status !== "cancelled" && (
               <div className="bg-[#111] border border-gray-800 px-5 py-5">
                 <h3 className="text-white text-sm font-semibold mb-5">Track Order</h3>
@@ -169,7 +169,7 @@ export default function UserOrderDetailClient({ initialOrder, similarProducts })
                   <div className="space-y-6">
                     {order.tracking.map((step, i) => (
                       <div key={i} className="flex items-start gap-4 relative">
-                        <div className={`relative z-10 w-4 h-4 rounded-full border-2 flex-shrink-0 mt-0.5 ${step.done
+                        <div className={`relative z-10 w-4 h-4 rounded-full border-2 shrink-0 mt-0.5 ${step.done
                           ? "bg-[#C8A84B] border-[#C8A84B]"
                           : "bg-[#0a0a0a] border-gray-600"
                           }`}>
@@ -179,9 +179,9 @@ export default function UserOrderDetailClient({ initialOrder, similarProducts })
                         </div>
                         <div>
                           <p className={`text-xs font-medium ${step.done ? "text-white" : "text-gray-500"}`}>
-                            {step.label}
+                            {step?.label}
                           </p>
-                          {step.time && <p className="text-gray-600 text-[10px] mt-0.5">{step.time}</p>}
+                          {step?.time && <p className="text-gray-600 text-[10px] mt-0.5">{step.time}</p>}
                         </div>
                       </div>
                     ))}
@@ -195,22 +195,22 @@ export default function UserOrderDetailClient({ initialOrder, similarProducts })
               <div className="space-y-3">
                 <div className="flex justify-between text-xs">
                   <span className="text-gray-400">Subtotal</span>
-                  <span className="text-white">₹{order.summary.subtotal.toFixed(2)}</span>
+                  <span className="text-white">₹{order?.summary?.subtotal.toFixed(2)}</span>
                 </div>
                 <div className="flex justify-between text-xs">
                   <span className="text-gray-400">Shipping</span>
                   <span className="text-green-400 font-medium">
-                    {order.summary.shipping === 0 ? "Free" : `₹${order.summary.shipping.toFixed(2)}`}
+                    {order?.summary?.shipping === 0 ? "Free" : `₹${order?.summary?.shipping.toFixed(2)}`}
                   </span>
                 </div>
                 <div className="flex justify-between text-xs">
                   <span className="text-gray-400">Tax</span>
-                  <span className="text-white">₹{order.summary.tax.toFixed(2)}</span>
+                  <span className="text-white">₹{order?.summary?.tax.toFixed(2)}</span>
                 </div>
                 <div className="h-px bg-gray-800" />
                 <div className="flex justify-between text-sm font-bold">
                   <span className="text-white">Total</span>
-                  <span className="text-white">₹{order.summary.total.toFixed(2)}</span>
+                  <span className="text-white">₹{order?.summary?.total.toFixed(2)}</span>
                 </div>
               </div>
             </div>

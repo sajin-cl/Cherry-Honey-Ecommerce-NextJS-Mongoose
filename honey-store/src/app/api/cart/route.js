@@ -20,9 +20,9 @@ export async function GET() {
       return NextResponse.json({ error: "User not found" }, { status: 404 });
     }
 
-    return NextResponse.json({ cart: user.cart || [] });
+    return NextResponse.json({ cart: user?.cart || [] });
   } catch (err) {
-    return NextResponse.json({ error: err.message }, { status: 500 });
+    return NextResponse.json({ error: err?.message }, { status: 500 });
   }
 }
 
@@ -159,4 +159,4 @@ export async function DELETE(request) {
   } catch (err) {
     return NextResponse.json({ error: err.message }, { status: 500 });
   }
-}
+};

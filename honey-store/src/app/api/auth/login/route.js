@@ -34,14 +34,14 @@ export async function POST(request) {
     }
 
     const token = await signToken({
-      id: user._id.toString(),
-      email: user.email,
-      role: user.role,
+      id: user?._id.toString(),
+      email: user?.email,
+      role: user?.role,
     });
 
     const response = NextResponse.json({
       success: true,
-      user: { id: user._id, fullName: user.fullName, email: user.email, role: user.role },
+      user: { id: user?._id, fullName: user?.fullName, email: user?.email, role: user?.role },
     });
 
     response.cookies.set("token", token, {

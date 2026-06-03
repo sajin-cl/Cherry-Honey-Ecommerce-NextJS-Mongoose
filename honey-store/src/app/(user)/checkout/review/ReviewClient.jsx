@@ -6,8 +6,8 @@ import Link from "next/link";
 import OrderConfirmedModal from "@/components/order/OrderConfirmedModal";
 import AddressModal from "@/components/ui/AddressModal";
 import { calculateDelivery, calculateGrandTotal, TAXES } from "@/lib/pricing";
+import { serif } from "@/config/staticData";
 
-const serif = { fontFamily: "'Georgia','Times New Roman',serif", fontStyle: "italic" };
 
 function EditIcon() {
   return (
@@ -42,14 +42,14 @@ export default function ReviewClient({ initialItems, isBuyNow = false }) {
         if (buyNowStr) {
           const buyNowItem = JSON.parse(buyNowStr);
           setItems([{
-            id: "buyNow_" + buyNowItem.productId,
-            productId: buyNowItem.productId,
-            name: buyNowItem.name,
-            price: buyNowItem.price,
-            original: buyNowItem.original,
-            image: buyNowItem.image,
-            qty: buyNowItem.qty,
-            weight: buyNowItem.weight,
+            id: "buyNow_" + buyNowItem?.productId,
+            productId: buyNowItem?.productId,
+            name: buyNowItem?.name,
+            price: buyNowItem?.price,
+            original: buyNowItem?.original,
+            image: buyNowItem?.image,
+            qty: buyNowItem?.qty,
+            weight: buyNowItem?.weight,
             isBuyNow: true,
           }]);
         }
@@ -109,16 +109,16 @@ export default function ReviewClient({ initialItems, isBuyNow = false }) {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           items: items.map(item => ({
-            product: item.productId,
-            name: item.name,
-            image: item.image,
-            price: item.price,
-            qty: item.qty
+            product: item?.productId,
+            name: item?.name,
+            image: item?.image,
+            price: item?.price,
+            qty: item?.qty
           })),
           shippingAddress: {
-            name: shippingAddress.name,
-            line1: shippingAddress.line1,
-            phone: shippingAddress.phone
+            name: shippingAddress?.name,
+            line1: shippingAddress?.line1,
+            phone: shippingAddress?.phone
           },
           paymentMethod: paymentMethod === "cod" ? "cod" : "cashfree",
           itemsTotal: subtotal,
@@ -216,9 +216,9 @@ export default function ReviewClient({ initialItems, isBuyNow = false }) {
               <div className="border border-gray-800 px-5 py-4 flex items-start justify-between gap-4 bg-[#111]">
                 {shippingAddress ? (
                   <div>
-                    <p className="text-white text-sm font-medium mb-1">{shippingAddress.name}</p>
-                    <p className="text-gray-400 text-xs">{shippingAddress.line1}</p>
-                    <p className="text-gray-400 text-xs mt-1">Phone: {shippingAddress.phone}</p>
+                    <p className="text-white text-sm font-medium mb-1">{shippingAddress?.name}</p>
+                    <p className="text-gray-400 text-xs">{shippingAddress?.line1}</p>
+                    <p className="text-gray-400 text-xs mt-1">Phone: {shippingAddress?.phone}</p>
                   </div>
                 ) : (
                   <p className="text-red-400 text-xs">No address selected.</p>

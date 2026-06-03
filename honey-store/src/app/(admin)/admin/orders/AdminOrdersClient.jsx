@@ -3,19 +3,13 @@
 import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { useState } from "react";
+import { STATUS_COLORS } from "@/config/staticData";
 
-const STATUS_COLORS = {
-  placed:     "bg-blue-50 text-blue-700 border-blue-200",
-  processing: "bg-amber-50 text-amber-700 border-amber-200",
-  shipped:    "bg-purple-50 text-purple-700 border-purple-200",
-  delivered:  "bg-green-50 text-green-700 border-green-200",
-  cancelled:  "bg-red-50 text-red-600 border-red-200",
-};
 
 const PAYMENT_COLORS = {
-  paid:    "text-green-600",
+  paid: "text-green-600",
   pending: "text-amber-600",
-  failed:  "text-red-500",
+  failed: "text-red-500",
 };
 
 export default function AdminOrdersClient({ orders, page, totalPages, total, search }) {
@@ -38,7 +32,7 @@ export default function AdminOrdersClient({ orders, page, totalPages, total, sea
   }
 
   const from = total === 0 ? 0 : (page - 1) * 10 + 1;
-  const to   = Math.min(page * 10, total);
+  const to = Math.min(page * 10, total);
 
   return (
     <div className="max-w-full">
@@ -52,7 +46,7 @@ export default function AdminOrdersClient({ orders, page, totalPages, total, sea
         <div className="relative max-w-sm flex-1">
           <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+              <circle cx="11" cy="11" r="8" /><line x1="21" y1="21" x2="16.65" y2="16.65" />
             </svg>
           </span>
           <input
@@ -91,8 +85,8 @@ export default function AdminOrdersClient({ orders, page, totalPages, total, sea
                   <td className="px-5 py-4 text-[13px] font-semibold text-gray-800 whitespace-nowrap">{order.shortId}</td>
                   <td className="px-4 py-4 text-[12px] text-gray-500 whitespace-nowrap">{order.date}</td>
                   <td className="px-4 py-4 whitespace-nowrap">
-                    <p className="text-[13px] font-medium text-gray-800">{order.customer.name}</p>
-                    <p className="text-[11px] text-gray-400">{order.customer.email}</p>
+                    <p className="text-[13px] font-medium text-gray-800">{order.customer?.name}</p>
+                    <p className="text-[11px] text-gray-400">{order.customer?.email}</p>
                   </td>
                   <td className="px-4 py-4 whitespace-nowrap">
                     <span className={`text-[12px] font-semibold ${PAYMENT_COLORS[order.paymentStatus] ?? "text-gray-500"}`}>

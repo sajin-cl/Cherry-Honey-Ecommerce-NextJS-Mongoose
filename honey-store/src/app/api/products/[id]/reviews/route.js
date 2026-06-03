@@ -61,4 +61,4 @@ export async function POST(request, { params }) {
   } catch (err) {
     return NextResponse.json({ error: err.message || "Server error" }, { status: 500 });
   }
-}
+};

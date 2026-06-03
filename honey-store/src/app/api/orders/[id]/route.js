@@ -90,4 +90,4 @@ export async function PATCH(request, { params }) {
   } catch (err) {
     return NextResponse.json({ error: err.message || "Server error" }, { status: 500 });
   }
-}
+};

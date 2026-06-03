@@ -9,17 +9,10 @@ import ProductCard from "@/components/products/ProductCard";
 import FAQItem from "@/components/products/ProductFAQ";
 import ShowReview from "@/components/products/ShowReview";
 import Loading from "@/components/ui/Loading";
-
-/* ── helpers ── */
-const serifItalic = {
-  fontFamily: "'Georgia', 'Times New Roman', serif",
-  fontStyle: "italic",
-};
+import { serifItalic } from "@/config/staticData";
 
 
 
-
-/* ═══════════════════   MAIN PAGE         ══════════════════════════════════════════════════════ */
 export default function ProductDetailPage({ params }) {
   const resolvedParams = use(params);
   const id = resolvedParams.id;
@@ -98,26 +91,26 @@ export default function ProductDetailPage({ params }) {
       });
 
       if (res.status === 401) {
-        window.location.href = `/accounts/login?redirect=/products/${product._id}`;
+        router.push(`/accounts/login?redirect=/products/${product._id}`);
         return;
       }
 
       const data = await res.json();
       if (!res.ok) {
-        alert( "Failed to add to cart");
+        alert("Failed to add to cart");
         return;
       }
 
       // Sync local storage cart as fallback for other parts of the site
       if (data.cart) {
         const cart = data.cart.map(item => {
-          const prod = item.product;
+          const prod = item?.product;
           return {
-            id: item._id,
+            id: item?._id,
             productId: prod?._id || "",
             name: prod?.name || "",
-            weight: item.weight,
-            qty: item.qty,
+            weight: item?.weight,
+            qty: item?.qty,
             image: prod?.image?.url || "/hero-honey-jar.webp",
             price: price
           };
@@ -226,12 +219,12 @@ export default function ProductDetailPage({ params }) {
 
   const specs = {
     inTheBox: [
-      { label: "Sales Package", value: `1 Bottle Pure ${product.name}` },
+      { label: "Sales Package", value: `1 Bottle Pure ${product?.name}` },
       { label: "Pack of", value: "1" },
     ],
     general: [
-      { label: "Product Name", value: product.name },
-      { label: "Category", value: product.category },
+      { label: "Product Name", value: product?.name },
+      { label: "Category", value: product?.category },
       { label: "Flavour", value: "Natural Sweet" },
       { label: "Container type", value: "Glass Bottle" },
       { label: "Shelf Life", value: "12 Months" },
@@ -240,7 +233,7 @@ export default function ProductDetailPage({ params }) {
 
   const faqs = [
     {
-      q: `What makes ${product.name} different from regular honey?`,
+      q: `What makes ${product?.name || "honey"} different from regular honey?`,
       a: "Our honey is ethically sourced, raw, and organic. Unlike regular honey, it preserves all natural nutrients, enzymes, and antioxidants.",
     },
     {
@@ -250,7 +243,7 @@ export default function ProductDetailPage({ params }) {
   ];
 
   const shippingDetails = {
-    shipping: "We ensure fast and secure delivery of your honey products. Orders are processed within 24 hours and delivered within 3–5 business days.",
+    shipping: "We ensure fast and secure delivery of your honey products. Orders are processed within 24 hours and delivered within 3–4 business days.",
     returns: "If you receive a damaged or incorrect product, you can request a return within 7 days of delivery.",
   };
 
@@ -268,7 +261,7 @@ export default function ProductDetailPage({ params }) {
             Products
           </Link>
           <span>/</span>
-          <span className="text-gray-300">{product.name}</span>
+          <span className="text-gray-300">{product?.name}</span>
         </nav>
 
         {/* ══════════════════════════════════════════════
@@ -281,7 +274,7 @@ export default function ProductDetailPage({ params }) {
             <div className="relative w-full aspect-square bg-[#111] border border-gray-800 overflow-hidden flex items-center justify-center">
               <Image
                 src={images[activeImage]}
-                alt={product.name}
+                alt={product?.name}
                 fill
                 sizes="(max-width: 1024px) 100vw, 50vw"
                 className="object-contain p-10 transition-opacity duration-300"
@@ -302,7 +295,7 @@ export default function ProductDetailPage({ params }) {
                   <button
                     key={i}
                     onClick={() => setActiveImage(i)}
-                    className={`relative w-24 h-24 flex-shrink-0 border-2 transition-all duration-200 overflow-hidden bg-[#111] ${activeImage === i
+                    className={`relative w-24 h-24 shrink-0 border-2 transition-all duration-200 overflow-hidden bg-[#111] ${activeImage === i
                       ? "border-[#C8A84B]"
                       : "border-gray-800 hover:border-gray-600"
                       }`}
@@ -323,14 +316,14 @@ export default function ProductDetailPage({ params }) {
           {/* Right — product info */}
           <div className="flex flex-col">
             {/* Rating */}
-            <StarRating rating={product.rating} count={product.numReviews} />
+            <StarRating rating={product?.rating} count={product?.numReviews} />
 
             {/* Title */}
             <h1
               className="text-3xl md:text-4xl text-white mt-3 mb-4 leading-tight"
               style={serifItalic}
             >
-              {product.name}
+              {product?.name}
             </h1>
 
             {/* Price */}
@@ -428,11 +421,11 @@ export default function ProductDetailPage({ params }) {
               onClick={() => {
                 // Store this single product in sessionStorage for direct checkout
                 const buyNowItem = {
-                  productId: product._id,
-                  name: product.name,
+                  productId: product?._id,
+                  name: product?.name,
                   price: price,
                   original: original,
-                  image: product.image?.url || "/hero-honey-jar.webp",
+                  image: product?.image?.url || "/hero-honey-jar.webp",
                   qty: qty,
                   weight: selectedWeight,
                 };
@@ -472,7 +465,7 @@ export default function ProductDetailPage({ params }) {
                 />
                 <span className="text-sm font-sans">Shipping Info</span>
               </div>
-              <div className="flex items-center gap-2 cursor-pointer"  onClick={handleShare}>
+              <div className="flex items-center gap-2 cursor-pointer" onClick={handleShare}>
                 <Image
                   src={'https://res.cloudinary.com/ddchr0sbn/image/upload/f_auto,q_auto/share-btn_kgel2l.webp'}
                   width={28}
@@ -497,7 +490,7 @@ export default function ProductDetailPage({ params }) {
                   alt="shipping-car"
                   className="text-gray-400"
                 />
-                <span className="text-xs font-sans text-gray-400">Free shipping above 500 in India</span>
+                <span className="text-xs font-sans text-gray-400">Free shipping above 500 in Tamilnadu</span>
               </div>
               <div className="flex items-center gap-2">
                 <Image
@@ -507,12 +500,12 @@ export default function ProductDetailPage({ params }) {
                   alt="shipping-car"
                   className="text-gray-400"
                 />
-                <span className="text-xs font-sans text-gray-400">Delivers in 2-4 working days</span>
+                <span className="text-xs font-sans text-gray-400">Delivers in 2-3 working days</span>
               </div>
             </div>
             {/* Short description */}
             <p className="text-gray-400 text-sm leading-relaxed">
-              {product.description}
+              {product?.description}
             </p>
           </div>
         </div>
@@ -538,8 +531,8 @@ export default function ProductDetailPage({ params }) {
                 className={`grid grid-cols-2 px-5 py-3 text-sm ${i % 2 === 0 ? "bg-[#111]" : "bg-[#0d0d0d]"
                   }`}
               >
-                <span className="text-gray-400">{row.label}</span>
-                <span className="text-white">{row.value}</span>
+                <span className="text-gray-400">{row?.label}</span>
+                <span className="text-white">{row?.value}</span>
               </div>
             ))}
 
@@ -551,12 +544,12 @@ export default function ProductDetailPage({ params }) {
             </div>
             {specs.general.map((row, i) => (
               <div
-                key={row.label}
+                key={row?.label}
                 className={`grid grid-cols-2 px-5 py-3 text-sm ${i % 2 === 0 ? "bg-[#111]" : "bg-[#0d0d0d]"
                   }`}
               >
-                <span className="text-gray-400">{row.label}</span>
-                <span className="text-white">{row.value}</span>
+                <span className="text-gray-400">{row?.label}</span>
+                <span className="text-white">{row?.value}</span>
               </div>
             ))}
           </div>
@@ -632,4 +625,4 @@ export default function ProductDetailPage({ params }) {
       </div>
     </div>
   );
-}
+};

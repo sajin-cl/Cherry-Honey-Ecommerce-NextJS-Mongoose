@@ -13,7 +13,7 @@ export async function GET() {
     if (!user) return NextResponse.json({ user: null }, { status: 401 });
 
     return NextResponse.json({
-      user: { id: user._id, fullName: user.fullName, email: user.email, role: user.role },
+      user: { id: user?._id, fullName: user?.fullName, email: user?.email, role: user?.role },
     });
   } catch (err) {
     console.error("[ME]", err);
