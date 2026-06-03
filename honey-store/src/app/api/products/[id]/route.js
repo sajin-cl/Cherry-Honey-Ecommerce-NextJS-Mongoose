@@ -16,15 +16,21 @@ export async function GET(_, { params }) {
     const { id } = await params;
     const product = await Product.findById(id).lean();
     if (!product) return NextResponse.json({ error: "Not found" }, { status: 404 });
-    
+
     const similar = await Product.find({
       category: product.category,
-      _id: { $ne: product._id }
+      _id: { $ne: product._id },
     })
-    .limit(3)
-    .lean();
+      .limit(4)
+      .lean();
 
-    return NextResponse.json({ product, similar });
+    const response = NextResponse.json({ product, similar });
+    // Cache at CDN/browser for 60 s; serve stale up to 5 min while revalidating
+    response.headers.set(
+      "Cache-Control",
+      "public, s-maxage=60, stale-while-revalidate=300"
+    );
+    return response;
   } catch {
     return NextResponse.json({ error: "Server error" }, { status: 500 });
   }
