@@ -24,9 +24,9 @@ export const metadata = {
       ? 'https://www.cherryshoney.com'
       : 'http://localhost:3000'
   ),
-  title: "Cherrys Honey Ecommerce | Pure Natural Honey & Organic Products Shop In Kanyakumari District",
+  title: "Cherrys Honey Ecommerce | Pure Natural Honey & Organic Products Shop In India",
   description: "Buy 100% pure, raw, and organic Honey online...",
-  keywords: ["buy pure honey online", "cherrys honey shop","Cherrys Honey in Kanyakumari"],
+  keywords: ["buy pure honey online", "cherrys honey shop","Cherrys Honey in India","honey available for delivery"],
   authors: [{ name: "Sajin.C.L" }],
   robots: {
     index: true,
