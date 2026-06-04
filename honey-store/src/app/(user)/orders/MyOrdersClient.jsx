@@ -19,13 +19,13 @@ function OrderCard({ order }) {
     <div className="bg-[#111] border border-gray-800">
       <div className="flex items-center justify-between px-5 py-3 border-b border-gray-800">
         <div className="flex items-center gap-4">
-          <span className="border border-[#C8A84B] text-[#C8A84B] text-xs px-3 py-1 font-mono">
-            Order : {order?.shortId}
+          <span className="border border-[#C8A84B] text-[#C8A84B] text-xs px-4 py-1 font-mono rounded-full">
+            Order ID : {order?.shortId}
           </span>
           <span className="text-gray-400 text-xs">{order?.date}</span>
         </div>
-        <span className={`text-xs font-semibold px-3 py-1 ${STATUS_CLS[order?.status] ?? "border border-gray-600 text-gray-400"}`}>
-          {order?.status}
+        <span className={`text-xs font-semibold rounded-full px-3 py-1 ${STATUS_CLS[order?.status] ?? "border border-gray-600 text-gray-400"}`}>
+          ! {order?.status}
         </span>
       </div>
 
@@ -53,9 +53,9 @@ function OrderCard({ order }) {
         <div className="flex items-center gap-3">
           <Link
             href={`/orders/${order?.id}`}
-            className="bg-[#C8A84B] hover:bg-[#b8973e] text-white text-xs font-semibold px-4 py-2 transition-colors"
+            className="bg-[#C8A84B] hover:bg-[#b8973e] text-black text-xs font-bold px-4 py-2 transition-colors active:scale-95"
           >
-            View Details
+            View Order Details
           </Link>
         </div>
       </div>

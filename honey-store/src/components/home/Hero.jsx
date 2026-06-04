@@ -3,14 +3,10 @@
 import Image from "next/image"
 import Link from "next/link"
 import { motion } from "framer-motion"
-
-const serifItalic = {
-    fontFamily: "'Georgia', 'Times New Roman', serif",
-    fontStyle: "italic",
-    fontWeight: 400,
-};
+import { serifItalic } from "@/config/staticData"
 
 const MotionImage = motion.create(Image);
+
 
 export default function Hero() {
     return (

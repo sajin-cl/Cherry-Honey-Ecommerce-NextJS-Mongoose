@@ -8,16 +8,18 @@ import StarRating from "@/components/ui/StarRating";
 import ProductCard from "@/components/products/ProductCard";
 import FAQItem from "@/components/products/ProductFAQ";
 import ShowReview from "@/components/products/ShowReview";
-import { serifItalic } from "@/config/staticData";
+import { serifItalic, PRODUCT_SPECS, PRODUCT_DETAIL_FAQS, PRODUCT_SHIPPING_DETAILS } from "@/config/staticData";
+import { getMultiplier } from "@/lib/pricing";
+import { useCart } from "@/hooks/useCart";
 
 export default function ProductDetailClient({ product, similarProducts }) {
   const router = useRouter();
+  const { addToCart, added } = useCart();
 
   const [activeImage, setActiveImage] = useState(0);
   const [selectedWeight, setSelectedWeight] = useState(product.quantity || "500g");
   const [qty, setQty] = useState(product.stock === 0 ? 0 : 1);
   const [sellerTab, setSellerTab] = useState("shipping");
-  const [added, setAdded] = useState(false);
   const [localReviews, setLocalReviews] = useState(product.reviews || []);
   const [formOpen, setFormOpen] = useState(false);
 
@@ -40,27 +42,6 @@ export default function ProductDetailClient({ product, similarProducts }) {
   };
 
   // ── Price calculations ──────────────────────────────────────────────────────
-  const getMultiplier = (selected, base) => {
-    const s = String(selected).toLowerCase().trim();
-    const b = String(base || "500g").toLowerCase().trim();
-    if (s === b) return 1.0;
-
-    const getVal = (str) => {
-      const num = parseFloat(str);
-      const isKg = str.includes("kg") || str.includes("kilogram");
-      return isKg ? num * 1000 : num;
-    };
-
-    const sVal = getVal(s);
-    const bVal = getVal(b);
-    if (isNaN(sVal) || isNaN(bVal) || bVal === 0) return 1.0;
-
-    const ratio = sVal / bVal;
-    if (Math.abs(ratio - 2.0) < 0.1) return 1.8;
-    if (Math.abs(ratio - 4.0) < 0.1) return 3.4;
-    return ratio;
-  };
-
   const multiplier = getMultiplier(selectedWeight, product.quantity);
   const price = (product.discountPrice ?? product.price) * multiplier;
   const original = product.price * multiplier;
@@ -102,50 +83,19 @@ export default function ProductDetailClient({ product, similarProducts }) {
 
   // ── Cart ────────────────────────────────────────────────────────────────────
   const handleAddToCart = async () => {
-    try {
-      const res = await fetch("/api/cart", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          productId: product._id,
-          weight: selectedWeight,
-          qty: qty,
-        }),
-      });
+    const result = await addToCart({
+      productId: product._id,
+      weight: selectedWeight,
+      qty,
+      price,
+    });
 
-      if (res.status === 401) {
-        router.push(`/accounts/login?redirect=/products/${product._id}`);
-        return;
-      }
-
-      const data = await res.json();
-      if (!res.ok) {
-        alert("Failed to add to cart");
-        return;
-      }
-
-      if (data.cart) {
-        const cart = data.cart.map((item) => {
-          const prod = item?.product;
-          return {
-            id: item?._id,
-            productId: prod?._id || "",
-            name: prod?.name || "",
-            weight: item?.weight,
-            qty: item?.qty,
-            image: prod?.image?.url || "/hero-honey-jar.webp",
-            price: price,
-          };
-        });
-        localStorage.setItem("cart", JSON.stringify(cart));
-      }
-
-      window.dispatchEvent(new Event("cartUpdate"));
-      setAdded(true);
-      setTimeout(() => setAdded(false), 2000);
-    } catch (err) {
-      console.error("Cart error:", err);
-      alert("Failed to add item to cart");
+    if (result === "unauthorized") {
+      router.push(`/accounts/login?redirect=/products/${product._id}`);
+      return;
+    }
+    if (result === "error") {
+      alert("Failed to add to cart");
     }
   };
 
@@ -176,38 +126,10 @@ export default function ProductDetailClient({ product, similarProducts }) {
     }
   };
 
-  // ── Static data ─────────────────────────────────────────────────────────────
-  const specs = {
-    inTheBox: [
-      { label: "Sales Package", value: `1 Bottle Pure ${product?.name}` },
-      { label: "Pack of", value: "1" },
-    ],
-    general: [
-      { label: "Product Name", value: product?.name },
-      { label: "Category", value: product?.category },
-      { label: "Flavour", value: "Natural Sweet" },
-      { label: "Container type", value: "Glass Bottle" },
-      { label: "Shelf Life", value: "12 Months" },
-    ],
-  };
-
-  const faqs = [
-    {
-      q: `What makes ${product?.name || "honey"} different from regular honey?`,
-      a: "Our honey is ethically sourced, raw, and organic. Unlike regular honey, it preserves all natural nutrients, enzymes, and antioxidants.",
-    },
-    {
-      q: "How should I store this honey?",
-      a: "Store at room temperature away from direct sunlight. Do not refrigerate as it accelerates crystallisation.",
-    },
-  ];
-
-  const shippingDetails = {
-    shipping:
-      "We ensure fast and secure delivery of your honey products. Orders are processed within 24 hours and delivered within 3–4 business days.",
-    returns:
-      "If you receive a damaged or incorrect product, you can request a return within 7 days of delivery.",
-  };
+  // ── Static data (from staticData.js) ────────────────────────────────────────
+  const specs = PRODUCT_SPECS(product);
+  const faqs = PRODUCT_DETAIL_FAQS(product?.name);
+  const shippingDetails = PRODUCT_SHIPPING_DETAILS;
 
   return (
     <div className="min-h-screen bg-[#0a0a0a] text-white">

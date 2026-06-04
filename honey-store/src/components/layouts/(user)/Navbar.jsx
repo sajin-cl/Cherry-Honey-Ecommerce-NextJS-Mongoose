@@ -5,36 +5,26 @@ import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import UserMenu from "@/components/ui/UserMenu";
 import { MdOutlineShoppingCartCheckout } from "react-icons/md";
-import { MOBILE_NAV_ITEMS } from '@/config/staticData'
+import { MOBILE_NAV_ITEMS } from "@/config/staticData";
 import Image from "next/image";
+import { useAuth } from "@/hooks/useAuth";
+import { useCart } from "@/hooks/useCart";
 
 export default function Navbar() {
   const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
   const [userMenuOpen, setUserMenuOpen] = useState(false);
-  const [user, setUser] = useState(null);
-  const [cartCount, setCartCount] = useState(0);
 
-
-
+  const { user, setUser, fetchUser, logout } = useAuth();
+  const { cartCount, syncServerCart } = useCart();
 
   const isActive = (path) => {
     if (path === "/") return pathname === "/";
     return pathname.startsWith(path);
   };
 
-  const updateCartCount = () => {
-    try {
-      const cart = JSON.parse(localStorage.getItem("cart") || "[]");
-      const count = cart.reduce((sum, item) => sum + item.qty, 0);
-      setCartCount(count);
-    } catch {
-      setCartCount(0);
-    }
-  };
-
   useEffect(() => {
-    async function checkUser() {
+    async function init() {
       try {
         // Fire both requests in parallel — saves one full round-trip on every page load
         const [authRes, cartRes] = await Promise.all([
@@ -50,58 +40,15 @@ export default function Navbar() {
         if (cartRes.ok) {
           const cartData = await cartRes.json();
           if (cartData.cart) {
-            const getMultiplier = (selected, base) => {
-              const s = String(selected).toLowerCase().trim();
-              const b = String(base || "500g").toLowerCase().trim();
-              if (s === b) return 1.0;
-              const getVal = (str) => {
-                const num = parseFloat(str);
-                const isKg = str.includes("kg") || str.includes("kilogram");
-                return isKg ? num * 1000 : num;
-              };
-              const sVal = getVal(s);
-              const bVal = getVal(b);
-              if (isNaN(sVal) || isNaN(bVal) || bVal === 0) return 1.0;
-              const ratio = sVal / bVal;
-              if (Math.abs(ratio - 2.0) < 0.1) return 1.8;
-              if (Math.abs(ratio - 4.0) < 0.1) return 3.4;
-              return ratio;
-            };
-            const localCart = cartData.cart.map((item) => {
-              const prod = item.product;
-              const pQtyNorm = prod?.quantity ? prod.quantity.trim() : "500g";
-              const mult = getMultiplier(item.weight, pQtyNorm);
-              return {
-                id: item._id,
-                productId: prod?._id || "",
-                name: prod?.name || "Deleted Product",
-                price: prod ? (prod.discountPrice ?? prod.price) * mult : 0,
-                original: prod ? prod.price * mult : 0,
-                image: prod?.image?.url || "/hero-honey-jar.webp",
-                qty: item.qty,
-                weight: item.weight,
-                stock: prod ? prod.stock : 0,
-              };
-            });
-            localStorage.setItem("cart", JSON.stringify(localCart));
-            updateCartCount();
+            syncServerCart(cartData.cart);
           }
         }
       } catch (err) {
-        console.error("Failed to check user:", err);
+        console.error("Failed to initialize navbar:", err);
       }
     }
-    checkUser();
-
-    // Cart listeners
-    updateCartCount();
-    window.addEventListener("cartUpdate", updateCartCount);
-    window.addEventListener("storage", updateCartCount);
-    return () => {
-      window.removeEventListener("cartUpdate", updateCartCount);
-      window.removeEventListener("storage", updateCartCount);
-    };
-  }, []);
+    init();
+  }, [setUser, syncServerCart]);
 
   return (
     <>
@@ -204,7 +151,6 @@ export default function Navbar() {
                 <path strokeLinecap="round" strokeLinejoin="round"
                   d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
               </svg>
-
             </Link>
 
             {/* User avatar — toggles UserMenu */}
@@ -232,13 +178,7 @@ export default function Navbar() {
                   user={user}
                   onClose={() => setUserMenuOpen(false)}
                   onLogout={async () => {
-                    try {
-                      await fetch("/api/auth/logout", { method: "POST" });
-                      setUser(null);
-                      window.location.href = "/accounts/login";
-                    } catch (err) {
-                      console.error("Logout failed:", err);
-                    }
+                    await logout();
                     setUserMenuOpen(false);
                   }}
                 />

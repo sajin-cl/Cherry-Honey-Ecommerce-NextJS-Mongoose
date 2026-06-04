@@ -449,3 +449,72 @@ export const SHIPPING_POLICY_SECTIONS = [
         ],
     },
 ];
+
+
+/* ---------------------------------------- Filter Sidebar Sizes ---------------------------------------- */
+
+export const FILTER_SIZES = [
+    { id: "s-250", label: "250 g", count: 120 },
+    { id: "s-500", label: "500 g", count: 240 },
+    { id: "s-1000", label: "1 kg", count: 175 },
+];
+
+
+/* ---------------------------------------- ProductCard Particle Animations ---------------------------------------- */
+
+export const PRODUCT_PARTICLE_DOTS = [
+    { delay: 0, left: "15%", top: "70%", size: "5px" },
+    { delay: 0.4, left: "45%", top: "50%", size: "4px" },
+    { delay: 0.8, left: "75%", top: "65%", size: "6px" },
+];
+
+export const PRODUCT_PARTICLE_STARS = [
+    { delay: 0.2, left: "30%", top: "35%", size: "12px" },
+    { delay: 0.6, left: "85%", top: "40%", size: "10px" },
+    { delay: 1.0, left: "20%", top: "20%", size: "14px" },
+];
+
+
+/* ---------------------------------------- Product Detail Page Static Data ---------------------------------------- */
+
+/**
+ * @param {{ name?: string, category?: string }} product
+ */
+
+export function PRODUCT_SPECS(product) {
+    return {
+        inTheBox: [
+            { label: "Sales Package", value: `1 Bottle Pure ${product?.name}` },
+            { label: "Pack of", value: "1" },
+        ],
+        general: [
+            { label: "Product Name", value: product?.name },
+            { label: "Category", value: product?.category },
+            { label: "Flavour", value: "Natural Sweet" },
+            { label: "Container type", value: "Glass Bottle" },
+            { label: "Shelf Life", value: "12 Months" },
+        ],
+    };
+}
+
+/**
+ * Returns product-specific FAQs for the detail page.
+ * @param {string} productName
+ */
+export function PRODUCT_DETAIL_FAQS(productName) {
+    return [
+        {
+            q: `What makes ${productName || "honey"} different from regular honey?`,
+            a: "Our honey is ethically sourced, raw, and organic. Unlike regular honey, it preserves all natural nutrients, enzymes, and antioxidants.",
+        },
+        {
+            q: "How should I store this honey?",
+            a: "Store at room temperature away from direct sunlight. Do not refrigerate as it accelerates crystallisation.",
+        },
+    ];
+}
+
+export const PRODUCT_SHIPPING_DETAILS = {
+    shipping: "We ensure fast and secure delivery of your honey products. Orders are processed within 24 hours and delivered within 3–4 business days.",
+    returns: "If you receive a damaged or incorrect product, you can request a return within 7 days of delivery.",
+};

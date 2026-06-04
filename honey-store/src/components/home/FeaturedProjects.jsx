@@ -2,10 +2,7 @@
 import Image from "next/image"
 import { motion } from "framer-motion"
 import Link from "next/link"
-
-const serifItalic = {
-    fontFamily: "'Georgia', 'Times New Roman', serif",
-}
+import { serifItalic } from "@/config/staticData"
 
 export default function FeaturedProjects({ featuredProducts }) {
 

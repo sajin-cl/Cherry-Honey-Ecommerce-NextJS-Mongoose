@@ -1,29 +1,14 @@
 "use client";
 
-import React, { useState, useEffect, useCallback } from 'react'
+import React from 'react'
 import Image from 'next/image'
 import { AnimatePresence, motion } from 'framer-motion'
 import { TESTIMONIALS, serifItalic } from '@/config/staticData'
+import { useTestimonials } from '@/hooks/useTestimonials'
 
 
 const Testimonials = () => {
-    const [currentTestimonial, setCurrentTestimonial] = useState(0);
-
-    // 1. this function forward to next testimonials
-    const nextTestimonial = useCallback(() => {
-        setCurrentTestimonial((prev) => (prev + 1) % TESTIMONIALS.length);
-    }, []);
-
-    // 2. this function change testimonial based on index
-    useEffect(() => {
-        const timer = setInterval(nextTestimonial, 3000);
-        return () => clearInterval(timer);
-    }, [nextTestimonial]);
-
-    // 3. this function change testimonial when user click on dot
-    const handleDotClick = (index) => {
-        setCurrentTestimonial(index);
-    };
+    const { currentIndex, goTo } = useTestimonials(TESTIMONIALS.length, 3000);
 
     return (
         <section className="py-20 bg-[#0a0a0a] relative">
@@ -63,24 +48,24 @@ const Testimonials = () => {
                             >
                                 <span className="text-[#C8A84B]">This is what</span> <span className='text-white'>they say</span>
                             </motion.h2>
-                            ““
+                            ""
                         </div>
                         <div className="relative min-h-[160px] md:min-h-[140px]">
                             <AnimatePresence mode="wait">
                                 <motion.div
-                                    key={currentTestimonial}
+                                    key={currentIndex}
                                     initial={{ opacity: 0, y: 15 }}
                                     animate={{ opacity: 1, y: 0 }}
                                     exit={{ opacity: 0, y: -15 }}
                                     transition={{ duration: 0.4 }}
                                 >
                                     <p className="text-gray-200 text-base leading-relaxed mb-6 italic">
-                                        {TESTIMONIALS[currentTestimonial]?.text}
+                                        {TESTIMONIALS[currentIndex]?.text}
                                     </p>
                                     <p className="text-[#C8A84B] font-semibold text-sm mb-1">
-                                        {TESTIMONIALS[currentTestimonial]?.name}
+                                        {TESTIMONIALS[currentIndex]?.name}
                                     </p>
-                                    <p className="text-gray-600 text-xs mb-6">{TESTIMONIALS[currentTestimonial]?.role}</p>
+                                    <p className="text-gray-600 text-xs mb-6">{TESTIMONIALS[currentIndex]?.role}</p>
                                 </motion.div>
                             </AnimatePresence>
                         </div>
@@ -89,8 +74,8 @@ const Testimonials = () => {
                             {TESTIMONIALS.map((_, i) => (
                                 <button
                                     key={i}
-                                    onClick={() => handleDotClick(i)}
-                                    className={`w-3 h-3 rounded-full transition-colors ${i === currentTestimonial ? "bg-[#C8A84B]" : "bg-gray-700 hover:bg-gray-500"
+                                    onClick={() => goTo(i)}
+                                    className={`w-3 h-3 rounded-full transition-colors ${i === currentIndex ? "bg-[#C8A84B]" : "bg-gray-700 hover:bg-gray-500"
                                         }`}
                                     aria-label={`Testimonial ${i + 1}`}
                                 />

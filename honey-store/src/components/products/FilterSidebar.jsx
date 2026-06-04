@@ -2,12 +2,8 @@
 
 import { useState } from "react";
 import Checkbox from "@/components/ui/Checkbox";
+import { FILTER_SIZES } from "@/config/staticData";
 
-const SIZES = [
-  { id: "s-250",    label: "250 g",    count: 120 },
-  { id: "s-500",    label: "500 g",    count: 240 },
-  { id: "s-1000",   label: "1 kg",     count: 175 },
-];
 
 function SectionHeader({ title, open, onToggle }) {
   return (
@@ -123,7 +119,7 @@ export default function FilterSidebar({ onClose, onApply, initialParams, categor
           <div className="border-t border-gray-800 mb-2" />
           {sizeOpen && (
             <div className="space-y-1 pb-4">
-              {SIZES.map((size) => (
+              {FILTER_SIZES.map((size) => (
                 <Checkbox
                   key={size.id}
                   id={`size-${size?.id}`}
