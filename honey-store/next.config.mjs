@@ -1,7 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactCompiler: true,
-  optimizePackageImports: ["react-icons"],
   images: { 
     // Serve modern formats — browser picks smallest supported (avif > webp > original)
     formats: ["image/avif", "image/webp"],
