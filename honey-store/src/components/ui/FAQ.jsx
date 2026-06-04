@@ -6,7 +6,7 @@ import { useState } from "react";
 function ChevronIcon({ open }) {
     return (
         <svg
-            className={`w-5 h-5 text-[#C8A84B] transition-transform duration-300 shrink-0 ${open ? "rotate-180" : ""}`}
+            className={`w-5 h-5 text-primary transition-transform duration-300 shrink-0 ${open ? "rotate-180" : ""}`}
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
@@ -25,7 +25,7 @@ export default function FAQItem({ q, a }) {
                 onClick={() => setOpen(!open)}
                 className="w-full flex items-center justify-between gap-4 px-6 py-5 text-left"
             >
-                <span className={`text-sm font-medium leading-snug transition-colors ${open ? "text-[#C8A84B]" : "text-gray-200"}`}>
+                <span className={`text-sm font-medium leading-snug transition-colors ${open ? "text-primary" : "text-gray-200"}`}>
                     {q}
                 </span>
                 <ChevronIcon open={open} />

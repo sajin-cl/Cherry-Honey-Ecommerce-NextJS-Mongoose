@@ -34,7 +34,7 @@ export default function OurStory() {
                         transition={{ duration: 0.8 }}
                     >
                         <h2 className="text-3xl md:text-5xl mb-6 font-semibold" style={serifItalic}>
-                            <span className="text-[#C8A84B]">Our</span> Story
+                            <span className="text-primary">Our</span> Story
                         </h2>
                         <p className="text-gray-400 leading-relaxed mb-4 text-sm">
                             We work closely with nature and our beekeepers to bring and create a gift of our honey crafted from care
@@ -46,7 +46,7 @@ export default function OurStory() {
                         </p>
                         <Link
                             href={'/about'}
-                            className="inline-block active:scale-95 bg-[#C8A84B] hover:bg-[#b8973e] text-black font-bold text-xs px-8 py-3.5 tracking-[0.2em] uppercase transition-colors"
+                            className="inline-block active:scale-95 bg-primary hover:bg-secondary text-black font-bold text-xs px-8 py-3.5 tracking-[0.2em] uppercase transition-colors"
                         >
                             Read More
                         </Link>

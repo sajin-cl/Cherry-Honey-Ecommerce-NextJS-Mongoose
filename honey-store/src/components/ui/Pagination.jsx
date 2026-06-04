@@ -20,7 +20,7 @@ export default function Pagination({ page, totalPages, searchParams }) {
       {page > 1 && (
         <Link
           href={buildUrl(page - 1)}
-          className="px-4 py-2 text-xs border border-gray-700 text-gray-400 hover:border-[#C8A84B] hover:text-[#C8A84B] transition-colors tracking-widest active:scale-95"
+          className="px-4 py-2 text-xs border border-gray-700 text-gray-400 hover:border-primary hover:text-primary transition-colors tracking-widest active:scale-95"
         >
           PREV
         </Link>
@@ -31,8 +31,8 @@ export default function Pagination({ page, totalPages, searchParams }) {
             key={p}
             href={buildUrl(p)}
             className={`w-9 h-9 flex items-center justify-center text-xs border transition-colors ${p === page
-              ? "bg-[#C8A84B] border-[#C8A84B] text-black font-bold"
-              : "border-gray-700 text-gray-400 hover:border-[#C8A84B] hover:text-[#C8A84B] active:scale-95"
+              ? "bg-primary border-primary text-black font-bold"
+              : "border-gray-700 text-gray-400 hover:border-primary hover:text-primary active:scale-95"
               }`}
           >
             {p < 10 ? `0${p}` : p}
@@ -42,7 +42,7 @@ export default function Pagination({ page, totalPages, searchParams }) {
       {page < totalPages && (
         <Link
           href={buildUrl(page + 1)}
-          className="px-4 py-2 text-xs border border-gray-700 text-gray-400 hover:border-[#C8A84B] hover:text-[#C8A84B] transition-colors tracking-widest active:scale-95"
+          className="px-4 py-2 text-xs border border-gray-700 text-gray-400 hover:border-primary hover:text-primary transition-colors tracking-widest active:scale-95"
         >
           NEXT
         </Link>

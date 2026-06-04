@@ -10,11 +10,11 @@ const ShowReview = ({product, localReviews, formOpen, setFormOpen, handleReviewS
             {/* Header row */}
             <div className="flex items-center justify-between mb-4">
                 <h2 className="text-2xl text-white" style={serifItalic}>
-                    <span className="text-[#C8A84B]">Reviews</span>
+                    <span className="text-primary">Reviews</span>
                 </h2>
                 <button
                     onClick={() => setFormOpen(true)}
-                    className="flex items-center gap-2 bg-[#C8A84B] hover:bg-[#b8973e] text-black text-sm font-semibold px-5 py-2.5 transition-all rounded-full cursor-pointer active:scale-95"
+                    className="flex items-center gap-2 bg-primary hover:bg-secondary text-black text-sm font-semibold px-5 py-2.5 transition-all rounded-full cursor-pointer active:scale-95"
                 >
                     <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                         <path strokeLinecap="round" strokeLinejoin="round" d="M16.862 3.487a2.25 2.25 0 113.182 3.182L7.5 19.213l-4.5 1.125 1.125-4.5L16.862 3.487z" />
@@ -23,7 +23,7 @@ const ShowReview = ({product, localReviews, formOpen, setFormOpen, handleReviewS
                 </button>
             </div>
             <div className="flex items-center gap-3 mb-8">
-                <span className="text-4xl font-bold text-[#C8A84B]">
+                <span className="text-4xl font-bold text-primary">
                     {product?.rating}
                 </span>
                 <div>
@@ -49,7 +49,7 @@ const ShowReview = ({product, localReviews, formOpen, setFormOpen, handleReviewS
                             <div key={i} className="bg-[#111] border border-gray-800 p-5 animate-fadeIn">
                                 <div className="flex items-start gap-4">
                                     {/* Avatar */}
-                                    <div className="w-10 h-10 rounded-full bg-[#C8A84B]/20 border border-[#C8A84B]/40 flex items-center justify-center text-[#C8A84B] font-bold text-sm shrink-0">
+                                    <div className="w-10 h-10 rounded-full bg-primary/20 border border-primary/40 flex items-center justify-center text-primary font-bold text-sm shrink-0">
                                         {avatar}
                                     </div>
                                     <div className="flex-1 min-w-0">

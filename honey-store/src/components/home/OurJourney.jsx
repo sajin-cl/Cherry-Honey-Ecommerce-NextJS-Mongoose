@@ -16,7 +16,7 @@ const OurJourney = () => {
                     viewport={{ once: true }}
                     transition={{ duration: 0.8 }}
                 >
-                    <span className="text-[#C8A84B]">Our</span> Journey
+                    <span className="text-primary">Our</span> Journey
                 </motion.h2>
 
                 {/* Full-width banner image with play overlay */}
@@ -39,7 +39,7 @@ const OurJourney = () => {
                     {/* Play button */}
                     <div className="absolute inset-0 flex items-center justify-center">
                         <motion.div
-                            className="w-16 h-16 rounded-full bg-[#C8A84B]/90 hover:bg-[#C8A84B] flex items-center justify-center cursor-pointer transition-colors shadow-[0_0_30px_rgba(200,168,75,0.5)]"
+                            className="w-16 h-16 rounded-full bg-primary/90 hover:bg-primary flex items-center justify-center cursor-pointer transition-colors shadow-[0_0_30px_rgba(200,168,75,0.5)]"
                             whileHover={{ scale: 1.1 }}
                             whileTap={{ scale: 0.95 }}
                         >

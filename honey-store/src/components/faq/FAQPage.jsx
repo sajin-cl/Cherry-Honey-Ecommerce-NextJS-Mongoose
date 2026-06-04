@@ -35,19 +35,19 @@ export default function FAQPage() {
                     ].map((p, i) => (
                         <div
                             key={i}
-                            className="absolute w-1 h-1 rounded-full bg-[#C8A84B]"
+                            className="absolute w-1 h-1 rounded-full bg-primary"
                             style={{ left: p.l, top: p.t }}
                         />
                     ))}
                 </div>
 
-                <p className="text-[#C8A84B] text-xs tracking-[0.3em] uppercase mb-4">
+                <p className="text-primary text-xs tracking-[0.3em] uppercase mb-4">
                     Help Centre
                 </p>
                 <h1 className="text-5xl md:text-6xl text-white mb-4" style={serif}>
                     Frequently Asked
                     <br />
-                    <span className="text-[#C8A84B]">Questions</span>
+                    <span className="text-primary">Questions</span>
                 </h1>
                 <p className="text-gray-400 text-sm max-w-md mx-auto leading-relaxed">
                     Everything you need to know about Cherrys Honey — our products,
@@ -61,8 +61,8 @@ export default function FAQPage() {
                     <button
                         onClick={() => setActiveCategory(null)}
                         className={`px-4 py-2 text-xs tracking-wider uppercase border transition-colors ${activeCategory === null
-                            ? "bg-[#C8A84B] border-[#C8A84B] text-black font-semibold"
-                            : "border-gray-700 text-gray-400 hover:border-[#C8A84B] hover:text-[#C8A84B]"
+                            ? "bg-primary border-primary text-black font-semibold"
+                            : "border-gray-700 text-gray-400 hover:border-primary hover:text-primary"
                             }`}
                     >
                         All
@@ -78,8 +78,8 @@ export default function FAQPage() {
                                     )
                                 }
                                 className={`flex items-center gap-1.5 px-4 py-2 text-xs tracking-wider uppercase border transition-colors ${activeCategory === g.category
-                                    ? "bg-[#C8A84B] border-[#C8A84B] text-black font-semibold"
-                                    : "border-gray-700 text-gray-400 hover:border-[#C8A84B] hover:text-[#C8A84B]"
+                                    ? "bg-primary border-primary text-black font-semibold"
+                                    : "border-gray-700 text-gray-400 hover:border-primary hover:text-primary"
                                     }`}
                             >
                                 <Icon className="w-3.5 h-3.5" />
@@ -98,7 +98,7 @@ export default function FAQPage() {
                         <div key={group.category}>
                             {/* Category heading */}
                             <div className="flex items-center gap-3 mb-3 px-1">
-                                <Icon className="w-5 h-5 text-[#C8A84B] shrink-0" />
+                                <Icon className="w-5 h-5 text-primary shrink-0" />
                                 <h2 className="text-white text-base font-semibold tracking-wide">
                                     {group.category}
                                 </h2>
@@ -128,13 +128,13 @@ export default function FAQPage() {
                     <div className="flex flex-col sm:flex-row gap-3 justify-center">
                         <a
                             href={`mailto:${CUSTOMER_CARE_EMAIL}`}
-                            className="px-8 py-3 bg-[#C8A84B] hover:bg-[#b8973e] text-black font-semibold text-sm tracking-widest uppercase transition-colors"
+                            className="px-8 py-3 bg-primary hover:bg-secondary text-black font-semibold text-sm tracking-widest uppercase transition-colors"
                         >
                             Email Us
                         </a>
                         <Link
                             href="/products"
-                            className="px-8 py-3 border border-gray-700 hover:border-[#C8A84B] text-gray-300 hover:text-[#C8A84B] font-semibold text-sm tracking-widest uppercase transition-colors"
+                            className="px-8 py-3 border border-gray-700 hover:border-primary text-gray-300 hover:text-primary font-semibold text-sm tracking-widest uppercase transition-colors"
                         >
                             Shop Now
                         </Link>

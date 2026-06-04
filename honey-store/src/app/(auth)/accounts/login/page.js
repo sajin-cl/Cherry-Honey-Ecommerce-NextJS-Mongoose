@@ -131,7 +131,7 @@ export default function LoginPage() {
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="Email"
                 required
-                className="w-full bg-transparent border-0 border-b border-gray-600 text-gray-300 placeholder-gray-500 text-sm pb-2 pt-1 focus:outline-none focus:border-[#C8A84B] transition-colors"
+                className="w-full bg-transparent border-0 border-b border-gray-600 text-gray-300 placeholder-gray-500 text-sm pb-2 pt-1 focus:outline-none focus:border-primary transition-colors"
               />
             </div>
 
@@ -144,7 +144,7 @@ export default function LoginPage() {
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="Password"
                 required
-                className="w-full bg-transparent border-0 border-b border-gray-600 text-gray-300 placeholder-gray-500 text-sm pb-2 pt-1 pr-10 focus:outline-none focus:border-[#C8A84B] transition-colors"
+                className="w-full bg-transparent border-0 border-b border-gray-600 text-gray-300 placeholder-gray-500 text-sm pb-2 pt-1 pr-10 focus:outline-none focus:border-primary transition-colors"
               />
               <button
                 type="button"
@@ -183,7 +183,7 @@ export default function LoginPage() {
                   />
                   <div
                     className={`w-4 h-4 border transition-colors ${
-                      rememberMe ? "bg-[#C8A84B] border-[#C8A84B]" : "bg-transparent border-gray-500"
+                      rememberMe ? "bg-primary border-primary" : "bg-transparent border-gray-500"
                     } flex items-center justify-center`}
                   >
                     {rememberMe && (
@@ -200,7 +200,7 @@ export default function LoginPage() {
 
               <Link
                 href="/accounts/forgot-password"
-                className="text-sm font-bold text-gray-200 hover:text-[#C8A84B] transition-colors"
+                className="text-sm font-bold text-gray-200 hover:text-primary transition-colors"
               >
                 Forgot password?
               </Link>
@@ -212,7 +212,7 @@ export default function LoginPage() {
                 id="sign-in-btn"
                 type="submit"
                 disabled={loading}
-                className="bg-[#C8A84B] hover:bg-[#b8973e] active:bg-[#a8872e] active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed text-white font-semibold text-sm px-10 py-3.5 transition-colors duration-200 tracking-wide w-full"
+                className="bg-primary hover:bg-secondary active:bg-[#a8872e] active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed text-white font-semibold text-sm px-10 py-3.5 transition-colors duration-200 tracking-wide w-full"
               >
                 {loading ? "Signing in..." : "Sign In"}
               </button>

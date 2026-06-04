@@ -7,7 +7,7 @@ export default function Footer() {
     <footer className="bg-[#0a0a0a] border-t border-gray-800">
       {/* Newsletter */}
       <div className="max-w-7xl mx-auto px-6 py-12">
-        <div className="bg-[#C8A84B] rounded-xl px-8 py-8 flex flex-col md:flex-row items-center justify-between gap-6">
+        <div className="bg-primary rounded-xl px-8 py-8 flex flex-col md:flex-row items-center justify-between gap-6">
           <h3
             className="text-2xl text-white font-semibold"
             style={{ fontFamily: "'Georgia', serif", fontStyle: "italic" }}
@@ -87,12 +87,12 @@ export default function Footer() {
             <li className="hover:text-white transition-colors"><Link href={`tel:${ADMIN_PHONE}`}>{ADMIN_PHONE}</Link></li>
             <li className="hover:text-white transition-colors">Chennai, Tamilnadu</li>
           </ul>
-        </div>
+        </div>  
       </div>
 
       {/* Copyright */}
-      <div className="border-t border-gray-800 py-6 text-center text-xs text-gray-500">
-        © {new Date().getFullYear()} Cherrys Honey. All rights reserved and developed by <Link href="https://sajincl-porfolio.vercel.app" target="_blank" rel="noopener noreferrer" className=" text-amber-200 hover:text-amber-400 font-mono transition-colors">sajin-cl</Link>
+      <div className="border-t border-gray-800 py-6 text-center text-xs text-gray-400 italic">
+        © {new Date().getFullYear()} Cherrys Honey. All rights reserved and developed by <Link href="https://sajincl-porfolio.vercel.app" target="_blank" rel="noopener noreferrer" className="hover:text-amber-100 text-primary font-mono italic transition-colors">sajin-cl</Link>
       </div>
     </footer>
   );

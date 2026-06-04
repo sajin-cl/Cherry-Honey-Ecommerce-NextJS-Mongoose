@@ -68,16 +68,16 @@ function AddressCard({ addr, selected, onSelect, onDelete }) {
         }`}
       onClick={onSelect}
     >
-      <div className={`w-4 h-4 rounded-full border-2 shrink-0 mt-0.5 flex items-center justify-center transition-colors ${selected ? "border-[#C8A84B]" : "border-gray-600"
+      <div className={`w-4 h-4 rounded-full border-2 shrink-0 mt-0.5 flex items-center justify-center transition-colors ${selected ? "border-primary" : "border-gray-600"
         }`}>
-        {selected && <div className="w-2 h-2 rounded-full bg-[#C8A84B]" />}
+        {selected && <div className="w-2 h-2 rounded-full bg-primary" />}
       </div>
 
       <div className="flex-1 min-w-0">
         <div className="flex items-center gap-2 mb-1">
           <span className="text-white text-sm font-medium">{addr?.name}</span>
           {addr.tag && (
-            <span className="border border-[#C8A84B] text-[#C8A84B] text-[10px] font-semibold px-1.5 py-0.5 tracking-wide uppercase">
+            <span className="border border-primary text-primary text-[10px] font-semibold px-1.5 py-0.5 tracking-wide uppercase">
               {addr?.tag}
             </span>
           )}
@@ -168,9 +168,9 @@ export default function CheckoutClient({ initialAddresses, cartSubtotal, isBuyNo
     <div className="min-h-screen bg-[#0a0a0a] text-white flex flex-col">
       <div className="flex-1 max-w-7xl mx-auto w-full px-4 md:px-6 pt-24 pb-16">
         <nav className="flex items-center gap-2 text-xs text-gray-500 mb-6">
-          <Link href="/" className="hover:text-[#C8A84B] transition-colors">Home</Link>
+          <Link href="/" className="hover:text-primary transition-colors">Home</Link>
           <span>/</span>
-          <Link href="/cart" className="hover:text-[#C8A84B] transition-colors">Cart</Link>
+          <Link href="/cart" className="hover:text-primary transition-colors">Cart</Link>
           <span>/</span>
           <span className="text-gray-300">Checkout</span>
         </nav>
@@ -181,11 +181,11 @@ export default function CheckoutClient({ initialAddresses, cartSubtotal, isBuyNo
           {STEPS.map((step, i) => (
             <div key={step?.label} className="flex items-center flex-1 last:flex-none">
               <div className="flex flex-col items-center gap-1.5">
-                <div className={`w-10 h-10 flex items-center justify-center transition-colors ${i === 0 ? "bg-[#C8A84B] text-black" : "bg-[#1a1a1a] border border-gray-700 text-gray-500"
+                <div className={`w-10 h-10 flex items-center justify-center transition-colors ${i === 0 ? "bg-primary text-black" : "bg-[#1a1a1a] border border-gray-700 text-gray-500"
                   }`}>
                   {step?.icon}
                 </div>
-                <span className={`text-xs whitespace-nowrap ${i === 0 ? "text-[#C8A84B]" : "text-gray-500"}`}>
+                <span className={`text-xs whitespace-nowrap ${i === 0 ? "text-primary" : "text-gray-500"}`}>
                   {step?.label}
                 </span>
               </div>
@@ -214,7 +214,7 @@ export default function CheckoutClient({ initialAddresses, cartSubtotal, isBuyNo
 
             <button
               onClick={() => setShowNewForm(true)}
-              className="flex items-center gap-2 border border-[#C8A84B] text-[#C8A84B] hover:bg-[#C8A84B]/10 text-sm font-semibold px-5 py-3 transition-colors tracking-widest"
+              className="flex items-center gap-2 border border-primary text-primary hover:bg-primary/10 text-sm font-semibold px-5 py-3 transition-colors tracking-widest"
             >
               <span className="text-lg leading-none">+</span>
               ADD NEW ADDRESS
@@ -254,7 +254,7 @@ export default function CheckoutClient({ initialAddresses, cartSubtotal, isBuyNo
               <button
                 onClick={handleContinue}
                 disabled={addresses.length === 0}
-                className="block w-full bg-[#C8A84B] hover:bg-[#b8973e] disabled:opacity-50 text-white text-center font-bold text-sm tracking-[0.2em] uppercase py-4 transition-colors"
+                className="block w-full bg-primary hover:bg-secondary disabled:opacity-50 text-white text-center font-bold text-sm tracking-[0.2em] uppercase py-4 transition-colors"
               >
                 CONTINUE
               </button>

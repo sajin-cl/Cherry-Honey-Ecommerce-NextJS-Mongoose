@@ -99,7 +99,7 @@ export default function OrderDetails({ initialOrder }) {
             {/* Avatar + Name */}
             <div className="flex items-center gap-3 mb-5">
               <div className="w-11 h-11 rounded-full overflow-hidden bg-gray-100 shrink-0">
-                <div className="w-full h-full bg-gradient-to-br from-[#C8A84B] to-amber-600 flex items-center justify-center text-white text-sm font-bold">
+                <div className="w-full h-full bg-gradient-to-br from-primary to-amber-600 flex items-center justify-center text-white text-sm font-bold">
                   {order.customer.name.charAt(0).toUpperCase()}
                 </div>
               </div>

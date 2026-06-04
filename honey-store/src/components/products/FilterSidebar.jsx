@@ -147,7 +147,7 @@ export default function FilterSidebar({ onClose, onApply, initialParams, categor
                 {/* Track */}
                 <div className="h-0.5 bg-gray-700 rounded-full w-full relative">
                   <div
-                    className="h-0.5 bg-[#C8A84B] rounded-full absolute left-0"
+                    className="h-0.5 bg-primary rounded-full absolute left-0"
                     style={{ width: `${(price / 2000) * 100}%` }}
                   />
                 </div>
@@ -163,10 +163,10 @@ export default function FilterSidebar({ onClose, onApply, initialParams, categor
                   aria-label="Price range"
                 />
                 {/* Left dot */}
-                <div className="absolute left-0 -top-1.5 w-3 h-3 rounded-full bg-[#C8A84B]" />
+                <div className="absolute left-0 -top-1.5 w-3 h-3 rounded-full bg-primary" />
                 {/* Right thumb dot */}
                 <div
-                  className="absolute -top-1.5 w-3 h-3 rounded-full bg-[#C8A84B]"
+                  className="absolute -top-1.5 w-3 h-3 rounded-full bg-primary"
                   style={{ left: `calc(${(price / 2000) * 100}% - 6px)` }}
                 />
               </div>
@@ -185,7 +185,7 @@ export default function FilterSidebar({ onClose, onApply, initialParams, categor
         </button>
         <button
           onClick={handleApply}
-          className="flex-1 py-3 bg-[#C8A84B] hover:bg-[#b8973e] text-black text-sm font-semibold tracking-wide transition-colors"
+          className="flex-1 py-3 bg-primary hover:bg-secondary text-black text-sm font-semibold tracking-wide transition-colors"
         >
           APPLY FILTER
         </button>

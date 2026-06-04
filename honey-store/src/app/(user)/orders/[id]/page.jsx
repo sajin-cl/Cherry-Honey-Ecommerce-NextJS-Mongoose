@@ -23,7 +23,7 @@ export default async function OrderDetailsPage({ params }) {
           <p className="text-gray-400 mb-4 font-light">Please login to view your order details.</p>
           <Link
             href={`/accounts/login?redirect=/orders/${id}`}
-            className="bg-[#C8A84B] hover:bg-[#b8973e] px-8 py-3 text-black font-semibold text-sm tracking-[0.1em] uppercase transition-colors inline-block"
+            className="bg-primary hover:bg-secondary px-8 py-3 text-black font-semibold text-sm tracking-[0.1em] uppercase transition-colors inline-block"
           >
             Login
           </Link>

@@ -156,17 +156,17 @@ export default function ReviewClient({ initialItems, isBuyNow = false }) {
     <div className="min-h-screen bg-[#0a0a0a] text-white flex flex-col">
       <div className="flex-1 max-w-7xl mx-auto w-full px-4 md:px-6 pt-24 pb-16">
         <nav className="flex items-center gap-2 text-xs text-gray-500 mb-6">
-          <Link href="/" className="hover:text-[#C8A84B] transition-colors">Home</Link>
+          <Link href="/" className="hover:text-primary transition-colors">Home</Link>
           <span>/</span>
           {isBuyNow ? (
             <span className="text-gray-300">Buy Now</span>
           ) : (
-            <Link href="/cart" className="hover:text-[#C8A84B] transition-colors">Cart</Link>
+            <Link href="/cart" className="hover:text-primary transition-colors">Cart</Link>
           )}
           <span>/</span>
-          <Link href={isBuyNow ? "/checkout?buyNow=true" : "/checkout"} className="hover:text-[#C8A84B] transition-colors">Address</Link>
+          <Link href={isBuyNow ? "/checkout?buyNow=true" : "/checkout"} className="hover:text-primary transition-colors">Address</Link>
           <span>/</span>
-          <Link href={isBuyNow ? "/checkout/payment?buyNow=true" : "/checkout/payment"} className="hover:text-[#C8A84B] transition-colors">Payment</Link>
+          <Link href={isBuyNow ? "/checkout/payment?buyNow=true" : "/checkout/payment"} className="hover:text-primary transition-colors">Payment</Link>
           <span>/</span>
           <span className="text-gray-300">Review</span>
         </nav>
@@ -195,7 +195,7 @@ export default function ReviewClient({ initialItems, isBuyNow = false }) {
                       <div className="flex-1 min-w-0">
                         <p className="text-white text-sm font-medium mb-0.5">{item.name}</p>
                         {item.weight && <p className="text-gray-400 text-xs mb-0.5">Size: {item.weight}</p>}
-                        <p className="text-[#C8A84B] text-sm font-semibold mb-0.5">₹{item.price.toFixed(2)}</p>
+                        <p className="text-primary text-sm font-semibold mb-0.5">₹{item.price.toFixed(2)}</p>
                         <p className="text-gray-500 text-xs">QTY: {item.qty}</p>
                       </div>
                       <button
@@ -225,7 +225,7 @@ export default function ReviewClient({ initialItems, isBuyNow = false }) {
                 )}
                 <button
                   onClick={() => setShowAddressModal(true)}
-                  className="w-8 h-8 shrink-0 flex items-center justify-center bg-[#1a1a1a] border border-gray-700 text-gray-400 hover:text-[#C8A84B] hover:border-[#C8A84B] transition-colors"
+                  className="w-8 h-8 shrink-0 flex items-center justify-center bg-[#1a1a1a] border border-gray-700 text-gray-400 hover:text-primary hover:border-primary transition-colors"
                   aria-label="Edit address"
                 >
                   <EditIcon />
@@ -280,7 +280,7 @@ export default function ReviewClient({ initialItems, isBuyNow = false }) {
               <button
                 onClick={handlePlaceOrder}
                 disabled={items.length === 0 || !shippingAddress || loading}
-                className="block w-full bg-[#C8A84B] hover:bg-[#b8973e] disabled:opacity-50 disabled:cursor-not-allowed text-white text-center font-bold text-sm tracking-[0.2em] uppercase py-4 transition-colors"
+                className="block w-full bg-primary hover:bg-secondary disabled:opacity-50 disabled:cursor-not-allowed text-white text-center font-bold text-sm tracking-[0.2em] uppercase py-4 transition-colors"
               >
                 {loading ? "PLACING ORDER..." : "PLACE ORDER"}
               </button>

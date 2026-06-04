@@ -37,11 +37,11 @@ export default function OrderConfirmedModal({
           {/* Concentric rings + checkmark icon */}
           <div className="relative flex items-center justify-center mb-7">
             {/* Outermost ring */}
-            <div className="absolute w-28 h-28 rounded-full border border-[#C8A84B]/20" />
+            <div className="absolute w-28 h-28 rounded-full border border-primary/20" />
             {/* Middle ring */}
-            <div className="absolute w-20 h-20 rounded-full border border-[#C8A84B]/40" />
+            <div className="absolute w-20 h-20 rounded-full border border-primary/40" />
             {/* Inner filled circle */}
-            <div className="w-14 h-14 rounded-full bg-[#C8A84B] flex items-center justify-center">
+            <div className="w-14 h-14 rounded-full bg-primary flex items-center justify-center">
               <svg
                 className="w-7 h-7 text-black"
                 fill="none"
@@ -78,13 +78,13 @@ export default function OrderConfirmedModal({
           <div className="flex gap-3 w-full">
             <Link
               href={homeHref}
-              className="flex-1 py-3 border border-gray-600 text-white text-xs font-semibold uppercase tracking-widest hover:border-[#C8A84B] hover:text-[#C8A84B] transition-colors text-center"
+              className="flex-1 py-3 border border-gray-600 text-white text-xs font-semibold uppercase tracking-widest hover:border-primary hover:text-primary transition-colors text-center"
             >
               BACK TO HOME
             </Link>
             <Link
               href={orderHref}
-              className="flex-1 py-3 bg-[#C8A84B] hover:bg-[#b8973e] text-white text-xs font-semibold uppercase tracking-widest transition-colors text-center"
+              className="flex-1 py-3 bg-primary hover:bg-secondary text-white text-xs font-semibold uppercase tracking-widest transition-colors text-center"
             >
               VIEW ORDER
             </Link>

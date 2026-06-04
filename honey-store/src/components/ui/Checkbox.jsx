@@ -12,7 +12,7 @@ export default function Checkbox({ id, label, count, checked, onChange }) {
           onClick={() => onChange(!checked)}
           className={`w-4 h-4 border flex items-center justify-center shrink-0 transition-colors ${
             checked
-              ? "bg-[#C8A84B] border-[#C8A84B]"
+              ? "bg-primary border-primary"
               : "bg-transparent border-gray-600 group-hover:border-gray-400"
           }`}
         >

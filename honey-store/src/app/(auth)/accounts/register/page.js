@@ -113,7 +113,7 @@ export default function RegisterPage() {
   );
 
   const inputClasses =
-    "w-full bg-transparent border-0 border-b border-gray-600 text-gray-300 placeholder-gray-500 text-sm pb-2 pt-1 focus:outline-none focus:border-[#C8A84B] transition-colors";
+    "w-full bg-transparent border-0 border-b border-gray-600 text-gray-300 placeholder-gray-500 text-sm pb-2 pt-1 focus:outline-none focus:border-primary transition-colors";
 
   return (
     <div className="flex h-screen w-full overflow-hidden">
@@ -246,7 +246,7 @@ export default function RegisterPage() {
 
                   <div
                     className={`w-4 h-4 border transition-colors ${agreeTerms
-                        ? "bg-[#C8A84B] border-[#C8A84B]"
+                        ? "bg-primary border-primary"
                         : "bg-transparent border-gray-500"
                       } flex items-center justify-center`}
                   >
@@ -272,14 +272,14 @@ export default function RegisterPage() {
                   I agree with{" "}
                   <Link
                     href="/privacy-policy"
-                    className="font-bold text-gray-200 hover:text-[#C8A84B] underline transition-colors"
+                    className="font-bold text-gray-200 hover:text-primary underline transition-colors"
                   >
                     Privacy Policy
                   </Link>{" "}
                   and{" "}
                   <Link
                     href="/terms-conditions"
-                    className="font-bold text-gray-200 hover:text-[#C8A84B] underline transition-colors"
+                    className="font-bold text-gray-200 hover:text-primary underline transition-colors"
                   >
                     Terms of Use
                   </Link>
@@ -299,7 +299,7 @@ export default function RegisterPage() {
               <button
                 type="submit"
                 disabled={loading}
-                className="bg-[#C8A84B] hover:bg-[#b8973e] disabled:opacity-50 disabled:cursor-not-allowed text-white font-semibold text-sm px-10 py-3.5 transition-colors duration-200 tracking-wide w-full active:bg-[#a8872e] active:scale-95"
+                className="bg-primary hover:bg-secondary disabled:opacity-50 disabled:cursor-not-allowed text-white font-semibold text-sm px-10 py-3.5 transition-colors duration-200 tracking-wide w-full active:bg-[#a8872e] active:scale-95"
               >
                 {loading ? "Creating account..." : "Sign Up"}
               </button>

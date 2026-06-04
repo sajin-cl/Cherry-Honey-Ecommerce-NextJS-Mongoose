@@ -75,11 +75,11 @@ export default function PaymentClient({ cartSubtotal, isBuyNow = false }) {
     <div className="min-h-screen bg-[#0a0a0a] text-white flex flex-col">
       <div className="flex-1 max-w-7xl mx-auto w-full px-4 md:px-6 pt-24 pb-16">
         <nav className="flex items-center gap-2 text-xs text-gray-500 mb-6">
-          <Link href="/" className="hover:text-[#C8A84B] transition-colors">Home</Link>
+          <Link href="/" className="hover:text-primary transition-colors">Home</Link>
           <span>/</span>
-          <Link href="/cart" className="hover:text-[#C8A84B] transition-colors">Cart</Link>
+          <Link href="/cart" className="hover:text-primary transition-colors">Cart</Link>
           <span>/</span>
-          <Link href="/checkout" className="hover:text-[#C8A84B] transition-colors">Address</Link>
+          <Link href="/checkout" className="hover:text-primary transition-colors">Address</Link>
           <span>/</span>
           <span className="text-gray-300">Payment Method</span>
         </nav>
@@ -90,16 +90,16 @@ export default function PaymentClient({ cartSubtotal, isBuyNow = false }) {
           {STEPS.map((step, i) => (
             <div key={step.label} className="flex items-center flex-1 last:flex-none">
               <div className="flex flex-col items-center gap-1.5">
-                <div className={`w-10 h-10 flex items-center justify-center transition-colors ${i <= 1 ? "bg-[#C8A84B] text-black" : "bg-[#1a1a1a] border border-gray-700 text-gray-500"
+                <div className={`w-10 h-10 flex items-center justify-center transition-colors ${i <= 1 ? "bg-primary text-black" : "bg-[#1a1a1a] border border-gray-700 text-gray-500"
                   }`}>
                   {step.icon}
                 </div>
-                <span className={`text-xs whitespace-nowrap ${i <= 1 ? "text-[#C8A84B]" : "text-gray-500"}`}>
+                <span className={`text-xs whitespace-nowrap ${i <= 1 ? "text-primary" : "text-gray-500"}`}>
                   {step.label}
                 </span>
               </div>
               {i < STEPS.length - 1 && (
-                <div className={`flex-1 h-px mx-3 mb-5 ${i === 0 ? "bg-[#C8A84B]/50" : "bg-gray-800"}`} />
+                <div className={`flex-1 h-px mx-3 mb-5 ${i === 0 ? "bg-primary/50" : "bg-gray-800"}`} />
               )}
             </div>
           ))}
@@ -115,9 +115,9 @@ export default function PaymentClient({ cartSubtotal, isBuyNow = false }) {
                   className={`flex items-start gap-4 w-full border px-5 py-4 transition-all duration-200 text-left ${method === pm.id ? "border-gray-600 bg-[#111]" : "border-gray-800 bg-[#0d0d0d] hover:border-gray-700"
                     }`}
                 >
-                  <div className={`w-4 h-4 rounded-full border-2 shrink-0 mt-0.5 flex items-center justify-center transition-colors ${method === pm.id ? "border-[#C8A84B]" : "border-gray-600"
+                  <div className={`w-4 h-4 rounded-full border-2 shrink-0 mt-0.5 flex items-center justify-center transition-colors ${method === pm.id ? "border-primary" : "border-gray-600"
                     }`}>
-                    {method === pm.id && <div className="w-2 h-2 rounded-full bg-[#C8A84B]" />}
+                    {method === pm.id && <div className="w-2 h-2 rounded-full bg-primary" />}
                   </div>
                   <div>
                     <span className={`text-sm font-semibold block transition-colors ${method === pm.id ? "text-white" : "text-gray-400"
@@ -161,7 +161,7 @@ export default function PaymentClient({ cartSubtotal, isBuyNow = false }) {
 
               <Link
                 href={isBuyNow ? "/checkout/review?buyNow=true" : "/checkout/review"}
-                className="block w-full bg-[#C8A84B] hover:bg-[#b8973e] text-white text-center font-bold text-sm tracking-[0.2em] uppercase py-4 transition-colors"
+                className="block w-full bg-primary hover:bg-secondary text-white text-center font-bold text-sm tracking-[0.2em] uppercase py-4 transition-colors"
               >
                 CONTINUE
               </Link>

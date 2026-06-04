@@ -61,7 +61,7 @@ export default async function NotFound() {
   const roleBadge = isAdmin
     ? { label: "Admin", color: "text-purple-400 border-purple-800 bg-purple-900/20" }
     : isUser
-    ? { label: "User",  color: "text-[#C8A84B] border-[#C8A84B]/30 bg-[#C8A84B]/10" }
+    ? { label: "User",  color: "text-primary border-primary/30 bg-primary/10" }
     : null;
 
   return (
@@ -72,7 +72,7 @@ export default async function NotFound() {
         {DOTS.map((p, i) => (
           <div
             key={i}
-            className="absolute w-1.5 h-1.5 rounded-full bg-[#C8A84B]"
+            className="absolute w-1.5 h-1.5 rounded-full bg-primary"
             style={{ left: p.l, top: p.t }}
           />
         ))}
@@ -93,11 +93,11 @@ export default async function NotFound() {
 
         {/* Gold divider + label */}
         <div className="flex items-center justify-center gap-3 mb-8">
-          <div className="h-px w-12 bg-[#C8A84B]" />
-          <span className="text-[#C8A84B] text-xs tracking-[0.3em] uppercase">
+          <div className="h-px w-12 bg-primary" />
+          <span className="text-primary text-xs tracking-[0.3em] uppercase">
             404 Error
           </span>
-          <div className="h-px w-12 bg-[#C8A84B]" />
+          <div className="h-px w-12 bg-primary" />
         </div>
 
         {/* Role badge — logged in users only */}
@@ -115,16 +115,16 @@ export default async function NotFound() {
             xmlns="http://www.w3.org/2000/svg" className="opacity-60">
             <path
               d="M20 30 Q18 32 18 36 L18 62 Q18 66 22 66 L58 66 Q62 66 62 62 L62 36 Q62 32 60 30 Z"
-              fill="#C8A84B" fillOpacity="0.15" stroke="#C8A84B" strokeWidth="1.5" strokeLinejoin="round"
+              fill="var(--primary)" fillOpacity="0.15" stroke="var(--primary)" strokeWidth="1.5" strokeLinejoin="round"
             />
             <rect x="26" y="22" width="28" height="10" rx="2"
-              fill="#C8A84B" fillOpacity="0.2" stroke="#C8A84B" strokeWidth="1.5"/>
+              fill="var(--primary)" fillOpacity="0.2" stroke="" strokeWidth="1.5"/>
             <rect x="22" y="16" width="36" height="8" rx="3"
-              fill="#C8A84B" fillOpacity="0.4" stroke="#C8A84B" strokeWidth="1.5"/>
+              fill="var(--primary)" fillOpacity="0.4" stroke="var(--primary)" strokeWidth="1.5"/>
             <path d="M38 66 Q38 72 40 74 Q42 72 42 66"
-              fill="#C8A84B" fillOpacity="0.5" stroke="#C8A84B" strokeWidth="1"/>
-            <line x1="25" y1="46" x2="55" y2="46" stroke="#C8A84B" strokeWidth="1" strokeOpacity="0.4"/>
-            <line x1="25" y1="52" x2="50" y2="52" stroke="#C8A84B" strokeWidth="1" strokeOpacity="0.4"/>
+              fill="var(--primary)" fillOpacity="0.5" stroke="var(--primary)" strokeWidth="1"/>
+            <line x1="25" y1="46" x2="55" y2="46" stroke="var(--primary)" strokeWidth="1" strokeOpacity="0.4"/>
+            <line x1="25" y1="52" x2="50" y2="52" stroke="var(--primary)" strokeWidth="1" strokeOpacity="0.4"/>
           </svg>
         </div>
 
@@ -145,13 +145,13 @@ export default async function NotFound() {
         <div className="flex flex-col sm:flex-row gap-3 justify-center">
           <Link
             href={primaryHref}
-            className="px-8 py-3 bg-[#C8A84B] hover:bg-[#b8973e] active:bg-[#a8872e] text-black font-bold text-sm tracking-widest uppercase transition-colors"
+            className="px-8 py-3 bg-primary hover:bg-secondary active:bg-[#a8872e] text-black font-bold text-sm tracking-widest uppercase transition-colors"
           >
             {primaryLabel}
           </Link>
           <Link
             href={secondaryHref}
-            className="px-8 py-3 border border-gray-700 hover:border-[#C8A84B] text-gray-300 hover:text-[#C8A84B] font-bold text-sm tracking-widest uppercase transition-colors"
+            className="px-8 py-3 border border-gray-700 hover:border-primary text-gray-300 hover:text-primary font-bold text-sm tracking-widest uppercase transition-colors"
           >
             {secondaryLabel}
           </Link>
@@ -167,7 +167,7 @@ export default async function NotFound() {
               <Link
                 key={link.label}
                 href={link.href}
-                className="hover:text-[#C8A84B] transition-colors"
+                className="hover:text-primary transition-colors"
               >
                 {link.label}
               </Link>

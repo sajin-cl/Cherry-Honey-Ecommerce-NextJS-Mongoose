@@ -76,7 +76,7 @@ function ResetPasswordContent() {
   );
 
   const inputClasses =
-    "w-full bg-transparent border-0 border-b border-gray-600 text-gray-300 placeholder-gray-500 text-sm pb-2 pt-1 pr-10 focus:outline-none focus:border-[#C8A84B] transition-colors";
+    "w-full bg-transparent border-0 border-b border-gray-600 text-gray-300 placeholder-gray-500 text-sm pb-2 pt-1 pr-10 focus:outline-none focus:border-primary transition-colors";
 
   return (
     <div className="w-full max-w-md px-10">
@@ -154,7 +154,7 @@ function ResetPasswordContent() {
             id="reset-password-btn"
             type="submit"
             disabled={loading || !token}
-            className="bg-[#C8A84B] hover:bg-[#b8973e] active:bg-[#a8872e] disabled:opacity-50 disabled:cursor-not-allowed text-white font-semibold text-sm px-12 py-3.5 transition-colors duration-200 tracking-wide"
+            className="bg-primary hover:bg-secondary active:bg-[#a8872e] disabled:opacity-50 disabled:cursor-not-allowed text-white font-semibold text-sm px-12 py-3.5 transition-colors duration-200 tracking-wide"
           >
             {loading ? "Updating..." : "Reset Password"}
           </button>

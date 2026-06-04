@@ -60,7 +60,7 @@ export default function Navbar() {
             <li>
               <Link
                 href="/"
-                className={`transition-colors duration-200 font-mono uppercase ${isActive('/') ? 'text-[#C8A84B] font-medium' : 'text-gray-300 hover:text-[#C8A84B]'}`}
+                className={`transition-colors duration-200 font-mono uppercase ${isActive('/') ? 'text-primary font-medium' : 'text-gray-300 hover:text-primary'}`}
               >
                 Home
               </Link>
@@ -68,7 +68,7 @@ export default function Navbar() {
             <li>
               <Link
                 href="/products"
-                className={`transition-colors duration-200 font-mono uppercase ${isActive('/products') ? 'text-[#C8A84B] font-medium' : 'text-gray-300 hover:text-[#C8A84B]'}`}
+                className={`transition-colors duration-200 font-mono uppercase ${isActive('/products') ? 'text-primary font-medium' : 'text-gray-300 hover:text-primary'}`}
               >
                 Products
               </Link>
@@ -76,7 +76,7 @@ export default function Navbar() {
             <li>
               <Link
                 href="/about"
-                className={`transition-colors  duration-200 font-mono uppercase ${isActive('/about') ? 'text-[#C8A84B] font-medium' : 'text-gray-300 hover:text-[#C8A84B]'}`}
+                className={`transition-colors  duration-200 font-mono uppercase ${isActive('/about') ? 'text-primary font-medium' : 'text-gray-300 hover:text-primary'}`}
               >
                 About
               </Link>
@@ -84,7 +84,7 @@ export default function Navbar() {
             <li>
               <Link
                 href="/contact"
-                className={`transition-colors duration-200 font-mono uppercase ${isActive('/contact') ? 'text-[#C8A84B] font-medium' : 'text-gray-300 hover:text-[#C8A84B]'}`}
+                className={`transition-colors duration-200 font-mono uppercase ${isActive('/contact') ? 'text-primary font-medium' : 'text-gray-300 hover:text-primary'}`}
               >
                 Contact
               </Link>
@@ -94,7 +94,7 @@ export default function Navbar() {
           {/* Mobile: Hamburger (left) */}
           <button
             onClick={() => setMenuOpen(!menuOpen)}
-            className="md:hidden text-gray-300 hover:text-[#C8A84B] transition-colors"
+            className="md:hidden text-gray-300 hover:text-primary transition-colors"
             aria-label="Toggle menu"
           >
             <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -124,17 +124,17 @@ export default function Navbar() {
             {/* Cart icon */}
             <Link
               href="/cart"
-              className="group text-gray-300 hover:text-[#C8A84B] transition-colors relative active:scale-95"
+              className="group text-gray-300 hover:text-primary transition-colors relative active:scale-95"
               aria-label="Cart"
               title="cart"
             >
               <MdOutlineShoppingCartCheckout
                 size={25}
-                className="text-current group-hover:text-[#C8A84B] transition-colors"
+                className="text-current group-hover:text-primary transition-colors"
               />
 
               {cartCount > 0 && (
-                <span className="absolute -top-1.5 -right-1.5 bg-[#C8A84B] text-black font-bold text-[9px] w-4 h-4 rounded-full flex items-center justify-center animate-pulse">
+                <span className="absolute -top-1.5 -right-1.5 bg-primary text-black font-bold text-[9px] w-4 h-4 rounded-full flex items-center justify-center animate-pulse">
                   {cartCount}
                 </span>
               )}
@@ -143,7 +143,7 @@ export default function Navbar() {
             {/* Order icon */}
             <Link
               href="/orders"
-              className="text-gray-300 hover:text-[#C8A84B] transition-colors active:scale-95"
+              className="text-gray-300 hover:text-primary transition-colors active:scale-95"
               aria-label="Orders"
               title="my orders"
             >
@@ -157,7 +157,7 @@ export default function Navbar() {
             <div className="relative">
               <button
                 onClick={() => setUserMenuOpen((o) => !o)}
-                className="w-7 h-7 cursor-pointer active:scale-95 bg-[#C8A84B] hover:bg-[#b8973e] text-black rounded-full flex items-center justify-center font-bold text-xs transition-colors shrink-0 focus:outline-none"
+                className="w-7 h-7 cursor-pointer active:scale-95 bg-primary hover:bg-secondary text-black rounded-full flex items-center justify-center font-bold text-xs transition-colors shrink-0 focus:outline-none"
                 aria-label="Account menu"
                 aria-haspopup="true"
                 aria-expanded={userMenuOpen}
@@ -197,8 +197,8 @@ export default function Navbar() {
                 href={item.href}
                 onClick={() => setMenuOpen(false)}
                 className={`flex items-center gap-3 text-sm tracking-widest transition-colors duration-200 hover:ml-1 ${isActive(item.href)
-                  ? "text-[#C8A84B] font-medium"
-                  : "text-gray-300 hover:text-[#C8A84B]"
+                  ? "text-primary font-medium"
+                  : "text-gray-300 hover:text-primary"
                   }`}
               >
                 {item.label}

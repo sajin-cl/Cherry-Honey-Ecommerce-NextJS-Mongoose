@@ -61,7 +61,7 @@ const GlintStar = ({ delay, left, top, size }) => (
         }}
     >
         <div
-            className="w-full h-full bg-gradient-to-r from-[#fff] via-[#d3b867] to-[#A1822A]"
+            className="w-full h-full bg-linear-to-r from-white via-[#d3b867] to-[#A1822A]"
             style={{
                 boxShadow: "0 0 12px 2px rgba(211, 184, 103, 0.9)",
                 clipPath: "polygon(50% 0%, 63% 38%, 100% 50%, 63% 62%, 50% 100%, 37% 62%, 0% 50%, 37% 38%)"
@@ -102,7 +102,7 @@ export default function ProductCard({ product }) {
                 onMouseEnter={() => setIsHovered(true)}
                 onMouseLeave={() => setIsHovered(false)}
             >
-                <div className="relative overflow-hidden bg-[#111] rounded-4xl border-x border-gray-800 hover:border-[#C8A84B]/70 transition-all duration-500 group-hover:-translate-y-1">
+                <div className="relative overflow-hidden bg-[#111] rounded-4xl border-x border-gray-800 hover:border-primary/70 transition-all duration-500 group-hover:-translate-y-1">
 
                     <div className="relative h-[350px] bg-black flex items-center justify-center overflow-hidden isolation-isolate">
 
@@ -154,14 +154,14 @@ export default function ProductCard({ product }) {
 
                     <div className="p-4 relative z-20 bg-[#111] border-t border-gray-900 flex justify-between items-center gap-4">
                         <div className="min-w-0 flex-1">
-                            <h3 className="text-white text-sm mb-1 truncate transition-colors group-hover:text-[#C8A84B]">
+                            <h3 className="text-white text-sm mb-1 truncate transition-colors group-hover:text-primary">
                                 {product?.name}
                             </h3>
                             <h4 className="text-gray-500 text-xs mb-1 truncate font-sans italic">
                                 {product?.description.slice(0, 60)}
                             </h4>
                             <div className="flex items-center gap-2">
-                                <span className="text-[#C8A84B] group-hover:text-white text-sm font-semibold">
+                                <span className="text-primary group-hover:text-white text-sm font-semibold">
                                     ₹{price.toFixed(2)}
                                 </span>
                                 {product?.discountPrice && (
@@ -179,7 +179,7 @@ export default function ProductCard({ product }) {
                                     product?.stock === 0
                                         ? "bg-gray-800 text-gray-500 cursor-not-allowed"
                                         : added
-                                        ? "bg-[#C8A84B]/70 text-white"
+                                        ? "bg-primary/70 text-white"
                                         : "bg-[#e7be40] text-black hover:scale-105"
                                 }`}
                             >

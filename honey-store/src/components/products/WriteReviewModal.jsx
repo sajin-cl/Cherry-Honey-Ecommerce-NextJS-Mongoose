@@ -204,7 +204,7 @@ export default function WriteReviewModal({ isOpen, onClose, onSubmit }) {
               <div className="pt-5">
                 <button
                   type="submit"
-                  className="w-full bg-[#C8A84B] hover:bg-[#b8973e] text-white font-semibold text-sm tracking-[0.2em] uppercase py-5 transition-colors duration-200"
+                  className="w-full bg-primary hover:bg-secondary text-white font-semibold text-sm tracking-[0.2em] uppercase py-5 transition-colors duration-200"
                 >
                   SUBMIT
                 </button>

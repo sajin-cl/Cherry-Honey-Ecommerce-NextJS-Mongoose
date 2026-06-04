@@ -8,9 +8,9 @@ export default function StarRating({ rating = 4.5, count = 128 }) {
                     <svg
                         key={s}
                         className={`w-4 h-4 ${s <= Math.floor(rating)
-                            ? "text-[#C8A84B]"
+                            ? "text-primary"
                             : s - 0.5 <= rating
-                                ? "text-[#C8A84B]"
+                                ? "text-primary"
                                 : "text-gray-600"
                             }`}
                         viewBox="0 0 20 20"

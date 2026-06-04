@@ -32,12 +32,12 @@ export default function AboutClient() {
             animate={{ x: 0, opacity: 1 }}
             transition={{ duration: 1.2, ease: "easeOut" }}
           >
-            <p className="text-[#C8A84B] text-xs tracking-[0.4em] uppercase mb-4 font-bold">
+            <p className="text-primary text-xs tracking-[0.4em] uppercase mb-4 font-bold">
               Experience the Purity
             </p>
             <h1 className="text-4xl md:text-5xl lg:text-6xl text-white font-light leading-tight mb-6">
               Crafted With Passion,<br />
-              <span className="text-[#C8A84B]" style={serifItalic}>
+              <span className="text-primary" style={serifItalic}>
                 Harvested From Nature
               </span>
             </h1>
@@ -47,13 +47,13 @@ export default function AboutClient() {
             <div className="flex items-center gap-4 flex-wrap">
               <Link
                 href="/products"
-                className="inline-block bg-[#C8A84B] hover:bg-[#b8973e] text-black font-bold text-xs px-8 py-4 tracking-[0.2em] uppercase transition-all duration-300 transform hover:scale-105 active:scale-95 shadow-[0_4px_20px_rgba(200,168,75,0.25)]"
+                className="inline-block bg-primary hover:bg-secondary text-black font-bold text-xs px-8 py-4 tracking-[0.2em] uppercase transition-all duration-300 transform hover:scale-105 active:scale-95 shadow-[0_4px_20px_rgba(200,168,75,0.25)]"
               >
                 Shop Honey
               </Link>
               <a
                 href="#our-journey"
-                className="inline-block border border-gray-600 text-gray-300 hover:border-[#C8A84B] hover:text-[#C8A84B] font-semibold text-xs px-8 py-4 tracking-[0.2em] uppercase transition-all duration-300 transform hover:scale-105"
+                className="inline-block border border-gray-600 text-gray-300 hover:border-primary hover:text-primary font-semibold text-xs px-8 py-4 tracking-[0.2em] uppercase transition-all duration-300 transform hover:scale-105"
               >
                 Our Honey Farms
               </a>
@@ -114,18 +114,18 @@ export default function AboutClient() {
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.8 }}
           >
-            <p className="text-[#C8A84B] text-xs tracking-[0.4em] uppercase mb-4 font-bold md:mt-12">
+            <p className="text-primary text-xs tracking-[0.4em] uppercase mb-4 font-bold md:mt-12">
               Our Promise
             </p>
             <h2 className="text-3xl md:text-5xl text-white font-light" style={serifItalic}>
-              Uncompromising <span className="text-[#C8A84B]">Excellence</span>
+              Uncompromising <span className="text-primary">Excellence</span>
             </h2>
           </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {/* Value Card 1 */}
             <motion.div
-              className="bg-[#111111]/60 backdrop-blur-md border border-gray-800 hover:border-[#C8A84B]/40 p-8 rounded-2xl text-center transition-all duration-500 hover:-translate-y-2 group"
+              className="bg-[#111111]/60 backdrop-blur-md border border-gray-800 hover:border-primary/40 p-8 rounded-2xl text-center transition-all duration-500 hover:-translate-y-2 group"
               initial={{ y: 40, opacity: 0 }}
               whileInView={{ y: 0, opacity: 1 }}
               viewport={{ once: true, margin: "-100px" }}
@@ -144,7 +144,7 @@ export default function AboutClient() {
                 />
               </div>
 
-              <h3 className="text-xl font-bold mb-4 text-white group-hover:text-[#C8A84B] transition-colors duration-300">
+              <h3 className="text-xl font-bold mb-4 text-white group-hover:text-primary transition-colors duration-300">
                 Pure Ingredients
               </h3>
               <p className="text-gray-400 text-sm leading-relaxed">
@@ -154,7 +154,7 @@ export default function AboutClient() {
 
             {/* Value Card 2 */}
             <motion.div
-              className="bg-[#111111]/60 backdrop-blur-md border border-gray-800 hover:border-[#C8A84B]/40 p-8 rounded-2xl text-center transition-all duration-500 hover:-translate-y-2 group"
+              className="bg-[#111111]/60 backdrop-blur-md border border-gray-800 hover:border-primary/40 p-8 rounded-2xl text-center transition-all duration-500 hover:-translate-y-2 group"
               initial={{ y: 40, opacity: 0 }}
               whileInView={{ y: 0, opacity: 1 }}
               viewport={{ once: true, margin: "-100px" }}
@@ -171,7 +171,7 @@ export default function AboutClient() {
                   fetchPriority="high"
                 />
               </div>
-              <h3 className="text-xl font-bold mb-4 text-white group-hover:text-[#C8A84B] transition-colors duration-300">
+              <h3 className="text-xl font-bold mb-4 text-white group-hover:text-primary transition-colors duration-300">
                 Sustainable Beekeeping
               </h3>
               <p className="text-gray-400 text-sm leading-relaxed">
@@ -181,7 +181,7 @@ export default function AboutClient() {
 
             {/* Value Card 3 */}
             <motion.div
-              className="bg-[#111111]/60 backdrop-blur-md border border-gray-800 hover:border-[#C8A84B]/40 p-8 rounded-2xl text-center transition-all duration-500 hover:-translate-y-2 group"
+              className="bg-[#111111]/60 backdrop-blur-md border border-gray-800 hover:border-primary/40 p-8 rounded-2xl text-center transition-all duration-500 hover:-translate-y-2 group"
               initial={{ y: 40, opacity: 0 }}
               whileInView={{ y: 0, opacity: 1 }}
               viewport={{ once: true, margin: "-100px" }}
@@ -198,7 +198,7 @@ export default function AboutClient() {
                   fetchPriority="high"
                 />
               </div>
-              <h3 className="text-xl font-bold mb-4 text-white group-hover:text-[#C8A84B] transition-colors duration-300">
+              <h3 className="text-xl font-bold mb-4 text-white group-hover:text-primary transition-colors duration-300">
                 Premium Quality
               </h3>
               <p className="text-gray-400 text-sm leading-relaxed">
@@ -214,7 +214,7 @@ export default function AboutClient() {
       ══════════════════════════════════════════════ */}
       <section id="our-journey" className="relative py-24 bg-black z-10 overflow-hidden">
         {/* Subtle background decoration */}
-        <div className="absolute top-1/2 left-0 right-0 w-full h-[600px] bg-radial-gradient from-[#C8A84B]/5 to-transparent -translate-y-1/2 pointer-events-none" />
+        <div className="absolute top-1/2 left-0 right-0 w-full h-[600px] bg-radial-gradient from-primary/5 to-transparent -translate-y-1/2 pointer-events-none" />
 
         <div className="max-w-7xl mx-auto px-6 relative">
           <motion.div
@@ -224,23 +224,23 @@ export default function AboutClient() {
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.8 }}
           >
-            <p className="text-[#C8A84B] text-xs tracking-[0.4em] uppercase mb-4 font-bold">
+            <p className="text-primary text-xs tracking-[0.4em] uppercase mb-4 font-bold">
               Our Process
             </p>
             <h2 className="text-3xl md:text-5xl text-white font-light" style={serifItalic}>
-              A Story <span className="text-[#C8A84B]">In Every Drop</span>
+              A Story <span className="text-primary">In Every Drop</span>
             </h2>
           </motion.div>
 
           {/* Timeline Container */}
           <div className="relative">
             {/* Center Line for desktop */}
-            <div className="absolute left-[50%] top-0 bottom-0 w-[2px] bg-gradient-to-b from-[#C8A84B]/5 via-[#C8A84B]/40 to-[#C8A84B]/5 -translate-x-1/2 hidden md:block" />
+            <div className="absolute left-[50%] top-0 bottom-0 w-[2px] bg-gradient-to-b from-primary/5 via-primary/40 to-primary/5 -translate-x-1/2 hidden md:block" />
 
             {/* Row 1 - Wildflowers */}
             <div className="relative grid md:grid-cols-2 gap-12 md:gap-24 items-center mb-24 md:mb-32">
               {/* Central Circle Badge for desktop */}
-              <div className="absolute left-[50%] -translate-x-1/2 w-10 h-10 rounded-full bg-black border-2 border-[#C8A84B]  items-center justify-center z-20 shadow-[0_0_15px_rgba(200,168,75,0.4)] hidden md:flex font-serif text-sm text-[#C8A84B]">
+              <div className="absolute left-[50%] -translate-x-1/2 w-10 h-10 rounded-full bg-black border-2 border-primary  items-center justify-center z-20 shadow-[0_0_15px_rgba(200,168,75,0.4)] hidden md:flex font-serif text-sm text-primary">
                 01
               </div>
 
@@ -252,11 +252,11 @@ export default function AboutClient() {
                 viewport={{ once: true, margin: "-100px" }}
                 transition={{ duration: 0.9 }}
               >
-                <div className="inline-block bg-[#C8A84B]/10 border border-[#C8A84B]/20 text-[#C8A84B] text-xs px-3 py-1 tracking-widest uppercase mb-4 rounded-full font-bold md:hidden">
+                <div className="inline-block bg-primary/10 border border-primary/20 text-primary text-xs px-3 py-1 tracking-widest uppercase mb-4 rounded-full font-bold md:hidden">
                   Step 01
                 </div>
                 <h3 className="text-2xl md:text-3xl font-bold mb-4 text-white">
-                  01 <span className="text-[#C8A84B]" style={serifItalic}>The Wildflowers</span>
+                  01 <span className="text-primary" style={serifItalic}>The Wildflowers</span>
                 </h3>
                 <p className="text-gray-400 text-sm md:text-base leading-relaxed max-w-lg ml-auto">
                   Our journey begins in protected fields of pristine, wild organic blossoms. Our honey bees forage freely in these wild environments, gathering pure premium nectar. This beautiful mixture of natural wildflowers yields the uniquely complex, multi-floral taste profile that makes Cherrys Honey legendary.
@@ -285,7 +285,7 @@ export default function AboutClient() {
             {/* Row 2 - The Alchemists */}
             <div className="relative grid md:grid-cols-2 gap-12 md:gap-24 items-center mb-24 md:mb-32">
               {/* Central Circle Badge for desktop */}
-              <div className="absolute left-[50%] -translate-x-1/2 w-10 h-10 rounded-full bg-black border-2 border-[#C8A84B]  items-center justify-center z-20 shadow-[0_0_15px_rgba(200,168,75,0.4)] hidden md:flex font-serif text-sm text-[#C8A84B]">
+              <div className="absolute left-[50%] -translate-x-1/2 w-10 h-10 rounded-full bg-black border-2 border-primary  items-center justify-center z-20 shadow-[0_0_15px_rgba(200,168,75,0.4)] hidden md:flex font-serif text-sm text-primary">
                 02
               </div>
 
@@ -315,11 +315,11 @@ export default function AboutClient() {
                 viewport={{ once: true, margin: "-100px" }}
                 transition={{ duration: 0.9 }}
               >
-                <div className="inline-block bg-[#C8A84B]/10 border border-[#C8A84B]/20 text-[#C8A84B] text-xs px-3 py-1 tracking-widest uppercase mb-4 rounded-full font-bold md:hidden">
+                <div className="inline-block bg-primary/10 border border-primary/20 text-primary text-xs px-3 py-1 tracking-widest uppercase mb-4 rounded-full font-bold md:hidden">
                   Step 02
                 </div>
                 <h3 className="text-2xl md:text-3xl font-bold mb-4 text-white">
-                  02 <span className="text-[#C8A84B]" style={serifItalic}>The Alchemists</span>
+                  02 <span className="text-primary" style={serifItalic}>The Alchemists</span>
                 </h3>
                 <p className="text-gray-400 text-sm md:text-base leading-relaxed max-w-lg">
                   Inside the busy and secure apiaries, our hives serve as biological alchemist labs. The bees digest and share the nectar, enriching it with raw enzymes. They systematically fan their wings to evaporate water content, naturally ripening the nectar into a rich, super-concentrated amber honey.
@@ -330,7 +330,7 @@ export default function AboutClient() {
             {/* Row 3 - The Harvest */}
             <div className="relative grid md:grid-cols-2 gap-12 md:gap-24 items-center">
               {/* Central Circle Badge for desktop */}
-              <div className="absolute left-[50%] -translate-x-1/2 w-10 h-10 rounded-full bg-black border-2 border-[#C8A84B]  items-center justify-center z-20 shadow-[0_0_15px_rgba(200,168,75,0.4)] hidden md:flex font-serif text-sm text-[#C8A84B]">
+              <div className="absolute left-[50%] -translate-x-1/2 w-10 h-10 rounded-full bg-black border-2 border-primary  items-center justify-center z-20 shadow-[0_0_15px_rgba(200,168,75,0.4)] hidden md:flex font-serif text-sm text-primary">
                 03
               </div>
 
@@ -342,11 +342,11 @@ export default function AboutClient() {
                 viewport={{ once: true, margin: "-100px" }}
                 transition={{ duration: 0.9 }}
               >
-                <div className="inline-block bg-[#C8A84B]/10 border border-[#C8A84B]/20 text-[#C8A84B] text-xs px-3 py-1 tracking-widest uppercase mb-4 rounded-full font-bold md:hidden">
+                <div className="inline-block bg-primary/10 border border-primary/20 text-primary text-xs px-3 py-1 tracking-widest uppercase mb-4 rounded-full font-bold md:hidden">
                   Step 03
                 </div>
                 <h3 className="text-2xl md:text-3xl font-bold mb-4 text-white">
-                  03 <span className="text-[#C8A84B]" style={serifItalic}>The Harvest</span>
+                  03 <span className="text-primary" style={serifItalic}>The Harvest</span>
                 </h3>
                 <p className="text-gray-400 text-sm md:text-base leading-relaxed max-w-lg ml-auto">
                   When the honeycombs are perfectly capped, we harvest. Using cold centrifugal extraction methods, we gently spin the honey out without ever applying heat. This precise artisan method keeps the active enzymes, organic pollen, and distinct delicate flavor compounds fully intact, from our farm directly to your table.
@@ -402,7 +402,7 @@ export default function AboutClient() {
             {/* pulsating Play Button */}
             <motion.button
               onClick={() => setIsPlaying(true)}
-              className="w-20 h-20 rounded-full bg-[#C8A84B] hover:bg-[#b8973e] flex items-center justify-center cursor-pointer transition-all duration-300 shadow-[0_0_30px_rgba(200,168,75,0.6)] mb-8 group"
+              className="w-20 h-20 rounded-full bg-primary hover:bg-secondary flex items-center justify-center cursor-pointer transition-all duration-300 shadow-[0_0_30px_rgba(200,168,75,0.6)] mb-8 group"
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.95 }}
               animate={{
@@ -426,7 +426,7 @@ export default function AboutClient() {
             </motion.button>
 
             <h2 className="text-4xl md:text-5xl text-white font-light mb-6" style={serifItalic}>
-              Straight From <span className="text-[#C8A84B]">The Hive</span>
+              Straight From <span className="text-primary">The Hive</span>
             </h2>
             <p className="text-gray-300 text-sm md:text-base max-w-lg mb-8 leading-relaxed">
               Experience the breathtaking journey of our organic honey production — from the pristine apiaries nestled in wild mountain blossom valleys directly to your kitchen table.
@@ -458,7 +458,7 @@ export default function AboutClient() {
               {/* Close Button */}
               <button
                 onClick={() => setIsPlaying(false)}
-                className="absolute top-4 right-4 w-10 h-10 rounded-full bg-black/60 hover:bg-black text-white hover:text-[#C8A84B] flex items-center justify-center transition-colors duration-200 z-10 border border-gray-800"
+                className="absolute top-4 right-4 w-10 h-10 rounded-full bg-black/60 hover:bg-black text-white hover:text-primary flex items-center justify-center transition-colors duration-200 z-10 border border-gray-800"
               >
                 <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />

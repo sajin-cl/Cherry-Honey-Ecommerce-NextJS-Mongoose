@@ -37,7 +37,7 @@ const Testimonials = () => {
                 <div className="grid md:grid-cols-2 gap-16 md:gap-36 items-center justify-between">
                     {/* Left — testimonial */}
                     <div>
-                        <div className="text-[#C8A84B] text-6xl leading-none mb-3" style={{ fontFamily: "Georgia, serif" }}>
+                        <div className="text-primary text-6xl leading-none mb-3" style={{ fontFamily: "Georgia, serif" }}>
                             <motion.h2
                                 className="text-3xl md:text-4xl mb-5 mt-5 md:mt-12 font-semibold"
                                 style={serifItalic}
@@ -46,7 +46,7 @@ const Testimonials = () => {
                                 viewport={{ once: true }}
                                 transition={{ duration: 0.8 }}
                             >
-                                <span className="text-[#C8A84B]">This is what</span> <span className='text-white'>they say</span>
+                                <span className="text-primary">This is what</span> <span className='text-white'>they say</span>
                             </motion.h2>
                             ""
                         </div>
@@ -62,7 +62,7 @@ const Testimonials = () => {
                                     <p className="text-gray-200 text-base leading-relaxed mb-6 italic">
                                         {TESTIMONIALS[currentIndex]?.text}
                                     </p>
-                                    <p className="text-[#C8A84B] font-semibold text-sm mb-1">
+                                    <p className="text-primary font-semibold text-sm mb-1">
                                         {TESTIMONIALS[currentIndex]?.name}
                                     </p>
                                     <p className="text-gray-600 text-xs mb-6">{TESTIMONIALS[currentIndex]?.role}</p>
@@ -75,7 +75,7 @@ const Testimonials = () => {
                                 <button
                                     key={i}
                                     onClick={() => goTo(i)}
-                                    className={`w-3 h-3 rounded-full transition-colors ${i === currentIndex ? "bg-[#C8A84B]" : "bg-gray-700 hover:bg-gray-500"
+                                    className={`w-3 h-3 rounded-full transition-colors ${i === currentIndex ? "bg-primary" : "bg-gray-700 hover:bg-gray-500"
                                         }`}
                                     aria-label={`Testimonial ${i + 1}`}
                                 />

@@ -147,7 +147,7 @@ export default function CartClient({ initialItems }) {
     <div className="min-h-screen bg-[#0a0a0a] text-white">
       <div className="max-w-7xl mx-auto px-4 md:px-6 pt-24 pb-20">
         <nav className="flex items-center gap-2 text-xs text-gray-500 mb-6">
-          <Link href="/" className="hover:text-[#C8A84B] transition-colors">Home</Link>
+          <Link href="/" className="hover:text-primary transition-colors">Home</Link>
           <span>/</span>
           <span className="text-gray-300">My Cart</span>
         </nav>
@@ -157,7 +157,7 @@ export default function CartClient({ initialItems }) {
         {items.length === 0 ? (
           <div className="border border-gray-800 p-12 text-center max-w-md mx-auto my-12 rounded-3xl">
             <p className="text-gray-400 text-sm mb-4">Your cart is empty.</p>
-            <Link href="/products" className="bg-[#C8A84B] hover:bg-[#b8973e] text-black text-sm font-semibold px-6 py-2.5 transition-colors inline-block active:scale-95 rounded-full">
+            <Link href="/products" className="bg-primary hover:bg-secondary text-black text-sm font-semibold px-6 py-2.5 transition-colors inline-block active:scale-95 rounded-full">
               Shop Now
             </Link>
           </div>
@@ -171,7 +171,7 @@ export default function CartClient({ initialItems }) {
                       disabled={updating}
                       onClick={toggleAll}
                       className={`w-4 h-4 border flex items-center justify-center flex-shrink-0 transition-colors ${selected.size === items.length
-                        ? "bg-[#C8A84B] border-[#C8A84B]"
+                        ? "bg-primary border-primary"
                         : "border-gray-600"
                         }`}
                       aria-label="Select all"
@@ -205,7 +205,7 @@ export default function CartClient({ initialItems }) {
                         disabled={updating}
                         onClick={() => toggleItem(item.id)}
                         className={`w-4 h-4 border shrink-0 mt-1 flex items-center justify-center transition-colors ${selected.has(item.id)
-                          ? "bg-[#C8A84B] border-[#C8A84B]"
+                          ? "bg-primary border-primary"
                           : "border-gray-600"
                           }`}
                         aria-label={`Select ${item.name}`}
@@ -236,7 +236,7 @@ export default function CartClient({ initialItems }) {
                           </p>
                         )}
                         <div className="flex items-center gap-2 mb-2">
-                          <span className="text-[#C8A84B] text-sm font-semibold">₹{item.price.toFixed(2)}</span>
+                          <span className="text-primary text-sm font-semibold">₹{item.price.toFixed(2)}</span>
                           {item.original && item.original > item.price && (
                             <span className="text-gray-500 text-xs line-through">₹{item.original.toFixed(2)}</span>
                           )}
@@ -258,7 +258,7 @@ export default function CartClient({ initialItems }) {
 
                         <div className="flex flex-col gap-1 mt-3">
                           <div className="flex items-center gap-1.5 text-xs text-gray-400">
-                            <svg className="w-3.5 h-3.5 text-[#C8A84B] shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                            <svg className="w-3.5 h-3.5 text-primary shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
                               <path strokeLinecap="round" strokeLinejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" />
                             </svg>
                             15 Days return available
@@ -305,7 +305,7 @@ export default function CartClient({ initialItems }) {
 
                   <Link
                     href="/checkout"
-                    className={`block w-full bg-[#C8A84B] hover:bg-[#b8973e] text-white text-center font-bold text-sm tracking-[0.2em] uppercase py-4 transition-colors ${items.length === 0 ? "pointer-events-none opacity-50" : ""
+                    className={`block w-full bg-primary hover:bg-secondary text-white text-center font-bold text-sm tracking-[0.2em] uppercase py-4 transition-colors ${items.length === 0 ? "pointer-events-none opacity-50" : ""
                       }`}
                   >
                     CHECKOUT
@@ -316,7 +316,7 @@ export default function CartClient({ initialItems }) {
 
             <section className="mt-20">
               <h2 className="text-2xl text-white mb-8" style={serif}>
-                <span className="text-[#C8A84B]">Similar</span> Products
+                <span className="text-primary">Similar</span> Products
               </h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                 {similar.map((p) => {

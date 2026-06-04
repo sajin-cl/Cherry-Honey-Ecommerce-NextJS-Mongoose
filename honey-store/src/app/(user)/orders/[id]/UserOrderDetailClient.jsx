@@ -90,9 +90,9 @@ export default function UserOrderDetailClient({ initialOrder, similarProducts })
     <div className="min-h-screen bg-[#0a0a0a] text-white flex flex-col">
       <div className="flex-1 max-w-7xl mx-auto w-full px-4 md:px-6 pt-24 pb-16">
         <nav className="flex items-center gap-2 text-xs text-gray-500 mb-6 uppercase tracking-wide">
-          <Link href="/" className="hover:text-[#C8A84B] transition-colors">Home</Link>
+          <Link href="/" className="hover:text-primary transition-colors">Home</Link>
           <span>&rsaquo;</span>
-          <Link href="/orders" className="hover:text-[#C8A84B] transition-colors">My Orders</Link>
+          <Link href="/orders" className="hover:text-primary transition-colors">My Orders</Link>
           <span>&rsaquo;</span>
           <span className="text-gray-300">Order Details</span>
         </nav>
@@ -134,7 +134,7 @@ export default function UserOrderDetailClient({ initialOrder, similarProducts })
                   <button
                     onClick={handleCancel}
                     disabled={cancelling}
-                    className="border border-[#C8A84B] text-[#C8A84B] hover:bg-[#C8A84B] hover:text-black disabled:opacity-50 text-xs font-semibold px-6 py-2.5 transition-all tracking-wider uppercase"
+                    className="border border-primary text-primary hover:bg-primary hover:text-black disabled:opacity-50 text-xs font-semibold px-6 py-2.5 transition-all tracking-wider uppercase"
                   >
                     {cancelling ? "Cancelling..." : "Cancel Order"}
                   </button>
@@ -170,11 +170,11 @@ export default function UserOrderDetailClient({ initialOrder, similarProducts })
                     {order.tracking.map((step, i) => (
                       <div key={i} className="flex items-start gap-4 relative">
                         <div className={`relative z-10 w-4 h-4 rounded-full border-2 shrink-0 mt-0.5 ${step.done
-                          ? "bg-[#C8A84B] border-[#C8A84B]"
+                          ? "bg-primary border-primary"
                           : "bg-[#0a0a0a] border-gray-600"
                           }`}>
                           {step.done && (
-                            <div className="absolute inset-0 rounded-full bg-[#C8A84B]/30 scale-150" />
+                            <div className="absolute inset-0 rounded-full bg-primary/30 scale-150" />
                           )}
                         </div>
                         <div>
@@ -220,7 +220,7 @@ export default function UserOrderDetailClient({ initialOrder, similarProducts })
         {similarProducts.length > 0 && (
           <section className="mt-16">
             <h2 className="text-2xl text-white mb-8" style={serif}>
-              <span className="text-[#C8A84B]">Similar</span> Products
+              <span className="text-primary">Similar</span> Products
             </h2>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
               {similarProducts.map((p) => (

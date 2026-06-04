@@ -7,7 +7,7 @@ import Link from "next/link";
 const TABS = ["All Orders", "Pending", "Delivered", "Cancelled"];
 
 const STATUS_CLS = {
-  placed:     "border border-[#C8A84B] text-[#C8A84B]",
+  placed:     "border border-primary text-primary",
   processing: "border border-blue-400 text-blue-400",
   shipped:    "border border-purple-400 text-purple-400",
   delivered:  "border border-green-400 text-green-400",
@@ -19,7 +19,7 @@ function OrderCard({ order }) {
     <div className="bg-[#111] border border-gray-800">
       <div className="flex items-center justify-between px-5 py-3 border-b border-gray-800">
         <div className="flex items-center gap-4">
-          <span className="border border-[#C8A84B] text-[#C8A84B] text-xs px-4 py-1 font-mono rounded-full">
+          <span className="border border-primary text-primary text-xs px-4 py-1 font-mono rounded-full">
             Order ID : {order?.shortId}
           </span>
           <span className="text-gray-400 text-xs">{order?.date}</span>
@@ -53,7 +53,7 @@ function OrderCard({ order }) {
         <div className="flex items-center gap-3">
           <Link
             href={`/orders/${order?.id}`}
-            className="bg-[#C8A84B] hover:bg-[#b8973e] text-black text-xs font-bold px-4 py-2 transition-colors active:scale-95"
+            className="bg-primary hover:bg-secondary text-black text-xs font-bold px-4 py-2 transition-colors active:scale-95"
           >
             View Order Details
           </Link>
@@ -78,7 +78,7 @@ export default function MyOrdersClient({ orders }) {
     <div className="min-h-screen bg-[#0a0a0a] text-white">
       <div className="max-w-7xl mx-auto px-4 md:px-6 pt-20 pb-16">
         <nav className="flex items-center gap-2 text-xs text-gray-500 mb-6 uppercase tracking-wide">
-          <Link href="/" className="hover:text-[#C8A84B] transition-colors">Home</Link>
+          <Link href="/" className="hover:text-primary transition-colors">Home</Link>
           <span>›</span>
           <span className="text-gray-300">My Orders</span>
         </nav>
@@ -91,7 +91,7 @@ export default function MyOrdersClient({ orders }) {
               key={tab}
               onClick={() => setActiveTab(tab)}
               className={`px-5 py-3 text-xs font-medium whitespace-nowrap transition-all border-b-2 -mb-px ${
-                activeTab === tab ? "border-[#C8A84B] text-[#C8A84B]" : "border-transparent text-gray-400 hover:text-white"
+                activeTab === tab ? "border-primary text-primary" : "border-transparent text-gray-400 hover:text-white"
               }`}
             >
               {tab}
@@ -106,7 +106,7 @@ export default function MyOrdersClient({ orders }) {
         ) : (
           <div className="py-20 text-center">
             <p className="text-gray-500 text-sm mb-4">No orders found.</p>
-            <Link href="/products" className="bg-[#C8A84B] hover:bg-[#b8973e] text-black font-semibold text-sm px-8 py-3 transition-colors">
+            <Link href="/products" className="bg-primary hover:bg-secondary text-black font-semibold text-sm px-8 py-3 transition-colors">
               Shop Now
             </Link>
           </div>

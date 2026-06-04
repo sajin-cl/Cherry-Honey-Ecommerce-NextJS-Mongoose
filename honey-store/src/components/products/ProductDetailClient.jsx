@@ -137,11 +137,11 @@ export default function ProductDetailClient({ product, similarProducts }) {
 
         {/* ── Breadcrumb ── */}
         <nav className="flex items-center gap-2 text-xs text-gray-500 mb-8">
-          <Link href="/" className="hover:text-[#C8A84B] transition-colors">
+          <Link href="/" className="hover:text-primary transition-colors">
             Home
           </Link>
           <span>/</span>
-          <Link href="/products" className="hover:text-[#C8A84B] transition-colors">
+          <Link href="/products" className="hover:text-primary transition-colors">
             Products
           </Link>
           <span>/</span>
@@ -167,7 +167,7 @@ export default function ProductDetailClient({ product, similarProducts }) {
                 priority
               />
               {discount > 0 && (
-                <span className="absolute top-4 left-4 bg-[#C8A84B] text-black text-xs font-bold px-2.5 py-1">
+                <span className="absolute top-4 left-4 bg-primary text-black text-xs font-bold px-2.5 py-1">
                   -{discount}%
                 </span>
               )}
@@ -182,7 +182,7 @@ export default function ProductDetailClient({ product, similarProducts }) {
                     onClick={() => setActiveImage(i)}
                     className={`relative w-24 h-24 shrink-0 border-2 transition-all duration-200 overflow-hidden bg-[#111] ${
                       activeImage === i
-                        ? "border-[#C8A84B]"
+                        ? "border-primary"
                         : "border-gray-800 hover:border-gray-600"
                     }`}
                   >
@@ -213,7 +213,7 @@ export default function ProductDetailClient({ product, similarProducts }) {
 
             {/* Price */}
             <div className="flex items-baseline gap-3 mb-4">
-              <span className="text-3xl font-bold text-[#C8A84B]">₹{price}</span>
+              <span className="text-3xl font-bold text-primary">₹{price}</span>
               {product.discountPrice && (
                 <span className="text-gray-500 text-lg line-through">
                   ₹{original}
@@ -227,7 +227,7 @@ export default function ProductDetailClient({ product, similarProducts }) {
             </div>
 
             {/* Gold divider */}
-            <div className="w-full h-px bg-gradient-to-r from-[#C8A84B] via-[#e8c96b] to-transparent mb-6" />
+            <div className="w-full h-px bg-linear-to-r from-primary via-[#e8c96b] to-transparent mb-6" />
 
             {/* Weight selector */}
             <div className="mb-6">
@@ -241,8 +241,8 @@ export default function ProductDetailClient({ product, similarProducts }) {
                     onClick={() => setSelectedWeight(w)}
                     className={`px-5 py-2 text-sm border transition-all duration-200 ${
                       selectedWeight === w
-                        ? "bg-[#C8A84B] border-[#C8A84B] text-black font-semibold"
-                        : "border-gray-700 text-gray-300 hover:border-[#C8A84B] hover:text-[#C8A84B]"
+                        ? "bg-primary border-primary text-black font-semibold"
+                        : "border-gray-700 text-gray-300 hover:border-primary hover:text-primary"
                     }`}
                   >
                     {w}
@@ -270,7 +270,7 @@ export default function ProductDetailClient({ product, similarProducts }) {
                 <button
                   disabled={product.stock === 0}
                   onClick={() => setQty((q) => Math.max(1, q - 1))}
-                  className="w-10 h-10 flex items-center justify-center text-gray-300 hover:text-[#C8A84B] hover:bg-[#C8A84B]/10 disabled:opacity-30 disabled:hover:bg-transparent transition-colors text-lg"
+                  className="w-10 h-10 flex items-center justify-center text-gray-300 hover:text-primary hover:bg-primary/10 disabled:opacity-30 disabled:hover:bg-transparent transition-colors text-lg"
                 >
                   −
                 </button>
@@ -282,7 +282,7 @@ export default function ProductDetailClient({ product, similarProducts }) {
                   onClick={() =>
                     setQty((q) => Math.min(product.stock || 0, q + 1))
                   }
-                  className="w-10 h-10 flex items-center justify-center text-gray-300 hover:text-[#C8A84B] hover:bg-[#C8A84B]/10 disabled:opacity-30 disabled:hover:bg-transparent transition-colors text-lg"
+                  className="w-10 h-10 flex items-center justify-center text-gray-300 hover:text-primary hover:bg-primary/10 disabled:opacity-30 disabled:hover:bg-transparent transition-colors text-lg"
                 >
                   +
                 </button>
@@ -294,8 +294,8 @@ export default function ProductDetailClient({ product, similarProducts }) {
                 onClick={handleAddToCart}
                 className={`flex-1 h-10 font-semibold text-sm tracking-widest uppercase transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed active:scale-95 ${
                   added
-                    ? "bg-[#b8973e] text-black"
-                    : "bg-[#C8A84B] hover:bg-[#b8973e] text-black"
+                    ? "bg-secondary text-black"
+                    : "bg-primary hover:bg-secondary text-black"
                 }`}
               >
                 {product.stock === 0
@@ -322,7 +322,7 @@ export default function ProductDetailClient({ product, similarProducts }) {
                 sessionStorage.setItem("buyNowItem", JSON.stringify(buyNowItem));
                 router.push("/checkout?buyNow=true");
               }}
-              className="w-full h-10 font-semibold text-sm tracking-widest uppercase active:scale-95 border border-[#C8A84B] text-[#C8A84B] hover:bg-[#C8A84B] hover:text-black disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 mb-4"
+              className="w-full h-10 font-semibold text-sm tracking-widest uppercase active:scale-95 border border-primary text-primary hover:bg-primary hover:text-black disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 mb-4"
             >
               {product.stock === 0 ? "Out of Stock" : "Buy Now"}
             </button>
@@ -412,11 +412,11 @@ export default function ProductDetailClient({ product, similarProducts }) {
         ══════════════════════════════════════════════ */}
         <section className="mb-20">
           <h2 className="text-2xl text-white mb-6" style={serifItalic}>
-            <span className="text-[#C8A84B]">Product</span> Specifications
+            <span className="text-primary">Product</span> Specifications
           </h2>
           <div className="border border-gray-800 overflow-hidden">
             <div className="bg-[#1a1a1a] px-5 py-3">
-              <span className="text-[#C8A84B] text-sm font-semibold uppercase tracking-widest">
+              <span className="text-primary text-sm font-semibold uppercase tracking-widest">
                 In The Box
               </span>
             </div>
@@ -432,7 +432,7 @@ export default function ProductDetailClient({ product, similarProducts }) {
               </div>
             ))}
             <div className="bg-[#1a1a1a] px-5 py-3 mt-1">
-              <span className="text-[#C8A84B] text-sm font-semibold uppercase tracking-widest">
+              <span className="text-primary text-sm font-semibold uppercase tracking-widest">
                 General
               </span>
             </div>
@@ -455,7 +455,7 @@ export default function ProductDetailClient({ product, similarProducts }) {
         ══════════════════════════════════════════════ */}
         <section className="mb-20">
           <h2 className="text-2xl text-white mb-6" style={serifItalic}>
-            <span className="text-[#C8A84B]">Shipping</span> Details
+            <span className="text-primary">Shipping</span> Details
           </h2>
           <div className="flex border-b border-gray-800 mb-6">
             {["shipping", "returns"].map((tab) => (
@@ -464,7 +464,7 @@ export default function ProductDetailClient({ product, similarProducts }) {
                 onClick={() => setSellerTab(tab)}
                 className={`px-6 py-3 text-sm font-medium capitalize transition-all duration-200 border-b-2 -mb-px ${
                   sellerTab === tab
-                    ? "border-[#C8A84B] text-[#C8A84B]"
+                    ? "border-primary text-primary"
                     : "border-transparent text-gray-400 hover:text-white"
                 }`}
               >
@@ -482,7 +482,7 @@ export default function ProductDetailClient({ product, similarProducts }) {
         ══════════════════════════════════════════════ */}
         <section className="mb-20">
           <h2 className="text-2xl text-white mb-6" style={serifItalic}>
-            <span className="text-[#C8A84B]">FAQ</span>
+            <span className="text-primary">FAQ</span>
           </h2>
           <div className="max-w-3xl">
             {faqs.map((faq, i) => (
@@ -508,7 +508,7 @@ export default function ProductDetailClient({ product, similarProducts }) {
         {similarProducts.length > 0 && (
           <section id="similar-product-section">
             <h2 className="text-2xl text-white mb-8" style={serifItalic}>
-              <span className="text-[#C8A84B]">Similar</span> Products
+              <span className="text-primary">Similar</span> Products
             </h2>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-5">
               {similarProducts.map((p) => (

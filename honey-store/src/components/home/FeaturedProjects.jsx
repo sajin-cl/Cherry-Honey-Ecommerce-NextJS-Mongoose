@@ -7,7 +7,7 @@ import { serifItalic } from "@/config/staticData"
 export default function FeaturedProjects({ featuredProducts }) {
 
     return (
-        <section className="pt-20 pb-10 bg-dark relative overflow-hidden min-h-screen">
+        <section id="featured-products" className="pt-20 pb-10 bg-dark relative overflow-hidden min-h-screen">
             {/* Honey Comb Layer-1*/}
             <div className="absolute inset-0">
                 <Image
@@ -17,7 +17,7 @@ export default function FeaturedProjects({ featuredProducts }) {
                     alt="overlay"
                     sizes="100vw"
                 />
-                <div className="absolute inset-0 bg-gradient-to-bl from-black/80 via-black/0 to-transparent" />
+                <div className="absolute inset-0 bg-linear-to-bl from-black/80 via-black/0 to-transparent" />
             </div>
 
             {/* Honey Drip Layer-2 */}
@@ -42,7 +42,7 @@ export default function FeaturedProjects({ featuredProducts }) {
                     viewport={{ once: true }}
                     transition={{ duration: 0.8 }}
                 >
-                    <span className="text-[#C8A84B]">Featured</span> Products
+                    <span className="text-primary">Featured</span> Products
                 </motion.h2>
 
                 <motion.div
@@ -107,7 +107,7 @@ export default function FeaturedProjects({ featuredProducts }) {
                 >
                     <Link
                         href="/products"
-                        className="bg-[#C8A84B] hover:bg-[#b8973e] text-black font-bold text-xs px-8 py-3.5 tracking-[0.2em] uppercase transition-colors active:scale-95"
+                        className="bg-primary hover:bg-secondary text-black font-bold text-xs px-8 py-3.5 tracking-[0.2em] uppercase transition-colors active:scale-95"
                     >
                         View All Products
                     </Link>

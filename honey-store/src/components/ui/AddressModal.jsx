@@ -101,7 +101,7 @@ export default function AddressModal({ isOpen, onClose, onSave }) {
               value={form.name}
               onChange={field("name")}
               placeholder="e.g. Alexa Johnson"
-              className="w-full bg-[#1a1a1a] border border-gray-700 focus:border-[#C8A84B] text-white text-sm px-4 py-2.5 outline-none transition-colors placeholder-gray-600"
+              className="w-full bg-[#1a1a1a] border border-gray-700 focus:border-primary text-white text-sm px-4 py-2.5 outline-none transition-colors placeholder-gray-600"
             />
           </div>
 
@@ -114,7 +114,7 @@ export default function AddressModal({ isOpen, onClose, onSave }) {
               value={form.line1}
               onChange={field("line1")}
               placeholder="Street, City, State PIN"
-              className="w-full bg-[#1a1a1a] border border-gray-700 focus:border-[#C8A84B] text-white text-sm px-4 py-2.5 outline-none transition-colors placeholder-gray-600"
+              className="w-full bg-[#1a1a1a] border border-gray-700 focus:border-primary text-white text-sm px-4 py-2.5 outline-none transition-colors placeholder-gray-600"
             />
           </div>
 
@@ -129,7 +129,7 @@ export default function AddressModal({ isOpen, onClose, onSave }) {
                 value={form.phone}
                 onChange={field("phone")}
                 placeholder="9876543210"
-                className="w-full bg-[#1a1a1a] border border-gray-700 focus:border-[#C8A84B] text-white text-sm px-4 py-2.5 outline-none transition-colors placeholder-gray-600"
+                className="w-full bg-[#1a1a1a] border border-gray-700 focus:border-primary text-white text-sm px-4 py-2.5 outline-none transition-colors placeholder-gray-600"
               />
             </div>
             <div>
@@ -137,7 +137,7 @@ export default function AddressModal({ isOpen, onClose, onSave }) {
               <select
                 value={form.tag}
                 onChange={field("tag")}
-                className="w-full bg-[#1a1a1a] border border-gray-700 focus:border-[#C8A84B] text-white text-sm px-4 py-2.5 outline-none transition-colors"
+                className="w-full bg-[#1a1a1a] border border-gray-700 focus:border-primary text-white text-sm px-4 py-2.5 outline-none transition-colors"
               >
                 <option value="HOME">HOME</option>
                 <option value="WORK">WORK</option>
@@ -158,7 +158,7 @@ export default function AddressModal({ isOpen, onClose, onSave }) {
             <button
               type="submit"
               disabled={loading}
-              className="flex-1 py-2.5 bg-[#C8A84B] hover:bg-[#b8973e] disabled:opacity-50 text-black font-semibold text-sm transition-colors"
+              className="flex-1 py-2.5 bg-primary hover:bg-secondary disabled:opacity-50 text-black font-semibold text-sm transition-colors"
             >
               {loading ? "Saving..." : "Save Address"}
             </button>

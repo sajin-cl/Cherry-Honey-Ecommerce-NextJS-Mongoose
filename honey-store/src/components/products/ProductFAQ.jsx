@@ -10,11 +10,11 @@ export default function FAQItem({ q, a }) {
                 onClick={() => setOpen(!open)}
                 className="w-full flex items-center justify-between py-4 text-left group"
             >
-                <span className="text-white text-sm font-medium group-hover:text-[#C8A84B] transition-colors pr-4">
+                <span className="text-white text-sm font-medium group-hover:text-primary transition-colors pr-4">
                     {q}
                 </span>
                 <span
-                    className={`text-[#C8A84B] text-lg font-bold shrink-0 transition-transform duration-300 ${open ? "rotate-45" : "rotate-0"
+                    className={`text-primary text-lg font-bold shrink-0 transition-transform duration-300 ${open ? "rotate-45" : "rotate-0"
                         }`}
                 >
                     +

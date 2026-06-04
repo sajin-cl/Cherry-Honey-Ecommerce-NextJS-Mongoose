@@ -39,7 +39,7 @@ export default function ProductsClient({
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.6 }}
         >
-          <Link href="/" className="hover:text-[#C8A84B] transition-colors">
+          <Link href="/" className="hover:text-primary transition-colors">
             Home
           </Link>
           <span>/</span>
@@ -85,7 +85,7 @@ export default function ProductsClient({
             <p className="text-gray-500 text-sm mb-4">No products found.</p>
             <Link
               href="/products"
-              className="text-[#C8A84B] text-sm underline"
+              className="text-primary text-sm underline"
             >
               Clear filters
             </Link>

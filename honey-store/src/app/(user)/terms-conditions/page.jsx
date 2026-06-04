@@ -148,11 +148,11 @@ export default function TermsAndConditionsPage() {
 
             {/* ── Hero ── */}
             <div className="relative pt-28 pb-14 px-4 text-center border-b border-gray-800">
-                <p className="text-[#C8A84B] text-xs tracking-[0.3em] uppercase mb-4">
+                <p className="text-primary text-xs tracking-[0.3em] uppercase mb-4">
                     Legal
                 </p>
                 <h1 className="text-5xl md:text-6xl text-white mb-4" style={serif}>
-                    Terms &amp; <span className="text-[#C8A84B]">Conditions</span>
+                    Terms &amp; <span className="text-primary">Conditions</span>
                 </h1>
                 <p className="text-gray-500 text-xs tracking-wider uppercase">
                     Last updated: {LAST_UPDATED}
@@ -163,7 +163,7 @@ export default function TermsAndConditionsPage() {
             <div className="max-w-5xl mx-auto px-4 py-14">
 
                 {/* Intro */}
-                <div className="border-l-2 border-[#C8A84B] pl-5 mb-12">
+                <div className="border-l-2 border-primary pl-5 mb-12">
                     <p className="text-gray-300 text-sm leading-relaxed">
                         Welcome to <span className="text-white font-medium">Cherrys Honey</span>.
                         These Terms &amp; Conditions govern your use of our website and the
@@ -180,7 +180,7 @@ export default function TermsAndConditionsPage() {
                             {/* Section heading */}
                             <div className="flex items-center gap-3 mb-5">
                                 <span
-                                    className="text-xs font-bold text-black bg-[#C8A84B] w-6 h-6 flex items-center justify-center shrink-0"
+                                    className="text-xs font-bold text-black bg-primary w-6 h-6 flex items-center justify-center shrink-0"
                                     style={{ fontStyle: "normal" }}
                                 >
                                     {idx + 1}
@@ -195,7 +195,7 @@ export default function TermsAndConditionsPage() {
                                 {section.content.map((block, bIdx) => (
                                     <div key={bIdx}>
                                         {block.subtitle && (
-                                            <p className="text-[#C8A84B] text-xs font-semibold tracking-wider uppercase mb-1.5">
+                                            <p className="text-primary text-xs font-semibold tracking-wider uppercase mb-1.5">
                                                 {block?.subtitle}
                                             </p>
                                         )}
@@ -228,7 +228,7 @@ export default function TermsAndConditionsPage() {
                             Email:{" "}
                             <a
                                 href={`mailto:${CUSTOMER_CARE_EMAIL}`}
-                                className="text-[#C8A84B] hover:underline"
+                                className="text-primary hover:underline"
                             >
                                 {CUSTOMER_CARE_EMAIL}
                             </a>
@@ -237,7 +237,7 @@ export default function TermsAndConditionsPage() {
                             Phone:{" "}
                             <a
                                 href={`tel:${ADMIN_PHONE}`}
-                                className="text-[#C8A84B] hover:underline"
+                                className="text-primary hover:underline"
                             >
                                 {ADMIN_PHONE}
                             </a>
@@ -250,19 +250,19 @@ export default function TermsAndConditionsPage() {
 
                 {/* ── Bottom links ── */}
                 <div className="mt-10 flex flex-wrap gap-4 text-xs text-gray-500">
-                    <Link href="/faq" className="hover:text-[#C8A84B] transition-colors">
+                    <Link href="/faq" className="hover:text-primary transition-colors">
                         FAQ
                     </Link>
                     <span>·</span>
-                    <Link href="/privacy-policy" className="hover:text-[#C8A84B] transition-colors">
+                    <Link href="/privacy-policy" className="hover:text-primary transition-colors">
                         Privacy Policy
                     </Link>
                     <span>·</span>
-                    <Link href="/refund-policy" className="hover:text-[#C8A84B] transition-colors">
+                    <Link href="/refund-policy" className="hover:text-primary transition-colors">
                         Refund Policy
                     </Link>
                     <span>·</span>
-                    <Link href="/" className="hover:text-[#C8A84B] transition-colors">
+                    <Link href="/" className="hover:text-primary transition-colors">
                         Back to Home
                     </Link>
                 </div>

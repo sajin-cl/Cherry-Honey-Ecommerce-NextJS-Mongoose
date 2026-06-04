@@ -96,12 +96,12 @@ export default function ContactClient() {
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.8 }}
         >
-          <p className="text-[#C8A84B] text-xs tracking-[0.4em] uppercase mb-4 font-bold">
+          <p className="text-primary text-xs tracking-[0.4em] uppercase mb-4 font-bold">
             Get In Touch
           </p>
           <h1 className="text-4xl md:text-6xl text-white font-light mb-6 tracking-wide">
             We'd Love To{" "}
-            <span className="text-[#C8A84B]" style={serifItalic}>
+            <span className="text-primary" style={serifItalic}>
               Hear From You
             </span>
           </h1>
@@ -113,13 +113,13 @@ export default function ContactClient() {
           <div className="flex items-center justify-center gap-4 flex-wrap">
             <button
               onClick={scrollToForm}
-              className="inline-block bg-[#C8A84B] hover:bg-[#b8973e] text-black font-bold text-xs px-8 py-4 tracking-[0.2em] uppercase transition-all duration-300 transform hover:scale-105 active:scale-95 shadow-[0_4px_20px_rgba(200,168,75,0.25)] cursor-pointer"
+              className="inline-block bg-primary hover:bg-secondary text-black font-bold text-xs px-8 py-4 tracking-[0.2em] uppercase transition-all duration-300 transform hover:scale-105 active:scale-95 shadow-[0_4px_20px_rgba(200,168,75,0.25)] cursor-pointer"
             >
               Contact Now
             </button>
             <Link
               href="/products"
-              className="inline-block border border-gray-600 text-gray-300 hover:border-[#C8A84B] hover:text-[#C8A84B] font-semibold text-xs px-8 py-4 tracking-[0.2em] uppercase transition-all duration-300 transform hover:scale-105 active:scale-95"
+              className="inline-block border border-gray-600 text-gray-300 hover:border-primary hover:text-primary font-semibold text-xs px-8 py-4 tracking-[0.2em] uppercase transition-all duration-300 transform hover:scale-105 active:scale-95"
             >
               Explore Products
             </Link>
@@ -154,15 +154,15 @@ export default function ContactClient() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {/* Card 1: Phone */}
           <motion.div
-            className="bg-[#111111]/40 backdrop-blur-md border border-gray-800 hover:border-[#C8A84B]/40 p-8 rounded-xl text-center transition-all duration-500 hover:-translate-y-1.5 group"
+            className="bg-[#111111]/40 backdrop-blur-md border border-gray-800 hover:border-primary/40 p-8 rounded-xl text-center transition-all duration-500 hover:-translate-y-1.5 group"
             initial={{ y: 30, opacity: 0 }}
             whileInView={{ y: 0, opacity: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.1 }}
           >
-            <div className="w-12 h-12 rounded-full border border-gray-800 flex items-center justify-center mx-auto mb-5 group-hover:border-[#C8A84B]/40 transition-colors duration-300">
+            <div className="w-12 h-12 rounded-full border border-gray-800 flex items-center justify-center mx-auto mb-5 group-hover:border-primary/40 transition-colors duration-300">
               <svg
-                className="w-5 h-5 text-[#C8A84B] group-hover:scale-110 transition-transform duration-300"
+                className="w-5 h-5 text-primary group-hover:scale-110 transition-transform duration-300"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -171,12 +171,11 @@ export default function ContactClient() {
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
-                  d="M2.25 6.622k"
                   d="M2.25 6.6221A16.7 16.7 0 0019.5 21.75c.4 0 .783-.075 1.125-.213M6.3 3.6h2.7c.395 0 .736.262.833.645l.654 2.617a.895.895 0 01-.482.996l-1.636.818a10.82 10.82 0 005.156 5.156l.818-1.636a.895.895 0 01.996-.482l2.617.654c.383.097.645.438.645.833v2.7a2.25 2.25 0 01-2.25 2.25A17.9 17.9 0 012.25 4.5A2.25 2.25 0 014.5 2.25h2.7"
                 />
               </svg>
             </div>
-            <p className="text-gray-400 text-[10px] tracking-[0.3em] uppercase mb-2 font-bold group-hover:text-[#C8A84B] transition-colors duration-300">
+            <p className="text-gray-400 text-[10px] tracking-[0.3em] uppercase mb-2 font-bold group-hover:text-primary transition-colors duration-300">
               Phone
             </p>
             <p className="text-white text-sm font-medium tracking-wide">
@@ -186,15 +185,15 @@ export default function ContactClient() {
 
           {/* Card 2: Email */}
           <motion.div
-            className="bg-[#111111]/40 backdrop-blur-md border border-gray-800 hover:border-[#C8A84B]/40 p-8 rounded-xl text-center transition-all duration-500 hover:-translate-y-1.5 group"
+            className="bg-[#111111]/40 backdrop-blur-md border border-gray-800 hover:border-primary/40 p-8 rounded-xl text-center transition-all duration-500 hover:-translate-y-1.5 group"
             initial={{ y: 30, opacity: 0 }}
             whileInView={{ y: 0, opacity: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
-            <div className="w-12 h-12 rounded-full border border-gray-800 flex items-center justify-center mx-auto mb-5 group-hover:border-[#C8A84B]/40 transition-colors duration-300">
+            <div className="w-12 h-12 rounded-full border border-gray-800 flex items-center justify-center mx-auto mb-5 group-hover:border-primary/40 transition-colors duration-300">
               <svg
-                className="w-5 h-5 text-[#C8A84B] group-hover:scale-110 transition-transform duration-300"
+                className="w-5 h-5 text-primary group-hover:scale-110 transition-transform duration-300"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -207,7 +206,7 @@ export default function ContactClient() {
                 />
               </svg>
             </div>
-            <p className="text-gray-400 text-[10px] tracking-[0.3em] uppercase mb-2 font-bold group-hover:text-[#C8A84B] transition-colors duration-300">
+            <p className="text-gray-400 text-[10px] tracking-[0.3em] uppercase mb-2 font-bold group-hover:text-primary transition-colors duration-300">
               Email
             </p>
             <p className="text-white text-sm font-medium tracking-wide">
@@ -217,15 +216,15 @@ export default function ContactClient() {
 
           {/* Card 3: Location */}
           <motion.div
-            className="bg-[#111111]/40 backdrop-blur-md border border-gray-800 hover:border-[#C8A84B]/40 p-8 rounded-xl text-center transition-all duration-500 hover:-translate-y-1.5 group"
+            className="bg-[#111111]/40 backdrop-blur-md border border-gray-800 hover:border-primary/40 p-8 rounded-xl text-center transition-all duration-500 hover:-translate-y-1.5 group"
             initial={{ y: 30, opacity: 0 }}
             whileInView={{ y: 0, opacity: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.3 }}
           >
-            <div className="w-12 h-12 rounded-full border border-gray-800 flex items-center justify-center mx-auto mb-5 group-hover:border-[#C8A84B]/40 transition-colors duration-300">
+            <div className="w-12 h-12 rounded-full border border-gray-800 flex items-center justify-center mx-auto mb-5 group-hover:border-primary/40 transition-colors duration-300">
               <svg
-                className="w-5 h-5 text-[#C8A84B] group-hover:scale-110 transition-transform duration-300"
+                className="w-5 h-5 text-primary group-hover:scale-110 transition-transform duration-300"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -243,7 +242,7 @@ export default function ContactClient() {
                 />
               </svg>
             </div>
-            <p className="text-gray-400 text-[10px] tracking-[0.3em] uppercase mb-2 font-bold group-hover:text-[#C8A84B] transition-colors duration-300">
+            <p className="text-gray-400 text-[10px] tracking-[0.3em] uppercase mb-2 font-bold group-hover:text-primary transition-colors duration-300">
               Location
             </p>
             <p className="text-white text-sm font-medium tracking-wide">
@@ -253,15 +252,15 @@ export default function ContactClient() {
 
           {/* Card 4: Hours */}
           <motion.div
-            className="bg-[#111111]/40 backdrop-blur-md border border-gray-800 hover:border-[#C8A84B]/40 p-8 rounded-xl text-center transition-all duration-500 hover:-translate-y-1.5 group"
+            className="bg-[#111111]/40 backdrop-blur-md border border-gray-800 hover:border-primary/40 p-8 rounded-xl text-center transition-all duration-500 hover:-translate-y-1.5 group"
             initial={{ y: 30, opacity: 0 }}
             whileInView={{ y: 0, opacity: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.4 }}
           >
-            <div className="w-12 h-12 rounded-full border border-gray-800 flex items-center justify-center mx-auto mb-5 group-hover:border-[#C8A84B]/40 transition-colors duration-300">
+            <div className="w-12 h-12 rounded-full border border-gray-800 flex items-center justify-center mx-auto mb-5 group-hover:border-primary/40 transition-colors duration-300">
               <svg
-                className="w-5 h-5 text-[#C8A84B] group-hover:scale-110 transition-transform duration-300"
+                className="w-5 h-5 text-primary group-hover:scale-110 transition-transform duration-300"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -274,7 +273,7 @@ export default function ContactClient() {
                 />
               </svg>
             </div>
-            <p className="text-gray-400 text-[10px] tracking-[0.3em] uppercase mb-2 font-bold group-hover:text-[#C8A84B] transition-colors duration-300">
+            <p className="text-gray-400 text-[10px] tracking-[0.3em] uppercase mb-2 font-bold group-hover:text-primary transition-colors duration-300">
               Hours
             </p>
             <p className="text-white text-sm font-medium tracking-wide">
@@ -306,7 +305,7 @@ export default function ContactClient() {
                 className="text-4xl lg:text-5xl text-white font-light leading-tight mb-6"
                 style={serifItalic}
               >
-                Send a <span className="text-[#C8A84B]">Message</span>
+                Send a <span className="text-primary">Message</span>
               </h2>
               <p className="text-gray-400 text-sm md:text-base leading-relaxed mb-8">
                 Our dedicated concierges are available to assist you with
@@ -334,11 +333,11 @@ export default function ContactClient() {
                     initial={{ opacity: 0, scale: 0.95 }}
                     animate={{ opacity: 1, scale: 1 }}
                     exit={{ opacity: 0, scale: 0.95 }}
-                    className="absolute inset-0 bg-[#000]/95 rounded-2xl flex flex-col items-center justify-center p-6 text-center z-20 border border-[#C8A84B]"
+                    className="absolute inset-0 bg-black/95 rounded-2xl flex flex-col items-center justify-center p-6 text-center z-20 border border-primary"
                   >
-                    <div className="w-16 h-16 rounded-full bg-[#C8A84B]/10 border border-[#C8A84B] flex items-center justify-center mb-6">
+                    <div className="w-16 h-16 rounded-full bg-primary/10 border border-primary flex items-center justify-center mb-6">
                       <svg
-                        className="w-8 h-8 text-[#C8A84B]"
+                        className="w-8 h-8 text-primary"
                         fill="none"
                         viewBox="0 0 24 24"
                         stroke="currentColor"
@@ -364,7 +363,7 @@ export default function ContactClient() {
                     </p>
                     <button
                       onClick={() => setSubmitStatus(null)}
-                      className="bg-[#C8A84B] hover:bg-[#b8973e] text-black font-bold text-xs px-8 py-3.5 tracking-widest uppercase transition-colors duration-200 cursor-pointer"
+                      className="bg-primary hover:bg-secondary text-black font-bold text-xs px-8 py-3.5 tracking-widest uppercase transition-colors duration-200 cursor-pointer"
                     >
                       Send Another Message
                     </button>
@@ -391,7 +390,7 @@ export default function ContactClient() {
                       value={formData.fullName}
                       onChange={handleChange}
                       placeholder="Full Name"
-                      className="py-3 px-1 w-full text-white placeholder-gray-500 bg-transparent border-b border-gray-800 focus:border-[#C8A84B] focus:outline-none transition-colors duration-300 text-sm"
+                      className="py-3 px-1 w-full text-white placeholder-gray-500 bg-transparent border-b border-gray-800 focus:border-primary focus:outline-none transition-colors duration-300 text-sm"
                     />
                   </div>
 
@@ -405,7 +404,7 @@ export default function ContactClient() {
                       value={formData.email}
                       onChange={handleChange}
                       placeholder="Email"
-                      className="py-3 px-1 w-full text-white placeholder-gray-500 bg-transparent border-b border-gray-800 focus:border-[#C8A84B] focus:outline-none transition-colors duration-300 text-sm"
+                      className="py-3 px-1 w-full text-white placeholder-gray-500 bg-transparent border-b border-gray-800 focus:border-primary focus:outline-none transition-colors duration-300 text-sm"
                     />
                   </div>
                 </div>
@@ -422,7 +421,7 @@ export default function ContactClient() {
                       value={formData.phone}
                       onChange={handleChange}
                       placeholder="Phone"
-                      className="py-3 px-1 w-full text-white placeholder-gray-500 bg-transparent border-b border-gray-800 focus:border-[#C8A84B] focus:outline-none transition-colors duration-300 text-sm"
+                      className="py-3 px-1 w-full text-white placeholder-gray-500 bg-transparent border-b border-gray-800 focus:border-primary focus:outline-none transition-colors duration-300 text-sm"
                     />
                   </div>
 
@@ -436,7 +435,7 @@ export default function ContactClient() {
                       value={formData.subject}
                       onChange={handleChange}
                       placeholder="Subject"
-                      className="py-3 px-1 w-full text-white placeholder-gray-500 bg-transparent border-b border-gray-800 focus:border-[#C8A84B] focus:outline-none transition-colors duration-300 text-sm"
+                      className="py-3 px-1 w-full text-white placeholder-gray-500 bg-transparent border-b border-gray-800 focus:border-primary focus:outline-none transition-colors duration-300 text-sm"
                     />
                   </div>
                 </div>
@@ -451,7 +450,7 @@ export default function ContactClient() {
                     value={formData.message}
                     onChange={handleChange}
                     placeholder="Message"
-                    className="py-3 px-1 w-full text-white placeholder-gray-500 bg-transparent border-b border-gray-800 focus:border-[#C8A84B] focus:outline-none transition-colors duration-300 text-sm resize-none"
+                    className="py-3 px-1 w-full text-white placeholder-gray-500 bg-transparent border-b border-gray-800 focus:border-primary focus:outline-none transition-colors duration-300 text-sm resize-none"
                   ></textarea>
                 </div>
 
@@ -460,7 +459,7 @@ export default function ContactClient() {
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="relative w-full  bg-[#C8A84B] hover:bg-[#b8973e] disabled:bg-[#555] disabled:cursor-not-allowed text-black font-bold text-xs py-4 tracking-[0.25em] uppercase transition-all duration-300 transform active:scale-95 shadow-[0_4px_25px_rgba(200,168,75,0.2)] flex items-center justify-center gap-2 cursor-pointer"
+                    className="relative w-full  bg-primary hover:bg-secondary disabled:bg-[#555] disabled:cursor-not-allowed text-black font-bold text-xs py-4 tracking-[0.25em] uppercase transition-all duration-300 transform active:scale-95 shadow-[0_4px_25px_rgba(200,168,75,0.2)] flex items-center justify-center gap-2 cursor-pointer"
                   >
                     {isSubmitting ? (
                       <>
