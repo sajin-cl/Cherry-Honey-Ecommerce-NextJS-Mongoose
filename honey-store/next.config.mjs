@@ -1,7 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  reactCompiler: true,
-  images: { 
+  images: {
     // Serve modern formats — browser picks smallest supported (avif > webp > original)
     formats: ["image/avif", "image/webp"],
     // Cache optimised images for 30 days at the Next.js image server
