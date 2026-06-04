@@ -13,16 +13,11 @@
   --color-foreground: var(--foreground);
   --color-primary: var(--primary);
   --color-secondary: var(--secondary);
+
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
 
 body {
   background: var(--background);
@@ -60,7 +55,6 @@ input[type="range"]::-moz-range-thumb {
   height: 14px;
   border-radius: 50%;
   background: #FFB300;
-  /* Pure Honey Color */
   border: none;
   cursor: pointer;
 }
@@ -82,22 +76,17 @@ input[type="range"]::-moz-range-thumb {
     mask-repeat: no-repeat;
   }
 
-  /* globals.css */
-
   .no-scrollbar::-webkit-scrollbar {
     display: none;
   }
 
   .no-scrollbar {
     -ms-overflow-style: none;
-    /* IE and Edge */
     scrollbar-width: none;
-    /* Firefox */
   }
 
-  /* ═══════════════════════════════════════════
-   REALISTIC HONEY DROP ROTATING CURSOR 
-═══════════════════════════════════════════ */
+  
+   /* REALISTIC HONEY DROP ROTATING CURSOR */
   @media (hover: hover) and (pointer: fine) {
 
     .cur-dot {
@@ -117,20 +106,13 @@ input[type="range"]::-moz-range-thumb {
       position: fixed;
       width: 40px;
       height: 40px;
-
-      /* Pure Honey Liquid Glow Texture */
       border: 2px solid #FFD700;
       background: rgba(255, 179, 0, 0.2);
-
-      /* Specific radius for perfection drop shape */
       border-radius: 0% 100% 100% 100%;
-
       pointer-events: none;
       z-index: 99998;
-
       /* Liquid honey drop continuous rotation */
       animation: rotateDrop 3s linear infinite !important;
-
       /* Realistic shadow glow for liquid look */
       box-shadow:
         inset 0 0 8px rgba(255, 255, 255, 0.8),
@@ -152,7 +134,7 @@ input[type="range"]::-moz-range-thumb {
         0 0 25px rgba(255, 179, 0, 0.8);
     }
 
-    /* Rotation & Drop balancing keyframes */
+
     @keyframes rotateDrop {
       0% {
         transform: translate(-50%, -50%) rotate(45deg);
