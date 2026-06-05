@@ -4,9 +4,8 @@
 import { requireAdmin } from "@/lib/auth";
 import dbConnect from "@/lib/dbConnect";
 import Order from "@/models/order.model";
-import Link from "next/link";
 import User from "@/models/user.model";
-import AdminOrdersClient from "../../../../components/admin/orders/OrdersPage";
+import AdminOrdersClient from "@/components/admin/orders/OrdersPage";
 
 export const metadata = { title: "Orders | Admin" };
 

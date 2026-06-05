@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { FAQS, serif } from "@/config/staticData"
-import FAQItem from "@/components/ui/FAQ";
+import QA from "@/components/user/faq/QA";
 import { CUSTOMER_CARE_EMAIL } from "@/config/staticData";
 
 
@@ -105,10 +105,10 @@ export default function FAQClient() {
                                 <div className="flex-1 h-px bg-gray-800" />
                             </div>
 
-                            {/* Items */}
+                            {/*QA Items */}
                             <div className="border border-gray-800 overflow-hidden">
                                 {group.items.map((item, idx) => (
-                                    <FAQItem key={idx} q={item.q} a={item.a} />
+                                    <QA key={idx} q={item.q} a={item.a} />
                                 ))}
                             </div>
                         </div>

@@ -1,4 +1,4 @@
-import FAQClient from './FAQClient'
+import FAQClient from '../../../components/user/faq/FAQClient'
 
 export const metadata = {
     title: "FAQ - Cherrys Honey",

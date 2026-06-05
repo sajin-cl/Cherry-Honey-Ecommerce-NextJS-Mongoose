@@ -1,8 +1,8 @@
 import AdminLayout from "../../components/layouts/(admin)/AdminLayout";
 
 export const metadata = {
-  title: "Admin | Honey Bee",
-  description: "Honey Bee Admin Dashboard",
+  title: "Admin | Cherrys Honey",
+  description: "Cherrys Honey Admin Dashboard",
 };
 
 export default function AdminRootLayout({ children }) {

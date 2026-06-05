@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import FilterSidebar from "@/components/user/products/FilterSidebar";
+import FilterSidebar from "@/components/user/products/FilterModal";
 
 /**
  * Filter bar component.

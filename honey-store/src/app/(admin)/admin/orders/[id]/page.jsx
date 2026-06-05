@@ -9,7 +9,7 @@ import mongoose from "mongoose";
 export async function generateMetadata({ params }) {
   const { id } = await params;
   return {
-    title: `Order Details #${id} | Cherry Honey Admin`,
+    title: `Order Details #${id} | Cherrys Honey Admin`,
     description: `Admin control panel for order #${id}`,
   };
 }
