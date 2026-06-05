@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { ADMIN_PHONE, CUSTOMER_CARE_EMAIL } from "@/config/staticData";
+import { apiClient } from "@/lib/apiClient";
 
 const serifItalic = {
   fontFamily: "'Georgia', 'Times New Roman', serif",
@@ -43,33 +44,19 @@ export default function ContactClient() {
     setErrorMessage("");
 
     try {
-      const response = await fetch("/api/contact", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
+      await apiClient.submitContact(formData);
+      setSubmitStatus("success");
+      setFormData({
+        fullName: "",
+        email: "",
+        phone: "",
+        subject: "",
+        message: "",
       });
-
-      const data = await response.json();
-
-      if (response.ok) {
-        setSubmitStatus("success");
-        setFormData({
-          fullName: "",
-          email: "",
-          phone: "",
-          subject: "",
-          message: "",
-        });
-      } else {
-        setSubmitStatus("error");
-        setErrorMessage(data.error || "Something went wrong. Please try again.");
-      }
     } catch (err) {
       console.error(err);
       setSubmitStatus("error");
-      setErrorMessage("Network error. Please check your connection.");
+      setErrorMessage(err.message || "Something went wrong. Please try again.");
     } finally {
       setIsSubmitting(false);
     }

@@ -4,6 +4,7 @@ import Order from "@/models/order.model";
 import Product from "@/models/product.model";
 import { getServerUser } from "@/lib/auth";
 import UserOrderDetailClient from "./UserOrderDetailClient";
+import mongoose from "mongoose";
 
 export async function generateMetadata({ params }) {
   const { id } = await params;
@@ -33,6 +34,16 @@ export default async function OrderDetailsPage({ params }) {
   }
 
   await dbConnect();
+
+  // Guard against invalid ObjectIds
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return (
+      <div className="min-h-screen bg-[#0a0a0a] text-white flex items-center justify-center">
+        <p className="text-gray-400 font-light">Order not found.</p>
+      </div>
+    );
+  }
+
   const orderRaw = await Order.findById(id).lean();
 
   if (!orderRaw) {

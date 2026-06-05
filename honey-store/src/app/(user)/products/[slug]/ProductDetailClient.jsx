@@ -5,9 +5,9 @@ import { useRouter } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import StarRating from "@/components/ui/StarRating";
-import ProductCard from "@/components/products/ProductCard";
-import FAQItem from "@/components/products/ProductFAQ";
-import ShowReview from "@/components/products/ShowReview";
+import ProductCard from "@/components/user/products/ProductCard";
+import FAQItem from "@/components/user/products/ProductFAQ";
+import ShowReview from "@/components/user/products/ShowReview";
 import { serifItalic, PRODUCT_SPECS, PRODUCT_DETAIL_FAQS, PRODUCT_SHIPPING_DETAILS } from "@/config/staticData";
 import { getMultiplier } from "@/lib/pricing";
 import { useCart } from "@/hooks/useCart";
@@ -49,10 +49,10 @@ export default function ProductDetailClient({ product, similarProducts }) {
   const discount =
     product.price > 0 && product.discountPrice
       ? Math.round(
-          ((product.price - (product.discountPrice ?? product.price)) /
-            product.price) *
-            100
-        )
+        ((product.price - (product.discountPrice ?? product.price)) /
+          product.price) *
+        100
+      )
       : 0;
 
   const getWeightVal = (str) => {
@@ -167,11 +167,10 @@ export default function ProductDetailClient({ product, similarProducts }) {
                   <button
                     key={i}
                     onClick={() => setActiveImage(i)}
-                    className={`relative w-24 h-24 shrink-0 border-2 transition-all duration-200 overflow-hidden bg-[#111] ${
-                      activeImage === i
+                    className={`relative w-24 h-24 shrink-0 border-2 transition-all duration-200 overflow-hidden bg-[#111] ${activeImage === i
                         ? "border-primary"
                         : "border-gray-800 hover:border-gray-600"
-                    }`}
+                      }`}
                   >
                     <Image
                       src={img}
@@ -226,11 +225,10 @@ export default function ProductDetailClient({ product, similarProducts }) {
                   <button
                     key={w}
                     onClick={() => setSelectedWeight(w)}
-                    className={`px-5 py-2 text-sm border transition-all duration-200 ${
-                      selectedWeight === w
+                    className={`px-5 py-2 text-sm border transition-all duration-200 ${selectedWeight === w
                         ? "bg-primary border-primary text-black font-semibold"
                         : "border-gray-700 text-gray-300 hover:border-primary hover:text-primary"
-                    }`}
+                      }`}
                   >
                     {w}
                   </button>
@@ -279,17 +277,16 @@ export default function ProductDetailClient({ product, similarProducts }) {
               <button
                 disabled={product.stock === 0 || qty === 0}
                 onClick={handleAddToCart}
-                className={`flex-1 h-10 font-semibold text-sm tracking-widest uppercase transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed active:scale-95 ${
-                  added
+                className={`flex-1 h-10 font-semibold text-sm tracking-widest uppercase transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed active:scale-95 ${added
                     ? "bg-secondary text-black"
                     : "bg-primary hover:bg-secondary text-black"
-                }`}
+                  }`}
               >
                 {product.stock === 0
                   ? "Out of Stock"
                   : added
-                  ? "✓ Added!"
-                  : "Add to Cart"}
+                    ? "✓ Added!"
+                    : "Add to Cart"}
               </button>
             </div>
 
@@ -410,9 +407,8 @@ export default function ProductDetailClient({ product, similarProducts }) {
             {specs.inTheBox.map((row, i) => (
               <div
                 key={row.label}
-                className={`grid grid-cols-2 px-5 py-3 text-sm ${
-                  i % 2 === 0 ? "bg-[#111]" : "bg-[#0d0d0d]"
-                }`}
+                className={`grid grid-cols-2 px-5 py-3 text-sm ${i % 2 === 0 ? "bg-[#111]" : "bg-[#0d0d0d]"
+                  }`}
               >
                 <span className="text-gray-400">{row?.label}</span>
                 <span className="text-white">{row?.value}</span>
@@ -426,9 +422,8 @@ export default function ProductDetailClient({ product, similarProducts }) {
             {specs.general.map((row, i) => (
               <div
                 key={row?.label}
-                className={`grid grid-cols-2 px-5 py-3 text-sm ${
-                  i % 2 === 0 ? "bg-[#111]" : "bg-[#0d0d0d]"
-                }`}
+                className={`grid grid-cols-2 px-5 py-3 text-sm ${i % 2 === 0 ? "bg-[#111]" : "bg-[#0d0d0d]"
+                  }`}
               >
                 <span className="text-gray-400">{row?.label}</span>
                 <span className="text-white">{row?.value}</span>
@@ -449,11 +444,10 @@ export default function ProductDetailClient({ product, similarProducts }) {
               <button
                 key={tab}
                 onClick={() => setSellerTab(tab)}
-                className={`px-6 py-3 text-sm font-medium capitalize transition-all duration-200 border-b-2 -mb-px ${
-                  sellerTab === tab
+                className={`px-6 py-3 text-sm font-medium capitalize transition-all duration-200 border-b-2 -mb-px ${sellerTab === tab
                     ? "border-primary text-primary"
                     : "border-transparent text-gray-400 hover:text-white"
-                }`}
+                  }`}
               >
                 {tab === "shipping" ? "Shipping" : "Returns"}
               </button>

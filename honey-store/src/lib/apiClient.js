@@ -53,17 +53,28 @@ export const apiClient = {
 
   // Cart
   getCart: () => fetcher("/api/cart"),
-  addToCart: (productId, weight, qty) => fetcher("/api/cart", { method: "POST", body: { productId, weight, qty } }),
+  addToCart: (productIdOrItems, weight, qty) => {
+    const body = typeof productIdOrItems === "object"
+      ? productIdOrItems
+      : { productId: productIdOrItems, weight, qty };
+    return fetcher("/api/cart", { method: "POST", body });
+  },
+  updateCartItemQty: (id, qty) => fetcher("/api/cart", { method: "PUT", body: { cartItemId: id, qty } }),
+  deleteCartItems: (cartItemIds) => fetcher("/api/cart", { method: "DELETE", body: { cartItemIds } }),
   
   // Products & Reviews
   getProducts: (params = "") => fetcher(`/api/products${params ? `?${params}` : ""}`),
   getProductById: (id) => fetcher(`/api/products/${id}`),
+  createProduct: (body) => fetcher("/api/products", { method: "POST", body }),
+  updateProduct: (id, body) => fetcher(`/api/products/${id}`, { method: "PUT", body }),
+  deleteProduct: (id) => fetcher(`/api/products/${id}`, { method: "DELETE" }),
   submitReview: (productId, rating, comment) =>
     fetcher(`/api/products/${productId}/reviews`, { method: "POST", body: { rating: Number(rating), comment } }),
   
   // Addresses
   getAddresses: () => fetcher("/api/user/addresses"),
   addAddress: (addressData) => fetcher("/api/user/addresses", { method: "POST", body: addressData }),
+  deleteAddress: (addressId) => fetcher("/api/user/addresses", { method: "DELETE", body: { addressId } }),
 
   // Contact
   submitContact: (contactData) => fetcher("/api/contact", { method: "POST", body: contactData }),
@@ -72,15 +83,14 @@ export const apiClient = {
   getOrders: () => fetcher("/api/orders"),
   getOrderDetails: (id) => fetcher(`/api/orders/${id}`),
   createOrder: (orderData) => fetcher("/api/orders", { method: "POST", body: orderData }),
-  updateOrderStatus: (id, status) => fetcher(`/api/orders/${id}`, { method: "PUT", body: { status } }),
+  updateOrder: (id, body) => fetcher(`/api/orders/${id}`, { method: "PATCH", body }),
 
   // Upload (FormData)
   uploadImage: (formData) => fetcher("/api/upload", { method: "POST", body: formData }),
 
   // Categories
   getCategories: () => fetcher("/api/categories"),
-  createCategory: (name) => fetcher("/api/categories", { method: "POST", body: { name } }),
-  updateCategory: (id, name) => fetcher(`/api/categories/${id}`, { method: "PUT", body: { name } }),
+  createCategory: (body) => fetcher("/api/categories", { method: "POST", body }),
+  updateCategory: (id, body) => fetcher(`/api/categories/${id}`, { method: "PUT", body }),
   deleteCategory: (id) => fetcher(`/api/categories/${id}`, { method: "DELETE" }),
-  deleteProduct: (id) => fetcher(`/api/products/${id}`, { method: "DELETE" }),
 };

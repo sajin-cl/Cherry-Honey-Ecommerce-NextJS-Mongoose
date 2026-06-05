@@ -1,8 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import AddCategoryModal from "@/components/admin/AddCategoryModal";
-import EditCategoryModal from "@/components/admin/EditCategoryModal";
+import AddCategoryModal from "@/components/admin/categories/AddCategoryModal";
+import EditCategoryModal from "@/components/admin/categories/EditCategoryModal";
+import { apiClient } from "@/lib/apiClient";
 
 function SearchIcon() {
   return (
@@ -74,33 +75,39 @@ export default function CategoriesClient({ initialCategories }) {
   );
 
   async function handleAdd({ title, description }) {
-    const res  = await fetch("/api/categories", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ name: title, description }),
-    });
-    const data = await res.json();
-    if (res.ok) {
-      setCategories((prev) => [{ id: data?.category?._id, name: data?.category?.name, slug: data?.category?.slug, description: data?.category?.description ?? "" }, ...prev]);
+    try {
+      const data = await apiClient.createCategory({ name: title, description });
+      if (data.category) {
+        setCategories((prev) => [{ id: data.category._id, name: data.category.name, slug: data.category.slug, description: data.category.description ?? "" }, ...prev]);
+      }
+    } catch (err) {
+      console.error("Failed to add category:", err);
     }
   }
 
   async function handleEdit({ id, name, description }) {
-    const res  = await fetch(`/api/categories/${id}`, {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ name, description }),
-    });
-    if (res.ok) {
-      setCategories((prev) => prev.map((c) => (c.id === id ? { ...c, name, description } : c)));
+    try {
+      const data = await apiClient.updateCategory(id, { name, description });
+      if (data.category) {
+        setCategories((prev) => prev.map((c) => (c.id === id ? { ...c, name, description } : c)));
+      }
+    } catch (err) {
+      console.error("Failed to update category:", err);
     }
   }
 
   async function handleDelete(id) {
     setDeleting(id);
-    const res = await fetch(`/api/categories/${id}`, { method: "DELETE" });
-    if (res.ok) setCategories((prev) => prev.filter((c) => c.id !== id));
-    setDeleting(null);
+    try {
+      const data = await apiClient.deleteCategory(id);
+      if (data.success) {
+        setCategories((prev) => prev.filter((c) => c.id !== id));
+      }
+    } catch (err) {
+      console.error("Failed to delete category:", err);
+    } finally {
+      setDeleting(null);
+    }
   }
 
   return (

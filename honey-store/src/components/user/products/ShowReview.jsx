@@ -1,5 +1,5 @@
 import React from 'react'
-import WriteReviewModal from '@/components/products/WriteReviewModal';
+import WriteReviewModal from '@/components/user/products/WriteReviewModal';
 import StarRating from '@/components/ui/StarRating';
 import { serifItalic } from '@/config/staticData';
 

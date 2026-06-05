@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
+import { apiClient } from "@/lib/apiClient";
 
 export default function AdminNavbar({ onMenuClick }) {
   const [open, setOpen] = useState(false);
@@ -11,12 +12,9 @@ export default function AdminNavbar({ onMenuClick }) {
   useEffect(() => {
     async function fetchUser() {
       try {
-        const res = await fetch("/api/auth/me");
-        if (res.ok) {
-          const data = await res.json();
-          if (data.user) {
-            setUser(data.user);
-          }
+        const data = await apiClient.getMe();
+        if (data.user) {
+          setUser(data.user);
         }
       } catch (err) {
         console.error("Failed to fetch admin user:", err);
@@ -102,7 +100,7 @@ export default function AdminNavbar({ onMenuClick }) {
               onClick={async () => {
                 setOpen(false);
                 try {
-                  await fetch("/api/auth/logout", { method: "POST" });
+                  await apiClient.logout();
                   window.location.href = "/accounts/login";
                 } catch (err) {
                   console.error("Logout failed:", err);

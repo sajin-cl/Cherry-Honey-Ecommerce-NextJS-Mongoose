@@ -1,7 +1,8 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import ProductModal from "@/components/admin/ProductModal";
+import ProductModal from "@/components/admin/products/ProductModal";
+import { apiClient } from "@/lib/apiClient";
 
 const STATUSES = ["All Status", "In Stock", "Low Stock", "Out of Stock"];
 const PAGE_SIZE = 7;
@@ -64,14 +65,12 @@ export default function ProductsPage() {
   async function loadData() {
     try {
       setLoading(true);
-      const [resProducts, resCategories] = await Promise.all([
-        fetch("/api/products?limit=100"),
-        fetch("/api/categories"),
+      const [dataProducts, dataCategories] = await Promise.all([
+        apiClient.getProducts("limit=100"),
+        apiClient.getCategories(),
       ]);
-      const dataProducts = await resProducts.json();
-      const dataCategories = await resCategories.json();
-      if (resProducts.ok) setProducts(dataProducts.products || []);
-      if (resCategories.ok) setDbCategories(dataCategories.categories || []);
+      setProducts(dataProducts.products || []);
+      setDbCategories(dataCategories.categories || []);
     } catch (err) {
       console.error("Error loading products/categories:", err);
     } finally {
@@ -110,41 +109,20 @@ export default function ProductsPage() {
 
   /* handlers */
   async function handleAdd(data) {
-    const res = await fetch("/api/products", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data),
-    });
-    if (!res.ok) {
-      const err = await res.json();
-      throw new Error(err.error || "Failed to add product");
-    }
+    await apiClient.createProduct(data);
     loadData();
   }
 
   async function handleEdit(data) {
-    const res = await fetch(`/api/products/${data.id}`, {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data),
-    });
-    if (!res.ok) {
-      const err = await res.json();
-      throw new Error(err.error || "Failed to update product");
-    }
+    await apiClient.updateProduct(data.id, data);
     loadData();
   }
 
   async function handleDelete(id) {
     if (!confirm("Are you sure you want to delete this product?")) return;
     try {
-      const res = await fetch(`/api/products/${id}`, { method: "DELETE" });
-      if (res.ok) {
-        loadData();
-      } else {
-        const err = await res.json();
-        alert( "Failed to delete product");
-      }
+      await apiClient.deleteProduct(id);
+      loadData();
     } catch (err) {
       console.error(err);
       alert("Error deleting product");

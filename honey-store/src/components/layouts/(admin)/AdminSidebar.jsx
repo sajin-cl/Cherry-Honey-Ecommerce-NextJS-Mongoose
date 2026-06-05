@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { apiClient } from "@/lib/apiClient";
 
 const navItems = [
   {
@@ -120,7 +121,7 @@ export default function AdminSidebar({ isOpen, onClose }) {
             onClick={async () => {
               onClose?.();
               try {
-                await fetch("/api/auth/logout", { method: "POST" });
+                await apiClient.logout();
                 window.location.href = "/accounts/login";
               } catch (err) {
                 console.error("Logout failed:", err);

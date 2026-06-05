@@ -3,10 +3,11 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import OrderConfirmedModal from "@/components/order/OrderConfirmedModal";
+import OrderConfirmedModal from "@/components/ui/OrderConfirmedModal";
 import AddressModal from "@/components/ui/AddressModal";
 import { calculateDelivery, calculateGrandTotal, TAXES } from "@/lib/pricing";
 import { serif } from "@/config/staticData";
+import { apiClient } from "@/lib/apiClient";
 
 
 function EditIcon() {
@@ -81,17 +82,11 @@ export default function ReviewClient({ initialItems, isBuyNow = false }) {
     }
 
     try {
-      const res = await fetch("/api/cart", {
-        method: "DELETE",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ cartItemIds: [id] }),
-      });
-      if (res.ok) {
-        const updated = items.filter((i) => i.id !== id);
-        setItems(updated);
-        localStorage.setItem("cart", JSON.stringify(updated));
-        window.dispatchEvent(new Event("cartUpdate"));
-      }
+      await apiClient.deleteCartItems([id]);
+      const updated = items.filter((i) => i.id !== id);
+      setItems(updated);
+      localStorage.setItem("cart", JSON.stringify(updated));
+      window.dispatchEvent(new Event("cartUpdate"));
     } catch (e) {
       console.error(e);
     }
@@ -104,46 +99,35 @@ export default function ReviewClient({ initialItems, isBuyNow = false }) {
     }
     setLoading(true);
     try {
-      const res = await fetch("/api/orders", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          items: items.map(item => ({
-            product: item?.productId,
-            name: item?.name,
-            image: item?.image,
-            price: item?.price,
-            qty: item?.qty
-          })),
-          shippingAddress: {
-            name: shippingAddress?.name,
-            line1: shippingAddress?.line1,
-            phone: shippingAddress?.phone
-          },
-          paymentMethod: paymentMethod === "cod" ? "cod" : "cashfree",
-          itemsTotal: subtotal,
-          tax: TAXES,
-          shippingCharge: delivery,
-          grandTotal: grandTotal
-        })
+      await apiClient.createOrder({
+        items: items.map(item => ({
+          product: item?.productId,
+          name: item?.name,
+          image: item?.image,
+          price: item?.price,
+          qty: item?.qty
+        })),
+        shippingAddress: {
+          name: shippingAddress?.name,
+          line1: shippingAddress?.line1,
+          phone: shippingAddress?.phone
+        },
+        paymentMethod: paymentMethod === "cod" ? "cod" : "cashfree",
+        itemsTotal: subtotal,
+        tax: TAXES,
+        shippingCharge: delivery,
+        grandTotal: grandTotal
       });
 
-      const data = await res.json();
-      if (res.ok) {
-        setPlaced(true);
-        if (isBuyNow) {
-          // Only clear buyNow session data, don't touch the cart
-          sessionStorage.removeItem("buyNowItem");
-        } else {
-          // Clear cart for normal checkout
-          localStorage.removeItem("cart");
-          window.dispatchEvent(new Event("cartUpdate"));
-        }
-        sessionStorage.removeItem("shippingAddress");
-        sessionStorage.removeItem("paymentMethod");
+      setPlaced(true);
+      if (isBuyNow) {
+        sessionStorage.removeItem("buyNowItem");
       } else {
-        alert( "Failed to place order");
+        localStorage.removeItem("cart");
+        window.dispatchEvent(new Event("cartUpdate"));
       }
+      sessionStorage.removeItem("shippingAddress");
+      sessionStorage.removeItem("paymentMethod");
     } catch (err) {
       console.error(err);
       alert("Failed to place order. Please try again.");

@@ -5,7 +5,7 @@
 import { requireAdmin } from "@/lib/auth";
 import dbConnect from "@/lib/dbConnect";
 import Category from "@/models/category.model";
-import CategoriesClient from "./CategoriesClient";
+import CategoriesClient from "@/components/admin/categories/CategoriesClient";
 
 export const metadata = {
   title: "Categories | Admin",

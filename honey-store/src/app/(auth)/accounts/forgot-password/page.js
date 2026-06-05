@@ -4,6 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { apiClient } from "@/lib/apiClient";
  
 export default function ForgotPasswordPage() {
   const [email, setEmail] = useState("");
@@ -18,26 +19,16 @@ export default function ForgotPasswordPage() {
     setError("");
 
     try {
-      const res = await fetch("/api/auth/forgot-password", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email }),
-      });
-      const data = await res.json();
-
-      if (res.ok) {
-        // Redirect to check-email, passing the email and optional dev reset url
-        let url = `/accounts/check-email?email=${encodeURIComponent(email)}`;
-        if (data.resetUrl) {
-          url += `&devUrl=${encodeURIComponent(data.resetUrl)}`;
-        }
-        router.push(url);
-      } else {
-        setError(data.error || "Something went wrong. Please try again.");
+      const data = await apiClient.forgotPassword(email);
+      // Redirect to check-email, passing the email and optional dev reset url
+      let url = `/accounts/check-email?email=${encodeURIComponent(email)}`;
+      if (data.resetUrl) {
+        url += `&devUrl=${encodeURIComponent(data.resetUrl)}`;
       }
+      router.push(url);
     } catch (err) {
       console.error(err);
-      setError("Failed to connect to the server.");
+      setError(err.message || "Failed to connect to the server.");
     } finally {
       setLoading(false);
     }

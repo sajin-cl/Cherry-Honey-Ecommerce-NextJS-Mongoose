@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { apiClient } from "@/lib/apiClient";
 
 export default function RegisterPage() {
   const [showPassword, setShowPassword] = useState(false);
@@ -42,32 +43,19 @@ export default function RegisterPage() {
     setLoading(true);
 
     try {
-      const res = await fetch("/api/auth/register", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          fullName,
-          mobile,
-          email,
-          password,
-        }),
+      await apiClient.register({
+        fullName,
+        mobile,
+        email,
+        password,
       });
-
-      const data = await res.json();
-
-      if (!res.ok) {
-        setError(data.error || "Registration failed");
-        return;
-      }
 
       // Success redirect
       window.location.href = "/accounts/login";
 
     } catch (err) {
       console.error(err);
-      setError("Network error. Please try again.");
+      setError(err.message || "Network error. Please try again.");
     } finally {
       setLoading(false);
     }

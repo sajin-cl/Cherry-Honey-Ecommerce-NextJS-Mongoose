@@ -3,9 +3,9 @@
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import ProductsFilters from "@/components/products/ProductsFilters";
+import ProductsFilters from "@/components/user/products/ProductsFilters";
 import Pagination from "@/components/ui/Pagination";
-import ProductCard from "@/components/products/ProductCard";
+import ProductCard from "@/components/user/products/ProductCard";
 import { containerVariants } from "@/animation/globalVariants";
 
 

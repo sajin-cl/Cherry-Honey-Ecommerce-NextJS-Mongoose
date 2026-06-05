@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
+import { apiClient } from "@/lib/apiClient";
 
 const CATEGORIES = ["Honey", "Black Honey", "Kashmir Honey", "Wild Honey", "Organic Honey"];
 
@@ -171,12 +172,8 @@ export default function ProductModal({ mode = "add", product = null, categories 
       const formData = new FormData();
       formData.append("file", compressed);
 
-      const res = await fetch("/api/upload", {
-        method: "POST",
-        body: formData,
-      });
-      const data = await res.json();
-      if (res.ok) {
+      const data = await apiClient.uploadImage(formData);
+      if (data.url) {
         setImage({ url: data.url, publicId: data.publicId });
       } else {
         setError(data.error || "Upload failed");

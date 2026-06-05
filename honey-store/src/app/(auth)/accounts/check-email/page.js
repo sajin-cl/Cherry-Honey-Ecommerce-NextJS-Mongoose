@@ -4,6 +4,7 @@ import { useState, Suspense } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
+import { apiClient } from "@/lib/apiClient";
 
 function CheckEmailContent() {
   const searchParams = useSearchParams();
@@ -18,19 +19,10 @@ function CheckEmailContent() {
     setLoading(true);
     setMessage("");
     try {
-      const res = await fetch("/api/auth/forgot-password", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email }),
-      });
-      const data = await res.json();
-      if (res.ok) {
-        setMessage("Verification email has been resent.");
-        if (data.resetUrl) {
-          setDevUrl(data.resetUrl);
-        }
-      } else {
-        setMessage(data.error || "Failed to resend email.");
+      const data = await apiClient.forgotPassword(email);
+      setMessage("Verification email has been resent.");
+      if (data.resetUrl) {
+        setDevUrl(data.resetUrl);
       }
     } catch (err) {
       console.error(err);

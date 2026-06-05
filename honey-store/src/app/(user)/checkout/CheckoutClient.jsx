@@ -5,6 +5,7 @@ import Link from "next/link";
 import { calculateDelivery, calculateGrandTotal, TAXES } from "@/lib/pricing";
 import AddressModal from "../../../components/ui/AddressModal";
 import { serif } from "@/config/staticData";
+import { apiClient } from "@/lib/apiClient";
 
 
 const STEPS = [
@@ -129,13 +130,8 @@ export default function CheckoutClient({ initialAddresses, cartSubtotal, isBuyNo
 
   const handleDeleteAddress = async (id) => {
     try {
-      const res = await fetch("/api/user/addresses", {
-        method: "DELETE",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ addressId: id }),
-      });
-      const data = await res.json();
-      if (res.ok && data.addresses) {
+      const data = await apiClient.deleteAddress(id);
+      if (data.addresses) {
         const normalized = data.addresses.map(addr => ({
           id: addr?._id,
           name: addr?.name,

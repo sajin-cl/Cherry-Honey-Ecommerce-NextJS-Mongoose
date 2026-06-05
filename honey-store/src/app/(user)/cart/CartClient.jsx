@@ -3,8 +3,9 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import ProductCard from "@/components/products/ProductCard";
+import ProductCard from "@/components/user/products/ProductCard";
 import { calculateDelivery, calculateGrandTotal, TAXES } from "@/lib/pricing";
+import { apiClient } from "@/lib/apiClient";
 
 const serif = { fontFamily: "'Georgia','Times New Roman',serif", fontStyle: "italic" };
 
@@ -47,11 +48,8 @@ export default function CartClient({ initialItems }) {
 
     async function fetchSimilar() {
       try {
-        const res = await fetch("/api/products?limit=4");
-        if (res.ok) {
-          const data = await res.json();
-          setSimilar(data.products || []);
-        }
+        const data = await apiClient.getProducts("limit=4");
+        setSimilar(data.products || []);
       } catch (err) {
         console.error(err);
       }
@@ -110,20 +108,14 @@ export default function CartClient({ initialItems }) {
   const removeItem = async (id) => {
     setUpdating(true);
     try {
-      const res = await fetch("/api/cart", {
-        method: "DELETE",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ cartItemIds: [id] }),
-      });
-      if (res.ok) {
-        const updated = items.filter((i) => i.id !== id);
-        setItems(updated);
-        const s = new Set(selected);
-        s.delete(id);
-        setSelected(s);
-        localStorage.setItem("cart", JSON.stringify(updated));
-        window.dispatchEvent(new Event("cartUpdate"));
-      }
+      await apiClient.deleteCartItems([id]);
+      const updated = items.filter((i) => i.id !== id);
+      setItems(updated);
+      const s = new Set(selected);
+      s.delete(id);
+      setSelected(s);
+      localStorage.setItem("cart", JSON.stringify(updated));
+      window.dispatchEvent(new Event("cartUpdate"));
     } catch (e) {
       console.error(e);
     } finally {
@@ -136,18 +128,12 @@ export default function CartClient({ initialItems }) {
     if (selectedIds.length === 0) return;
     setUpdating(true);
     try {
-      const res = await fetch("/api/cart", {
-        method: "DELETE",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ cartItemIds: selectedIds }),
-      });
-      if (res.ok) {
-        const updated = items.filter((i) => !selected.has(i.id));
-        setItems(updated);
-        setSelected(new Set());
-        localStorage.setItem("cart", JSON.stringify(updated));
-        window.dispatchEvent(new Event("cartUpdate"));
-      }
+      await apiClient.deleteCartItems(selectedIds);
+      const updated = items.filter((i) => !selected.has(i.id));
+      setItems(updated);
+      setSelected(new Set());
+      localStorage.setItem("cart", JSON.stringify(updated));
+      window.dispatchEvent(new Event("cartUpdate"));
     } catch (e) {
       console.error(e);
     } finally {
@@ -158,17 +144,11 @@ export default function CartClient({ initialItems }) {
   const updateQty = async (id, qty) => {
     setUpdating(true);
     try {
-      const res = await fetch("/api/cart", {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ cartItemId: id, qty }),
-      });
-      if (res.ok) {
-        const updated = items.map((i) => i.id === id ? { ...i, qty } : i);
-        setItems(updated);
-        localStorage.setItem("cart", JSON.stringify(updated));
-        window.dispatchEvent(new Event("cartUpdate"));
-      }
+      await apiClient.updateCartItemQty(id, qty);
+      const updated = items.map((i) => i.id === id ? { ...i, qty } : i);
+      setItems(updated);
+      localStorage.setItem("cart", JSON.stringify(updated));
+      window.dispatchEvent(new Event("cartUpdate"));
     } catch (e) {
       console.error(e);
     } finally {

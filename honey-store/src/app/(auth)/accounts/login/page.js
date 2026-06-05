@@ -4,6 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { apiClient } from "@/lib/apiClient";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -27,18 +28,7 @@ export default function LoginPage() {
 
     setLoading(true);
     try {
-      const res = await fetch("/api/auth/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password }),
-      });
-
-      const data = await res.json();
-
-      if (!res.ok) {
-        setError(data.error || "Login failed. Please try again.");
-        return;
-      }
+      const data = await apiClient.login(email, password);
 
       // Sync guest cart if exists
       if (data.user?.role !== "admin") {
@@ -47,17 +37,10 @@ export default function LoginPage() {
           try {
             const localCart = JSON.parse(localCartStr);
             if (Array.isArray(localCart) && localCart.length > 0) {
-              const mergeRes = await fetch("/api/cart", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(localCart),
-              });
-              if (mergeRes.ok) {
-                const mergeData = await mergeRes.json();
-                if (mergeData.success && mergeData?.cart) {
-                  localStorage.setItem("cart", JSON.stringify(mergeData?.cart));
-                  window.dispatchEvent(new Event("cart-updated"));
-                }
+              const mergeData = await apiClient.addToCart(localCart);
+              if (mergeData.success && mergeData?.cart) {
+                localStorage.setItem("cart", JSON.stringify(mergeData?.cart));
+                window.dispatchEvent(new Event("cart-updated"));
               }
             }
           } catch (e) {
@@ -79,8 +62,8 @@ export default function LoginPage() {
       }
       router.refresh(); // Navbar user state update
 
-    } catch {
-      setError("Network error. Please try again.");
+    } catch (err) {
+      setError(err.message || "Network error. Please try again.");
     } finally {
       setLoading(false);
     }

@@ -3,7 +3,8 @@
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import StatusDropdown from "@/components/admin/StatusDropdown";
+import StatusDropdown from "@/components/admin/orders/StatusDropdown";
+import { apiClient } from "@/lib/apiClient";
 
 export default function OrderDetails({ initialOrder }) {
   const [order, setOrder] = useState(initialOrder);
@@ -13,19 +14,14 @@ export default function OrderDetails({ initialOrder }) {
   const handleStatusChange = async (newStatus) => {
     setUpdatingStatus(true);
     try {
-      const res = await fetch(`/api/orders/${order.id}`, {
-        method: "PATCH",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ orderStatus: newStatus }),
-      });
-      const data = await res.json();
-      if (res.ok && data.order) {
+      const data = await apiClient.updateOrder(order?._id, { orderStatus: newStatus });
+      if (data.order) {
         setOrder((prev) => ({
           ...prev,
           orderStatus: data.order.orderStatus,
         }));
       } else {
-        alert( "Failed to update order status");
+        alert("Failed to update order status");
       }
     } catch (err) {
       console.error(err);
@@ -38,19 +34,14 @@ export default function OrderDetails({ initialOrder }) {
   const handlePaymentChange = async (newPayment) => {
     setUpdatingPayment(true);
     try {
-      const res = await fetch(`/api/orders/${order.id}`, {
-        method: "PATCH",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ paymentStatus: newPayment }),
-      });
-      const data = await res.json();
-      if (res.ok && data.order) {
+      const data = await apiClient.updateOrder(order?._id, { paymentStatus: newPayment });
+      if (data.order) {
         setOrder((prev) => ({
           ...prev,
           paymentStatus: data.order.paymentStatus,
         }));
       } else {
-        alert( "Failed to update payment status");
+        alert("Failed to update payment status");
       }
     } catch (err) {
       console.error(err);
@@ -183,7 +174,12 @@ export default function OrderDetails({ initialOrder }) {
                     <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-gray-400 shrink-0">
                       <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.77 1h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 8.91a16 16 0 0 0 6 6l.91-.91a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
                     </svg>
-                    {order.customer.phone}
+                    <a
+                      href={`tel:${order.customer.phone}`}
+                      className="hover:text-primary transition-colors"
+                    >
+                      {order.customer.phone}
+                    </a>
                   </div>
                   <div className="pt-2 border-t border-gray-50 mt-2">
                     <p className="text-[12px] font-semibold text-gray-500 mb-1">Payment Type</p>
@@ -198,7 +194,7 @@ export default function OrderDetails({ initialOrder }) {
                 <div className="text-[12.5px] text-gray-600 space-y-0.5">
                   <p className="font-semibold text-gray-900">{order?.delivery?.name}</p>
                   <p className="leading-relaxed">{order?.delivery?.address}</p>
-                  <p>Phone: {order?.delivery?.phone}</p>
+                  <p>Phone: <a href={`tel:${order?.delivery?.phone}`} className="hover:text-primary transition-colors">{order?.delivery?.phone}</a></p>
                 </div>
               </div>
             </div>

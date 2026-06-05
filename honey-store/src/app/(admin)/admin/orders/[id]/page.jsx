@@ -3,7 +3,8 @@ import dbConnect from "@/lib/dbConnect";
 import Order from "@/models/order.model";
 import User from "@/models/user.model";
 import { getServerUser } from "@/lib/auth";
-import OrderDetails from "@/components/admin/OrderDetails";
+import OrderDetails from "@/components/admin/orders/OrderDetails";
+import mongoose from "mongoose";
 
 export async function generateMetadata({ params }) {
   const { id } = await params;
@@ -26,6 +27,16 @@ export default async function OrderDetailPage({ params }) {
   }
 
   await dbConnect();
+
+  // Guard against invalid ObjectIds (e.g. "tel" from phone number auto-links)
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <p className="text-gray-500">Order not found.</p>
+      </div>
+    );
+  }
+
   const orderRaw = await Order.findById(id)
     .populate("user", "fullName email mobile")
     .lean();

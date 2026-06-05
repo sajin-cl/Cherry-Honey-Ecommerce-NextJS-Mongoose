@@ -4,6 +4,7 @@ import { useState, Suspense } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useSearchParams, useRouter } from "next/navigation";
+import { apiClient } from "@/lib/apiClient";
 
 function ResetPasswordContent() {
   const searchParams = useSearchParams();
@@ -38,24 +39,14 @@ function ResetPasswordContent() {
 
     setLoading(true);
     try {
-      const res = await fetch("/api/auth/reset-password", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ token, password }),
-      });
-      const data = await res.json();
-
-      if (res.ok) {
-        setStatus({ type: "success", message: "Password successfully reset! Redirecting to login page..." });
-        setTimeout(() => {
-          router.push("/accounts/login");
-        }, 3000);
-      } else {
-        setStatus({ type: "error", message: data.error || "Failed to reset password." });
-      }
+      await apiClient.resetPassword({ token, password });
+      setStatus({ type: "success", message: "Password successfully reset! Redirecting to login page..." });
+      setTimeout(() => {
+        router.push("/accounts/login");
+      }, 3000);
     } catch (err) {
       console.error(err);
-      setStatus({ type: "error", message: "Failed to connect to server." });
+      setStatus({ type: "error", message: err.message || "Failed to reset password." });
     } finally {
       setLoading(false);
     }

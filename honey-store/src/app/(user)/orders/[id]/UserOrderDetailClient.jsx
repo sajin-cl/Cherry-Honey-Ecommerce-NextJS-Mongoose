@@ -3,7 +3,8 @@
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import ProductCard from "@/components/products/ProductCard";
+import ProductCard from "@/components/user/products/ProductCard";
+import { apiClient } from "@/lib/apiClient";
 
 const serif = { fontFamily: "'Georgia','Times New Roman',serif", fontStyle: "italic" };
 
@@ -31,14 +32,8 @@ export default function UserOrderDetailClient({ initialOrder, similarProducts })
     if (!confirm("Are you sure you want to cancel this order?")) return;
     setCancelling(true);
     try {
-      const res = await fetch(`/api/orders/${order.id}`, {
-        method: "PATCH",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ orderStatus: "cancelled" }),
-      });
-      const data = await res.json();
-      if (res.ok && data.order) {
-        // Normalize returned order
+      const data = await apiClient.updateOrder(order.id, { orderStatus: "cancelled" });
+      if (data.order) {
         const o = data.order;
         setOrder({
           id: o._id,
@@ -74,7 +69,7 @@ export default function UserOrderDetailClient({ initialOrder, similarProducts })
           ],
         });
       } else {
-        alert( "Failed to cancel order");
+        alert("Failed to cancel order");
       }
     } catch (err) {
       console.error(err);
