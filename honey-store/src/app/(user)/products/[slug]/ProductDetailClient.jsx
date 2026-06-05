@@ -313,7 +313,7 @@ export default function ProductDetailClient({ product, similarProducts }) {
 
             {/* Trust badges */}
             <div className="flex gap-5 items-center p-4 pb-5 mb-6 border-b border-gray-600">
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2 hover:text-primary transition-colors duration-300">
                 <Image
                   src="https://res.cloudinary.com/ddchr0sbn/image/upload/f_auto,q_auto/email-btn_ewnois.webp"
                   width={28}
@@ -327,7 +327,7 @@ export default function ProductDetailClient({ product, similarProducts }) {
                   Contact us
                 </Link>
               </div>
-              <div className="flex items-center gap-">
+              <div className="flex items-center gap-2 cursor-pointer hover:text-primary transition-colors duration-300">
                 <Image
                   src="https://res.cloudinary.com/ddchr0sbn/image/upload/f_auto,q_auto/shipping-info_kn4ieo.webp"
                   width={28}
@@ -342,7 +342,7 @@ export default function ProductDetailClient({ product, similarProducts }) {
                 </span>
               </div>
               <div
-                className="flex items-center gap-2 cursor-pointer"
+                className="flex items-center gap-2 cursor-pointer hover:text-primary transition-colors duration-300"
                 onClick={handleShare}
               >
                 <Image
