@@ -327,7 +327,7 @@ export default function ProductDetailClient({ product, similarProducts }) {
                   Contact us
                 </Link>
               </div>
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-">
                 <Image
                   src="https://res.cloudinary.com/ddchr0sbn/image/upload/f_auto,q_auto/shipping-info_kn4ieo.webp"
                   width={28}
@@ -337,7 +337,9 @@ export default function ProductDetailClient({ product, similarProducts }) {
                   loading="eager"
                   fetchPriority="high"
                 />
-                <span className="text-sm font-sans">Shipping Info</span>
+                <span className="text-sm font-sans">
+                  <a href="/shipping-policy">Shipping Info</a>
+                </span>
               </div>
               <div
                 className="flex items-center gap-2 cursor-pointer"
