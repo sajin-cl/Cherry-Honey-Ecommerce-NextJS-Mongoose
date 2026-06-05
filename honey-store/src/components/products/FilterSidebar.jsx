@@ -143,11 +143,11 @@ export default function FilterSidebar({ onClose, onApply, initialParams, categor
           {priceOpen && (
             <div className="pb-6">
               <p className="text-sm text-gray-400 mb-4">Price: ₹0 - ₹{price.toLocaleString()}</p>
-              <div className="relative">
+              <div className="relative w-full h-6 flex items-center">
                 {/* Track */}
-                <div className="h-0.5 bg-gray-700 rounded-full w-full relative">
+                <div className="absolute left-0 right-0 h-0.5 bg-gray-700 rounded-full pointer-events-none z-0">
                   <div
-                    className="h-0.5 bg-primary rounded-full absolute left-0"
+                    className="h-full bg-primary rounded-full absolute left-0"
                     style={{ width: `${(price / 2000) * 100}%` }}
                   />
                 </div>
@@ -159,14 +159,14 @@ export default function FilterSidebar({ onClose, onApply, initialParams, categor
                   step={10}
                   value={price}
                   onChange={(e) => setPrice(Number(e.target.value))}
-                  className="absolute inset-0 w-full opacity-0 cursor-pointer h-4 -top-1.5"
+                  className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-20"
                   aria-label="Price range"
                 />
                 {/* Left dot */}
-                <div className="absolute left-0 -top-1.5 w-3 h-3 rounded-full bg-primary" />
+                <div className="absolute left-0 top-1/2 -translate-y-1/2 w-3 h-3 rounded-full bg-primary pointer-events-none z-10" />
                 {/* Right thumb dot */}
                 <div
-                  className="absolute -top-1.5 w-3 h-3 rounded-full bg-primary"
+                  className="absolute top-1/2 -translate-y-1/2 w-3 h-3 rounded-full bg-primary pointer-events-none z-10"
                   style={{ left: `calc(${(price / 2000) * 100}% - 6px)` }}
                 />
               </div>

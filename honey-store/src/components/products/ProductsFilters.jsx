@@ -104,6 +104,7 @@ export default function ProductsFilters({ searchParams, categories }) {
           }`}
       >
         <FilterSidebar
+          key={`${isOpen}-${JSON.stringify(searchParams || {})}`}
           initialParams={searchParams}
           categories={categories}
           onClose={() => setIsOpen(false)}

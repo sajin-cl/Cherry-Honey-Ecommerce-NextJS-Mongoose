@@ -44,9 +44,9 @@ export default function Footer() {
                   href={social?.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="p-2 rounded-full hover:bg-white/10 hover:text-amber-300 transition"
+                  className="p-2 rounded-full bg-white/10 text-gray-100 hover:text-amber-300 transition"
                 >
-                  <Icon size={social?.size} />
+                  <Icon size={social?.size}  />
                 </Link>
               );
             })}

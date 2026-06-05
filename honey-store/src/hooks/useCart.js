@@ -73,21 +73,7 @@ export function useCart() {
             if (data && data.status === 401) return "unauthorized";
 
             if (data.cart) {
-                const cart = data.cart.map((item) => {
-                    const prod = item?.product;
-                    const mult = getMultiplier(item.weight, prod?.quantity);
-                    const itemPrice = prod ? (prod.discountPrice ?? prod.price) * mult : (price ?? 0);
-                    return {
-                        id: item?._id,
-                        productId: prod?._id || "",
-                        name: prod?.name || "",
-                        weight: item?.weight,
-                        qty: item?.qty,
-                        image: prod?.image?.url || "/hero-honey-jar.webp",
-                        price: itemPrice,
-                    };
-                });
-                localStorage.setItem("cart", JSON.stringify(cart));
+                syncServerCart(data.cart);
             }
 
             window.dispatchEvent(new Event("cartUpdate"));
@@ -98,7 +84,7 @@ export function useCart() {
             console.error("Cart error:", err);
             return "error";
         }
-    }, []);
+    }, [syncServerCart]);
 
     return { cartCount, updateCartCount, syncServerCart, addToCart, added, setAdded };
 }

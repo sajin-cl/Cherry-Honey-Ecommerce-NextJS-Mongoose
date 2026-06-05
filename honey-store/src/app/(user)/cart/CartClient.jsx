@@ -59,6 +59,43 @@ export default function CartClient({ initialItems }) {
     fetchSimilar();
   }, [items]);
 
+  useEffect(() => {
+    const handleCartUpdate = () => {
+      try {
+        const localCart = JSON.parse(localStorage.getItem("cart") || "[]");
+        setItems((currentItems) => {
+          const currentStr = JSON.stringify(currentItems.map(i => ({ id: i.id, qty: i.qty })));
+          const localStr = JSON.stringify(localCart.map(i => ({ id: i.id, qty: i.qty })));
+          if (currentStr === localStr) {
+            return currentItems;
+          }
+
+          setSelected((prevSelected) => {
+            const next = new Set();
+            localCart.forEach((item) => {
+              if (item.id) {
+                const isNew = !currentItems.some((existing) => existing.id === item.id);
+                if (prevSelected.has(item.id) || isNew) {
+                  next.add(item.id);
+                }
+              }
+            });
+            return next;
+          });
+
+          return localCart;
+        });
+      } catch (e) {
+        console.error("Error updating cart items from localStorage:", e);
+      }
+    };
+
+    window.addEventListener("cartUpdate", handleCartUpdate);
+    return () => {
+      window.removeEventListener("cartUpdate", handleCartUpdate);
+    };
+  }, []);
+
   const toggleAll = () => {
     if (selected.size === items.length) setSelected(new Set());
     else setSelected(new Set(items.map((i) => i.id)));

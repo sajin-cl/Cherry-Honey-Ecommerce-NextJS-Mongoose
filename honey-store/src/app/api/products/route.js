@@ -22,7 +22,18 @@ export async function GET(request) {
     if (category) query.category = category;
     if (search) query.name = { $regex: search, $options: "i" };
     if (featured === "true") query.isFeatured = true;
-    if (maxPrice) query.price = { $lte: Number(maxPrice) };
+    if (maxPrice) {
+      const maxVal = Number(maxPrice);
+      query.$or = [
+        { discountPrice: { $exists: true, $ne: null, $lte: maxVal } },
+        {
+          $and: [
+            { $or: [{ discountPrice: { $exists: false } }, { discountPrice: null }] },
+            { price: { $lte: maxVal } }
+          ]
+        }
+      ];
+    }
 
     const [products, total] = await Promise.all([
       Product.find(query)
