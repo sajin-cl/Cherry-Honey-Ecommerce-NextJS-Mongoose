@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { revalidatePath } from "next/cache";
 import dbConnect from "@/lib/dbConnect";
 import Product from "@/models/product.model";
+import { generateUniqueSlug } from "@/lib/slug";
 import { getServerUser } from "@/lib/auth";
 
 // GET /api/products — public with filters + pagination
@@ -57,6 +58,9 @@ export async function POST(request) {
     }
     await dbConnect();
     const body = await request.json();
+    if (body.name) {
+      body.slug = await generateUniqueSlug(Product, body.name);
+    }
     const product = await Product.create(body);
     // Invalidate user-facing pages so new product appears immediately
     revalidatePath("/products");

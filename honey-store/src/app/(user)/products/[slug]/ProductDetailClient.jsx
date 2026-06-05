@@ -11,6 +11,7 @@ import ShowReview from "@/components/products/ShowReview";
 import { serifItalic, PRODUCT_SPECS, PRODUCT_DETAIL_FAQS, PRODUCT_SHIPPING_DETAILS } from "@/config/staticData";
 import { getMultiplier } from "@/lib/pricing";
 import { useCart } from "@/hooks/useCart";
+import { apiClient } from "@/lib/apiClient";
 
 export default function ProductDetailClient({ product, similarProducts }) {
   const router = useRouter();
@@ -91,7 +92,7 @@ export default function ProductDetailClient({ product, similarProducts }) {
     });
 
     if (result === "unauthorized") {
-      router.push(`/accounts/login?redirect=/products/${product._id}`);
+      router.push(`/accounts/login?redirect=/products/${product.slug || product._id}`);
       return;
     }
     if (result === "error") {
@@ -102,27 +103,13 @@ export default function ProductDetailClient({ product, similarProducts }) {
   // ── Review ──────────────────────────────────────────────────────────────────
   const handleReviewSubmit = async (review) => {
     try {
-      const res = await fetch(`/api/products/${product._id}/reviews`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          rating: Number(review.rating),
-          comment: review.text,
-        }),
-      });
-
-      const data = await res.json();
-      if (!res.ok) {
-        alert("Failed to submit review");
-        return;
-      }
-
+      const data = await apiClient.submitReview(product._id, review.rating, review.text);
       if (data.product) {
         setLocalReviews(data.product.reviews || []);
       }
     } catch (err) {
       console.error("Error submitting review:", err);
-      alert("Something went wrong while submitting the review");
+      alert("Failed to submit review");
     }
   };
 
@@ -173,7 +160,7 @@ export default function ProductDetailClient({ product, similarProducts }) {
               )}
             </div>
 
-            {/* Thumbnails — all preloaded with priority so click is instant */}
+            {/* Thumbnails */}
             {images.length > 1 && (
               <div className="flex gap-3">
                 {images.map((img, i) => (

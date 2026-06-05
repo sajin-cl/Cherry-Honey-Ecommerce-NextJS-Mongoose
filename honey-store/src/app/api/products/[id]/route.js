@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { revalidatePath } from "next/cache";
 import dbConnect from "@/lib/dbConnect";
 import Product from "@/models/product.model";
+import { generateUniqueSlug } from "@/lib/slug";
 import { getServerUser } from "@/lib/auth";
 
 async function isAdmin() {
@@ -43,6 +44,9 @@ export async function PUT(request, { params }) {
     await dbConnect();
     const { id } = await params;
     const body = await request.json();
+    if (body.name) {
+      body.slug = await generateUniqueSlug(Product, body.name, id);
+    }
     const product = await Product.findByIdAndUpdate(id, body, {
       new: true,
       runValidators: true,
@@ -51,7 +55,7 @@ export async function PUT(request, { params }) {
     // Invalidate user-facing pages so they show updated data immediately
     revalidatePath("/products");
     revalidatePath("/");
-    revalidatePath(`/products/${id}`);
+    revalidatePath(`/products/${product.slug || id}`);
     return NextResponse.json({ product });
   } catch (err) {
     return NextResponse.json({ error: err.message || "Server error" }, { status: 500 });

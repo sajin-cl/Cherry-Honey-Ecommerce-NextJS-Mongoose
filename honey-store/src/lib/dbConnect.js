@@ -43,6 +43,36 @@ async function dbConnect() {
 
   try {
     cached.conn = await cached.promise;
+
+    // Automatically migrate products that do not have a slug
+    (async () => {
+      try {
+        const Product = (await import("../models/product.model")).default;
+        const productsWithoutSlug = await Product.find({
+          $or: [{ slug: { $exists: false } }, { slug: "" }, { slug: null }]
+        });
+        if (productsWithoutSlug.length > 0) {
+          console.log(`[Migration] Found ${productsWithoutSlug.length} products without slug. Migrating...`);
+          for (const p of productsWithoutSlug) {
+            let baseSlug = p.name.toLowerCase().trim().replace(/\s+/g, "-").replace(/[^\w-]/g, "");
+            let slug = baseSlug;
+            let counter = 1;
+            while (true) {
+              const exists = await Product.findOne({ slug, _id: { $ne: p._id } }).select("_id").lean();
+              if (!exists) break;
+              slug = `${baseSlug}-${counter}`;
+              counter++;
+            }
+            await Product.updateOne({ _id: p._id }, { $set: { slug } });
+            console.log(`[Migration] Assigned slug "${slug}" to product "${p.name}"`);
+          }
+          console.log("[Migration] Product slug migration completed successfully.");
+        }
+      } catch (err) {
+        console.error("[Migration] Error migrating product slugs:", err);
+      }
+    })();
+
   } catch (err) {
     cached.promise = null;
     console.error(" MongoDB Connection Error:", err.message);

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { apiClient } from "@/lib/apiClient";
 
 const serif = { fontFamily: "'Georgia','Times New Roman',serif", fontStyle: "italic" };
 
@@ -36,13 +37,8 @@ export default function AddressModal({ isOpen, onClose, onSave }) {
     }
     setLoading(true);
     try {
-      const res = await fetch("/api/user/addresses", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
-      });
-      const data = await res.json();
-      if (res.ok && data.addresses) {
+      const data = await apiClient.addAddress(form);
+      if (data.addresses) {
         const normalized = data.addresses.map((addr) => ({
           id: addr?._id,
           name: addr?.name,
@@ -55,10 +51,11 @@ export default function AddressModal({ isOpen, onClose, onSave }) {
         setForm(EMPTY_FORM);
         onClose();
       } else {
-        alert( "Failed to save address");
+        alert("Failed to save address");
       }
     } catch (err) {
       console.error(err);
+      alert("Failed to save address");
     } finally {
       setLoading(false);
     }

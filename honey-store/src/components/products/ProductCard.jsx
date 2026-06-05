@@ -97,7 +97,7 @@ export default function ProductCard({ product }) {
     return (
         <motion.div variants={itemVariants}>
             <Link
-                href={`/products/${product?._id}`}
+                href={`/products/${product?.slug || product?._id}`}
                 className="group block"
                 onMouseEnter={() => setIsHovered(true)}
                 onMouseLeave={() => setIsHovered(false)}

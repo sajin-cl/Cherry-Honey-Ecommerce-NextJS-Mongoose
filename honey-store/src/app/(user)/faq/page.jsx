@@ -1,5 +1,4 @@
-
-import FAQPage from '@/components/faq/FAQPage'
+import FAQClient from './FAQClient'
 
 export const metadata = {
     title: "FAQ - Cherrys Honey",
@@ -9,7 +8,7 @@ export const metadata = {
 
 const page = () => {
     return (
-        <FAQPage />
+        <FAQClient />
     )
 };
 

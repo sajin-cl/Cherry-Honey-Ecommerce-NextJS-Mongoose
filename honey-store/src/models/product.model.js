@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { makeSlug } from "../lib/slug";
 
 const reviewSchema = new mongoose.Schema(
     {
@@ -17,6 +18,7 @@ const reviewSchema = new mongoose.Schema(
 const productSchema = new mongoose.Schema(
     {
         name: { type: String, required: true, trim: true },
+        slug: { type: String, unique: true, lowercase: true, trim: true },
         description: { type: String, required: true },
         category: { type: String, required: true, trim: true },
         price: { type: Number, required: true, min: 0 },
@@ -42,6 +44,14 @@ const productSchema = new mongoose.Schema(
     },
     { timestamps: true }
 );
+
+// Auto-generate slug on validate if missing
+productSchema.pre("validate", function (next) {
+    if (!this.slug && this.name) {
+        this.slug = makeSlug(this.name);
+    }
+    next();
+});
 
 // Auto-calculate rating on save
 productSchema.pre("save", function (next) {

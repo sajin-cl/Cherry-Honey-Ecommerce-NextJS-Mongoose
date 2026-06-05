@@ -32,7 +32,7 @@ export default function FeaturedProjects({ featuredProducts }) {
                 />
             </div>
 
-            {/*Image Content */}
+            {/* Content */}
             <div className="max-w-7xl mx-auto px-6 relative" style={{ zIndex: 2 }}>
                 <motion.h2
                     className="text-3xl md:text-4xl my-6 z-50 font-semibold italic"
@@ -54,9 +54,7 @@ export default function FeaturedProjects({ featuredProducts }) {
                         hidden: { opacity: 0 },
                         show: {
                             opacity: 1,
-                            transition: {
-                                staggerChildren: 0.15
-                            }
+                            transition: { staggerChildren: 0.15 }
                         }
                     }}
                 >
@@ -73,9 +71,9 @@ export default function FeaturedProjects({ featuredProducts }) {
                                     show: { y: 0, opacity: 1, transition: { duration: 0.6 } }
                                 }}
                             >
-                                <Link href={`/products/${productId}`} className="group">
-                                    <div className=" transition-all duration-300  overflow-hidden">
-                                        <div className="relative h-[350px] bg-black flex items-center justify-center ">
+                                <Link href={`/products/${product.slug || productId}`} className="group">
+                                    <div className="transition-all duration-300 overflow-hidden">
+                                        <div className="relative h-[350px] bg-black flex items-center justify-center">
                                             <Image
                                                 src={imgUrl}
                                                 alt={product?.name}
@@ -86,10 +84,16 @@ export default function FeaturedProjects({ featuredProducts }) {
                                         </div>
                                         <div className="p-5 flex justify-between items-center">
                                             <div>
-                                                <h3 className="text-white text-sm font-medium mb-1 truncate uppercase group-hover:text-amber-300">{product?.name}</h3>
-                                                <h4 className="text-gray-400 text-xs font-xs mb-1 truncate">{product?.category}</h4>
+                                                <h3 className="text-white text-sm font-medium mb-1 truncate uppercase group-hover:text-amber-300">
+                                                    {product?.name}
+                                                </h3>
+                                                <h4 className="text-gray-400 text-xs mb-1 truncate">
+                                                    {product?.category}
+                                                </h4>
                                             </div>
-                                            <button className="text-white  text-sm font-bold cursor-pointer px-3 py-1 border border-gray-600 group-hover:bg-gray-900 rounded-full">{priceText}</button>
+                                            <button className="text-white text-sm font-bold cursor-pointer px-3 py-1 border border-gray-600 group-hover:bg-gray-900 rounded-full">
+                                                {priceText}
+                                            </button>
                                         </div>
                                     </div>
                                 </Link>

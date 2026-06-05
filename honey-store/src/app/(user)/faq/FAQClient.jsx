@@ -7,7 +7,7 @@ import FAQItem from "@/components/ui/FAQ";
 import { CUSTOMER_CARE_EMAIL } from "@/config/staticData";
 
 
-export default function FAQPage() {
+export default function FAQClient() {
     const [activeCategory, setActiveCategory] = useState(null);
 
     const filtered =

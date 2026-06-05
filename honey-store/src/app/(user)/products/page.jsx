@@ -5,7 +5,7 @@
 import dbConnect from "@/lib/dbConnect";
 import Product from "@/models/product.model";
 import Category from "@/models/category.model";
-import ProductsClient from "@/components/products/ProductsPage";
+import ProductsClient from "./ProductsClient";
 
 export const metadata = { title: "Our Products | Cherrys Honey" };
 

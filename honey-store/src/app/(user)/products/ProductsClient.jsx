@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import ProductsFilters from "./ProductsFilters";
+import ProductsFilters from "@/components/products/ProductsFilters";
 import Pagination from "@/components/ui/Pagination";
 import ProductCard from "@/components/products/ProductCard";
 import { containerVariants } from "@/animation/globalVariants";
@@ -21,7 +21,7 @@ export default function ProductsClient({
 }) {
   return (
     <div className="min-h-screen bg-black text-white relative overflow-hidden">
-      {/* Background honeycomb overlay matching About page */}
+      {/* Background honeycomb overlay */}
       <div className="absolute inset-0 z-0 opacity-70 pointer-events-none">
         <Image
           src="/honey-comb.webp"
@@ -56,7 +56,6 @@ export default function ProductsClient({
           <p className="text-sm text-gray-400 hidden md:block">
             Showing {from}–{to} of {total} results
           </p>
-          {/* Filter drawer — client component */}
           <ProductsFilters
             searchParams={resolvedParams}
             categories={categoriesList}
@@ -100,4 +99,4 @@ export default function ProductsClient({
       </div>
     </div>
   );
-};
+}

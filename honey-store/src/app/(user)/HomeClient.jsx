@@ -6,10 +6,7 @@ import OurStory from "@/components/home/OurStory";
 import Testimonials from "@/components/home/Testimonials";
 import OurJourney from "@/components/home/OurJourney";
 
-
-
-export default function HomePage({ featuredProducts }) {
-
+export default function HomeClient({ featuredProducts }) {
   return (
     <div className="min-h-screen bg-black text-white">
       <Hero />

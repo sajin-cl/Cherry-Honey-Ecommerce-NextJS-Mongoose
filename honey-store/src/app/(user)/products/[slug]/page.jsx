@@ -3,16 +3,20 @@
  * No client-side fetch waterfall. No loading spinner.
  * Interactive parts are delegated to ProductDetailClient.
  */
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
+import mongoose from "mongoose";
 import dbConnect from "@/lib/dbConnect";
 import Product from "@/models/product.model";
-import ProductDetailClient from "@/components/products/ProductDetailClient";
+import ProductDetailClient from "./ProductDetailClient";
 
 export async function generateMetadata({ params }) {
-  const { id } = await params;
+  const { slug } = await params;
   try {
     await dbConnect();
-    const product = await Product.findById(id)
+    const query = mongoose.Types.ObjectId.isValid(slug)
+      ? { $or: [{ slug }, { _id: slug }] }
+      : { slug };
+    const product = await Product.findOne(query)
       .select("name description image")
       .lean();
     if (!product) return { title: "Product Not Found | Cherrys Honey" };
@@ -31,12 +35,21 @@ export async function generateMetadata({ params }) {
 }
 
 export default async function ProductDetailPage({ params }) {
-  const { id } = await params;
+  const { slug } = await params;
 
   await dbConnect();
 
-  const product = await Product.findById(id).lean();
+  const query = mongoose.Types.ObjectId.isValid(slug)
+    ? { $or: [{ slug }, { _id: slug }] }
+    : { slug };
+
+  const product = await Product.findOne(query).lean();
   if (!product) notFound();
+
+  // Redirect to slug if URL was ID-based but product has a slug
+  if (mongoose.Types.ObjectId.isValid(slug) && product.slug && product.slug !== slug) {
+    redirect(`/products/${product.slug}`);
+  }
 
   const similar = await Product.find({
     category: product.category,

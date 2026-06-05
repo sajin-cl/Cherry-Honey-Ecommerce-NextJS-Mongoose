@@ -1,10 +1,11 @@
 "use client";
 
 import { useState, useCallback } from "react";
+import { apiClient } from "@/lib/apiClient";
 
 /**
  * Manages user auth state.
- * - Fetches current user from /api/auth/me
+ * - Fetches current user from /api/auth/me via apiClient
  * - Provides logout() helper
  */
 export function useAuth() {
@@ -12,11 +13,8 @@ export function useAuth() {
 
     const fetchUser = useCallback(async () => {
         try {
-            const res = await fetch("/api/auth/me");
-            if (res.ok) {
-                const data = await res.json();
-                if (data.user) setUser(data.user);
-            }
+            const data = await apiClient.getMe();
+            if (data.user) setUser(data.user);
         } catch (err) {
             console.error("Failed to fetch user:", err);
         }
@@ -24,7 +22,7 @@ export function useAuth() {
 
     const logout = useCallback(async () => {
         try {
-            await fetch("/api/auth/logout", { method: "POST" });
+            await apiClient.logout();
             setUser(null);
             window.location.href = "/accounts/login";
         } catch (err) {

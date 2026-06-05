@@ -48,7 +48,7 @@ const Testimonials = () => {
                             >
                                 <span className="text-primary">This is what</span> <span className='text-white'>they say</span>
                             </motion.h2>
-                            ""
+                            “
                         </div>
                         <div className="relative min-h-[160px] md:min-h-[140px]">
                             <AnimatePresence mode="wait">

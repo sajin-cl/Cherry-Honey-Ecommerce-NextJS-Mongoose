@@ -9,13 +9,14 @@ import { MOBILE_NAV_ITEMS } from "@/config/staticData";
 import Image from "next/image";
 import { useAuth } from "@/hooks/useAuth";
 import { useCart } from "@/hooks/useCart";
+import { apiClient } from "@/lib/apiClient";
 
 export default function Navbar() {
   const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
   const [userMenuOpen, setUserMenuOpen] = useState(false);
 
-  const { user, setUser, fetchUser, logout } = useAuth();
+  const { user, setUser, logout } = useAuth();
   const { cartCount, syncServerCart } = useCart();
 
   const isActive = (path) => {
@@ -26,23 +27,12 @@ export default function Navbar() {
   useEffect(() => {
     async function init() {
       try {
-        // Fire both requests in parallel — saves one full round-trip on every page load
-        const [authRes, cartRes] = await Promise.all([
-          fetch("/api/auth/me"),
-          fetch("/api/cart"),
+        const [authData, cartData] = await Promise.all([
+          apiClient.getMe(),
+          apiClient.getCart(),
         ]);
-
-        if (authRes.ok) {
-          const data = await authRes.json();
-          if (data.user) setUser(data.user);
-        }
-
-        if (cartRes.ok) {
-          const cartData = await cartRes.json();
-          if (cartData.cart) {
-            syncServerCart(cartData.cart);
-          }
-        }
+        if (authData?.user) setUser(authData.user);
+        if (cartData?.cart) syncServerCart(cartData.cart);
       } catch (err) {
         console.error("Failed to initialize navbar:", err);
       }

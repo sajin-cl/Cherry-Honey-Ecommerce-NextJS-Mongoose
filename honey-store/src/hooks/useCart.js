@@ -2,6 +2,7 @@
 
 import { useState, useCallback, useEffect } from "react";
 import { getMultiplier } from "@/lib/pricing";
+import { apiClient } from "@/lib/apiClient";
 
 /**
  * Manages cart count from localStorage and provides addToCart helper.
@@ -67,16 +68,9 @@ export function useCart() {
      */
     const addToCart = useCallback(async ({ productId, weight, qty, price }) => {
         try {
-            const res = await fetch("/api/cart", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ productId, weight, qty }),
-            });
+            const data = await apiClient.addToCart(productId, weight, qty);
 
-            if (res.status === 401) return "unauthorized";
-
-            const data = await res.json();
-            if (!res.ok) return "error";
+            if (data && data.status === 401) return "unauthorized";
 
             if (data.cart) {
                 const cart = data.cart.map((item) => {
