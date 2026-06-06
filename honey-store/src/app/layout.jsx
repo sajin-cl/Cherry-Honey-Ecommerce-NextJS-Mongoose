@@ -34,7 +34,7 @@ export const metadata = {
   keywords: [
     "pure honey",
     "raw honey",
-    "organic honey",
+    "organic honeys",
     "buy honey online",
     "natural honey",
     "honey shop india",
