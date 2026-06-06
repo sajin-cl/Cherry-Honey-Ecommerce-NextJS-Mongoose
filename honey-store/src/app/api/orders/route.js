@@ -82,8 +82,9 @@ export async function POST(request) {
       }
     }
 
-    // ── Create the order ──────────────────────────────────────────────────────
-    const order = await Order.create({ ...body, user: user.id });
+    // ── Create the order (strip isBuyNow flag — not part of the Order schema) ─
+    const { isBuyNow, ...orderBody } = body;
+    const order = await Order.create({ ...orderBody, user: user.id });
 
     // ── Atomically decrement stock for each item ──────────────────────────────
     // Uses $inc with a $gte guard so stock can never go below 0 even under race conditions
@@ -96,8 +97,11 @@ export async function POST(request) {
       )
     );
 
-    // ── Clear user's cart in DB ───────────────────────────────────────────────
-    await User.findByIdAndUpdate(user.id, { $set: { cart: [] } });
+    // ── Clear user's DB cart only for regular (non-buyNow) orders ─────────────
+    // BuyNow skips the cart so we must not wipe it
+    if (!isBuyNow) {
+      await User.findByIdAndUpdate(user.id, { $set: { cart: [] } });
+    }
 
     return NextResponse.json({ order }, { status: 201 });
   } catch (err) {

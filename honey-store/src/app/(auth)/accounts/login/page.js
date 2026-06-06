@@ -30,6 +30,12 @@ export default function LoginPage() {
     try {
       const data = await apiClient.login(email, password);
 
+      // apiClient returns {status:401, error} as plain object (doesn't throw) for failed auth
+      if (!data?.user) {
+        setError(data?.error || "Invalid credentials");
+        return;
+      }
+
       // Sync guest cart if exists
       if (data.user?.role !== "admin") {
         const localCartStr = localStorage.getItem("cart");
@@ -40,7 +46,7 @@ export default function LoginPage() {
               const mergeData = await apiClient.addToCart(localCart);
               if (mergeData.success && mergeData?.cart) {
                 localStorage.setItem("cart", JSON.stringify(mergeData?.cart));
-                window.dispatchEvent(new Event("cart-updated"));
+                window.dispatchEvent(new Event("cartUpdate"));
               }
             }
           } catch (e) {

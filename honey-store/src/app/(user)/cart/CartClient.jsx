@@ -40,12 +40,14 @@ export default function CartClient({ initialItems }) {
   const [similar, setSimilar] = useState([]);
   const [updating, setUpdating] = useState(false);
 
+  // Sync localStorage whenever cart items change and notify Navbar
   useEffect(() => {
-    // Notify Navbar of initial cart size on mount
     window.dispatchEvent(new Event("cartUpdate"));
-    // Keep localstorage synced as fallback
     localStorage.setItem("cart", JSON.stringify(items));
+  }, [items]);
 
+  // Fetch similar products only on mount
+  useEffect(() => {
     async function fetchSimilar() {
       try {
         const data = await apiClient.getProducts("limit=4");
@@ -55,7 +57,7 @@ export default function CartClient({ initialItems }) {
       }
     }
     fetchSimilar();
-  }, [items]);
+  }, []);
 
   useEffect(() => {
     const handleCartUpdate = () => {

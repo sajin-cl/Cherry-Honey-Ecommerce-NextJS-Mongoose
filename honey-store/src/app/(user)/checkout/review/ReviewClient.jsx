@@ -116,7 +116,8 @@ export default function ReviewClient({ initialItems, isBuyNow = false }) {
         itemsTotal: subtotal,
         tax: TAXES,
         shippingCharge: delivery,
-        grandTotal: grandTotal
+        grandTotal: grandTotal,
+        isBuyNow: isBuyNow,
       });
 
       setPlaced(true);

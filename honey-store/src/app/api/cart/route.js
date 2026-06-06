@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import dbConnect from "@/lib/dbConnect";
 import User from "@/models/user.model";
+import Product from "@/models/product.model";
 import { getServerUser } from "@/lib/auth";
 
 // GET /api/cart
@@ -91,7 +92,7 @@ export async function POST(request) {
 }
 
 // PUT /api/cart — update qty of one cart item
-// Atomic $set via positional operator — no read-modify-write
+// Validates qty against product stock before updating
 export async function PUT(request) {
   try {
     const userPayload = await getServerUser();
@@ -111,7 +112,26 @@ export async function PUT(request) {
       return NextResponse.json({ error: "Quantity must be at least 1" }, { status: 400 });
     }
 
-    // Atomic update — no read step needed
+    // Fetch user and cart item to validate stock before updating
+    const user = await User.findOne(
+      { _id: userPayload.id, "cart._id": cartItemId },
+      { "cart.$": 1 }
+    ).populate("cart.product", "stock").lean();
+
+    if (!user) {
+      return NextResponse.json({ error: "Item not found in cart" }, { status: 404 });
+    }
+
+    const cartItem = user.cart?.[0];
+    const stock = cartItem?.product?.stock ?? 0;
+    if (newQty > stock) {
+      return NextResponse.json(
+        { error: `Only ${stock} item(s) available in stock` },
+        { status: 400 }
+      );
+    }
+
+    // Atomic update via positional operator
     const updated = await User.findOneAndUpdate(
       { _id: userPayload.id, "cart._id": cartItemId },
       { $set: { "cart.$.qty": newQty } },

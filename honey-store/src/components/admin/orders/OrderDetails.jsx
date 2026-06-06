@@ -14,7 +14,7 @@ export default function OrderDetails({ initialOrder }) {
   const handleStatusChange = async (newStatus) => {
     setUpdatingStatus(true);
     try {
-      const data = await apiClient.updateOrder(order?._id, { orderStatus: newStatus });
+      const data = await apiClient.updateOrder(order?.id, { orderStatus: newStatus });
       if (data.order) {
         setOrder((prev) => ({
           ...prev,
@@ -34,7 +34,7 @@ export default function OrderDetails({ initialOrder }) {
   const handlePaymentChange = async (newPayment) => {
     setUpdatingPayment(true);
     try {
-      const data = await apiClient.updateOrder(order?._id, { paymentStatus: newPayment });
+      const data = await apiClient.updateOrder(order?.id, { paymentStatus: newPayment });
       if (data.order) {
         setOrder((prev) => ({
           ...prev,

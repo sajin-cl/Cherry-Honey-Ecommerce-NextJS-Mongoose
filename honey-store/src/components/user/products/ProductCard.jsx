@@ -73,7 +73,7 @@ const GlintStar = ({ delay, left, top, size }) => (
 export default function ProductCard({ product }) {
     const { addToCart, added } = useCart();
     const [isHovered, setIsHovered] = useState(false);
-    const price = product?.discountPrice ?? product.price;
+    const price = product?.discountPrice ?? product?.price;
     const original = product?.price;
     const img = product?.image?.url || "/hero-honey-jar.webp";
 

@@ -25,7 +25,7 @@ function OrderCard({ order }) {
           <span className="text-gray-400 text-xs">{order?.date}</span>
         </div>
         <span className={`text-xs font-semibold rounded-full px-3 py-1 ${STATUS_CLS[order?.status] ?? "border border-gray-600 text-gray-400"}`}>
-          ! {order?.status}
+          {order?.status}
         </span>
       </div>
 
@@ -40,7 +40,7 @@ function OrderCard({ order }) {
               <p className="text-gray-500 text-xs mt-0.5">Qty : {item?.qty}</p>
             </div>
             <span className="text-white text-sm font-semibold shrink-0">
-              ₹{item?.price.toFixed(2)}
+              ₹{(item?.price ?? 0).toFixed(2)}
             </span>
           </div>
         ))}
