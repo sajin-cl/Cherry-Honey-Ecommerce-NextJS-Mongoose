@@ -298,7 +298,7 @@ export default function AboutClient() {
                 transition={{ duration: 0.9 }}
               >
                 <Image
-                  src="/honey-jar-bees.webp"
+                  src="https://res.cloudinary.com/ddchr0sbn/image/upload/f_auto,q_auto/honey-jar-bees_tg9vjo.webp"
                   alt="Raw organic honey jar in nature"
                   fill
                   sizes="(max-width: 768px) 100vw, 500px"

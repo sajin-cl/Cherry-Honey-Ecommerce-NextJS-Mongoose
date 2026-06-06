@@ -109,7 +109,7 @@ export default function RegisterPage() {
       {/* Left Image */}
       <div className="relative hidden md:block w-1/2 h-full">
         <Image
-          src="/honey-jar-bees.webp"
+          src="https://res.cloudinary.com/ddchr0sbn/image/upload/f_auto,q_auto/honey-jar-bees_tg9vjo.webp"
           alt="Honey jar with bees"
           fill
           sizes="50vw"

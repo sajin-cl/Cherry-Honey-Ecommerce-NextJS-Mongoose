@@ -80,7 +80,7 @@ export default function LoginPage() {
       {/* ── Left panel: hero image ── */}
       <div className="relative hidden md:block w-1/2 h-full">
         <Image
-          src="/bee-honeycomb.webp"
+          src="https://res.cloudinary.com/ddchr0sbn/image/upload/f_auto,q_auto/bee-honeycomb_st5pdd.webp"
           alt="Honey bee on honeycomb"
           fill
           sizes="50vw"
