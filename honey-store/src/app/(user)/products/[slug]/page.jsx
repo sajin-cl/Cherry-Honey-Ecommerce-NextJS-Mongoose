@@ -20,13 +20,25 @@ export async function generateMetadata({ params }) {
       .select("name description image")
       .lean();
     if (!product) return { title: "Product Not Found | Cherrys Honey" };
+
+    const title = `${product.name} | Cherrys Honey`;
+    const description = product.description?.slice(0, 160) || "Buy pure natural honey from Cherrys Honey";
+    const imageUrl = product.image?.url || "";
+
     return {
-      title: `${product.name} | Cherrys Honey`,
-      description:
-        product.description?.slice(0, 160) ||
-        "Buy pure natural honey from Cherrys Honey",
+      title,
+      description,
       openGraph: {
-        images: product.image?.url ? [{ url: product.image.url }] : [],
+        title,
+        description,
+        images: imageUrl ? [{ url: imageUrl }] : [],
+        type: "website",
+      },
+      twitter: {
+        card: "summary_large_image",
+        title,
+        description,
+        images: imageUrl ? [imageUrl] : [],
       },
     };
   } catch {

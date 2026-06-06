@@ -37,20 +37,19 @@ export default function ProductDetailClient({ product, similarProducts }) {
 
     const shareText = `${product.name} | ${product.category}` +
       (truncatedDesc ? ` | ${truncatedDesc}` : "") +
-      (imageUrl ? ` | ${imageUrl}` : "");
+      (imageUrl ? ` | ${imageUrl}` : "") +
+      ` | Link: ${window.location.href}`;
 
     const shareData = {
       title: product.name,
       text: shareText,
-      url: window.location.href,
     };
 
     try {
       if (navigator.share) {
         await navigator.share(shareData);
       } else {
-        const fallbackText = `${shareText} | Link: ${window.location.href}`;
-        await navigator.clipboard.writeText(fallbackText);
+        await navigator.clipboard.writeText(shareText);
         alert("Product details and link copied to clipboard!");
       }
     } catch (err) {
