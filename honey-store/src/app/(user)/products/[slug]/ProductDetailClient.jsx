@@ -25,17 +25,33 @@ export default function ProductDetailClient({ product, similarProducts }) {
   const [formOpen, setFormOpen] = useState(false);
 
   const handleShare = async () => {
+    const imageUrl = product.image?.url
+      ? (product.image.url.startsWith("https") ? product.image.url : window.location.origin + product.image.url)
+      : "";
+
+    const truncatedDesc = product.description
+      ? (product.description.length > 150
+          ? `${product.description.slice(0, 150)}...`
+          : product.description)
+      : "";
+
+    const shareText = `${product.name} | ${product.category}` +
+      (truncatedDesc ? ` | ${truncatedDesc}` : "") +
+      (imageUrl ? ` | ${imageUrl}` : "");
+
     const shareData = {
-      title: document.title,
-      text: "Check this product",
+      title: product.name,
+      text: shareText,
       url: window.location.href,
     };
+
     try {
       if (navigator.share) {
         await navigator.share(shareData);
       } else {
-        await navigator.clipboard.writeText(window.location.href);
-        alert("Link copied!");
+        const fallbackText = `${shareText} | Link: ${window.location.href}`;
+        await navigator.clipboard.writeText(fallbackText);
+        alert("Product details and link copied to clipboard!");
       }
     } catch (err) {
       console.log("Share failed:", err);
