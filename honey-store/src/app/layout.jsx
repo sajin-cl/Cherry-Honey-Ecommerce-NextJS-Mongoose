@@ -20,14 +20,30 @@ export const viewport = {
 
 export const metadata = {
   metadataBase: new URL(
-    process.env.NODE_ENV === 'production'
-      ? 'https://www.cherryshoney.com'
-      : 'http://localhost:3000'
+    process.env.NODE_ENV === "production"
+      ? "https://www.cherryshoney.com"
+      : "http://localhost:3000"
   ),
-  title: "Cherrys Honey Ecommerce | Pure Natural Honey & Organic Products Shop In India",
-  description: "Buy 100% pure, raw, and organic Honey online...",
-  keywords: ["buy pure honey online", "cherrys honey shop","Cherrys Honey in India","honey available for delivery"],
-  authors: [{ name: "Sajin.C.L" }],
+
+  title:
+    "Cherrys Honey Ecommerce | Pure Natural Honey & Organic Products Shop In India",
+
+  description:
+    "Buy 100% pure, raw and natural honey online from Cherrys Honey. Premium quality honey sourced naturally and delivered across India.",
+
+  keywords: [
+    "pure honey",
+    "raw honey",
+    "organic honey",
+    "buy honey online",
+    "natural honey",
+    "honey shop india",
+    "cherrys honey",
+    "premium honey",
+  ],
+
+  authors: [{ name: "Sajin C L" }],
+
   robots: {
     index: true,
     follow: true,
@@ -45,29 +61,44 @@ export const metadata = {
   alternates: {
     canonical: "/",
   },
+
   icons: {
     icon: [
       { url: "/favicon.ico" },
       { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
     ],
     apple: [
-      { url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" }
-    ]
+      {
+        url: "/apple-touch-icon.png",
+        sizes: "180x180",
+        type: "image/png",
+      },
+    ],
   },
+
   openGraph: {
     title: "Cherrys Honey | Pure Natural Honey Shop Online",
-    description: "Looking for 100% organic raw honey?...",
+    description:
+      "Shop premium raw honey and natural bee products from Cherrys Honey. Pure, natural and delivered across India.",
     url: "/",
     siteName: "Cherrys Honey",
     type: "website",
     images: [
       {
-        url: "/og-honey-banner.jpg",
+        url: "/preview-image.webp",
         width: 1200,
         height: 630,
         alt: "Cherrys Honey Pure Organic Products",
       },
     ],
+  },
+
+  twitter: {
+    card: "summary_large_image",
+    title: "Cherrys Honey | Pure Natural Honey Shop Online",
+    description:
+      "Shop premium raw honey and natural bee products from Cherrys Honey. Pure, natural and delivered across India.",
+    images: ["/preview-image.webp"],
   },
 };
 
