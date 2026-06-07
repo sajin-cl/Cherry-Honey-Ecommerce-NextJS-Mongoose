@@ -1,5 +1,4 @@
 import { FaInstagram } from "react-icons/fa";
-import { RiYoutubeLine } from "react-icons/ri";
 import { FaXTwitter } from "react-icons/fa6";
 import { SiFacebook } from "react-icons/si";
 import { FiPackage, FiCreditCard, FiUser, FiClock, FiCheckCircle, FiTruck, FiShield } from "react-icons/fi";
@@ -33,10 +32,9 @@ export const CUSTOMER_CARE_EMAIL = "supportcherryshoney@gmail.com"
 
 
 export const SOCIAL_LINKS = [
-    { icon: SiFacebook, href: "", name: 'Facebook', size: 20 },
-    { icon: FaInstagram, href: "", name: 'Instagram', size: 20 },
-    { icon: FaXTwitter, href: "", name: 'X', size: 20 },
-    { icon: RiYoutubeLine, href: "", name: 'Youtube', size: 25 },
+    { icon: SiFacebook, href: "", name: 'Facebook', size: 15 },
+    { icon: FaInstagram, href: "", name: 'Instagram', size: 15 },
+    { icon: FaXTwitter, href: "", name: 'X', size: 12 },
 ];
 
 

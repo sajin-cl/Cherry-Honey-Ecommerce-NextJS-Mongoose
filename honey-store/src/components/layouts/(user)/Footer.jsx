@@ -35,7 +35,7 @@ export default function Footer() {
           <div className="flex items-center gap-2 mb-4">
             <Image src="/footer-logo.png" alt="Logo" width={120} height={100} />
           </div>
-          <div className="flex gap-1 md:gap-2 lg:gap-4 mt-4 items-center">
+          <div className="flex gap-2 lg:gap-4 mt-4 items-center">
             {SOCIAL_LINKS.map((social, idx) => {
               const Icon = social?.icon;
               return (
@@ -77,7 +77,7 @@ export default function Footer() {
         <div>
           <h4 className="text-amber-200 font-semibold mb-4">Contact</h4>
           <ul className="space-y-2 text-gray-400">
-            <li className="hover:text-white transition-colors">
+            <li className="hover:text-white transition-colors wrap-break-word">
               <Link
                 href={`mailto:${CUSTOMER_CARE_EMAIL}`}
               >
@@ -92,7 +92,7 @@ export default function Footer() {
 
       {/* Copyright */}
       <div className="border-t border-gray-800 py-6 text-center text-xs text-gray-400 italic">
-        © {new Date().getFullYear()} Cherrys Honey. All rights reserved and developed by <Link href="https://sajincl-porfolio.vercel.app" target="_blank" rel="noopener noreferrer" className="hover:text-amber-100 text-primary font-mono italic transition-colors">sajin-cl</Link>
+        © {new Date().getFullYear()} Cherrys Honey. All rights reserved & developed by <Link href="https://sajincl-porfolio.vercel.app" target="_blank" rel="noopener noreferrer" className="hover:text-amber-100 text-primary font-mono italic transition-colors">sajin-cl</Link>
       </div>
     </footer>
   );
