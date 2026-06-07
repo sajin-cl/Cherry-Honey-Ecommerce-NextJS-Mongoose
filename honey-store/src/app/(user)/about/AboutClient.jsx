@@ -44,16 +44,17 @@ export default function AboutClient() {
             <p className="text-gray-400 text-sm md:text-base max-w-lg mb-8 leading-relaxed">
               At Cherrys Honey, we work closely with nature and our beekeepers to bring you 100% natural, raw, and ethically harvested honey straight from organic bee farms. Taste the purity, feel the difference, and indulge in a healthier, golden lifestyle.
             </p>
-            <div className="flex items-center gap-4 flex-wrap">
+            <div className="flex gap-4 w-full">
               <Link
                 href="/products"
-                className="inline-block bg-primary hover:bg-secondary text-black font-bold text-xs px-8 py-4 tracking-[0.2em] uppercase transition-all duration-300 transform hover:scale-105 active:scale-95 shadow-[0_4px_20px_rgba(200,168,75,0.25)]"
+                className="flex-shrink-0 bg-primary hover:bg-secondary text-black font-bold text-xs px-6 py-4 tracking-[0.2em] uppercase transition-all duration-300 text-center"
               >
                 Shop Honey
               </Link>
+
               <a
                 href="#our-journey"
-                className="inline-block border border-gray-600 text-gray-300 hover:border-primary hover:text-primary font-semibold text-xs px-8 py-4 tracking-[0.2em] uppercase transition-all duration-300 transform hover:scale-105"
+                className="flex-1 border border-gray-600 text-gray-300 hover:border-primary hover:text-primary font-semibold text-xs px-8 py-4 tracking-[0.2em] uppercase transition-all duration-300 text-center"
               >
                 Our Honey Farms
               </a>
@@ -114,7 +115,7 @@ export default function AboutClient() {
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.8 }}
           >
-            <p className="text-primary text-xs tracking-[0.4em] uppercase mb-4 font-bold md:mt-12">
+            <p className="text-primary text-xs tracking-[0.4em] uppercase mb-4 font-bold mt-12">
               Our Promise
             </p>
             <h2 className="text-3xl md:text-5xl text-white font-light" style={serifItalic}>
