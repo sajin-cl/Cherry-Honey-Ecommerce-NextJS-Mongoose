@@ -37,7 +37,7 @@ const Testimonials = () => {
                 <div className="grid md:grid-cols-2 gap-16 md:gap-36 items-center justify-between">
                     {/* Left — testimonial */}
                     <div>
-                        <div className="text-primary text-6xl leading-none mb-3" style={{ fontFamily: "Georgia, serif" }}>
+                        <div className="text-primary text-6xl leading-none" style={{ fontFamily: "Georgia, serif" }}>
                             <motion.h2
                                 className="text-3xl md:text-4xl mb-5 mt-5 md:mt-12 font-semibold"
                                 style={serifItalic}

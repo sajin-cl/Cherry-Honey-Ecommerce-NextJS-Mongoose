@@ -32,21 +32,21 @@ export default function Hero() {
                         Crafted by Bees,<br />
                         <span className="text-primary">Perfected by Nature</span>
                     </h1>
-                    <p className="text-gray-400 text-sm max-w-md mb-8 leading-relaxed">
+                    <p className="text-gray-400 font-sans text-sm max-w-md mb-8 leading-relaxed italic">
                         We bring you the finest honey sourced from the purest bee farms.
                         Experience the natural goodness, taste the authenticity, and
                         embrace a healthier lifestyle with every drop.
                     </p>
-                    <div className="flex items-center gap-4 flex-wrap">
+                    <div className="flex items-center gap-4">
                         <Link
                             href="/products"
-                            className="inline-block active:scale-95 bg-primary hover:bg-secondary text-black font-bold text-xs px-8 py-4 tracking-[0.2em] uppercase transition-colors duration-200"
+                            className="w-full active:scale-95 bg-primary hover:bg-secondary text-black font-bold text-center text-xs px-4 md:px-8 py-4 tracking-[0.2em] uppercase transition-colors duration-200"
                         >
                             Shop Now
                         </Link>
                         <Link
                             href="#featured-products"
-                            className="inline-block active:scale-95 border border-gray-600 text-gray-300 hover:border-primary hover:text-primary font-semibold text-xs px-8 py-4 tracking-widest uppercase transition-colors duration-200"
+                            className="w-full active:scale-95 border border-gray-600 text-gray-300 hover:border-primary hover:text-primary font-semibold text-center text-xs px-4 md:px-8 py-4 tracking-widest uppercase transition-colors duration-200"
                         >
                             View Products →
                         </Link>

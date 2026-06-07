@@ -6,7 +6,7 @@ import { serifItalic } from '@/config/staticData';
 
 const OurJourney = () => {
     return (
-        <section className="py-20 bg-black">
+        <section className="pt-10 pb-20 bg-black">
             <div className="max-w-7xl mx-auto px-6">
                 <motion.h2
                     className="text-3xl md:text-4xl text-center mb-12 font-semibold"

@@ -103,7 +103,7 @@ export default function FeaturedProjects({ featuredProducts }) {
                 </motion.div>
 
                 <motion.div
-                    className="flex justify-end mt-8"
+                    className="flex justify- sm:justify-end mt-8"
                     initial={{ opacity: 0 }}
                     whileInView={{ opacity: 1 }}
                     viewport={{ once: true }}

@@ -44,17 +44,17 @@ export default function AboutClient() {
             <p className="text-gray-400 text-sm md:text-base max-w-lg mb-8 leading-relaxed">
               At Cherrys Honey, we work closely with nature and our beekeepers to bring you 100% natural, raw, and ethically harvested honey straight from organic bee farms. Taste the purity, feel the difference, and indulge in a healthier, golden lifestyle.
             </p>
-            <div className="flex gap-4 w-full">
+            <div className="flex gap-4 ">
               <Link
                 href="/products"
-                className="flex-shrink-0 bg-primary hover:bg-secondary text-black font-bold text-xs px-6 py-4 tracking-[0.2em] uppercase transition-all duration-300 text-center"
+                className="flex items-center shrink-0 bg-primary hover:bg-secondary text-black font-bold text-xs px-4 md:px-8 py-4 tracking-[0.2em] uppercase transition-all duration-300 text-center"
               >
                 Shop Honey
               </Link>
 
               <a
                 href="#our-journey"
-                className="flex-1 border border-gray-600 text-gray-300 hover:border-primary hover:text-primary font-semibold text-xs px-8 py-4 tracking-[0.2em] uppercase transition-all duration-300 text-center"
+                className="flex-1 border border-gray-600 text-gray-300 hover:border-primary hover:text-primary font-semibold text-xs px-4 md:px-8 py-4 tracking-[0.2em] uppercase transition-all duration-300 text-center"
               >
                 Our Honey Farms
               </a>

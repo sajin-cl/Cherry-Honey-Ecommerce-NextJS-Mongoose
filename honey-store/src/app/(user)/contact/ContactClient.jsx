@@ -97,16 +97,17 @@ export default function ContactClient() {
             our private reserve, or simply wishing to share your experience with
             our artisanal honey.
           </p>
-          <div className="flex items-center justify-center gap-4 flex-wrap">
+          <div className="flex flex-col min-[410px]:flex-row items-center justify-center gap-4">
             <button
               onClick={scrollToForm}
-              className="inline-block bg-primary hover:bg-secondary text-black font-bold text-xs px-8 py-4 tracking-[0.2em] uppercase transition-all duration-300 transform hover:scale-105 active:scale-95 shadow-[0_4px_20px_rgba(200,168,75,0.25)] cursor-pointer"
+              className="w-full min-[410px]:w-auto bg-primary hover:bg-secondary text-black font-bold text-xs px-4 md:px-8 py-4 tracking-[0.2em] uppercase transition-all duration-300 transform hover:scale-105 active:scale-95 shadow-[0_4px_20px_rgba(200,168,75,0.25)] cursor-pointer"
             >
               Contact Now
             </button>
+
             <Link
               href="/products"
-              className="inline-block border border-gray-600 text-gray-300 hover:border-primary hover:text-primary font-semibold text-xs px-8 py-4 tracking-[0.2em] uppercase transition-all duration-300 transform hover:scale-105 active:scale-95"
+              className="w-full min-[410px]:w-auto border border-gray-600 text-gray-300 hover:border-primary hover:text-primary font-semibold text-xs px-4 md:px-8 py-4 tracking-[0.2em] uppercase transition-all duration-300 transform hover:scale-105 active:scale-95 text-center"
             >
               Explore Products
             </Link>
@@ -117,7 +118,7 @@ export default function ContactClient() {
       {/* ══════════════════════════════════════════════
           HONEY DRIP DIVIDER
       ══════════════════════════════════════════════ */}
-      <div className="relative w-full h-24 md:h-36 my-8 select-none pointer-events-none z-10 overflow-hidden">
+      <div className="relative w-full h-24 md:h-36 mt-14 mb-0 select-none pointer-events-none z-10 overflow-hidden">
         <Image
           src="/honey-dripv1.webp"
           fill
@@ -126,12 +127,12 @@ export default function ContactClient() {
           priority
         />
       </div>
-      
+
 
       {/* ══════════════════════════════════════════════
           CONTACT CARDS GRID
       ══════════════════════════════════════════════ */}
-      <section className="relative z-10 max-w-7xl mx-auto px-6 py-12">
+      <section className="relative z-10 max-w-7xl mx-auto px-6 pt-5 pb-12">
         <Image
           src="/honey-comb.webp"
           fill
@@ -279,7 +280,7 @@ export default function ContactClient() {
       >
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
           {/* Left Text Detail */}
-          <div className="lg:col-span-5 relative pr-0 lg:pr-8">            
+          <div className="lg:col-span-5 relative pr-0 lg:pr-8">
 
             <motion.div
               initial={{ x: -30, opacity: 0 }}
@@ -300,7 +301,7 @@ export default function ContactClient() {
                 sustainable harvesting practices. Fill out the form, and we will
                 respond with the utmost priority.
               </p>
-             
+
             </motion.div>
           </div>
 
