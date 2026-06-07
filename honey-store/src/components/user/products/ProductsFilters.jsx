@@ -60,34 +60,38 @@ export default function ProductsFilters({ searchParams, categories }) {
 
   return (
     <>
-      <div className="flex items-center gap-3">
+      <div className="flex items-center justify-between gap-3 w-full md:w-auto px-4">
         {/* Search Input Bar */}
-        <form onSubmit={handleSearchSubmit} className="flex items-center">
-          <input
-            type="text"
-            value={searchValue}
-            onChange={(e) => setSearchValue(e.target.value)}
-            placeholder="Search products..."
-            className="bg-[#111] border border-gray-800 hover:border-gray-700 text-white text-xs px-4 py-2.5 placeholder-gray-500 focus:outline-none focus:border-primary transition-all w-48 sm:w-64"
-          />
-          <button
-            type="submit"
-            className="bg-gray-900 border border-l-0 border-gray-800 text-gray-400 hover:text-white px-3 py-2.5 transition-colors text-xs font-semibold"
-          >
-            Go
-          </button>
-        </form>
+        <div>
+          <form onSubmit={handleSearchSubmit} className="flex items-center">
+            <input
+              type="text"
+              value={searchValue}
+              onChange={(e) => setSearchValue(e.target.value)}
+              placeholder="Search products..."
+              className="bg-[#111] border border-gray-800 hover:border-gray-700 text-white text-xs px-4 py-2.5 placeholder-gray-500 focus:outline-none focus:border-primary transition-all w-48 sm:w-64"
+            />
+            <button
+              type="submit"
+              className="bg-gray-900 cursor-pointer border border-l-0 border-gray-800 text-gray-400 hover:text-white px-3 py-2.5 transition-colors text-xs font-semibold"
+            >
+              Go
+            </button>
+          </form>
+        </div>
 
         {/* Filter Drawer Toggle Button */}
-        <button
-          onClick={() => setIsOpen(true)}
-          className="flex items-center gap-2 bg-primary hover:bg-secondary text-black text-xs font-bold px-5 py-2.5 transition-all uppercase tracking-wider"
-        >
-          <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-            <path strokeLinecap="round" strokeLinejoin="round" d="M3 4h18M7 8h10M10 12h4" />
-          </svg>
-          <span className="hidden md:block">Filter</span>
-        </button>
+        <div>
+          <button
+            onClick={() => setIsOpen(true)}
+            className="flex items-center gap-2 cursor-pointer bg-primary hover:bg-secondary text-black text-xs font-bold px-5 py-2.5 transition-all uppercase tracking-wider"
+          >
+            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M3 4h18M7 8h10M10 12h4" />
+            </svg>
+            <span>Filter</span>
+          </button>
+        </div>
       </div>
 
       {/* ── Slide-out Drawer ── */}
