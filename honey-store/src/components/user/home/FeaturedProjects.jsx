@@ -3,6 +3,7 @@ import Image from "next/image"
 import { motion } from "framer-motion"
 import Link from "next/link"
 import { serifItalic } from "@/config/staticData"
+import { FaArrowRight } from "react-icons/fa"
 
 export default function FeaturedProjects({ featuredProducts }) {
 
@@ -111,9 +112,9 @@ export default function FeaturedProjects({ featuredProducts }) {
                 >
                     <Link
                         href="/products"
-                        className="bg-primary hover:bg-secondary text-black font-bold text-xs px-8 py-3.5 tracking-[0.2em] uppercase transition-colors active:scale-95"
+                        className="text-primary hover:text-amber-300  font-bold text-sm px-8 py-3.5 tracking-[0.1em] uppercase transition-all duration-300 active:scale-95"
                     >
-                        View All Products
+                        View All Products <FaArrowRight className="inline-block w-4 h-4" />
                     </Link>
                 </motion.div>
             </div>

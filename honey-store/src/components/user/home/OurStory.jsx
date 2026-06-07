@@ -36,11 +36,11 @@ export default function OurStory() {
                         <h2 className="text-3xl md:text-5xl mb-6 font-semibold" style={serifItalic}>
                             <span className="text-primary">Our</span> Story
                         </h2>
-                        <p className="text-gray-400 leading-relaxed mb-4 text-sm">
+                        <p className="text-gray-400 leading-relaxed mb-4 text-sm italic font-sans">
                             We work closely with nature and our beekeepers to bring and create a gift of our honey crafted from care
                             and what to experience the taste, rich all beehives, and a world of the big sweetness you can taste in every drop.
                         </p>
-                        <p className="text-gray-400 leading-relaxed mb-8 text-sm">
+                        <p className="text-gray-400 leading-relaxed mb-8 text-sm italic font-sans">
                             Each jar is a labour of love, ethically sourced from hives that thrive in pristine, chemical-free environments —
                             giving you honey the way nature intended.
                         </p>

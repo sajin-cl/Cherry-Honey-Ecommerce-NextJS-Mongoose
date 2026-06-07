@@ -4,6 +4,7 @@ import Image from "next/image"
 import Link from "next/link"
 import { motion } from "framer-motion"
 import { serifItalic } from "@/config/staticData"
+import { FaArrowRight } from "react-icons/fa"
 
 const MotionImage = motion.create(Image);
 
@@ -40,15 +41,15 @@ export default function Hero() {
                     <div className="flex items-center gap-4">
                         <Link
                             href="/products"
-                            className="w-full active:scale-95 bg-primary hover:bg-secondary text-black font-bold text-center text-xs px-4 md:px-8 py-4 tracking-[0.2em] uppercase transition-colors duration-200"
+                            className="w-full active:scale-95 bg-primary hover:bg-secondary text-black font-bold text-center text-xs py-4 tracking-[0.2em] uppercase transition-colors duration-200"
                         >
                             Shop Now
                         </Link>
                         <Link
                             href="#featured-products"
-                            className="w-full active:scale-95 border border-gray-600 text-gray-300 hover:border-primary hover:text-primary font-semibold text-center text-xs px-4 md:px-8 py-4 tracking-widest uppercase transition-colors duration-200"
+                            className="w-full flex items-center justify-center gap-2 active:scale-95 border border-gray-600 text-gray-300 hover:border-primary hover:text-primary font-semibold text-center text-xs py-4 tracking-widest uppercase transition-colors duration-200"
                         >
-                            View Products →
+                            View Products <FaArrowRight className="inline-block w-3 h-3" />
                         </Link>
                     </div>
                 </motion.div>
