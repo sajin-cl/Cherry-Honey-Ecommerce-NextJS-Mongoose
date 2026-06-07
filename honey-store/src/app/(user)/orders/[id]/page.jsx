@@ -124,11 +124,8 @@ export default async function OrderDetailsPage({ params }) {
     }
   }
 
-  // Normalize similarProducts ids
-  similarProducts = similarProducts.map(p => ({
-    ...p,
-    _id: p._id.toString()
-  }));
+  // Serialize similarProducts to remove Mongoose-specific objects (like ObjectIds/Dates inside reviews)
+  const serializedSimilar = JSON.parse(JSON.stringify(similarProducts));
 
-  return <UserOrderDetailClient initialOrder={initialOrder} similarProducts={similarProducts} />;
+  return <UserOrderDetailClient initialOrder={initialOrder} similarProducts={serializedSimilar} />;
 }
