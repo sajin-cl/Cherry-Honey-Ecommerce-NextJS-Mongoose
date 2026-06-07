@@ -175,7 +175,7 @@ export default function ProductCard({ product }) {
                             <button
                                 disabled={product?.stock === 0}
                                 onClick={(e) => handleAddToCart(e, product)}
-                                className={`text-xs px-4 py-2 font-semibold rounded-full transition-all duration-200 cursor-pointer ${
+                                className={`text-sm md:text-xs px-4 py-2 font-semibold rounded-full transition-all duration-200 cursor-pointer ${
                                     product?.stock === 0
                                         ? "bg-gray-800 text-gray-500 cursor-not-allowed"
                                         : added

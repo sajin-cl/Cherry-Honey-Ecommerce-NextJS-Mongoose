@@ -92,7 +92,7 @@ export default function FeaturedProjects({ featuredProducts }) {
                                                     {product?.category}
                                                 </h4>
                                             </div>
-                                            <button className="text-white text-sm font-bold cursor-pointer px-3 py-1 border border-gray-600 group-hover:bg-gray-900 rounded-full">
+                                            <button className="text-white text-base md:text-sm font-bold cursor-pointer px-3 py-1 border border-gray-600 group-hover:bg-gray-900 rounded-full">
                                                 {priceText}
                                             </button>
                                         </div>
