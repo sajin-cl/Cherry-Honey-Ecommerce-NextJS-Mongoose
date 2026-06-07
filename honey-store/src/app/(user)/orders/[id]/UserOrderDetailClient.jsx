@@ -217,7 +217,7 @@ export default function UserOrderDetailClient({ initialOrder, similarProducts })
             <h2 className="text-2xl text-white mb-8" style={serif}>
               <span className="text-primary">Similar</span> Products
             </h2>
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
               {similarProducts.map((p) => (
                 <ProductCard key={p._id} product={p} />
               ))}
