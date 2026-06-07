@@ -10,6 +10,8 @@ import Image from "next/image";
 import { useAuth } from "@/hooks/useAuth";
 import { useCart } from "@/hooks/useCart";
 import { apiClient } from "@/lib/apiClient";
+import { GiCrossedSwords } from "react-icons/gi";
+import { RiMenu2Fill } from "react-icons/ri";
 
 export default function Navbar() {
   const pathname = usePathname();
@@ -84,13 +86,14 @@ export default function Navbar() {
           {/* Mobile: Hamburger (left) */}
           <button
             onClick={() => setMenuOpen(!menuOpen)}
-            className="md:hidden text-gray-300 hover:text-primary transition-colors"
+            className="md:hidden text-primary hover:text-secondary transition-colors cursor-pointer"
             aria-label="Toggle menu"
           >
-            <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-              <path strokeLinecap="round" strokeLinejoin="round"
-                d={menuOpen ? "M6 18L18 6M6 6l12 12" : "M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"} />
-            </svg>
+            {menuOpen ? (
+              <GiCrossedSwords size={25} className="text-primary" />
+            ) : (
+              <RiMenu2Fill size={25} className="text-primary" />
+            )}
           </button>
 
           {/* Center logo */}
@@ -186,7 +189,7 @@ export default function Navbar() {
                 key={item.href}
                 href={item.href}
                 onClick={() => setMenuOpen(false)}
-                className={`flex items-center gap-3 text-sm tracking-widest transition-colors duration-200 hover:ml-1 ${isActive(item.href)
+                className={`flex items-center gap-3 tracking-widest transition-colors duration-200 hover:ml-1 ${isActive(item.href)
                   ? "text-primary font-medium"
                   : "text-gray-300 hover:text-primary"
                   }`}

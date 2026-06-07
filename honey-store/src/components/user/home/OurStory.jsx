@@ -46,7 +46,7 @@ export default function OurStory() {
                         </p>
                         <Link
                             href={'/about'}
-                            className="inline-block active:scale-95 bg-primary hover:bg-secondary text-black font-bold text-xs px-8 py-3.5 tracking-[0.2em] uppercase transition-colors"
+                            className="inline-block active:scale-95 rounded-full border-y border-primary hover:border-secondary text-primary font-bold text-xs px-8 py-3.5 tracking-[0.2em] uppercase transition-colors"
                         >
                             Read More
                         </Link>
