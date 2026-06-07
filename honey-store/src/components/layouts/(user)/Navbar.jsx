@@ -92,7 +92,7 @@ export default function Navbar() {
             {menuOpen ? (
               <GiCrossedSwords size={25} className="text-primary" />
             ) : (
-              <RiMenu2Fill size={25} className="text-primary" />
+              <RiMenu2Fill size={25} className="text-white hover:text-primary" />
             )}
           </button>
 
