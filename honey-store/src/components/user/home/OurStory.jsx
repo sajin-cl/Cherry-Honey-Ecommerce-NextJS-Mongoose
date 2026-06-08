@@ -13,15 +13,15 @@ export default function OurStory() {
                 <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
                     {/* Left — dripping bee image */}
                     <motion.div
-                        className="relative h-80 md:h-[440px] flex items-center justify-center"
+                        className="relative h-96 md:h-[440px] flex items-center justify-center"
                         initial={{ x: -50, opacity: 0 }}
-                        whileInView={{ x: 0, opacity: 1 }}
+                        whileInView={{ x: 0, opacity: 1 }} 
                         viewport={{ once: true }}
                         transition={{ duration: 0.8 }}
                     >
                         <Image
                             src="/two-bees.webp"
-                            alt="Two Honey bees sharing honey"
+                            alt="Two Honey bees sharing honey" 
                             fill
                             sizes="(max-width: 768px) 100vw, 320px"
                             className="object-contain"
