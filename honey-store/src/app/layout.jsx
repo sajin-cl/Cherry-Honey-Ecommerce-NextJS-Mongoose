@@ -1,6 +1,6 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import "@/styles/globals.css";
-import CustomCursor from "@/components/ui/CustomCursor";
+import CustomCursorLoader from "@/components/ui/CustomCursorLoader";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -106,7 +106,7 @@ export default function RootLayout({ children }) {
     >
       <body className="min-h-full flex flex-col">
         {children}
-        <CustomCursor />
+        <CustomCursorLoader />
       </body>
     </html>
   );

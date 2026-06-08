@@ -1,10 +1,12 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import Hero from "@/components/user/home/Hero";
 import FeaturedProjects from "@/components/user/home/FeaturedProjects";
-import OurStory from "@/components/user/home/OurStory";
-import Testimonials from "@/components/user/home/Testimonials";
-import OurJourney from "@/components/user/home/OurJourney";
+
+const OurStory = dynamic(() => import("@/components/user/home/OurStory"));
+const Testimonials = dynamic(() => import("@/components/user/home/Testimonials"));
+const OurJourney = dynamic(() => import("@/components/user/home/OurJourney"));
 
 export default function HomeClient({ featuredProducts }) {
   return (
