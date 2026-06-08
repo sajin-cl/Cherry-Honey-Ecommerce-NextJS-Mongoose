@@ -10,7 +10,10 @@ export async function generateMetadata({ params }) {
   const { id } = await params;
   return {
     title: `Order Details | Cherrys Honey`,
-    description: `Track and view order details for order ID ${id}`,
+    description: `View your order details, delivery status, purchased products, and tracking information for your Cherrys Honey order.`,
+    alternates: {
+      canonical: `/orders/${id}`,
+    }
   };
 }
 

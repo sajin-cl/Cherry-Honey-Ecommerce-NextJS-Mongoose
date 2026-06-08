@@ -5,7 +5,13 @@ import Product from "@/models/product.model";
 import { getServerUser } from "@/lib/auth";
 import CartClient from "./CartClient";
 
-export const metadata = { title: "My Cart | Cherrys Honey" };
+export const metadata = {
+  title: "My Cart | Cherrys Honey",
+  description: "View and manage items in your cart before checkout.",
+  alternates: {
+    canonical: "/cart",
+  }
+};
 
 export default async function CartPage() {
   const userPayload = await getServerUser();

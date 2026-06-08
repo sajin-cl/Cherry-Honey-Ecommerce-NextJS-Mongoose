@@ -6,15 +6,17 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { apiClient } from "@/lib/apiClient";
 
+
+
 export default function LoginPage() {
   const router = useRouter();
 
   const [showPassword, setShowPassword] = useState(false);
-  const [rememberMe, setRememberMe]     = useState(false);
-  const [email, setEmail]               = useState("");
-  const [password, setPassword]         = useState("");
-  const [loading, setLoading]           = useState(false);
-  const [error, setError]               = useState("");
+  const [rememberMe, setRememberMe] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
   /* ── API call ── */
   const handleSubmit = async (e) => {
@@ -171,9 +173,8 @@ export default function LoginPage() {
                     className="sr-only"
                   />
                   <div
-                    className={`w-4 h-4 border transition-colors ${
-                      rememberMe ? "bg-primary border-primary" : "bg-transparent border-gray-500"
-                    } flex items-center justify-center`}
+                    className={`w-4 h-4 border transition-colors ${rememberMe ? "bg-primary border-primary" : "bg-transparent border-gray-500"
+                      } flex items-center justify-center`}
                   >
                     {rememberMe && (
                       <svg className="w-3 h-3 text-black" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>

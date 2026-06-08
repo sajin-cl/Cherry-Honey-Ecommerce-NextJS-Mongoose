@@ -1,13 +1,16 @@
-/**
- * SSR Products Page — data fetched from DB via searchParams.
- * Pagination and filters change the URL → triggers a server re-render.
- */
 import dbConnect from "@/lib/dbConnect";
 import Product from "@/models/product.model";
 import Category from "@/models/category.model";
 import ProductsClient from "./ProductsClient";
 
-export const metadata = { title: "Our Products | Cherrys Honey" };
+export const metadata = {
+  title: "Our Products | Cherrys Honey",
+  description:
+    "Explore our collection of pure natural honey, organic honey products, and premium bee products from Cherrys Honey.",
+  alternates: {
+    canonical: "/products"
+  }
+};
 
 const PER_PAGE = 12;
 

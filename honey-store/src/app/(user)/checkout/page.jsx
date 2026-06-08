@@ -5,7 +5,13 @@ import Product from "@/models/product.model";
 import { getServerUser } from "@/lib/auth";
 import CheckoutClient from "./CheckoutClient";
 
-export const metadata = { title: "Checkout | Cherrys Honey" };
+export const metadata = {
+  title: "Checkout | Cherrys Honey",
+  description: "Checkout and place your order for pure natural honey and organic bee products.",
+  alternates: {
+    canonical: "/checkout", 
+  }
+};
 
 export default async function CheckoutPage({ searchParams }) {
   const resolvedParams = await searchParams;

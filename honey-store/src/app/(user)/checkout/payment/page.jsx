@@ -5,7 +5,13 @@ import Product from "@/models/product.model";
 import { getServerUser } from "@/lib/auth";
 import PaymentClient from "./PaymentClient";
 
-export const metadata = { title: "Payment Method | Cherrys Honey" };
+export const metadata = {
+  title: "Payment Method | Cherrys Honey",
+  description: "Payment Method | Cherrys Honey",
+  alternates: {
+    canonical: "/checkout/payment",
+  }
+};
 
 export default async function PaymentPage({ searchParams }) {
   const resolvedParams = await searchParams;

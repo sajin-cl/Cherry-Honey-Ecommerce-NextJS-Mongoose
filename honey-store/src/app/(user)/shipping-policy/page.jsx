@@ -3,8 +3,10 @@ import Link from "next/link";
 
 export const metadata = {
     title: "Shipping & Delivery Policy | Cherrys Honey",
-    description:
-        "Learn about Cherrys Honey's shipping timelines, delivery charges, tracking, and more.",
+    description: "Learn about Cherrys Honey's shipping timelines, delivery charges, tracking, and more.",
+    alternates: {
+        canonical: "/shipping-policy",
+    }
 };
 
 const LAST_UPDATED = "01 June 2026";

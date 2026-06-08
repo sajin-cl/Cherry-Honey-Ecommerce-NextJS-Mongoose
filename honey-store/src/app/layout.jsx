@@ -58,10 +58,6 @@ export const metadata = {
     },
   },
 
-  alternates: {
-    canonical: "/",
-  },
-
   icons: {
     icon: [
       { url: "/favicon.ico" },

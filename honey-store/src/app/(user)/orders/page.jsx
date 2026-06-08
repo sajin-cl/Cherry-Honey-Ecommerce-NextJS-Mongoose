@@ -7,7 +7,13 @@ import dbConnect from "@/lib/dbConnect";
 import Order from "@/models/order.model";
 import MyOrdersClient from "./MyOrdersClient";
 
-export const metadata = { title: "My Orders | Cherrys Honey" };
+export const metadata = {
+  title: "My Orders | Cherrys Honey",
+  description: "View and track your Cherrys Honey orders. Check order status, purchase history, and delivery updates in one place",
+  alternates: {
+    canonical: "/orders",
+  }
+};
 
 export default async function MyOrdersPage() {
   const user = await requireUser();

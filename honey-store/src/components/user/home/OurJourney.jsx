@@ -33,6 +33,7 @@ const OurJourney = () => {
                         fill
                         sizes="100vw"
                         className="object-cover group-hover:scale-105 transition-transform duration-700"
+                        loading='lazy'
                     />
                     {/* Dark overlay */}
                     <div className="absolute inset-0 bg-black/50" />

@@ -6,6 +6,7 @@ import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { apiClient } from "@/lib/apiClient";
 
+
 function CheckEmailContent() {
   const searchParams = useSearchParams();
   const email = searchParams.get("email") || "";
@@ -70,7 +71,7 @@ function CheckEmailContent() {
       {devUrl && (
         <div className="mb-8 p-4 bg-amber-500/10 border border-amber-500/30 rounded-lg text-left text-xs text-amber-200">
           <span className="font-bold block mb-1 leading-[24px]">Hint : Please check your email and click the link to set a new password.</span>
-          
+
         </div>
       )}
 

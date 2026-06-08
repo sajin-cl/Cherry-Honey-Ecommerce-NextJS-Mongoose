@@ -4,8 +4,11 @@ import Link from "next/link";
 
 export const metadata = {
     title: "Refund Policy | Cherrys Honey",
-    description:
-        "Understand Cherrys Honey's refund, return, and cancellation policy for your orders.",
+    description: "Understand Cherrys Honey's refund, return, and cancellation policy for your orders.",
+    alternates: {
+        canonical: "/refund-policy",
+    }
+
 };
 
 

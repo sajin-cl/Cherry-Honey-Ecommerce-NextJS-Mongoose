@@ -96,6 +96,8 @@ const Testimonials = () => {
                             alt="A honey bee flying over a glass bowl filled with fresh honey"
                             fill
                             className="object-cover aspect-square p-6 hover:scale-105 transition-transform duration-700"
+                            sizes="(max-width: 768px) 100vw, 50vw"
+                            loading='lazy'
                         />
                     </motion.div>
                 </div>
