@@ -18,6 +18,7 @@ export default function Hero() {
                 className="object-cover animate-pulse"
                 alt=""
                 priority
+                aria-hidden="true"
             />
 
             <div className="relative max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-8 items-center w-full py-16 z-10">

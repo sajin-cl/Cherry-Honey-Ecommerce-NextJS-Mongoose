@@ -10,7 +10,7 @@ export default function FeaturedProjects({ featuredProducts }) {
     return (
         <section id="featured-products" className="pt-20 pb-10 bg-dark relative overflow-hidden min-h-screen">
             {/* Honey Comb Layer-1*/}
-            <div className="absolute inset-0">
+            <div className="absolute inset-0" aria-hidden="true">
                 <Image
                     src="/honey-comb.webp"
                     fill
@@ -22,7 +22,7 @@ export default function FeaturedProjects({ featuredProducts }) {
             </div>
 
             {/* Honey Drip Layer-2 */}
-            <div className="absolute top-0 right-0 left-0 w-full pointer-events-none">
+            <div aria-hidden="true" className="absolute top-0 right-0 left-0 w-full pointer-events-none">
                 <Image
                     src="/honey-dripv1.webp"
                     alt=""

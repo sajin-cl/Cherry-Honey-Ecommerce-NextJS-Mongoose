@@ -12,7 +12,7 @@ const Testimonials = () => {
 
     return (
         <section className="py-20 bg-[#0a0a0a] relative">
-            <div className="absolute top-0 right-0 left-0 w-full z-30 pointer-events-none">
+            <div aria-hidden="true" className="absolute top-0 right-0 left-0 w-full z-30 pointer-events-none">
                 <Image
                     src="/honey-dripv1.webp"
                     alt=""
@@ -24,7 +24,7 @@ const Testimonials = () => {
             </div>
 
             {/* background layer */}
-            <div className="absolute inset-0 z-30 pointer-events-none mask-fade">
+            <div className="absolute inset-0 z-30 pointer-events-none mask-fade" aria-hidden="true">
                 <Image
                     src="/honey-comb.webp"
                     fill

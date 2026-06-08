@@ -89,7 +89,7 @@ export default function AboutClient() {
       ══════════════════════════════════════════════ */}
       <section className="relative py-24 bg-[#050505] z-10">
 
-        <div className="absolute top-0 right-0 left-0 w-full pointer-events-none">
+        <div className="absolute top-0 right-0 left-0 w-full pointer-events-none" aria-hidden="true">
           <Image
             src="/honey-dripv1.webp"
             alt=""
@@ -105,6 +105,7 @@ export default function AboutClient() {
           fill
           className="object-cover animate-pulse mask-fade"
           alt=""
+          aria-hidden="true"
         />
 
         <div className="max-w-7xl mx-auto px-6">

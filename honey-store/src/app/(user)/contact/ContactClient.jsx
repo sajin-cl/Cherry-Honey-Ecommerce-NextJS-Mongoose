@@ -65,7 +65,7 @@ export default function ContactClient() {
   return (
     <div className="min-h-screen bg-black text-white relative overflow-hidden pt-28 pb-20">
       {/* Background honeycomb overlay */}
-      <div className="absolute inset-0 z-0 opacity-40 pointer-events-none">
+      <div className="absolute inset-0 z-0 opacity-40 pointer-events-none" aria-hidden="true">
         <Image
           src="/honey-comb.webp"
           fill
@@ -118,7 +118,10 @@ export default function ContactClient() {
       {/* ══════════════════════════════════════════════
           HONEY DRIP DIVIDER
       ══════════════════════════════════════════════ */}
-      <div className="relative w-full h-24 md:h-36 mt-14 mb-0 select-none pointer-events-none z-10 overflow-hidden">
+      <div
+        className="relative w-full h-24 md:h-36 mt-14 mb-0 select-none pointer-events-none z-10 overflow-hidden"
+        aria-hidden="true"
+      >
         <Image
           src="/honey-dripv1.webp"
           fill
@@ -138,6 +141,7 @@ export default function ContactClient() {
           fill
           className="object-cover"
           alt=""
+          aria-hidden="true"
         />
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {/* Card 1: Phone */}
