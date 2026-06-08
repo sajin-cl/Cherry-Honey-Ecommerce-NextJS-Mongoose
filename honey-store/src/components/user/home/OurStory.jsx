@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image"
 import Link from "next/link"
 import { motion } from "framer-motion"
@@ -49,7 +51,7 @@ export default function OurStory() {
                             href={'/about'}
                             className="inline-block active:scale-95 rounded-full border-y border-primary hover:border-secondary text-primary font-bold text-xs px-8 py-3.5 tracking-[0.2em] uppercase transition-colors"
                         >
-                            Read More
+                            Learn More About Our Story
                         </Link>
                     </motion.div>
                 </div>

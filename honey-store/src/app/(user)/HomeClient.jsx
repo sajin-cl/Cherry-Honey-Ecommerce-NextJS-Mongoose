@@ -1,5 +1,3 @@
-"use client";
-
 import dynamic from "next/dynamic";
 import Hero from "@/components/user/home/Hero";
 import FeaturedProjects from "@/components/user/home/FeaturedProjects";
