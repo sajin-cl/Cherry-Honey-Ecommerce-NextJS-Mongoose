@@ -19,10 +19,11 @@ export default function OurStory() {
                     >
                         <Image
                             src="/two-bees.webp"
-                            alt="Two Honey bee"
+                            alt="Two Honey bees sharing honey"
                             fill
-                            sizes="(max-width: 768px) 100vw, 50vw"
-                            className="object-contain "
+                            sizes="(max-width: 768px) 100vw, 430px"
+                            className="object-contain"
+                            loading="lazy"
                         />
                     </motion.div>
 

@@ -1,6 +1,5 @@
 import Link from "next/link";
 import Image from "next/image";
-import footerLogo from "../../../../public/footer-logo.png"
 import { ADMIN_PHONE, CUSTOMER_CARE_EMAIL, SOCIAL_LINKS } from '@/config/staticData'
 
 export default function Footer() {
@@ -35,7 +34,7 @@ export default function Footer() {
         <div>
           <div className="flex items-center gap-2 mb-4">
             <Image
-              src={footerLogo} alt="Cherrys Honey footer logo"
+              src="/footer-logo.png" alt="Cherrys Honey footer logo"
               width={120} height={100} sizes="120px"
               loading="lazy"
               className="block"

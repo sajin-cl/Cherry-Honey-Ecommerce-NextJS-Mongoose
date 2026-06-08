@@ -100,7 +100,7 @@ export default function Navbar() {
           {/* Center logo */}
           <Link
             href="/"
-            className="flex items-center gap-2 absolute left-1/2 -translate-x-1/2 active:scale-95"
+            className="flex items-center gap-2 absolute left-1/2 -translate-x-1/2 active:scale-95 min-h-28 min-w-25"
           >
             <Image
               src={logoImg}
@@ -110,6 +110,7 @@ export default function Navbar() {
               className="mt-3 block"
               sizes="100px"
               priority
+              fetchPriority="high"
             />
           </Link> 
 
