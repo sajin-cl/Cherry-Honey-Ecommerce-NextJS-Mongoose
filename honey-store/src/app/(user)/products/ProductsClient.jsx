@@ -27,7 +27,7 @@ export default function ProductsClient({
           src="/honey-comb.webp"
           fill
           className="object-cover animate-pulse"
-          alt="honeycomb pattern"
+          alt=""
         />
       </div>
 

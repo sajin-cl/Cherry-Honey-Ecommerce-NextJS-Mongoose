@@ -70,7 +70,7 @@ export default function ContactClient() {
           src="/honey-comb.webp"
           fill
           className="object-cover"
-          alt="honeycomb pattern"
+          alt=""
         />
       </div>
 
@@ -123,7 +123,7 @@ export default function ContactClient() {
           src="/honey-dripv1.webp"
           fill
           className="object-cover mix-blend-screen contrast-125 brightness-95"
-          alt="Golden honey drip divider"
+          alt=""
           priority
         />
       </div>
@@ -137,7 +137,7 @@ export default function ContactClient() {
           src="/honey-comb.webp"
           fill
           className="object-cover"
-          alt="honeycomb pattern"
+          alt=""
         />
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {/* Card 1: Phone */}

@@ -16,7 +16,7 @@ export default function Hero() {
                 src={"/honey-comb.webp"}
                 fill
                 className="object-cover animate-pulse"
-                alt="honey-comb"
+                alt=""
                 priority
             />
 

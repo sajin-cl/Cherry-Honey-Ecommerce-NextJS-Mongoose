@@ -92,7 +92,7 @@ export default function AboutClient() {
         <div className="absolute top-0 right-0 left-0 w-full pointer-events-none">
           <Image
             src="/honey-dripv1.webp"
-            alt="Honey drip"
+            alt=""
             width={2000}
             height={1000}
             priority
@@ -104,7 +104,7 @@ export default function AboutClient() {
           src={"/honey-comb.webp"}
           fill
           className="object-cover animate-pulse mask-fade"
-          alt="honey-comb"
+          alt=""
         />
 
         <div className="max-w-7xl mx-auto px-6">

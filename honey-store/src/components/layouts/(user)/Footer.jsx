@@ -49,6 +49,7 @@ export default function Footer() {
                   href={social?.href}
                   target="_blank"
                   rel="noopener noreferrer"
+                  aria-label={`Visit our ${social?.name} page`}
                   className="p-2 rounded-full bg-white/10 text-gray-100 hover:text-amber-300 transition"
                 >
                   <Icon size={social?.size} />

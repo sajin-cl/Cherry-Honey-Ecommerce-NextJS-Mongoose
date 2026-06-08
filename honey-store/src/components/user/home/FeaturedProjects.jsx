@@ -15,7 +15,7 @@ export default function FeaturedProjects({ featuredProducts }) {
                     src="/honey-comb.webp"
                     fill
                     className="object-cover animate-pulse mask-fade"
-                    alt="overlay"
+                    alt=""
                     sizes="100vw"
                 />
                 <div className="absolute inset-0 bg-linear-to-bl from-black/80 via-black/0 to-transparent" />
@@ -25,7 +25,7 @@ export default function FeaturedProjects({ featuredProducts }) {
             <div className="absolute top-0 right-0 left-0 w-full pointer-events-none">
                 <Image
                     src="/honey-dripv1.webp"
-                    alt="Honey drip"
+                    alt=""
                     width={2000}
                     height={1000}
                     priority

@@ -15,7 +15,7 @@ const Testimonials = () => {
             <div className="absolute top-0 right-0 left-0 w-full z-30 pointer-events-none">
                 <Image
                     src="/honey-dripv1.webp"
-                    alt="Honey drip"
+                    alt=""
                     width={2000}
                     height={1000}
                     priority
@@ -29,7 +29,7 @@ const Testimonials = () => {
                     src="/honey-comb.webp"
                     fill
                     className="object-cover opacity-25 animate-pulse "
-                    alt="overlay"
+                    alt=""
                 />
             </div>
 
@@ -75,9 +75,9 @@ const Testimonials = () => {
                                 <button
                                     key={i}
                                     onClick={() => goTo(i)}
-                                    className={`w-3 h-3 rounded-full transition-colors ${i === currentIndex ? "bg-primary" : "bg-gray-700 hover:bg-gray-500"
+                                    className={`w-3 h-3 p-2 rounded-full transition-colors ${i === currentIndex ? "bg-primary" : "bg-gray-700 hover:bg-gray-500"
                                         }`}
-                                    aria-label={`Testimonial ${i + 1}`}
+                                    aria-label={`Go to testimonial ${i + 1}`}
                                 />
                             ))}
                         </div>
@@ -93,7 +93,7 @@ const Testimonials = () => {
                     >
                         <Image
                             src="/hero-bee.webp"
-                            alt="Bee with honey"
+                            alt="A honey bee flying over a glass bowl filled with fresh honey"
                             fill
                             className="object-cover aspect-square p-6 hover:scale-105 transition-transform duration-700"
                         />
