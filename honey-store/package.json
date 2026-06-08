@@ -26,5 +26,10 @@
     "eslint": "^9",
     "eslint-config-next": "16.2.6",
     "tailwindcss": "^4"
-  }
+  },
+  "browserslist": [
+    "defaults",
+    "not IE 11",
+    "not ie_mob 11"
+  ]
 }

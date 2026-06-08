@@ -1,5 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  experimental: {
+    optimizeCss: true
+  },
   images: {
     // Serve modern formats — browser picks smallest supported (avif > webp > original)
     formats: ["image/avif", "image/webp"],
