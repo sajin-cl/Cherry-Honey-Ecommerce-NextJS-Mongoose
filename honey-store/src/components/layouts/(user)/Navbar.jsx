@@ -53,6 +53,7 @@ export default function Navbar() {
             <li>
               <Link
                 href="/"
+                aria-current={isActive('/') ? 'page' : undefined}
                 className={`transition-colors duration-200 font-mono uppercase ${isActive('/') ? 'text-primary font-medium' : 'text-gray-300 hover:text-primary'}`}
               >
                 Home
@@ -60,6 +61,7 @@ export default function Navbar() {
             </li>
             <li>
               <Link
+                aria-current={isActive('/products') ? 'page' : undefined}
                 href="/products"
                 className={`transition-colors duration-200 font-mono uppercase ${isActive('/products') ? 'text-primary font-medium' : 'text-gray-300 hover:text-primary'}`}
               >
@@ -68,6 +70,7 @@ export default function Navbar() {
             </li>
             <li>
               <Link
+                aria-current={isActive('/about') ? 'page' : undefined}
                 href="/about"
                 className={`transition-colors  duration-200 font-mono uppercase ${isActive('/about') ? 'text-primary font-medium' : 'text-gray-300 hover:text-primary'}`}
               >
@@ -76,6 +79,7 @@ export default function Navbar() {
             </li>
             <li>
               <Link
+                aria-current={isActive('/contact') ? 'page' : undefined}
                 href="/contact"
                 className={`transition-colors duration-200 font-mono uppercase ${isActive('/contact') ? 'text-primary font-medium' : 'text-gray-300 hover:text-primary'}`}
               >
@@ -87,8 +91,9 @@ export default function Navbar() {
           {/* Mobile: Hamburger (left) */}
           <button
             onClick={() => setMenuOpen(!menuOpen)}
-            className="md:hidden text-primary hover:text-secondary transition-colors cursor-pointer"
+            className="md:hidden  text-primary hover:text-secondary transition-colors cursor-pointer  p-2 inline-flex items-center justify-center min-w-10 min-h-10"
             aria-label="Toggle menu"
+            aria-expanded={menuOpen}
           >
             {menuOpen ? (
               <GiCrossedSwords size={25} className="text-primary" />
@@ -112,7 +117,7 @@ export default function Navbar() {
               priority
               fetchPriority="high"
             />
-          </Link> 
+          </Link>
 
           {/* Right icons */}
           <div className="flex items-center gap-4 md:gap-8">
@@ -120,7 +125,7 @@ export default function Navbar() {
             {/* Cart icon */}
             <Link
               href="/cart"
-              className="group text-gray-300 hover:text-primary transition-colors relative active:scale-95"
+              className="group text-gray-300 hover:text-primary transition-colors relative active:scale-95 p-1.5 inline-flex items-center justify-center"
               aria-label={cartCount > 0 ? `Shopping Cart, ${cartCount} items` : "Shopping Cart"}
               title="cart"
             >
@@ -132,7 +137,7 @@ export default function Navbar() {
 
               {cartCount > 0 && (
                 <span
-                 className="absolute -top-1.5 -right-1.5 bg-primary text-black font-bold text-[9px] w-4 h-4 rounded-full flex items-center justify-center animate-pulse" aria-hidden="true">
+                  className="absolute -top-1.5 -right-1.5 bg-primary text-black font-bold text-[9px] w-4 h-4 rounded-full flex items-center justify-center animate-pulse" aria-hidden="true">
                   {cartCount}
                 </span>
               )}
@@ -141,7 +146,7 @@ export default function Navbar() {
             {/* Order icon */}
             <Link
               href="/orders"
-              className="text-gray-300 hover:text-primary transition-colors active:scale-95"
+              className="text-gray-300 hover:text-primary transition-colors active:scale-95 p-1.5 inline-flex items-center justify-center"
               aria-label="My Orders"
               title="my orders"
             >
@@ -155,7 +160,7 @@ export default function Navbar() {
             <div className="relative">
               <button
                 onClick={() => setUserMenuOpen((o) => !o)}
-                className="w-7 h-7 cursor-pointer active:scale-95 bg-primary hover:bg-secondary text-black rounded-full flex items-center justify-center font-bold text-xs transition-colors shrink-0 focus:outline-none"
+                className="w-7 h-7 cursor-pointer active:scale-95 bg-primary hover:bg-secondary text-black rounded-full flex items-center justify-center font-bold text-xs transition-colors shrink-0 focus:outline-none p-1 box-content"
                 aria-label="Account menu"
                 aria-haspopup="true"
                 aria-expanded={userMenuOpen}
@@ -193,6 +198,7 @@ export default function Navbar() {
               <Link
                 key={item.href}
                 href={item.href}
+                aria-current={isActive(item.href) ? 'page' : undefined}
                 onClick={() => setMenuOpen(false)}
                 className={`flex items-center gap-3 tracking-widest transition-colors duration-200 hover:ml-1 ${isActive(item.href)
                   ? "text-primary font-medium"
