@@ -41,12 +41,14 @@ export default function Hero() {
                     </p>
                     <div className="flex items-center gap-4">
                         <Link
+                            role="button"
                             href="/products"
                             className="w-full active:scale-95 bg-primary hover:bg-secondary text-black font-bold text-center text-xs py-4 tracking-[0.2em] uppercase transition-colors duration-200"
                         >
                             Shop Now
                         </Link>
                         <Link
+                        role="button"
                             href="#featured-products"
                             className="w-full flex items-center justify-center gap-2 active:scale-95 border border-gray-600 text-gray-300 hover:border-primary hover:text-primary font-semibold text-center text-xs py-4 tracking-widest uppercase transition-colors duration-200"
                         >
@@ -61,11 +63,12 @@ export default function Hero() {
                     initial={{ x: 50, opacity: 0 }}
                     animate={{ x: 0, opacity: 1 }}
                     transition={{ duration: 1.0, ease: "easeOut" }}
+                    aria-hidden="true"
                 >
                     <div className="relative w-full max-w-[520px] aspect-square">
                         <MotionImage
                             src="/bee.webp"
-                            alt="Honey bee over honey bowl"
+                            alt=""
                             fill
                             priority
                             dragMomentum={false}
