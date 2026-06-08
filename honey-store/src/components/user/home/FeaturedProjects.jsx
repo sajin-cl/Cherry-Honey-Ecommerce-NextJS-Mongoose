@@ -36,7 +36,7 @@ export default function FeaturedProjects({ featuredProducts }) {
             {/* Content */}
             <div className="max-w-7xl mx-auto px-6 relative" style={{ zIndex: 2 }}>
                 <motion.h2
-                    className="text-3xl md:text-4xl my-6 z-50 font-semibold italic"
+                    className="text-center md:text-start text-3xl md:text-4xl my-6 z-50 font-semibold italic"
                     style={serifItalic}
                     initial={{ y: 30, opacity: 0 }}
                     whileInView={{ y: 0, opacity: 1 }}
@@ -85,7 +85,7 @@ export default function FeaturedProjects({ featuredProducts }) {
                                         </div>
                                         <div className="p-5 flex justify-between items-center">
                                             <div>
-                                                <h3 className="text-white text-sm font-medium mb-1 truncate uppercase group-hover:text-amber-300">
+                                                <h3 className="text-white text-base md:text-sm font-medium mb-1 truncate uppercase group-hover:text-amber-300">
                                                     {product?.name}
                                                 </h3>
                                                 <h4 className="text-gray-400 text-xs mb-1 truncate">
@@ -104,7 +104,7 @@ export default function FeaturedProjects({ featuredProducts }) {
                 </motion.div>
 
                 <motion.div
-                    className="flex justify- sm:justify-end mt-8"
+                    className="flex justify-baseline md:justify-end mt-8"
                     initial={{ opacity: 0 }}
                     whileInView={{ opacity: 1 }}
                     viewport={{ once: true }}
@@ -113,7 +113,7 @@ export default function FeaturedProjects({ featuredProducts }) {
                 >
                     <Link
                         href="/products"
-                        className="text-primary hover:text-amber-300  font-bold text-sm px-8 py-3.5 tracking-[0.1em] uppercase transition-all duration-300 active:scale-95"
+                        className="text-primary hover:text-amber-300  font-bold text-sm   tracking-[0.1em] uppercase transition-all duration-300 active:scale-95"
                     >
                         View All Products <FaArrowRight className="inline-block w-4 h-4" />
                     </Link>
