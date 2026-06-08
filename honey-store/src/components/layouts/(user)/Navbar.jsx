@@ -12,6 +12,7 @@ import { useCart } from "@/hooks/useCart";
 import { apiClient } from "@/lib/apiClient";
 import { GiCrossedSwords } from "react-icons/gi";
 import { RiMenu2Fill } from "react-icons/ri";
+import logoImg from "../../../../public/logo.png"
 
 export default function Navbar() {
   const pathname = usePathname();
@@ -102,14 +103,15 @@ export default function Navbar() {
             className="flex items-center gap-2 absolute left-1/2 -translate-x-1/2 active:scale-95"
           >
             <Image
-              src={'/logo.png'}
-              alt="Logo"
+              src={logoImg}
+              alt="cherrys honey logo"
               width={100}
               height={100}
-              className="mt-3"
+              className="mt-3 block"
+              sizes="100px"
               priority
             />
-          </Link>
+          </Link> 
 
           {/* Right icons */}
           <div className="flex items-center gap-4 md:gap-8">

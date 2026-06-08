@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
+import footerLogo from "../../../../public/footer-logo.png"
 import { ADMIN_PHONE, CUSTOMER_CARE_EMAIL, SOCIAL_LINKS } from '@/config/staticData'
 
 export default function Footer() {
@@ -33,7 +34,12 @@ export default function Footer() {
         {/* Brand */}
         <div>
           <div className="flex items-center gap-2 mb-4">
-            <Image src="/footer-logo.png" alt="Logo" width={120} height={100} />
+            <Image
+              src={footerLogo} alt="Cherrys Honey footer logo"
+              width={120} height={100} sizes="120px"
+              loading="lazy"
+              className="block"
+            />
           </div>
           <div className="flex gap-2 lg:gap-4 mt-4 items-center">
             {SOCIAL_LINKS.map((social, idx) => {
@@ -46,7 +52,7 @@ export default function Footer() {
                   rel="noopener noreferrer"
                   className="p-2 rounded-full bg-white/10 text-gray-100 hover:text-amber-300 transition"
                 >
-                  <Icon size={social?.size}  />
+                  <Icon size={social?.size} />
                 </Link>
               );
             })}
@@ -87,7 +93,7 @@ export default function Footer() {
             <li className="hover:text-white transition-colors"><Link href={`tel:${ADMIN_PHONE}`}>{ADMIN_PHONE}</Link></li>
             <li className="hover:text-white transition-colors">Chennai, Tamilnadu</li>
           </ul>
-        </div>  
+        </div>
       </div>
 
       {/* Copyright */}
