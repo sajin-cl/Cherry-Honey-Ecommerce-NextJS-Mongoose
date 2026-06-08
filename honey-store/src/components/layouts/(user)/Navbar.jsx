@@ -120,7 +120,7 @@ export default function Navbar() {
           </Link>
 
           {/* Right icons */}
-          <div className="flex items-center gap-4 md:gap-8">
+          <div className="flex items-center gap-2 md:gap-8">
 
             {/* Cart icon */}
             <Link
