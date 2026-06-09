@@ -67,7 +67,7 @@ export default function Hero() {
                     <div className="relative w-full max-w-[520px] aspect-square">
                         <MotionImage
                             src="/bee.webp"
-                            alt="Honey bee background graphic"
+                            alt="Cherrys Honey Hero Bee"
                             fill
                             priority
                             fetchPriority="high"
