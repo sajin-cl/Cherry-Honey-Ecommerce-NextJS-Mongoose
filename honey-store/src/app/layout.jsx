@@ -26,7 +26,7 @@ export const metadata = {
   ),
 
   title:
-    "Cherrys Honey Ecommerce | Pure Natural Honey & Organic Products Shop In India",
+    "Cherrys Honey Ecommerce | Pure Natural Home Made Honey & Organic Products Shop In India",
 
   description:
     "Buy 100% pure, raw and natural honey online from Cherrys Honey. Premium quality honey sourced naturally and delivered across India.",
