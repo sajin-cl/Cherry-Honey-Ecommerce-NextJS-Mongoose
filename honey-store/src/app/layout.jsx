@@ -32,10 +32,10 @@ export const metadata = {
     "Buy 100% pure, raw and natural honey online from Cherrys Honey. Premium quality honey sourced naturally and delivered across India.",
 
   keywords: [
-    "pure honey",
-    "raw honey",
-    "organic honeys",
-    "buy honey online",
+    "pure honey Kerala",
+    "raw honey in Tamilnadu",
+    "organic honeys in Chennai",
+    "buy honey online in India",
     "natural honey",
     "honey shop india",
     "cherrys honey",
@@ -60,7 +60,6 @@ export const metadata = {
 
   icons: {
     icon: [
-      { url: "/favicon.ico" },
       { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
     ],
     apple: [
