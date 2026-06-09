@@ -111,7 +111,7 @@ export default function FeaturedProjects({ featuredProducts }) {
                     whileInView={{ opacity: 1 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.8, delay: 0.3 }}
-                    role="link"
+                    
                 >
                     <Link
                         href="/products"
