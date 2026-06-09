@@ -39,7 +39,7 @@ const Testimonials = () => {
                     <div>
                         <div className="text-primary text-6xl leading-none" style={{ fontFamily: "Georgia, serif" }}>
                             <motion.h2
-                                className="text-center md:text-start text-3xl md:text-4xl mb-5 mt-5 md:mt-12 font-semibold"
+                                className="text-3xl md:text-4xl mb-5 mt-5 md:mt-12 font-semibold"
                                 style={serifItalic}
                                 initial={{ y: 30, opacity: 0 }}
                                 whileInView={{ y: 0, opacity: 1 }}
