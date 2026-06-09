@@ -3,12 +3,12 @@ import Product from "@/models/product.model";
 import HomeClient from "./HomeClient";
 
 export const metadata = {
-  title: "Cherrys Honey | Premium Raw Organic Honey Store",
+  title: "Cherrys Honey |  Natural Home Made Honey Shop In India",
   description: "Experience 100% natural, raw, and ethically harvested honey straight from organic bee farms. Shop premium white wildflower honey today.",
   alternates: {
     canonical: "/",
   }
-};
+}; 
 
 export default async function LandingPage() {
   await dbConnect();
