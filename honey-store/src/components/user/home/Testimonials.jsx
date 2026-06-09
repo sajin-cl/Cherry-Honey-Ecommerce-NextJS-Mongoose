@@ -30,6 +30,8 @@ const Testimonials = () => {
                     fill
                     className="object-cover opacity-25 animate-pulse "
                     alt=""
+                    quality={50}
+                    loading='lazy'
                 />
             </div>
 

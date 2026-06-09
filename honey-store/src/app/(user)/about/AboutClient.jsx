@@ -106,6 +106,8 @@ export default function AboutClient() {
           className="object-cover animate-pulse mask-fade"
           alt=""
           aria-hidden="true"
+          priority
+          quality={50}
         />
 
         <div className="max-w-7xl mx-auto px-6">

@@ -28,6 +28,8 @@ export default function ProductsClient({
           fill
           className="object-cover animate-pulse"
           alt=""
+          priority
+          quality={50}
         />
       </div>
 

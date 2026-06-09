@@ -142,6 +142,8 @@ export default function ContactClient() {
           className="object-cover"
           alt=""
           aria-hidden="true"
+          quality={50}
+          priority
         />
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {/* Card 1: Phone */}

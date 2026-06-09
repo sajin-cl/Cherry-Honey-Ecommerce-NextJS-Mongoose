@@ -17,6 +17,8 @@ export default function FeaturedProjects({ featuredProducts }) {
                     className="object-cover animate-pulse mask-fade"
                     alt=""
                     sizes="100vw"
+                    priority
+                    quality={50}
                 />
                 <div className="absolute inset-0 bg-linear-to-bl from-black/80 via-black/0 to-transparent" />
             </div>
