@@ -67,9 +67,10 @@ export default function Hero() {
                     <div className="relative w-full max-w-[520px] aspect-square">
                         <MotionImage
                             src="/bee.webp"
-                            alt=""
+                            alt="Honey bee background graphic"
                             fill
                             priority
+                            fetchPriority="high"
                             dragMomentum={false}
                             sizes="(max-width: 768px) 100vw, 520px"
                             className="object-cover scale-120"
