@@ -17,8 +17,8 @@ export default function Hero() {
                 fill
                 className="object-cover animate-pulse"
                 alt=""
-                priority
-                aria-hidden="true"
+                loading="lazy"
+                aria-hidden="true" 
                 quality={50}
             />
 

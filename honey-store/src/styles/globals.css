@@ -1,12 +1,9 @@
 @import "tailwindcss";
 
 :root {
-  --background: #000000;
-  --foreground: #ffffff;
   --primary: #C8A84B;
   --secondary: #b8973e;
 }
-
 
 @theme inline {
   --color-background: var(--background);
@@ -16,71 +13,49 @@
 
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+
+  /* Moving animation to Tailwind Theme for optimization */
+  --animate-rotate-drop: rotateDrop 3s linear infinite;
+
+  @keyframes rotateDrop {
+    0% {
+      transform: translate(-50%, -50%) rotate(45deg);
+    }
+
+    100% {
+      transform: translate(-50%, -50%) rotate(405deg);
+    }
+  }
 }
 
-html,
-body {
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
-  overflow-x: hidden;
-  width: 100%;
-}
 
-html::-webkit-scrollbar,
-body::-webkit-scrollbar {
-  display: none;
-}
+@layer base {
 
-/* Price range slider */
-input[type="range"] {
-  -webkit-appearance: none;
-  appearance: none;
-  background: transparent;
-  cursor: pointer;
-  width: 100%;
-}
+  html,
+  body {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    background: var(--background);
+    color: var(--foreground);
+    font-family: Arial, Helvetica, sans-serif;
+    overflow-x: hidden;
+    width: 100%;
+  }
 
-input[type="range"]::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  width: 14px;
-  height: 14px;
-  border-radius: 50%;
-  background: #FFB300;
-  /* Pure Honey Color */
-  cursor: pointer;
-  margin-top: -6px;
-}
+  html::-webkit-scrollbar,
+  body::-webkit-scrollbar {
+    display: none;
+  }
 
-input[type="range"]::-webkit-slider-runnable-track {
-  height: 2px;
-  background: transparent;
-}
 
-input[type="range"]::-moz-range-thumb {
-  width: 14px;
-  height: 14px;
-  border-radius: 50%;
-  background: #FFB300;
-  border: none;
-  cursor: pointer;
 }
 
 @layer utilities {
   .mask-fade {
-    -webkit-mask-image: radial-gradient(circle at top right,
-        transparent 0%,
-        black 80%);
-
-    mask-image: radial-gradient(circle at top right,
-        transparent 0%,
-        black 80%);
-
+    -webkit-mask-image: radial-gradient(circle at top right, transparent 0%, black 80%);
+    mask-image: radial-gradient(circle at top right, transparent 0%, black 80%);
     -webkit-mask-size: 100% 100%;
     mask-size: 100% 100%;
-
     -webkit-mask-repeat: no-repeat;
     mask-repeat: no-repeat;
   }
@@ -94,10 +69,8 @@ input[type="range"]::-moz-range-thumb {
     scrollbar-width: none;
   }
 
-
-  /* REALISTIC HONEY DROP ROTATING CURSOR */
+  /* REALISTIC HONEY DROP ROTATING CURSOR (Desktop Only Optimization) */
   @media (hover: hover) and (pointer: fine) {
-
     .cur-dot {
       position: fixed;
       width: 6px;
@@ -110,7 +83,6 @@ input[type="range"]::-moz-range-thumb {
       box-shadow: 0 0 10px #FFB300, 0 0 20px #FF8C00, 0 0 4px #FFF;
     }
 
-    /* Outer Ring: Honey Droplet Shape with High Glow */
     .cur-ring {
       position: fixed;
       width: 40px;
@@ -120,49 +92,22 @@ input[type="range"]::-moz-range-thumb {
       border-radius: 0% 100% 100% 100%;
       pointer-events: none;
       z-index: 99998;
-      /* Liquid honey drop continuous rotation */
-      animation: rotateDrop 3s linear infinite !important;
-      /* Realistic shadow glow for liquid look */
+      /* Using the optimized Tailwind theme animation */
+      animation: var(--animate-rotate-drop) !important;
       box-shadow:
         inset 0 0 8px rgba(255, 255, 255, 0.8),
         0 0 15px rgba(255, 179, 0, 0.6),
         0 0 30px rgba(255, 140, 0, 0.3);
-
       filter: drop-shadow(0 0 5px rgba(255, 179, 0, 0.5));
       transition: width 0.3s, height 0.3s, background 0.3s;
     }
-
 
     .cur-ring.big {
       width: 54px;
       height: 54px;
       background: rgba(255, 179, 0, 0.35);
       border-color: #FFB300;
-      box-shadow:
-        inset 0 0 10px rgba(255, 255, 255, 0.9),
-        0 0 25px rgba(255, 179, 0, 0.8);
-    }
-
-
-    @keyframes rotateDrop {
-      0% {
-        transform: translate(-50%, -50%) rotate(45deg);
-        /* Start with tip facing up */
-      }
-
-      100% {
-        transform: translate(-50%, -50%) rotate(405deg);
-        /* Smooth 360 rotation */
-      }
-    }
-  }
-
-  /* Hide cursor in mobile screen */
-  @media (hover: none) and (pointer: coarse) {
-
-    .cur-dot,
-    .cur-ring {
-      display: none !important;
+      box-shadow: inset 0 0 10px rgba(255, 255, 255, 0.9), 0 0 25px rgba(255, 179, 0, 0.8);
     }
   }
 }
