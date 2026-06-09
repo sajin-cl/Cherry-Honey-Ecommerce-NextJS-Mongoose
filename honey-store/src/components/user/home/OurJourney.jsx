@@ -33,7 +33,8 @@ const OurJourney = () => {
                         src="/hero-bee.webp"
                         alt=""
                         fill
-                        sizes="100vw"
+                        quality={70}
+                        sizes="(max-width: 768px) 100vw, 450px"
                         className="object-cover group-hover:scale-105 transition-transform duration-700"
                         loading='lazy'
                     />
