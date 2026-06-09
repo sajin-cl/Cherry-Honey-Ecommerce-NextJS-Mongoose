@@ -1,14 +1,12 @@
 import Link from "next/link";
 import { getServerUser } from "@/lib/auth";
+import { serif } from "@/config/staticData";
 
 export const metadata = {
   title: "Page Not Found | Cherrys Honey",
 };
 
-const serif = {
-  fontFamily: "'Georgia','Times New Roman',serif",
-  fontStyle: "italic",
-};
+
 
 const DOTS = [
   {l:"8%",t:"15%"},{l:"18%",t:"72%"},{l:"28%",t:"40%"},{l:"38%",t:"85%"},
