@@ -23,7 +23,8 @@ export default function OurStory() {
                             src="/two-bees.webp"
                             alt="Two Honey bees sharing honey"
                             fill
-                            sizes="(max-width: 768px) 100vw, 320px"
+                            sizes="(max-width: 768px) 100vw, 440px"
+                            quality={65}
                             className="object-contain"
                             loading="lazy"
                         />

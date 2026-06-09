@@ -99,7 +99,7 @@ const Testimonials = () => {
                             fill
                             className="object-cover aspect-square p-6 hover:scale-105 transition-transform duration-700"
                             sizes="(max-width: 768px) 100vw, 450px"
-                            quality={70}
+                            quality={65}
                             loading='lazy'
                         />
                     </motion.div>

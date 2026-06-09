@@ -31,9 +31,9 @@ const OurJourney = () => {
                 >
                     <Image
                         src="/hero-bee.webp"
-                        alt=""
+                        alt="Hero honey bee image"
                         fill
-                        quality={70}
+                        quality={65}
                         sizes="(max-width: 768px) 100vw, 450px"
                         className="object-cover group-hover:scale-105 transition-transform duration-700"
                         loading='lazy'
