@@ -35,9 +35,7 @@ export default function Hero() {
                         <span className="text-primary">Perfected by Nature</span>
                     </h1>
                     <p className="text-gray-400 font-sans text-sm max-w-md mb-8 leading-relaxed italic">
-                        We bring you the finest honey sourced from the purest bee farms.
-                        Experience the natural goodness, taste the authenticity, and
-                        embrace a healthier lifestyle with every drop.
+                        Discover the finest 100% pure, raw honey sourced directly from India’s most pristine bee farms. Taste the uncompromised authenticity and embrace a healthier lifestyle with every golden drop delivered right to your doorstep.
                     </p>
                     <div className="flex items-center gap-4">
                         <Link
@@ -48,7 +46,7 @@ export default function Hero() {
                             Shop Now
                         </Link>
                         <Link
-                        role="button"
+                            role="button"
                             href="#featured-products"
                             className="w-full flex items-center justify-center gap-2 active:scale-95 border border-gray-600 text-gray-300 hover:border-primary hover:text-primary font-semibold text-center text-xs py-4 tracking-widest uppercase transition-colors duration-200"
                         >

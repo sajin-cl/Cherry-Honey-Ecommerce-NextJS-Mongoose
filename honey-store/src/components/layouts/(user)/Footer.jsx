@@ -6,14 +6,15 @@ export default function Footer() {
   return (
     <footer className="bg-[#0a0a0a] border-t border-gray-800">
       {/* Newsletter */}
-      <div className="max-w-7xl mx-auto px-6 py-12">
+      <div id="news-letter"
+        className="max-w-7xl mx-auto px-6 py-12">
         <div className="bg-primary rounded-xl px-8 py-8 flex flex-col md:flex-row items-center justify-between gap-6">
           <h3
             className="text-2xl text-white font-semibold"
             style={{ fontFamily: "'Georgia', serif", fontStyle: "italic" }}
           >
-            Let's Get In Touch <br />
-            <span className="text-xs text-black font-semibold" style={{ fontFamily: "'Georgia', serif" }}>What' s inside? Exclusive sales, new arrivals & much more.</span>
+            Taste Pure Honey For 10% Less <br />
+            <span className="text-xs text-black font-semibold" style={{ fontFamily: "'Georgia', serif" }}>Join our list for special deals, new arrivals, and fresh batches.</span>
           </h3>
           <div className="flex flex-col md:flex-row w-full md:w-auto gap-2">
             <input
