@@ -9,7 +9,7 @@ export async function GET() {
   try {
     const userPayload = await getServerUser();
     if (!userPayload) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+      return NextResponse.json({ cart: [] }, { status: 200 });
     }
 
     await dbConnect();
@@ -18,7 +18,7 @@ export async function GET() {
       .lean();
 
     if (!user) {
-      return NextResponse.json({ error: "User not found" }, { status: 404 });
+      return NextResponse.json({ cart: [] }, { status: 200 }); 
     }
 
     return NextResponse.json({ cart: user?.cart || [] });
