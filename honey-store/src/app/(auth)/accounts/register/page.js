@@ -120,7 +120,7 @@ export default function RegisterPage() {
 
       {/* Right Form */}
       <div className="flex w-full md:w-1/2 h-full items-center justify-center bg-[#111111]">
-        <div className="w-full max-w-md px-10">
+        <div className="w-full max-w-lg px-10">
 
           {/* Title */}
           <h1
@@ -135,11 +135,11 @@ export default function RegisterPage() {
           </h1>
 
           {/* Subheading */}
-          <p className="text-sm text-gray-400 mb-10">
+          <p className="text-sm font-sans italic text-gray-400 mb-10">
             Already have an account?{" "}
             <Link
               href="/accounts/login"
-              className="font-bold text-gray-200 hover:text-white transition-colors"
+              className="font-bold font-sans text-gray-200 hover:text-white transition-colors"
             >
               Sign in
             </Link>
@@ -234,8 +234,8 @@ export default function RegisterPage() {
 
                   <div
                     className={`w-4 h-4 border transition-colors ${agreeTerms
-                        ? "bg-primary border-primary"
-                        : "bg-transparent border-gray-500"
+                      ? "bg-primary border-primary"
+                      : "bg-transparent border-gray-500"
                       } flex items-center justify-center`}
                   >
                     {agreeTerms && (
@@ -256,18 +256,18 @@ export default function RegisterPage() {
                   </div>
                 </div>
 
-                <span className="text-sm text-gray-400 group-hover:text-gray-200 transition-colors select-none">
+                <span className="text-sm text-gray-400 transition-colors select-none">
                   I agree with{" "}
                   <Link
                     href="/privacy-policy"
-                    className="font-bold text-gray-200 hover:text-primary underline transition-colors"
+                    className="text-primary hover:text-secondary  underline underline-offset-4 transition-colors"
                   >
                     Privacy Policy
                   </Link>{" "}
                   and{" "}
                   <Link
                     href="/terms-conditions"
-                    className="font-bold text-gray-200 hover:text-primary underline transition-colors"
+                    className="text-primary hover:text-secondary underline underline-offset-4 transition-colors"
                   >
                     Terms of Use
                   </Link>

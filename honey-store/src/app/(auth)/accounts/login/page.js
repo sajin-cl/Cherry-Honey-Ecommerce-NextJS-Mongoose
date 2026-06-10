@@ -93,7 +93,7 @@ export default function LoginPage() {
 
       {/* ── Right panel: sign-in form ── */}
       <div className="flex w-full md:w-1/2 h-full items-center justify-center bg-[#111111]">
-        <div className="w-full max-w-md px-10">
+        <div className="w-full max-w-lg px-10">
 
           {/* Title */}
           <h1
@@ -104,11 +104,11 @@ export default function LoginPage() {
           </h1>
 
           {/* Sub-heading */}
-          <p className="text-sm text-gray-400 mb-10">
+          <p className="text-sm font-sans italic text-gray-400 mb-10">
             Don&apos;t have an account yet?{" "}
-            <Link href="/accounts/register" className="font-bold text-gray-200 hover:text-white transition-colors">
+            <Link href="/accounts/register" className="font-bold font-sans text-gray-200 hover:text-primary transition-colors">
               Sign up
-            </Link>
+            </Link>  
           </p>
 
           <form onSubmit={handleSubmit} className="space-y-8">
@@ -122,7 +122,7 @@ export default function LoginPage() {
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="Email"
                 required
-                className="w-full bg-transparent border-0 border-b border-gray-600 text-gray-300 placeholder-gray-500 text-sm pb-2 pt-1 focus:outline-none focus:border-primary transition-colors"
+                className=" w-full bg-transparent border-0 border-b border-gray-600 text-gray-300 placeholder-gray-500 text-sm pb-2 pt-1 focus:outline-none focus:border-primary transition-colors"
               />
             </div>
 
@@ -190,7 +190,7 @@ export default function LoginPage() {
 
               <Link
                 href="/accounts/forgot-password"
-                className="text-sm font-bold text-gray-200 hover:text-primary transition-colors"
+                className="text-sm font-semibold font-sans text-gray-200 hover:text-primary transition-colors"
               >
                 Forgot password?
               </Link>

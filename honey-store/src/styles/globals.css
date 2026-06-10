@@ -47,7 +47,16 @@
     display: none;
   }
 
-
+  /* ── 100% SURE CHROME AUTOFILL BLACK BACKGROUND HACK ── */
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,  
+  input:-webkit-autofill:focus, 
+  input:-webkit-autofill:active {
+    /* 1000px periya dark shadow pottu white-ah maraikிறோம் */
+    -webkit-box-shadow: 0 0 0px 1000px #111111 inset !important;
+    /* Text color gray ah iruka force panrom */
+    -webkit-text-fill-color: #d1d5db !important;
+  }
 }
 
 @layer utilities {
