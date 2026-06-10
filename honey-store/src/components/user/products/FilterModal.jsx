@@ -55,9 +55,19 @@ export default function FilterSidebar({ onClose, onApply, initialParams, categor
   };
 
   const handleReset = () => {
+
+    const resetFilters = {
+      categories: [],
+      sizes: [],
+      maxPrice: 2000,
+    }
+
     setCatChecked({});
     setSizeChecked({});
     setPrice(2000);
+
+    onApply?.(resetFilters);
+    onClose?.();
   };
 
   const handleApply = () => {
@@ -75,7 +85,7 @@ export default function FilterSidebar({ onClose, onApply, initialParams, categor
     <div className="flex flex-col h-full bg-[#111111] w-full pt-4">
       {/* Header */}
       <div className="flex items-center justify-between px-6 pt-6 pb-2">
-         <span></span>
+        <span></span>
         <button
           onClick={onClose}
           className="text-gray-400 hover:text-amber-200 transition-colors border-x border-gray-200 rounded-full p-1 cursor-pointer"
@@ -88,7 +98,7 @@ export default function FilterSidebar({ onClose, onApply, initialParams, categor
       </div>
 
       {/* Scrollable body */}
-      <div className="flex-1 overflow-y-auto px-6 no-scrollbar">       
+      <div className="flex-1 overflow-y-auto px-6 no-scrollbar">
 
         {/* Categories */}
         <div>
