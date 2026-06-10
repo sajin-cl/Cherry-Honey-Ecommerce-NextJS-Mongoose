@@ -34,7 +34,7 @@ function CheckEmailContent() {
   };
 
   return (
-    <div className="w-full max-w-md px-10 text-center">
+    <div className="w-full max-w-md px-10 text-center bg-[#111111]">
       {/* Title */}
       <h1
         className="text-5xl text-white mb-6"

@@ -78,16 +78,17 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="flex h-screen w-full overflow-hidden">
+    <div className="flex h-screen w-full overflow-hidden bg-[#111111]">
       {/* ── Left panel: hero image ── */}
-      <div className="relative hidden md:block w-1/2 h-full">
+      <div className="relative hidden md:block w-1/2 h-full bg-[#111111]">
         <Image
-          src="https://res.cloudinary.com/ddchr0sbn/image/upload/f_auto,q_auto/bee-honeycomb_st5pdd.webp"
+          src="https://res.cloudinary.com/ddchr0sbn/image/upload/f_auto,q_auto,w_1200/bee-honeycomb_st5pdd.webp"
           alt="Honey bee on honeycomb"
           fill
           sizes="50vw"
           className="object-cover object-center"
           priority
+          fetchPriority="high"
         />
       </div>
 

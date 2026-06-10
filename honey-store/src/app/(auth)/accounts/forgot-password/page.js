@@ -38,9 +38,9 @@ export default function ForgotPasswordPage() {
   };
 
   return (
-    <div className="flex h-screen w-full overflow-hidden">
+    <div className="flex h-screen w-full overflow-hidden bg-[#111111]">
       {/* ── Left panel: hero image ── */}
-      <div className="relative hidden md:block w-1/2 h-full">
+      <div className="relative hidden md:block w-1/2 h-full bg-[#111111]">
         <Image
           src="/bees-honeycomb.webp"
           alt="Bees on honeycomb"
@@ -48,6 +48,7 @@ export default function ForgotPasswordPage() {
           sizes="50vw"
           className="object-cover object-center"
           priority
+          fetchPriority="high"
         />
       </div>
 

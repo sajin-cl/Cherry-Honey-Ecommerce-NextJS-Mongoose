@@ -104,17 +104,18 @@ export default function RegisterPage() {
     "w-full bg-transparent border-0 border-b border-gray-600 text-gray-300 placeholder-gray-500 text-sm pb-2 pt-1 focus:outline-none focus:border-primary transition-colors";
 
   return (
-    <div className="flex h-screen w-full overflow-hidden">
+    <div className="flex h-screen w-full overflow-hidden bg-[#111111]">
 
       {/* Left Image */}
-      <div className="relative hidden md:block w-1/2 h-full">
+      <div className="relative hidden md:block w-1/2 h-full bg-[#111111]">
         <Image
-          src="https://res.cloudinary.com/ddchr0sbn/image/upload/f_auto,q_auto/honey-jar-bees_tg9vjo.webp"
+          src="https://res.cloudinary.com/ddchr0sbn/image/upload/f_auto,q_auto,w_1200/honey-jar-bees_tg9vjo.webp"
           alt="Honey jar with bees"
           fill
           sizes="50vw"
           className="object-cover object-center"
           priority
+          fetchPriority="high"
         />
       </div>
 
