@@ -1,13 +1,14 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import "@/styles/globals.css";
 import CustomCursorLoader from "@/components/ui/CustomCursorLoader";
+import ShopOpeningModal from "@/components/ui/ShopOpeningModal";
 
-const geistSans = Geist({
+const GeistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
 });
 
-const geistMono = Geist_Mono({
+const GeistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
 });
@@ -92,10 +93,11 @@ export default function RootLayout({ children }) {
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${GeistSans.variable} ${GeistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
         {children}
+        <ShopOpeningModal />
         <CustomCursorLoader />
       </body>
     </html>

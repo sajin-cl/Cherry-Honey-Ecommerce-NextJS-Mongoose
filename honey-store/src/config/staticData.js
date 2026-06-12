@@ -28,9 +28,9 @@ export const STATUS_COLORS = {
 
 /* ADMIN DETAILS */
 export const ADMIN_PHONE = "+91 96775 62116"
-export const CUSTOMER_CARE_EMAIL = "supportcherryshoney@gmail.com"
+export const CUSTOMER_CARE_EMAIL = "support.info.cherryshoney@gmail.com"
 
-
+ 
 export const SOCIAL_LINKS = [
     { icon: SiFacebook, href: "", name: 'Facebook', size: 15 },
     { icon: FaInstagram, href: "", name: 'Instagram', size: 15 },
